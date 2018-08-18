@@ -56,7 +56,7 @@ kuebctl describe node {node_name}
 
 Pod是Kubernetes中操作的基本单元。每个Pod中有个根容器(Pause容器)，Pause容器的状态代表整个容器组的状态，其他业务容器共享Pause的IP，即Pod IP，共享Pause挂载的Volume，这样简化了同个Pod中不同容器之间的网络问题和文件共享问题。
 
-![pod](/img/article/kubernetes/k8s基本概念/pod.png)
+![pod](https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png)
 
 1. Kubernetes集群中，同宿主机的或不同宿主机的Pod之间要求能够TCP/IP直接通信，因此采用虚拟二层网络技术来实现，例如Flannel，Openvswitch(OVS)等，这样在同个集群中，不同的宿主机的Pod IP为不同IP段的IP，集群中的所有Pod IP都是唯一的，不同Pod之间可以直接通信。
 2. Pod有两种类型：普通Pod和静态Pod。静态Pod即不通过K8S调度和创建，直接在某个具体的Node机器上通过具体的文件来启动。普通Pod则是由K8S创建、调度，同时数据存放在ETCD中。
@@ -69,7 +69,7 @@ Pod是Kubernetes中操作的基本单元。每个Pod中有个根容器(Pause容�
 - Requests:该资源的最小申请量，系统必须满足要求。
 - Limits:该资源最大允许使用量，当超过该量，K8S会kill并重启Pod。
 
-![pod2](/img/article/kubernetes/k8s基本概念/pod2.png)
+![pod2](https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png)
 
 ## 4. Label
 
@@ -134,7 +134,7 @@ Pod负载度量指标：
 
 ### 8.1. Service概述
 
-![service](/img/article/kubernetes/k8s基本概念/service.png)
+![service](https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png)
 
 Service定义了一个服务的访问入口地址，前端应用通过这个入口地址访问其背后的一组由Pod副本组成的集群实例，Service与其后端的Pod副本集群之间是通过Label Selector来实现“无缝对接”。RC保证Service的Pod副本实例数目保持预期水平。
 
