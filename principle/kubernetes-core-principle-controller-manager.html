@@ -1,0 +1,676 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>3.2. Controller Manager · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="kubernetes-core-principle-scheduler.html" />
+    
+    
+    <link rel="prev" href="kubernetes-core-principle-api-server.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../setup/README.md">
+            
+                <span>
+            
+                    
+                    1. 安装与配置
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../setup/install-k8s-by-kubespray.html">
+            
+                <a href="../setup/install-k8s-by-kubespray.html">
+            
+                    
+                    1.1. 使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../setup/install-k8s-by-minikube.html">
+            
+                <a href="../setup/install-k8s-by-minikube.html">
+            
+                    
+                    1.2. 使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../concepts/README.md">
+            
+                <span>
+            
+                    
+                    2. 基本概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../concepts/architecture/README.md">
+            
+                <span>
+            
+                    
+                    2.1. kubernetes架构
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                    2.1.1. Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                    2.1.2. 基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../concepts/object/README.md">
+            
+                <span>
+            
+                    
+                    2.2. kubernetes对象
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                    2.2.1. 理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                    2.2.2. kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../concepts/object/kubernetes-pod-introduction.html">
+            
+                <a href="../concepts/object/kubernetes-pod-introduction.html">
+            
+                    
+                    2.2.3. Pod详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="README.md">
+            
+                <span>
+            
+                    
+                    3. 核心原理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="kubernetes-core-principle-api-server.html">
+            
+                <a href="kubernetes-core-principle-api-server.html">
+            
+                    
+                    3.1. Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.2" data-path="kubernetes-core-principle-controller-manager.html">
+            
+                <a href="kubernetes-core-principle-controller-manager.html">
+            
+                    
+                    3.2. Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="kubernetes-core-principle-scheduler.html">
+            
+                <a href="kubernetes-core-principle-scheduler.html">
+            
+                    
+                    3.3. Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="kubernetes-core-principle-kubelet.html">
+            
+                <a href="kubernetes-core-principle-kubelet.html">
+            
+                    
+                    3.4. Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../operation/README.md">
+            
+                <span>
+            
+                    
+                    4. 运维指南
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../operation/kubernetes-troubleshooting.html">
+            
+                <a href="../operation/kubernetes-troubleshooting.html">
+            
+                    
+                    4.1. kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../operation/nodeselector-and-taint.html">
+            
+                <a href="../operation/nodeselector-and-taint.html">
+            
+                    
+                    4.2. 指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../monitor/README.md">
+            
+                <span>
+            
+                    
+                    5. 监控体系
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../monitor/kubernetes-cluster-monitoring.html">
+            
+                <a href="../monitor/kubernetes-cluster-monitoring.html">
+            
+                    
+                    5.1. 监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../monitor/cadvisor-introduction.html">
+            
+                <a href="../monitor/cadvisor-introduction.html">
+            
+                    
+                    5.2. cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../monitor/heapster-introduction.html">
+            
+                <a href="../monitor/heapster-introduction.html">
+            
+                    
+                    5.3. Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../monitor/influxdb-introduction.html">
+            
+                <a href="../monitor/influxdb-introduction.html">
+            
+                    
+                    5.4. Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >3.2. Controller Manager</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="1-controller-manager&#x7B80;&#x4ECB;">1. Controller Manager&#x7B80;&#x4ECB;</h2>
+<p>Controller Manager&#x4F5C;&#x4E3A;&#x96C6;&#x7FA4;&#x5185;&#x90E8;&#x7684;&#x7BA1;&#x7406;&#x63A7;&#x5236;&#x4E2D;&#x5FC3;&#xFF0C;&#x8D1F;&#x8D23;&#x96C6;&#x7FA4;&#x5185;&#x7684;Node&#x3001;Pod&#x526F;&#x672C;&#x3001;&#x670D;&#x52A1;&#x7AEF;&#x70B9;&#xFF08;Endpoint&#xFF09;&#x3001;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#xFF08;Namespace&#xFF09;&#x3001;&#x670D;&#x52A1;&#x8D26;&#x53F7;&#xFF08;ServiceAccount&#xFF09;&#x3001;&#x8D44;&#x6E90;&#x5B9A;&#x989D;&#xFF08;ResourceQuota&#xFF09;&#x7684;&#x7BA1;&#x7406;&#xFF0C;&#x5F53;&#x67D0;&#x4E2A;Node&#x610F;&#x5916;&#x5B95;&#x673A;&#x65F6;&#xFF0C;Controller Manager&#x4F1A;&#x53CA;&#x65F6;&#x53D1;&#x73B0;&#x5E76;&#x6267;&#x884C;&#x81EA;&#x52A8;&#x5316;&#x4FEE;&#x590D;&#x6D41;&#x7A0B;&#xFF0C;&#x786E;&#x4FDD;&#x96C6;&#x7FA4;&#x59CB;&#x7EC8;&#x5904;&#x4E8E;&#x9884;&#x671F;&#x7684;&#x5DE5;&#x4F5C;&#x72B6;&#x6001;&#x3002;</p>
+<p><img src="http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png" alt="controller manager"></p>
+<p>&#x6BCF;&#x4E2A;Controller&#x901A;&#x8FC7;API Server&#x63D0;&#x4F9B;&#x7684;&#x63A5;&#x53E3;&#x5B9E;&#x65F6;&#x76D1;&#x63A7;&#x6574;&#x4E2A;&#x96C6;&#x7FA4;&#x7684;&#x6BCF;&#x4E2A;&#x8D44;&#x6E90;&#x5BF9;&#x8C61;&#x7684;&#x5F53;&#x524D;&#x72B6;&#x6001;&#xFF0C;&#x5F53;&#x53D1;&#x751F;&#x5404;&#x79CD;&#x6545;&#x969C;&#x5BFC;&#x81F4;&#x7CFB;&#x7EDF;&#x72B6;&#x6001;&#x53D1;&#x751F;&#x53D8;&#x5316;&#x65F6;&#xFF0C;&#x4F1A;&#x5C1D;&#x8BD5;&#x5C06;&#x7CFB;&#x7EDF;&#x72B6;&#x6001;&#x4FEE;&#x590D;&#x5230;&#x201C;&#x671F;&#x671B;&#x72B6;&#x6001;&#x201D;&#x3002;</p>
+<h2 id="2-replication-controller">2. Replication Controller</h2>
+<p>&#x4E3A;&#x4E86;&#x533A;&#x5206;&#xFF0C;&#x5C06;&#x8D44;&#x6E90;&#x5BF9;&#x8C61;Replication Controller&#x7B80;&#x79F0;RC,&#x800C;&#x672C;&#x6587;&#x4E2D;&#x662F;&#x6307;Controller Manager&#x4E2D;&#x7684;Replication Controller&#xFF0C;&#x79F0;&#x4E3A;&#x526F;&#x672C;&#x63A7;&#x5236;&#x5668;&#x3002;&#x526F;&#x672C;&#x63A7;&#x5236;&#x5668;&#x7684;&#x4F5C;&#x7528;&#x5373;&#x4FDD;&#x8BC1;&#x96C6;&#x7FA4;&#x4E2D;&#x4E00;&#x4E2A;RC&#x6240;&#x5173;&#x8054;&#x7684;Pod&#x526F;&#x672C;&#x6570;&#x59CB;&#x7EC8;&#x4FDD;&#x6301;&#x9884;&#x8BBE;&#x503C;&#x3002;</p>
+<ol>
+<li>&#x53EA;&#x6709;&#x5F53;Pod&#x7684;&#x91CD;&#x542F;&#x7B56;&#x7565;&#x662F;Always&#x7684;&#x65F6;&#x5019;&#xFF08;RestartPolicy=Always&#xFF09;&#xFF0C;&#x526F;&#x672C;&#x63A7;&#x5236;&#x5668;&#x624D;&#x4F1A;&#x7BA1;&#x7406;&#x8BE5;Pod&#x7684;&#x64CD;&#x4F5C;&#xFF08;&#x521B;&#x5EFA;&#x3001;&#x9500;&#x6BC1;&#x3001;&#x91CD;&#x542F;&#x7B49;&#xFF09;&#x3002;</li>
+<li>RC&#x4E2D;&#x7684;Pod&#x6A21;&#x677F;&#x5C31;&#x50CF;&#x4E00;&#x4E2A;&#x6A21;&#x5177;&#xFF0C;&#x6A21;&#x5177;&#x5236;&#x9020;&#x51FA;&#x6765;&#x7684;&#x4E1C;&#x897F;&#x4E00;&#x65E6;&#x79BB;&#x5F00;&#x6A21;&#x5177;&#xFF0C;&#x5B83;&#x4EEC;&#x4E4B;&#x95F4;&#x5C31;&#x518D;&#x6CA1;&#x5173;&#x7CFB;&#x4E86;&#x3002;&#x4E00;&#x65E6;Pod&#x88AB;&#x521B;&#x5EFA;&#xFF0C;&#x65E0;&#x8BBA;&#x6A21;&#x677F;&#x5982;&#x4F55;&#x53D8;&#x5316;&#xFF0C;&#x4E5F;&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x5230;&#x5DF2;&#x7ECF;&#x521B;&#x5EFA;&#x7684;Pod&#x3002;</li>
+<li>Pod&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4FEE;&#x6539;label&#x6765;&#x8131;&#x79BB;RC&#x7684;&#x7BA1;&#x63A7;&#xFF0C;&#x8BE5;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x7528;&#x4E8E;&#x5C06;Pod&#x4ECE;&#x96C6;&#x7FA4;&#x4E2D;&#x8FC1;&#x79FB;&#xFF0C;&#x6570;&#x636E;&#x4FEE;&#x590D;&#x7B49;&#x8C03;&#x8BD5;&#x3002;</li>
+<li>&#x5220;&#x9664;&#x4E00;&#x4E2A;RC&#x4E0D;&#x4F1A;&#x5F71;&#x54CD;&#x5B83;&#x6240;&#x521B;&#x5EFA;&#x7684;Pod&#xFF0C;&#x5982;&#x679C;&#x8981;&#x5220;&#x9664;Pod&#x9700;&#x8981;&#x5C06;RC&#x7684;&#x526F;&#x672C;&#x6570;&#x5C5E;&#x6027;&#x8BBE;&#x7F6E;&#x4E3A;0&#x3002;</li>
+<li>&#x4E0D;&#x8981;&#x8D8A;&#x8FC7;RC&#x521B;&#x5EFA;Pod&#xFF0C;&#x56E0;&#x4E3A;RC&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x81EA;&#x52A8;&#x5316;&#x63A7;&#x5236;Pod&#xFF0C;&#x63D0;&#x9AD8;&#x5BB9;&#x707E;&#x80FD;&#x529B;&#x3002;</li>
+</ol>
+<h3 id="21-replication-controller&#x7684;&#x804C;&#x8D23;">2.1. Replication Controller&#x7684;&#x804C;&#x8D23;</h3>
+<ol>
+<li>&#x786E;&#x4FDD;&#x96C6;&#x7FA4;&#x4E2D;&#x6709;&#x4E14;&#x4EC5;&#x6709;N&#x4E2A;Pod&#x5B9E;&#x4F8B;&#xFF0C;N&#x662F;RC&#x4E2D;&#x5B9A;&#x4E49;&#x7684;Pod&#x526F;&#x672C;&#x6570;&#x91CF;&#x3002;</li>
+<li>&#x901A;&#x8FC7;&#x8C03;&#x6574;RC&#x4E2D;&#x7684;spec.replicas&#x5C5E;&#x6027;&#x503C;&#x6765;&#x5B9E;&#x73B0;&#x7CFB;&#x7EDF;&#x6269;&#x5BB9;&#x6216;&#x7F29;&#x5BB9;&#x3002;</li>
+<li>&#x901A;&#x8FC7;&#x6539;&#x53D8;RC&#x4E2D;&#x7684;Pod&#x6A21;&#x677F;&#x6765;&#x5B9E;&#x73B0;&#x7CFB;&#x7EDF;&#x7684;&#x6EDA;&#x52A8;&#x5347;&#x7EA7;&#x3002;</li>
+</ol>
+<h3 id="22-replication-controller&#x4F7F;&#x7528;&#x573A;&#x666F;">2.2. Replication Controller&#x4F7F;&#x7528;&#x573A;&#x666F;</h3>
+<table>
+<thead>
+<tr>
+<th>&#x4F7F;&#x7528;&#x573A;&#x666F;</th>
+<th>&#x8BF4;&#x660E;</th>
+<th>&#x4F7F;&#x7528;&#x547D;&#x4EE4;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x91CD;&#x65B0;&#x8C03;&#x5EA6;</td>
+<td>&#x5F53;&#x53D1;&#x751F;&#x8282;&#x70B9;&#x6545;&#x969C;&#x6216;Pod&#x88AB;&#x610F;&#x5916;&#x7EC8;&#x6B62;&#x8FD0;&#x884C;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x91CD;&#x65B0;&#x8C03;&#x5EA6;&#x4FDD;&#x8BC1;&#x96C6;&#x7FA4;&#x4E2D;&#x4ECD;&#x7136;&#x8FD0;&#x884C;&#x6307;&#x5B9A;&#x7684;&#x526F;&#x672C;&#x6570;&#x3002;</td>
+<td></td>
+</tr>
+<tr>
+<td>&#x5F39;&#x6027;&#x4F38;&#x7F29;</td>
+<td>&#x901A;&#x8FC7;&#x624B;&#x52A8;&#x6216;&#x81EA;&#x52A8;&#x6269;&#x5BB9;&#x4EE3;&#x7406;&#x4FEE;&#x590D;&#x526F;&#x672C;&#x63A7;&#x5236;&#x5668;&#x7684;spec.replicas&#x5C5E;&#x6027;&#xFF0C;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x5F39;&#x6027;&#x4F38;&#x7F29;&#x3002;</td>
+<td>kubectl scale</td>
+</tr>
+<tr>
+<td>&#x6EDA;&#x52A8;&#x66F4;&#x65B0;</td>
+<td>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x65B0;&#x7684;RC&#x6587;&#x4EF6;&#xFF0C;&#x901A;&#x8FC7;kubectl &#x547D;&#x4EE4;&#x6216;API&#x6267;&#x884C;&#xFF0C;&#x5219;&#x4F1A;&#x65B0;&#x589E;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x526F;&#x672C;&#x540C;&#x65F6;&#x5220;&#x9664;&#x65E7;&#x7684;&#x526F;&#x672C;&#xFF0C;&#x5F53;&#x65E7;&#x526F;&#x672C;&#x4E3A;0&#x65F6;&#xFF0C;&#x5220;&#x9664;&#x65E7;&#x7684;RC&#x3002;</td>
+<td>kubectl rolling-update</td>
+</tr>
+</tbody>
+</table>
+<p>&#x6EDA;&#x52A8;&#x5347;&#x7EA7;&#xFF0C;&#x5177;&#x4F53;&#x53EF;&#x53C2;&#x8003;kubectl rolling-update --help,&#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;<a href="https://kubernetes.io/docs/tasks/run-application/rolling-update-replication-controller/" target="_blank">https://kubernetes.io/docs/tasks/run-application/rolling-update-replication-controller/</a></p>
+<h2 id="3-node-controller">3. Node Controller</h2>
+<p>kubelet&#x5728;&#x542F;&#x52A8;&#x65F6;&#x4F1A;&#x901A;&#x8FC7;API Server&#x6CE8;&#x518C;&#x81EA;&#x8EAB;&#x7684;&#x8282;&#x70B9;&#x4FE1;&#x606F;&#xFF0C;&#x5E76;&#x5B9A;&#x65F6;&#x5411;API Server&#x6C47;&#x62A5;&#x72B6;&#x6001;&#x4FE1;&#x606F;&#xFF0C;API Server&#x63A5;&#x6536;&#x5230;&#x4FE1;&#x606F;&#x540E;&#x5C06;&#x4FE1;&#x606F;&#x66F4;&#x65B0;&#x5230;etcd&#x4E2D;&#x3002;</p>
+<p>Node Controller&#x901A;&#x8FC7;API Server&#x5B9E;&#x65F6;&#x83B7;&#x53D6;Node&#x7684;&#x76F8;&#x5173;&#x4FE1;&#x606F;&#xFF0C;&#x5B9E;&#x73B0;&#x7BA1;&#x7406;&#x548C;&#x76D1;&#x63A7;&#x96C6;&#x7FA4;&#x4E2D;&#x7684;&#x5404;&#x4E2A;Node&#x8282;&#x70B9;&#x7684;&#x76F8;&#x5173;&#x63A7;&#x5236;&#x529F;&#x80FD;&#x3002;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;</p>
+<p><img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png" alt="Node Controller"></p>
+<p>1&#x3001;Controller Manager&#x5728;&#x542F;&#x52A8;&#x65F6;&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x4E86;--cluster-cidr&#x53C2;&#x6570;&#xFF0C;&#x90A3;&#x4E48;&#x4E3A;&#x6BCF;&#x4E2A;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;Spec.PodCIDR&#x7684;Node&#x8282;&#x70B9;&#x751F;&#x6210;&#x4E00;&#x4E2A;CIDR&#x5730;&#x5740;&#xFF0C;&#x5E76;&#x7528;&#x8BE5;CIDR&#x5730;&#x5740;&#x8BBE;&#x7F6E;&#x8282;&#x70B9;&#x7684;Spec.PodCIDR&#x5C5E;&#x6027;&#xFF0C;&#x9632;&#x6B62;&#x4E0D;&#x540C;&#x7684;&#x8282;&#x70B9;&#x7684;CIDR&#x5730;&#x5740;&#x53D1;&#x751F;&#x51B2;&#x7A81;&#x3002;</p>
+<p>2&#x3001;&#x5177;&#x4F53;&#x6D41;&#x7A0B;&#x89C1;&#x4EE5;&#x4E0A;&#x6D41;&#x7A0B;&#x56FE;&#x3002;</p>
+<p>3&#x3001;&#x9010;&#x4E2A;&#x8BFB;&#x53D6;&#x8282;&#x70B9;&#x4FE1;&#x606F;&#xFF0C;&#x5982;&#x679C;&#x8282;&#x70B9;&#x72B6;&#x6001;&#x53D8;&#x6210;&#x975E;&#x201C;&#x5C31;&#x7EEA;&#x201D;&#x72B6;&#x6001;&#xFF0C;&#x5219;&#x5C06;&#x8282;&#x70B9;&#x52A0;&#x5165;&#x5F85;&#x5220;&#x9664;&#x961F;&#x5217;&#xFF0C;&#x5426;&#x5219;&#x5C06;&#x8282;&#x70B9;&#x4ECE;&#x8BE5;&#x961F;&#x5217;&#x5220;&#x9664;&#x3002;</p>
+<h2 id="4-resourcequota-controller">4. ResourceQuota Controller</h2>
+<p>&#x8D44;&#x6E90;&#x914D;&#x989D;&#x7BA1;&#x7406;&#x786E;&#x4FDD;&#x6307;&#x5B9A;&#x7684;&#x8D44;&#x6E90;&#x5BF9;&#x8C61;&#x5728;&#x4EFB;&#x4F55;&#x65F6;&#x5019;&#x90FD;&#x4E0D;&#x4F1A;&#x8D85;&#x91CF;&#x5360;&#x7528;&#x7CFB;&#x7EDF;&#x7269;&#x7406;&#x8D44;&#x6E90;&#x3002;</p>
+<p>&#x652F;&#x6301;&#x4E09;&#x4E2A;&#x5C42;&#x6B21;&#x7684;&#x8D44;&#x6E90;&#x914D;&#x7F6E;&#x7BA1;&#x7406;&#xFF1A;</p>
+<p>1&#xFF09;&#x5BB9;&#x5668;&#x7EA7;&#x522B;&#xFF1A;&#x5BF9;CPU&#x548C;Memory&#x8FDB;&#x884C;&#x9650;&#x5236;</p>
+<p>2&#xFF09;Pod&#x7EA7;&#x522B;&#xFF1A;&#x5BF9;&#x4E00;&#x4E2A;Pod&#x5185;&#x6240;&#x6709;&#x5BB9;&#x5668;&#x7684;&#x53EF;&#x7528;&#x8D44;&#x6E90;&#x8FDB;&#x884C;&#x9650;&#x5236;</p>
+<p>3&#xFF09;Namespace&#x7EA7;&#x522B;&#xFF1A;&#x5305;&#x62EC;</p>
+<ul>
+<li>Pod&#x6570;&#x91CF;</li>
+<li>Replication Controller&#x6570;&#x91CF;</li>
+<li>Service&#x6570;&#x91CF;</li>
+<li>ResourceQuota&#x6570;&#x91CF;</li>
+<li>Secret&#x6570;&#x91CF;</li>
+<li>&#x53EF;&#x6301;&#x6709;&#x7684;PV&#xFF08;Persistent Volume&#xFF09;&#x6570;&#x91CF;</li>
+</ul>
+<p>&#x8BF4;&#x660E;&#xFF1A;</p>
+<ol>
+<li>k8s&#x914D;&#x989D;&#x7BA1;&#x7406;&#x662F;&#x901A;&#x8FC7;Admission Control&#xFF08;&#x51C6;&#x5165;&#x63A7;&#x5236;&#xFF09;&#x6765;&#x63A7;&#x5236;&#x7684;&#xFF1B;</li>
+<li>Admission Control&#x63D0;&#x4F9B;&#x4E24;&#x79CD;&#x914D;&#x989D;&#x7EA6;&#x675F;&#x65B9;&#x5F0F;&#xFF1A;LimitRanger&#x548C;ResourceQuota&#xFF1B;</li>
+<li>LimitRanger&#x4F5C;&#x7528;&#x4E8E;Pod&#x548C;Container&#xFF1B;</li>
+<li>ResourceQuota&#x4F5C;&#x7528;&#x4E8E;Namespace&#x4E0A;&#xFF0C;&#x9650;&#x5B9A;&#x4E00;&#x4E2A;Namespace&#x91CC;&#x7684;&#x5404;&#x7C7B;&#x8D44;&#x6E90;&#x7684;&#x4F7F;&#x7528;&#x603B;&#x989D;&#x3002;</li>
+</ol>
+<p><strong>ResourceQuota Controller&#x6D41;&#x7A0B;&#x56FE;</strong>&#xFF1A;</p>
+<p><img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png" alt="ResourceQuota Controller"></p>
+<h2 id="5-namespace-controller">5. Namespace Controller</h2>
+<p>&#x7528;&#x6237;&#x901A;&#x8FC7;API Server&#x53EF;&#x4EE5;&#x521B;&#x5EFA;&#x65B0;&#x7684;Namespace&#x5E76;&#x4FDD;&#x5B58;&#x5728;etcd&#x4E2D;&#xFF0C;Namespace Controller&#x5B9A;&#x65F6;&#x901A;&#x8FC7;API Server&#x8BFB;&#x53D6;&#x8FD9;&#x4E9B;Namespace&#x4FE1;&#x606F;&#x3002;</p>
+<p>&#x5982;&#x679C;Namespace&#x88AB;API&#x6807;&#x8BB0;&#x4E3A;&#x4F18;&#x96C5;&#x5220;&#x9664;&#xFF08;&#x5373;&#x8BBE;&#x7F6E;&#x5220;&#x9664;&#x671F;&#x9650;&#xFF0C;DeletionTimestamp&#xFF09;,&#x5219;&#x5C06;&#x8BE5;Namespace&#x72B6;&#x6001;&#x8BBE;&#x7F6E;&#x4E3A;&#x201C;Terminating&#x201D;,&#x5E76;&#x4FDD;&#x5B58;&#x5230;etcd&#x4E2D;&#x3002;&#x540C;&#x65F6;Namespace Controller&#x5220;&#x9664;&#x8BE5;Namespace&#x4E0B;&#x7684;ServiceAccount&#x3001;RC&#x3001;Pod&#x7B49;&#x8D44;&#x6E90;&#x5BF9;&#x8C61;&#x3002;</p>
+<h2 id="6-endpoint-controller">6. Endpoint Controller</h2>
+<p><strong>Service&#x3001;Endpoint&#x3001;Pod&#x7684;&#x5173;&#x7CFB;&#xFF1A;</strong></p>
+<p><img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png" alt="Endpoint Controller"></p>
+<p>Endpoints&#x8868;&#x793A;&#x4E86;&#x4E00;&#x4E2A;Service&#x5BF9;&#x5E94;&#x7684;&#x6240;&#x6709;Pod&#x526F;&#x672C;&#x7684;&#x8BBF;&#x95EE;&#x5730;&#x5740;&#xFF0C;&#x800C;Endpoints Controller&#x8D1F;&#x8D23;&#x751F;&#x6210;&#x548C;&#x7EF4;&#x62A4;&#x6240;&#x6709;Endpoints&#x5BF9;&#x8C61;&#x7684;&#x63A7;&#x5236;&#x5668;&#x3002;&#x5B83;&#x8D1F;&#x8D23;&#x76D1;&#x542C;Service&#x548C;&#x5BF9;&#x5E94;&#x7684;Pod&#x526F;&#x672C;&#x7684;&#x53D8;&#x5316;&#x3002;</p>
+<ol>
+<li>&#x5982;&#x679C;&#x76D1;&#x6D4B;&#x5230;Service&#x88AB;&#x5220;&#x9664;&#xFF0C;&#x5219;&#x5220;&#x9664;&#x548C;&#x8BE5;Service&#x540C;&#x540D;&#x7684;Endpoints&#x5BF9;&#x8C61;&#xFF1B;</li>
+<li>&#x5982;&#x679C;&#x76D1;&#x6D4B;&#x5230;&#x65B0;&#x7684;Service&#x88AB;&#x521B;&#x5EFA;&#x6216;&#x4FEE;&#x6539;&#xFF0C;&#x5219;&#x6839;&#x636E;&#x8BE5;Service&#x4FE1;&#x606F;&#x83B7;&#x5F97;&#x76F8;&#x5173;&#x7684;Pod&#x5217;&#x8868;&#xFF0C;&#x7136;&#x540E;&#x521B;&#x5EFA;&#x6216;&#x66F4;&#x65B0;Service&#x5BF9;&#x5E94;&#x7684;Endpoints&#x5BF9;&#x8C61;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x76D1;&#x6D4B;&#x5230;Pod&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x5219;&#x66F4;&#x65B0;&#x5B83;&#x5BF9;&#x5E94;&#x7684;Service&#x7684;Endpoints&#x5BF9;&#x8C61;&#x3002;</li>
+</ol>
+<p>kube-proxy&#x8FDB;&#x7A0B;&#x83B7;&#x53D6;&#x6BCF;&#x4E2A;Service&#x7684;Endpoints&#xFF0C;&#x5B9E;&#x73B0;Service&#x7684;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x529F;&#x80FD;&#x3002;</p>
+<h2 id="7-service-controller">7. Service Controller</h2>
+<p>Service Controller&#x662F;&#x5C5E;&#x4E8E;kubernetes&#x96C6;&#x7FA4;&#x4E0E;&#x5916;&#x90E8;&#x7684;&#x4E91;&#x5E73;&#x53F0;&#x4E4B;&#x95F4;&#x7684;&#x4E00;&#x4E2A;&#x63A5;&#x53E3;&#x63A7;&#x5236;&#x5668;&#x3002;Service Controller&#x76D1;&#x542C;Service&#x53D8;&#x5316;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x4E00;&#x4E2A;LoadBalancer&#x7C7B;&#x578B;&#x7684;Service&#xFF0C;&#x5219;&#x786E;&#x4FDD;&#x5916;&#x90E8;&#x7684;&#x4E91;&#x5E73;&#x53F0;&#x4E0A;&#x5BF9;&#x8BE5;Service&#x5BF9;&#x5E94;&#x7684;LoadBalancer&#x5B9E;&#x4F8B;&#x88AB;&#x76F8;&#x5E94;&#x5730;&#x521B;&#x5EFA;&#x3001;&#x5220;&#x9664;&#x53CA;&#x66F4;&#x65B0;&#x8DEF;&#x7531;&#x8F6C;&#x53D1;&#x8868;&#x3002;</p>
+<p>&#x53C2;&#x8003;&#x300A;Kubernetes&#x6743;&#x5A01;&#x6307;&#x5357;&#x300B;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="kubernetes-core-principle-api-server.html" class="navigation navigation-prev " aria-label="Previous page: 3.1. Api Server">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="kubernetes-core-principle-scheduler.html" class="navigation navigation-next " aria-label="Next page: 3.3. Scheduler">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"3.2. Controller Manager","catalog":true,"date":"2017-08-15T11:50:57.000Z","type":"categories","subtitle":null,"header-img":null,"tags":["Kubernetes"],"catagories":["Kubernetes"],"level":"1.4.2","depth":2,"next":{"title":"3.3. Scheduler","level":"1.4.3","depth":2,"path":"principle/kubernetes-core-principle-scheduler.md","ref":"principle/kubernetes-core-principle-scheduler.md","articles":[]},"previous":{"title":"3.1. Api Server","level":"1.4.1","depth":2,"path":"principle/kubernetes-core-principle-api-server.md","ref":"principle/kubernetes-core-principle-api-server.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"principle/kubernetes-core-principle-controller-manager.md","mtime":"2018-08-18T05:10:57.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-18T06:26:58.042Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

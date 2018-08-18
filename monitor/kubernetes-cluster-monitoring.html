@@ -1,0 +1,802 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>5.1. 监控体系介绍 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="cadvisor-introduction.html" />
+    
+    
+    <link rel="prev" href="README.md" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../setup/README.md">
+            
+                <span>
+            
+                    
+                    1. 安装与配置
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../setup/install-k8s-by-kubespray.html">
+            
+                <a href="../setup/install-k8s-by-kubespray.html">
+            
+                    
+                    1.1. 使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../setup/install-k8s-by-minikube.html">
+            
+                <a href="../setup/install-k8s-by-minikube.html">
+            
+                    
+                    1.2. 使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../concepts/README.md">
+            
+                <span>
+            
+                    
+                    2. 基本概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../concepts/architecture/README.md">
+            
+                <span>
+            
+                    
+                    2.1. kubernetes架构
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                    2.1.1. Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                    2.1.2. 基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../concepts/object/README.md">
+            
+                <span>
+            
+                    
+                    2.2. kubernetes对象
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                    2.2.1. 理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                    2.2.2. kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../concepts/object/kubernetes-pod-introduction.html">
+            
+                <a href="../concepts/object/kubernetes-pod-introduction.html">
+            
+                    
+                    2.2.3. Pod详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../principle/README.md">
+            
+                <span>
+            
+                    
+                    3. 核心原理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../principle/kubernetes-core-principle-api-server.html">
+            
+                <a href="../principle/kubernetes-core-principle-api-server.html">
+            
+                    
+                    3.1. Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                <a href="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                    
+                    3.2. Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../principle/kubernetes-core-principle-scheduler.html">
+            
+                <a href="../principle/kubernetes-core-principle-scheduler.html">
+            
+                    
+                    3.3. Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../principle/kubernetes-core-principle-kubelet.html">
+            
+                <a href="../principle/kubernetes-core-principle-kubelet.html">
+            
+                    
+                    3.4. Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../operation/README.md">
+            
+                <span>
+            
+                    
+                    4. 运维指南
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../operation/kubernetes-troubleshooting.html">
+            
+                <a href="../operation/kubernetes-troubleshooting.html">
+            
+                    
+                    4.1. kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../operation/nodeselector-and-taint.html">
+            
+                <a href="../operation/nodeselector-and-taint.html">
+            
+                    
+                    4.2. 指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="README.md">
+            
+                <span>
+            
+                    
+                    5. 监控体系
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.6.1" data-path="kubernetes-cluster-monitoring.html">
+            
+                <a href="kubernetes-cluster-monitoring.html">
+            
+                    
+                    5.1. 监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="cadvisor-introduction.html">
+            
+                <a href="cadvisor-introduction.html">
+            
+                    
+                    5.2. cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="heapster-introduction.html">
+            
+                <a href="heapster-introduction.html">
+            
+                    
+                    5.3. Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="influxdb-introduction.html">
+            
+                <a href="influxdb-introduction.html">
+            
+                    
+                    5.4. Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >5.1. 监控体系介绍</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="1-&#x6982;&#x8FF0;">1. &#x6982;&#x8FF0;</h2>
+<h3 id="11-cadvisor">1.1. cAdvisor</h3>
+<p>cAdvisor&#x5BF9;Node&#x673A;&#x5668;&#x4E0A;&#x7684;&#x8D44;&#x6E90;&#x53CA;&#x5BB9;&#x5668;&#x8FDB;&#x884C;&#x5B9E;&#x65F6;&#x76D1;&#x63A7;&#x548C;&#x6027;&#x80FD;&#x6570;&#x636E;&#x91C7;&#x96C6;&#xFF0C;&#x5305;&#x62EC;CPU&#x4F7F;&#x7528;&#x60C5;&#x51B5;&#x3001;&#x5185;&#x5B58;&#x4F7F;&#x7528;&#x60C5;&#x51B5;&#x3001;&#x7F51;&#x7EDC;&#x541E;&#x5410;&#x91CF;&#x53CA;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4F7F;&#x7528;&#x60C5;&#x51B5;&#xFF0C;cAdvisor&#x96C6;&#x6210;&#x5728;Kubelet&#x4E2D;&#xFF0C;&#x5F53;kubelet&#x542F;&#x52A8;&#x65F6;&#x4F1A;&#x81EA;&#x52A8;&#x542F;&#x52A8;cAdvisor&#xFF0C;&#x5373;&#x4E00;&#x4E2A;cAdvisor&#x4EC5;&#x5BF9;&#x4E00;&#x53F0;Node&#x673A;&#x5668;&#x8FDB;&#x884C;&#x76D1;&#x63A7;&#x3002;kubelet&#x7684;&#x542F;&#x52A8;&#x53C2;&#x6570;--cadvisor-port&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;cAdvisor&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x7684;&#x7AEF;&#x53E3;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;4194&#x3002;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6D4F;&#x89C8;&#x5668;<code>Node_IP:port</code>&#x8BBF;&#x95EE;&#x3002;&#x9879;&#x76EE;&#x4E3B;&#x9875;&#xFF1A;<a href="http://github.com/google/cadvisor&#x3002;" target="_blank">http://github.com/google/cadvisor&#x3002;</a></p>
+<h3 id="12-heapster">1.2. Heapster</h3>
+<p>&#x662F;&#x5BF9;&#x96C6;&#x7FA4;&#x4E2D;&#x7684;&#x5404;&#x4E2A;Node&#x3001;Pod&#x7684;&#x8D44;&#x6E90;&#x4F7F;&#x7528;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x91C7;&#x96C6;&#xFF0C;&#x901A;&#x8FC7;&#x8BBF;&#x95EE;&#x6BCF;&#x4E2A;Node&#x4E0A;Kubelet&#x7684;API&#xFF0C;&#x518D;&#x901A;&#x8FC7;Kubelet&#x8C03;&#x7528;cAdvisor&#x7684;API&#x6765;&#x91C7;&#x96C6;&#x8BE5;&#x8282;&#x70B9;&#x4E0A;&#x6240;&#x6709;&#x5BB9;&#x5668;&#x7684;&#x6027;&#x80FD;&#x6570;&#x636E;&#x3002;&#x7531;Heapster&#x8FDB;&#x884C;&#x6570;&#x636E;&#x6C47;&#x805A;&#xFF0C;&#x4FDD;&#x5B58;&#x5230;&#x540E;&#x7AEF;&#x5B58;&#x50A8;&#x7CFB;&#x7EDF;&#x4E2D;&#xFF0C;&#x4F8B;&#x5982;InfluxDB&#xFF0C;Google Cloud Logging&#x7B49;&#x3002;&#x9879;&#x76EE;&#x4E3B;&#x9875;&#x4E3A;&#xFF1A;<a href="https://github.com/kubernetes/heapster&#x3002;" target="_blank">https://github.com/kubernetes/heapster&#x3002;</a></p>
+<h3 id="13-influxdb">1.3. InfluxDB</h3>
+<p>&#x662F;&#x5206;&#x5E03;&#x5F0F;&#x65F6;&#x5E8F;&#x6570;&#x636E;&#x5E93;&#xFF08;&#x6BCF;&#x6761;&#x8BB0;&#x5F55;&#x5E26;&#x6709;&#x65F6;&#x95F4;&#x6233;&#x5C5E;&#x6027;&#xFF09;&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x5B9E;&#x65F6;&#x6570;&#x636E;&#x91C7;&#x96C6;&#x3001;&#x4E8B;&#x4EF6;&#x8DDF;&#x8E2A;&#x8BB0;&#x5F55;&#x3001;&#x5B58;&#x50A8;&#x65F6;&#x95F4;&#x56FE;&#x8868;&#x3001;&#x539F;&#x59CB;&#x6570;&#x636E;&#x7B49;&#x3002;&#x63D0;&#x4F9B;REST API&#x7528;&#x4E8E;&#x6570;&#x636E;&#x7684;&#x5B58;&#x50A8;&#x548C;&#x67E5;&#x8BE2;&#x3002;&#x9879;&#x76EE;&#x4E3B;&#x9875;&#x4E3A;<a href="http://InfluxDB.com&#x3002;" target="_blank">http://InfluxDB.com&#x3002;</a></p>
+<h3 id="14-grafana">1.4. Grafana</h3>
+<p>&#x901A;&#x8FC7;Dashboard&#x5C06;InfluxDB&#x7684;&#x65F6;&#x5E8F;&#x6570;&#x636E;&#x5C55;&#x73B0;&#x6210;&#x56FE;&#x8868;&#x5F62;&#x5F0F;&#xFF0C;&#x4FBF;&#x4E8E;&#x67E5;&#x770B;&#x96C6;&#x7FA4;&#x8FD0;&#x884C;&#x72B6;&#x6001;&#x3002;&#x9879;&#x76EE;&#x4E3B;&#x9875;&#x4E3A;<a href="http://Grafana.org&#x3002;" target="_blank">http://Grafana.org&#x3002;</a></p>
+<h3 id="15-&#x603B;&#x4F53;&#x67B6;&#x6784;&#x56FE;">1.5. &#x603B;&#x4F53;&#x67B6;&#x6784;&#x56FE;</h3>
+<p><img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png" alt="k8s&#x76D1;&#x63A7;&#x67B6;&#x6784;&#x56FE;"></p>
+<p>&#x5176;&#x4E2D;&#x5F53;&#x524D;Kubernetes&#x4E2D;&#xFF0C;Heapster&#x3001;InfluxDB&#x3001;Grafana&#x5747;&#x4EE5;Pod&#x7684;&#x5F62;&#x5F0F;&#x542F;&#x52A8;&#x548C;&#x8FD0;&#x884C;&#x3002;Heapster&#x4E0E;Master&#x9700;&#x914D;&#x7F6E;&#x5B89;&#x5168;&#x8FDE;&#x63A5;&#x3002;</p>
+<h2 id="2-&#x90E8;&#x7F72;&#x4E0E;&#x4F7F;&#x7528;">2. &#x90E8;&#x7F72;&#x4E0E;&#x4F7F;&#x7528;</h2>
+<h3 id="21-cadvisor">2.1. cAdvisor</h3>
+<p>kubelet&#x7684;&#x542F;&#x52A8;&#x53C2;&#x6570;--cadvisor-port&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;cAdvisor&#x5BF9;&#x5916;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#x7684;&#x7AEF;&#x53E3;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;4194&#x3002;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6D4F;&#x89C8;&#x5668;<code>Node_IP:port</code>&#x8BBF;&#x95EE;&#x3002;&#x4E5F;&#x63D0;&#x4F9B;&#x4E86;REST API&#x4F9B;&#x5BA2;&#x6237;&#x7AEF;&#x8FDC;&#x7A0B;&#x8C03;&#x7528;&#xFF0C;API&#x8FD4;&#x56DE;&#x7684;&#x683C;&#x5F0F;&#x4E3A;JSON&#xFF0C;&#x53EF;&#x4EE5;&#x91C7;&#x7528;URL&#x8BBF;&#x95EE;&#xFF1A;<a href="http://`hostname`:`port`/api/`version`/`request`/" target="_blank">http://`hostname`:`port`/api/`version`/`request`/</a></p>
+<p>&#x4F8B;&#x5982;&#xFF1A;<a href="http://14.152.49.100:4194/api/v1.3/machine" target="_blank">http://14.152.49.100:4194/api/v1.3/machine</a> &#x83B7;&#x53D6;&#x4E3B;&#x673A;&#x4FE1;&#x606F;&#x3002;</p>
+<h3 id="22-service">2.2. Service</h3>
+<h4 id="221-heapster-service">2.2.1. heapster-service</h4>
+<p><strong>heapster-service.yaml</strong></p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span>v1
+<span class="hljs-attr">kind:</span>Service
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  label:</span>
+    kubenetes.io/cluster-service:<span class="hljs-string">&quot;true&quot;</span>
+    kubernetes.io/name:Heapster
+<span class="hljs-attr">  name:</span>heapster
+<span class="hljs-attr">  namespace:</span>kube-system
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  ports:</span>
+<span class="hljs-attr">    - port:</span><span class="hljs-number">80</span>
+<span class="hljs-attr">      targetPort:</span><span class="hljs-number">8082</span>
+<span class="hljs-attr">  selector:</span>
+<span class="hljs-attr">    k8s-app:</span>heapster
+</code></pre>
+<h4 id="222-influxdb-service">2.2.2. influxdb-service</h4>
+<p><strong>influxdb-service.yaml</strong></p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span>v1
+<span class="hljs-attr">kind:</span>Service
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  label:</span><span class="hljs-literal">null</span>
+<span class="hljs-attr">  name:</span>monitoring-InfluxDB
+<span class="hljs-attr">  namespace:</span>kube-system
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  type:</span>Nodeport
+<span class="hljs-attr">  ports:</span>
+<span class="hljs-attr">    - name:</span>http
+<span class="hljs-attr">      port:</span><span class="hljs-number">80</span>
+<span class="hljs-attr">      targetPort:</span><span class="hljs-number">8083</span>
+<span class="hljs-attr">    - name:</span>api
+<span class="hljs-attr">      port:</span><span class="hljs-number">8086</span>
+<span class="hljs-attr">      targetPort:</span><span class="hljs-number">8086</span>
+<span class="hljs-attr">      Nodeport:</span><span class="hljs-number">8086</span>
+<span class="hljs-attr">  selector:</span>
+<span class="hljs-attr">    name:</span>influxGrafana
+</code></pre>
+<h4 id="223-grafana-service">2.2.3. grafana-service</h4>
+<p><strong>grafana-service.yaml</strong></p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span>v1
+<span class="hljs-attr">kind:</span>Service
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  label:</span>
+    kubenetes.io/cluster-service:<span class="hljs-string">&quot;true&quot;</span>
+    kubernetes.io/name:monitoring-Grafana
+<span class="hljs-attr">  name:</span>monitoring-Grafana
+<span class="hljs-attr">  namespace:</span>kube-system
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  type:</span>Nodeport
+<span class="hljs-attr">  ports:</span>
+<span class="hljs-attr">      port:</span><span class="hljs-number">80</span>
+<span class="hljs-attr">      targetPort:</span><span class="hljs-number">8080</span>
+<span class="hljs-attr">      Nodeport:</span><span class="hljs-number">8085</span>
+<span class="hljs-attr">  selector:</span>
+<span class="hljs-attr">    name:</span>influxGrafana
+</code></pre>
+<p>&#x4F7F;&#x7528;type=NodePort&#x5C06;InfluxDB&#x548C;Grafana&#x66B4;&#x9732;&#x5728;Node&#x7684;&#x7AEF;&#x53E3;&#x4E0A;&#xFF0C;&#x4EE5;&#x4FBF;&#x901A;&#x8FC7;&#x6D4F;&#x89C8;&#x5668;&#x8FDB;&#x884C;&#x8BBF;&#x95EE;&#x3002;</p>
+<h4 id="224-&#x521B;&#x5EFA;service">2.2.4. &#x521B;&#x5EFA;service</h4>
+<pre><code class="lang-shell">kubectl create -f heapster-service.yaml
+kubectl create -f InfluxDB-service.yaml
+kubectl create -f Grafana-service.yaml
+</code></pre>
+<h3 id="23-replicationcontroller">2.3. ReplicationController</h3>
+<h4 id="231-influxdb-grafana-controller">2.3.1. influxdb-grafana-controller</h4>
+<p><strong>influxdb-grafana-controller-v3.yaml</strong> </p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span>v1
+<span class="hljs-attr">kind:</span>ReplicationController
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span>monitoring-influxdb-grafana-v3
+<span class="hljs-attr">  namespace:</span>kube-system
+<span class="hljs-attr">  labels:</span>
+<span class="hljs-attr">    k8s-app:</span>influxGrafana
+<span class="hljs-attr">    version:</span>v3
+    kubernetes.io/cluster-service:<span class="hljs-string">&quot;true
+spec:
+  replicas:1
+  selector:
+    k8s-app:influxGrafana
+    version:v3
+  template:
+    metadata:
+      labels:
+        k8s-app:influxGrafana
+        version:v3
+        kubernetes.io/cluster-service:&quot;</span><span class="hljs-literal">true</span>
+<span class="hljs-attr">    spec:</span>
+<span class="hljs-attr">      containers:</span>
+<span class="hljs-attr">        - image:</span>gcr.io/google_containers/heapster_influxdb:v0<span class="hljs-number">.5</span>
+<span class="hljs-attr">          name:</span>influxdb
+<span class="hljs-attr">          resources:</span>
+<span class="hljs-attr">            limits:</span>
+<span class="hljs-attr">              cpu:</span><span class="hljs-number">100</span>m
+<span class="hljs-attr">              memory:</span><span class="hljs-number">500</span>Mi
+<span class="hljs-attr">            requests:</span>
+<span class="hljs-attr">              cpu:</span><span class="hljs-number">100</span>m
+<span class="hljs-attr">              memory:</span><span class="hljs-number">500</span>Mi
+<span class="hljs-attr">          ports:</span>
+<span class="hljs-attr">            - containerPort:</span><span class="hljs-number">8083</span>
+<span class="hljs-attr">            - containerPort:</span><span class="hljs-number">8086</span>
+<span class="hljs-attr">          volumeMounts:</span>
+<span class="hljs-attr">            -name:</span>influxdb-persistent-storage
+<span class="hljs-attr">             mountPath:</span>/data
+<span class="hljs-attr">        - image:</span>grc.io/google_containers/heapster_grafana:v2<span class="hljs-number">.6</span><span class="hljs-number">.0</span><span class="hljs-bullet">-2</span>
+<span class="hljs-attr">          name:</span>grafana
+<span class="hljs-attr">          resources:</span>
+<span class="hljs-attr">            limits:</span>
+<span class="hljs-attr">              cpu:</span><span class="hljs-number">100</span>m
+<span class="hljs-attr">              memory:</span><span class="hljs-number">100</span>Mi
+<span class="hljs-attr">            requests:</span>
+<span class="hljs-attr">              cpu:</span><span class="hljs-number">100</span>m
+<span class="hljs-attr">              memory:</span><span class="hljs-number">100</span>Mi
+<span class="hljs-attr">          env:</span>
+<span class="hljs-attr">            - name:</span>INFLUXDB_SERVICE_URL
+<span class="hljs-attr">              value:</span>http://monitoring-influxdb:<span class="hljs-number">8086</span>
+<span class="hljs-attr">            - name:</span>GF_AUTH_BASIC_ENABLED
+<span class="hljs-attr">              value:</span><span class="hljs-string">&quot;false&quot;</span>
+<span class="hljs-attr">            - name:</span>GF_AUTH_ANONYMOUS_ENABLED
+<span class="hljs-attr">              value:</span><span class="hljs-string">&quot;true&quot;</span>
+<span class="hljs-attr">            - name:</span>GF_AUTH_ANONYMOUS_ORG_ROLE
+<span class="hljs-attr">              value:</span>Admin
+<span class="hljs-attr">            - name:</span>GF_SERVER_ROOT_URL
+<span class="hljs-attr">              value:</span>/api/v1/proxy/namespace/kube-system/services/monitoring-grafana/
+<span class="hljs-attr">          volumeMounts:</span>
+<span class="hljs-attr">            - name:</span>grafana-persistent-storage
+<span class="hljs-attr">              mountPath:</span>/var
+<span class="hljs-attr">      volumes:</span>
+<span class="hljs-attr">        - name:</span>influxdb-persistent-storage
+          emptyDir{}
+<span class="hljs-attr">        - name:</span>grafana-persistent-storage
+          emptyDir{}
+</code></pre>
+<h4 id="232-heapster-controller">2.3.2. heapster-controller</h4>
+<p><strong>heapster-controller.yaml</strong></p>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span>v1
+<span class="hljs-attr">kind:</span>ReplicationController
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">    labels:</span>
+<span class="hljs-attr">        k8s-app:</span>heapster
+<span class="hljs-attr">        name:</span>heapster
+<span class="hljs-attr">        version:</span>v6
+<span class="hljs-attr">    name:</span>heapster
+<span class="hljs-attr">    namespace:</span>kube-system
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">    replicas:</span><span class="hljs-number">1</span>
+<span class="hljs-attr">    selector:</span>
+<span class="hljs-attr">        name:</span>heapster
+<span class="hljs-attr">        k8s-app:</span>heapster
+<span class="hljs-attr">        version:</span>v6
+<span class="hljs-attr">    template:</span>
+<span class="hljs-attr">        metadata:</span>
+<span class="hljs-attr">            labels:</span>
+<span class="hljs-attr">                k8s-app:</span>heapster
+<span class="hljs-attr">                version:</span>v6
+<span class="hljs-attr">        spec:</span>
+<span class="hljs-attr">            containers:</span>
+<span class="hljs-attr">                - image:</span>gcr.io/google_containers/heapster:v0<span class="hljs-number">.17</span><span class="hljs-number">.0</span>
+<span class="hljs-attr">                  name:</span>heapster
+<span class="hljs-attr">                  command:</span>
+<span class="hljs-bullet">                    -</span> /heapster
+<span class="hljs-bullet">                    -</span> --source=kubernetes:http://<span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.128</span>:<span class="hljs-number">8080</span>?inClusterConfig=flase&amp;kubeletHttps=<span class="hljs-literal">true</span>&amp;useServiceAccount=<span class="hljs-literal">true</span>&amp;auth=
+<span class="hljs-bullet">                    -</span> --sink=InfluxDB:http://monitoring-InfluxDB:<span class="hljs-number">8086</span>
+</code></pre>
+<p>Heapster&#x8BBE;&#x7F6E;&#x542F;&#x52A8;&#x53C2;&#x6570;&#x8BF4;&#x660E;&#xFF1A;</p>
+<p>1&#x3001;&#x2013;source</p>
+<p>&#x914D;&#x7F6E;&#x76D1;&#x63A7;&#x6765;&#x6E90;&#xFF0C;&#x672C;&#x4F8B;&#x4E2D;&#x8868;&#x793A;&#x4ECE;k8s-Master&#x83B7;&#x53D6;&#x5404;&#x4E2A;Node&#x7684;&#x4FE1;&#x606F;&#x3002;&#x5728;URL&#x7684;&#x53C2;&#x6570;&#x90E8;&#x5206;&#xFF0C;&#x4FEE;&#x6539;kubeletHttps&#x3001;inClusterConfig&#x3001;useServiceAccount&#x7684;&#x503C;&#x3002;</p>
+<p>2&#x3001;&#x2013;sink</p>
+<p>&#x914D;&#x7F6E;&#x540E;&#x7AEF;&#x7684;&#x5B58;&#x50A8;&#x7CFB;&#x7EDF;&#xFF0C;&#x672C;&#x4F8B;&#x4E2D;&#x4F7F;&#x7528;InfluxDB&#x3002;URL&#x4E2D;&#x4E3B;&#x673A;&#x540D;&#x7684;&#x5730;&#x5740;&#x662F;InfluxDB&#x7684;Service&#x540D;&#x5B57;&#xFF0C;&#x9700;&#x8981;DNS&#x670D;&#x52A1;&#x6B63;&#x5E38;&#x5DE5;&#x4F5C;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x914D;&#x7F6E;DNS&#x670D;&#x52A1;&#x53EF;&#x4F7F;&#x7528;Service&#x7684;ClusterIP&#x5730;&#x5740;&#x3002;</p>
+<h4 id="233-&#x521B;&#x5EFA;replicationcontroller">2.3.3. &#x521B;&#x5EFA;ReplicationController</h4>
+<pre><code class="lang-shell">kubelet create -f InfluxDB-Grafana-controller.yaml
+kubelet create -f heapster-controller.yaml
+</code></pre>
+<h2 id="3-&#x67E5;&#x770B;&#x754C;&#x9762;&#x53CA;&#x6570;&#x636E;">3. &#x67E5;&#x770B;&#x754C;&#x9762;&#x53CA;&#x6570;&#x636E;</h2>
+<h3 id="31-influxdb">3.1. InfluxDB</h3>
+<p>&#x8BBF;&#x95EE;&#x4EFB;&#x610F;&#x4E00;&#x53F0;Node&#x673A;&#x5668;&#x7684;30083&#x7AEF;&#x53E3;&#x3002;</p>
+<h3 id="32-grafana">3.2. Grafana</h3>
+<p>&#x8BBF;&#x95EE;&#x4EFB;&#x610F;&#x4E00;&#x53F0;Node&#x673A;&#x5668;&#x7684;30080&#x7AEF;&#x53E3;&#x3002;</p>
+<h2 id="4-&#x5BB9;&#x5668;&#x5316;&#x90E8;&#x7F72;">4. &#x5BB9;&#x5668;&#x5316;&#x90E8;&#x7F72;</h2>
+<h3 id="41-&#x62C9;&#x53D6;&#x955C;&#x50CF;">4.1. &#x62C9;&#x53D6;&#x955C;&#x50CF;</h3>
+<pre><code class="lang-shell">docker pull influxdb:latest
+docker pull cadvisor:latest
+docker pull grafana:latest
+docker pull heapster:latest
+</code></pre>
+<h3 id="42-&#x8FD0;&#x884C;&#x5BB9;&#x5668;">4.2. &#x8FD0;&#x884C;&#x5BB9;&#x5668;</h3>
+<h4 id="421-influxdb">4.2.1. influxdb</h4>
+<pre><code class="lang-shell">#influxdb
+docker run -d -p 8083:8083 -p 8086:8086 --expose 8090 --expose 8099 --volume=/opt/data/influxdb:/data --name influxsrv influxdb:latest
+</code></pre>
+<h4 id="422-cadvisor">4.2.2. cadvisor</h4>
+<pre><code class="lang-shell">#cadvisor
+docker run --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --publish=8080:8080 --detach=true --link influxsrv:influxsrv --name=cadvisor cadvisor:latest -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086
+</code></pre>
+<h4 id="423-grafana">4.2.3. grafana</h4>
+<pre><code class="lang-shell">#grafana
+docker run -d -p 3000:3000 -e INFLUXDB_HOST=influxsrv -e INFLUXDB_PORT=8086 -e INFLUXDB_NAME=cadvisor -e INFLUXDB_USER=root -e INFLUXDB_PASS=root --link influxsrv:influxsrv --name grafana grafana:latest
+</code></pre>
+<h4 id="424-heapster">4.2.4. heapster</h4>
+<pre><code class="lang-shell">docker run -d -p 8082:8082 --net=host heapster:canary --source=kubernetes:http://`k8s-server-ip`:8080?inClusterConfig=false/&amp;useServiceAccount=false --sink=influxdb:http://`influxdb-ip`:8086
+</code></pre>
+<h3 id="43-&#x8BBF;&#x95EE;">4.3. &#x8BBF;&#x95EE;</h3>
+<p>&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x8F93;&#x5165;<code>IP</code>:<code>PORT</code></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="README.md" class="navigation navigation-prev " aria-label="Previous page: 5. 监控体系">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="cadvisor-introduction.html" class="navigation navigation-next " aria-label="Next page: 5.2. cAdvisor介绍">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"5.1. 监控体系介绍","catalog":true,"date":"2017-08-13T10:50:57.000Z","type":"categories","subtitle":null,"header-img":null,"tags":["Kubernetes"],"catagories":["Kubernetes"],"level":"1.6.1","depth":2,"next":{"title":"5.2. cAdvisor介绍","level":"1.6.2","depth":2,"path":"monitor/cadvisor-introduction.md","ref":"monitor/cadvisor-introduction.md","articles":[]},"previous":{"title":"5. 监控体系","level":"1.6","depth":1,"path":"monitor/README.md","ref":"monitor/README.md","articles":[{"title":"5.1. 监控体系介绍","level":"1.6.1","depth":2,"path":"monitor/kubernetes-cluster-monitoring.md","ref":"monitor/kubernetes-cluster-monitoring.md","articles":[]},{"title":"5.2. cAdvisor介绍","level":"1.6.2","depth":2,"path":"monitor/cadvisor-introduction.md","ref":"monitor/cadvisor-introduction.md","articles":[]},{"title":"5.3. Heapster介绍","level":"1.6.3","depth":2,"path":"monitor/heapster-introduction.md","ref":"monitor/heapster-introduction.md","articles":[]},{"title":"5.4. Influxdb介绍","level":"1.6.4","depth":2,"path":"monitor/influxdb-introduction.md","ref":"monitor/influxdb-introduction.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"monitor/kubernetes-cluster-monitoring.md","mtime":"2018-08-18T05:12:42.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-18T06:26:58.042Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,708 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>4.2. 指定Node调度与隔离 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../monitor/README.md" />
+    
+    
+    <link rel="prev" href="kubernetes-troubleshooting.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../setup/README.md">
+            
+                <span>
+            
+                    
+                    1. 安装与配置
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../setup/install-k8s-by-kubespray.html">
+            
+                <a href="../setup/install-k8s-by-kubespray.html">
+            
+                    
+                    1.1. 使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../setup/install-k8s-by-minikube.html">
+            
+                <a href="../setup/install-k8s-by-minikube.html">
+            
+                    
+                    1.2. 使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../concepts/README.md">
+            
+                <span>
+            
+                    
+                    2. 基本概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../concepts/architecture/README.md">
+            
+                <span>
+            
+                    
+                    2.1. kubernetes架构
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                    2.1.1. Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                    2.1.2. 基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../concepts/object/README.md">
+            
+                <span>
+            
+                    
+                    2.2. kubernetes对象
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                    2.2.1. 理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                    2.2.2. kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../concepts/object/kubernetes-pod-introduction.html">
+            
+                <a href="../concepts/object/kubernetes-pod-introduction.html">
+            
+                    
+                    2.2.3. Pod详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../principle/README.md">
+            
+                <span>
+            
+                    
+                    3. 核心原理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../principle/kubernetes-core-principle-api-server.html">
+            
+                <a href="../principle/kubernetes-core-principle-api-server.html">
+            
+                    
+                    3.1. Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                <a href="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                    
+                    3.2. Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../principle/kubernetes-core-principle-scheduler.html">
+            
+                <a href="../principle/kubernetes-core-principle-scheduler.html">
+            
+                    
+                    3.3. Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../principle/kubernetes-core-principle-kubelet.html">
+            
+                <a href="../principle/kubernetes-core-principle-kubelet.html">
+            
+                    
+                    3.4. Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="README.md">
+            
+                <span>
+            
+                    
+                    4. 运维指南
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="kubernetes-troubleshooting.html">
+            
+                <a href="kubernetes-troubleshooting.html">
+            
+                    
+                    4.1. kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.2" data-path="nodeselector-and-taint.html">
+            
+                <a href="nodeselector-and-taint.html">
+            
+                    
+                    4.2. 指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../monitor/README.md">
+            
+                <span>
+            
+                    
+                    5. 监控体系
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../monitor/kubernetes-cluster-monitoring.html">
+            
+                <a href="../monitor/kubernetes-cluster-monitoring.html">
+            
+                    
+                    5.1. 监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../monitor/cadvisor-introduction.html">
+            
+                <a href="../monitor/cadvisor-introduction.html">
+            
+                    
+                    5.2. cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../monitor/heapster-introduction.html">
+            
+                <a href="../monitor/heapster-introduction.html">
+            
+                    
+                    5.3. Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../monitor/influxdb-introduction.html">
+            
+                <a href="../monitor/influxdb-introduction.html">
+            
+                    
+                    5.4. Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >4.2. 指定Node调度与隔离</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="1-nodeselector">1. NodeSelector</h2>
+<h3 id="11-&#x6982;&#x5FF5;">1.1. &#x6982;&#x5FF5;</h3>
+<p>&#x5982;&#x679C;&#x9700;&#x8981;<code>&#x9650;&#x5236;Pod&#x5230;&#x6307;&#x5B9A;&#x7684;Node</code>&#x4E0A;&#x8FD0;&#x884C;&#xFF0C;&#x5219;&#x53EF;&#x4EE5;&#x7ED9;Node&#x6253;&#x6807;&#x7B7E;&#x5E76;&#x7ED9;Pod&#x914D;&#x7F6E;NodeSelector&#x3002;</p>
+<h3 id="12-&#x4F7F;&#x7528;&#x65B9;&#x5F0F;">1.2. &#x4F7F;&#x7528;&#x65B9;&#x5F0F;</h3>
+<h4 id="121-&#x7ED9;node&#x6253;&#x6807;&#x7B7E;">1.2.1. &#x7ED9;Node&#x6253;&#x6807;&#x7B7E;</h4>
+<pre><code class="lang-shell"># get node&#x7684;name
+kubectl get nodes
+
+# &#x8BBE;&#x7F6E;Label
+kubectl label nodes &lt;node-name&gt; &lt;label-key&gt;=&lt;label-value&gt;
+# &#x4F8B;&#x5982;
+kubectl label nodes node-1 disktype=ssd
+
+# &#x67E5;&#x770B;Node&#x7684;Label
+kubectl get nodes --show-labels
+</code></pre>
+<h4 id="122-&#x7ED9;pod&#x8BBE;&#x7F6E;nodeselector">1.2.2. &#x7ED9;Pod&#x8BBE;&#x7F6E;NodeSelector</h4>
+<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span> v1
+<span class="hljs-attr">kind:</span> Pod
+<span class="hljs-attr">metadata:</span>
+<span class="hljs-attr">  name:</span> nginx
+<span class="hljs-attr">  labels:</span>
+<span class="hljs-attr">    env:</span> test
+<span class="hljs-attr">spec:</span>
+<span class="hljs-attr">  containers:</span>
+<span class="hljs-attr">  - name:</span> nginx
+<span class="hljs-attr">    image:</span> nginx
+<span class="hljs-attr">    imagePullPolicy:</span> IfNotPresent
+<span class="hljs-attr">  nodeSelector:</span>
+<span class="hljs-attr">    disktype:</span> ssd    <span class="hljs-comment"># &#x5BF9;&#x5E94;Node&#x7684;Label</span>
+</code></pre>
+<h3 id="13-&#x4EB2;&#x548C;&#x6027;&#xFF08;affinity&#xFF09;&#x548C;&#x53CD;&#x4EB2;&#x548C;&#x6027;&#xFF08;anti-affinity&#xFF09;">1.3. &#x4EB2;&#x548C;&#x6027;&#xFF08;Affinity&#xFF09;&#x548C;&#x53CD;&#x4EB2;&#x548C;&#x6027;&#xFF08;Anti-affinity&#xFF09;</h3>
+<blockquote>
+<p>&#x5F85;&#x8865;&#x5145;</p>
+</blockquote>
+<h2 id="2-taint-&#x548C;-toleration">2. Taint &#x548C; Toleration</h2>
+<h3 id="21-&#x6982;&#x5FF5;">2.1. &#x6982;&#x5FF5;</h3>
+<p><code>nodeSelector</code>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>&#x6253;&#x6807;&#x7B7E;</code>&#x7684;&#x5F62;&#x5F0F;&#x8BA9;Pod&#x88AB;&#x8C03;&#x5EA6;&#x5230;&#x6307;&#x5B9A;&#x7684;Node&#x4E0A;&#xFF0C;<code>Taint</code>&#x5219;&#x76F8;&#x53CD;&#xFF0C;&#x5B83;&#x4F7F;&#x8282;&#x70B9;&#x80FD;&#x591F;&#x6392;&#x65A5;&#x4E00;&#x7C7B;&#x7279;&#x5B9A;&#x7684;Pod&#xFF0C;&#x9664;&#x975E;Pod&#x88AB;&#x6307;&#x5B9A;&#x4E86;<code>toleration</code>&#x7684;&#x6807;&#x7B7E;&#x3002;&#xFF08;<code>taint</code>&#x5373;&#x6C61;&#x70B9;&#xFF0C;Node&#x88AB;&#x6253;&#x4E0A;&#x6C61;&#x70B9;&#xFF1B;&#x53EA;&#x6709;&#x5BB9;&#x5FCD;[toleration]&#x8FD9;&#x4E9B;&#x6C61;&#x70B9;&#x7684;Pod&#x624D;&#x53EF;&#x80FD;&#x88AB;&#x8C03;&#x5EA6;&#x5230;&#x8BE5;Node&#xFF09;&#x3002;</p>
+<h3 id="22-&#x4F7F;&#x7528;&#x65B9;&#x5F0F;">2.2. &#x4F7F;&#x7528;&#x65B9;&#x5F0F;</h3>
+<h4 id="221-kubectl-taint">2.2.1. kubectl taint</h4>
+<pre><code class="lang-shell"># &#x7ED9;&#x8282;&#x70B9;&#x589E;&#x52A0;&#x4E00;&#x4E2A;taint&#xFF0C;&#x5B83;&#x7684;key&#x662F;&lt;key&gt;&#xFF0C;value&#x662F;&lt;value&gt;&#xFF0C;effect&#x662F;NoSchedule&#x3002;
+kubectl taint nodes &lt;node_name&gt; &lt;key&gt;=&lt;value&gt;:NoSchedule
+</code></pre>
+<p>&#x53EA;&#x6709;&#x62E5;&#x6709;&#x548C;&#x8FD9;&#x4E2A;<code>taint</code>&#x76F8;&#x5339;&#x914D;&#x7684;<code>toleration</code>&#x7684;pod&#x624D;&#x80FD;&#x591F;&#x88AB;&#x5206;&#x914D;&#x5230; <code>node_name</code> &#x8FD9;&#x4E2A;&#x8282;&#x70B9;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5728; <code>PodSpec</code> &#x4E2D;&#x5B9A;&#x4E49; pod &#x7684; toleration&#xFF1A;</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">tolerations:</span>
+<span class="hljs-attr">- key:</span> <span class="hljs-string">&quot;key&quot;</span>
+<span class="hljs-attr">  operator:</span> <span class="hljs-string">&quot;Equal&quot;</span>
+<span class="hljs-attr">  value:</span> <span class="hljs-string">&quot;value&quot;</span>
+<span class="hljs-attr">  effect:</span> <span class="hljs-string">&quot;NoSchedule&quot;</span>
+</code></pre>
+<pre><code class="lang-yaml"><span class="hljs-attr">tolerations:</span>
+<span class="hljs-attr">- key:</span> <span class="hljs-string">&quot;key&quot;</span>
+<span class="hljs-attr">  operator:</span> <span class="hljs-string">&quot;Exists&quot;</span>
+<span class="hljs-attr">  effect:</span> <span class="hljs-string">&quot;NoSchedule&quot;</span>
+</code></pre>
+<h4 id="222-&#x5339;&#x914D;&#x89C4;&#x5219;&#xFF1A;">2.2.2. &#x5339;&#x914D;&#x89C4;&#x5219;&#xFF1A;</h4>
+<p>&#x4E00;&#x4E2A; toleration &#x548C;&#x4E00;&#x4E2A; taint &#x76F8;&#x201C;&#x5339;&#x914D;&#x201D;&#x662F;&#x6307;&#x5B83;&#x4EEC;&#x6709;&#x4E00;&#x6837;&#x7684; key &#x548C; effect &#xFF0C;&#x5E76;&#x4E14;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C; <code>operator</code> &#x662F; <code>Exists</code> &#xFF08;&#x6B64;&#x65F6; toleration &#x4E0D;&#x80FD;&#x6307;&#x5B9A; <code>value</code>&#xFF09;</li>
+<li>&#x5982;&#x679C; <code>operator</code> &#x662F; <code>Equal</code> &#xFF0C;&#x5219;&#x5B83;&#x4EEC;&#x7684; <code>value</code> &#x5E94;&#x8BE5;&#x76F8;&#x7B49;</li>
+</ul>
+<p><strong>&#x7279;&#x6B8A;&#x60C5;&#x51B5;&#xFF1A;</strong></p>
+<ul>
+<li><p>&#x5982;&#x679C;&#x4E00;&#x4E2A; toleration &#x7684; <code>key</code> &#x4E3A;&#x7A7A;&#x4E14; operator &#x4E3A; <code>Exists</code> &#xFF0C;&#x8868;&#x793A;&#x8FD9;&#x4E2A; toleration &#x4E0E;&#x4EFB;&#x610F;&#x7684; key &#x3001; value &#x548C; effect &#x90FD;&#x5339;&#x914D;&#xFF0C;&#x5373;&#x8FD9;&#x4E2A; toleration &#x80FD;&#x5BB9;&#x5FCD;&#x4EFB;&#x610F; taint&#x3002;</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">tolerations:</span>
+<span class="hljs-attr">- operator:</span> <span class="hljs-string">&quot;Exists&quot;</span>
+</code></pre>
+</li>
+<li><p>&#x5982;&#x679C;&#x4E00;&#x4E2A; toleration &#x7684; <code>effect</code> &#x4E3A;&#x7A7A;&#xFF0C;&#x5219; <code>key</code> &#x503C;&#x4E0E;&#x4E4B;&#x76F8;&#x540C;&#x7684;&#x76F8;&#x5339;&#x914D; taint &#x7684; <code>effect</code> &#x53EF;&#x4EE5;&#x662F;&#x4EFB;&#x610F;&#x503C;&#x3002;</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">tolerations:</span>
+<span class="hljs-attr">- key:</span> <span class="hljs-string">&quot;key&quot;</span>
+<span class="hljs-attr">  operator:</span> <span class="hljs-string">&quot;Exists&quot;</span>
+</code></pre>
+</li>
+</ul>
+<p>&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x591A;&#x4E2A;taint&#xFF0C;&#x4E00;&#x4E2A;pod&#x4E5F;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;&#x591A;&#x4E2A;toleration&#x3002;Kubernetes &#x5904;&#x7406;&#x591A;&#x4E2A; taint &#x548C; toleration &#x7684;&#x8FC7;&#x7A0B;&#x5C31;&#x50CF;&#x4E00;&#x4E2A;&#x8FC7;&#x6EE4;&#x5668;&#xFF1A;&#x4ECE;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x7684;&#x6240;&#x6709; taint &#x5F00;&#x59CB;&#x904D;&#x5386;&#xFF0C;&#x8FC7;&#x6EE4;&#x6389;&#x90A3;&#x4E9B; pod &#x4E2D;&#x5B58;&#x5728;&#x4E0E;&#x4E4B;&#x76F8;&#x5339;&#x914D;&#x7684; toleration &#x7684; taint&#x3002;&#x4F59;&#x4E0B;&#x672A;&#x88AB;&#x8FC7;&#x6EE4;&#x7684; taint &#x7684; effect &#x503C;&#x51B3;&#x5B9A;&#x4E86; pod &#x662F;&#x5426;&#x4F1A;&#x88AB;&#x5206;&#x914D;&#x5230;&#x8BE5;&#x8282;&#x70B9;&#xFF0C;&#x7279;&#x522B;&#x662F;&#x4EE5;&#x4E0B;&#x60C5;&#x51B5;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C;&#x672A;&#x88AB;&#x8FC7;&#x6EE4;&#x7684; taint &#x4E2D;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x4EE5;&#x4E0A; effect &#x503C;&#x4E3A; <code>NoSchedule</code> &#x7684; taint&#xFF0C;&#x5219; Kubernetes &#x4E0D;&#x4F1A;&#x5C06; pod &#x5206;&#x914D;&#x5230;&#x8BE5;&#x8282;&#x70B9;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x672A;&#x88AB;&#x8FC7;&#x6EE4;&#x7684; taint &#x4E2D;&#x4E0D;&#x5B58;&#x5728; effect &#x503C;&#x4E3A; <code>NoSchedule</code> &#x7684; taint&#xFF0C;&#x4F46;&#x662F;&#x5B58;&#x5728; effect &#x503C;&#x4E3A; <code>PreferNoSchedule</code> &#x7684; taint&#xFF0C;&#x5219; Kubernetes &#x4F1A;<em>&#x5C1D;&#x8BD5;</em>&#x5C06; pod &#x5206;&#x914D;&#x5230;&#x8BE5;&#x8282;&#x70B9;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x672A;&#x88AB;&#x8FC7;&#x6EE4;&#x7684; taint &#x4E2D;&#x5B58;&#x5728;&#x4E00;&#x4E2A;&#x4EE5;&#x4E0A; effect &#x503C;&#x4E3A; <code>NoExecute</code> &#x7684; taint&#xFF0C;&#x5219; Kubernetes &#x4E0D;&#x4F1A;&#x5C06; pod &#x5206;&#x914D;&#x5230;&#x8BE5;&#x8282;&#x70B9;&#xFF08;&#x5982;&#x679C; pod &#x8FD8;&#x672A;&#x5728;&#x8282;&#x70B9;&#x4E0A;&#x8FD0;&#x884C;&#xFF09;&#xFF0C;&#x6216;&#x8005;&#x5C06; pod &#x4ECE;&#x8BE5;&#x8282;&#x70B9;&#x9A71;&#x9010;&#xFF08;&#x5982;&#x679C; pod &#x5DF2;&#x7ECF;&#x5728;&#x8282;&#x70B9;&#x4E0A;&#x8FD0;&#x884C;&#xFF09;&#x3002;</li>
+</ul>
+<h4 id="223-effect&#x7684;&#x7C7B;&#x578B;">2.2.3. effect&#x7684;&#x7C7B;&#x578B;</h4>
+<ul>
+<li><p><code>NoSchedule</code>&#xFF1A;&#x53EA;&#x6709;&#x62E5;&#x6709;&#x548C;&#x8FD9;&#x4E2A; taint &#x76F8;&#x5339;&#x914D;&#x7684; toleration &#x7684; pod &#x624D;&#x80FD;&#x591F;&#x88AB;&#x5206;&#x914D;&#x5230;&#x8FD9;&#x4E2A;&#x8282;&#x70B9;&#x3002;</p>
+</li>
+<li><p><code>PreferNoSchedule</code>&#xFF1A;&#x7CFB;&#x7EDF;&#x4F1A;<em>&#x5C3D;&#x91CF;</em>&#x907F;&#x514D;&#x5C06; pod &#x8C03;&#x5EA6;&#x5230;&#x5B58;&#x5728;&#x5176;&#x4E0D;&#x80FD;&#x5BB9;&#x5FCD; taint &#x7684;&#x8282;&#x70B9;&#x4E0A;&#xFF0C;&#x4F46;&#x8FD9;&#x4E0D;&#x662F;&#x5F3A;&#x5236;&#x7684;&#x3002;</p>
+</li>
+<li><p><code>NoExecute</code> &#xFF1A;&#x4EFB;&#x4F55;&#x4E0D;&#x80FD;&#x5FCD;&#x53D7;&#x8FD9;&#x4E2A; taint &#x7684; pod &#x90FD;&#x4F1A;&#x9A6C;&#x4E0A;&#x88AB;&#x9A71;&#x9010;&#xFF0C;&#x4EFB;&#x4F55;&#x53EF;&#x4EE5;&#x5FCD;&#x53D7;&#x8FD9;&#x4E2A; taint &#x7684; pod &#x90FD;&#x4E0D;&#x4F1A;&#x88AB;&#x9A71;&#x9010;&#x3002;Pod&#x53EF;&#x6307;&#x5B9A;&#x5C5E;&#x6027; <code>tolerationSeconds</code> &#x7684;&#x503C;&#xFF0C;&#x8868;&#x793A;pod &#x8FD8;&#x80FD;&#x7EE7;&#x7EED;&#x5728;&#x8282;&#x70B9;&#x4E0A;&#x8FD0;&#x884C;&#x7684;&#x65F6;&#x95F4;&#x3002;</p>
+<pre><code class="lang-yaml"><span class="hljs-attr">tolerations:</span>
+<span class="hljs-attr">- key:</span> <span class="hljs-string">&quot;key1&quot;</span>
+<span class="hljs-attr">  operator:</span> <span class="hljs-string">&quot;Equal&quot;</span>
+<span class="hljs-attr">  value:</span> <span class="hljs-string">&quot;value1&quot;</span>
+<span class="hljs-attr">  effect:</span> <span class="hljs-string">&quot;NoExecute&quot;</span>
+<span class="hljs-attr">  tolerationSeconds:</span> <span class="hljs-number">3600</span>
+</code></pre>
+</li>
+</ul>
+<h3 id="23-&#x4F7F;&#x7528;&#x573A;&#x666F;">2.3. &#x4F7F;&#x7528;&#x573A;&#x666F;</h3>
+<h4 id="231-&#x4E13;&#x7528;&#x8282;&#x70B9;">2.3.1. &#x4E13;&#x7528;&#x8282;&#x70B9;</h4>
+<pre><code class="lang-shell">kubectl taint nodes &lt;nodename&gt; dedicated=&lt;groupName&gt;:NoSchedule
+</code></pre>
+<p>&#x5148;&#x7ED9;Node&#x6DFB;&#x52A0;taint&#xFF0C;&#x7136;&#x540E;&#x7ED9;Pod&#x6DFB;&#x52A0;&#x76F8;&#x5BF9;&#x5E94;&#x7684; toleration&#xFF0C;&#x5219;&#x8BE5;Pod&#x53EF;&#x8C03;&#x5EA6;&#x5230;taint&#x7684;Node&#xFF0C;&#x4E5F;&#x53EF;&#x8C03;&#x5EA6;&#x5230;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x60F3;<strong>&#x8BA9;Pod&#x53EA;&#x8C03;&#x5EA6;&#x67D0;&#x4E9B;&#x8282;&#x70B9;&#x4E14;&#x67D0;&#x4E9B;&#x8282;&#x70B9;&#x53EA;&#x63A5;&#x53D7;&#x5BF9;&#x5E94;&#x7684;Pod</strong>&#xFF0C;&#x5219;&#x9700;&#x8981;&#x5728;Node&#x4E0A;&#x6DFB;&#x52A0;<code>Label</code>&#xFF08;&#x4F8B;&#x5982;&#xFF1A;<code>dedicated=groupName</code>&#xFF09;&#xFF0C;&#x540C;&#x65F6;&#x7ED9;Pod&#x7684;<code>nodeSelector</code>&#x6DFB;&#x52A0;&#x5BF9;&#x5E94;&#x7684;<code>Label</code>&#x3002;</p>
+<h4 id="232-&#x7279;&#x6B8A;&#x786C;&#x4EF6;&#x8282;&#x70B9;">2.3.2. &#x7279;&#x6B8A;&#x786C;&#x4EF6;&#x8282;&#x70B9;</h4>
+<p>&#x5982;&#x679C;&#x67D0;&#x4E9B;&#x8282;&#x70B9;&#x914D;&#x7F6E;&#x4E86;&#x7279;&#x6B8A;&#x786C;&#x4EF6;&#xFF08;&#x4F8B;&#x5982;CPU&#xFF09;&#xFF0C;&#x5E0C;&#x671B;&#x4E0D;&#x4F7F;&#x7528;&#x8FD9;&#x4E9B;&#x7279;&#x6B8A;&#x786C;&#x4EF6;&#x7684;Pod&#x4E0D;&#x88AB;&#x8C03;&#x5EA6;&#x8BE5;Node&#xFF0C;&#x4EE5;&#x4FBF;&#x4FDD;&#x7559;&#x5FC5;&#x8981;&#x8D44;&#x6E90;&#x3002;&#x5373;&#x53EF;&#x7ED9;Node&#x8BBE;&#x7F6E;<code>taint</code>&#x548C;<code>label</code>&#xFF0C;&#x540C;&#x65F6;&#x7ED9;Pod&#x8BBE;&#x7F6E;<code>toleration</code>&#x548C;<code>label</code>&#x6765;&#x4F7F;&#x5F97;&#x8FD9;&#x4E9B;Node&#x4E13;&#x95E8;&#x88AB;&#x6307;&#x5B9A;Pod&#x4F7F;&#x7528;&#x3002;</p>
+<pre><code class="lang-shell"># kubectl taint
+kubectl taint nodes nodename special=true:NoSchedule 
+# &#x6216;&#x8005;
+kubectl taint nodes nodename special=true:PreferNoSchedule
+</code></pre>
+<h4 id="233-&#x57FA;&#x4E8E;taint&#x9A71;&#x9010;">2.3.3. &#x57FA;&#x4E8E;taint&#x9A71;&#x9010;</h4>
+<p>effect &#x503C; <code>NoExecute</code> &#xFF0C;&#x5B83;&#x4F1A;&#x5F71;&#x54CD;&#x5DF2;&#x7ECF;&#x5728;&#x8282;&#x70B9;&#x4E0A;&#x8FD0;&#x884C;&#x7684; pod&#xFF0C;&#x5373;&#x6839;&#x636E;&#x7B56;&#x7565;&#x5BF9;Pod&#x8FDB;&#x884C;&#x9A71;&#x9010;&#x3002;</p>
+<ul>
+<li>&#x5982;&#x679C; pod &#x4E0D;&#x80FD;&#x5FCD;&#x53D7;effect &#x503C;&#x4E3A; <code>NoExecute</code> &#x7684; taint&#xFF0C;&#x90A3;&#x4E48; pod &#x5C06;&#x9A6C;&#x4E0A;&#x88AB;&#x9A71;&#x9010;</li>
+<li>&#x5982;&#x679C; pod &#x80FD;&#x591F;&#x5FCD;&#x53D7;effect &#x503C;&#x4E3A; <code>NoExecute</code> &#x7684; taint&#xFF0C;&#x4F46;&#x662F;&#x5728; toleration &#x5B9A;&#x4E49;&#x4E2D;&#x6CA1;&#x6709;&#x6307;&#x5B9A; <code>tolerationSeconds</code>&#xFF0C;&#x5219; pod &#x8FD8;&#x4F1A;&#x4E00;&#x76F4;&#x5728;&#x8FD9;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#x8FD0;&#x884C;&#x3002;</li>
+<li>&#x5982;&#x679C; pod &#x80FD;&#x591F;&#x5FCD;&#x53D7;effect &#x503C;&#x4E3A; <code>NoExecute</code> &#x7684; taint&#xFF0C;&#x800C;&#x4E14;&#x6307;&#x5B9A;&#x4E86; <code>tolerationSeconds</code>&#xFF0C;&#x5219; pod &#x8FD8;&#x80FD;&#x5728;&#x8FD9;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#x7EE7;&#x7EED;&#x8FD0;&#x884C;&#x8FD9;&#x4E2A;&#x6307;&#x5B9A;&#x7684;&#x65F6;&#x95F4;&#x957F;&#x5EA6;&#x3002;</li>
+</ul>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><p><a href="https://kubernetes.io/docs/concepts/configuration/assign-pod-node/" target="_blank">https://kubernetes.io/docs/concepts/configuration/assign-pod-node/</a></p>
+</li>
+<li><p><a href="https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/" target="_blank">https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/</a></p>
+</li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="kubernetes-troubleshooting.html" class="navigation navigation-prev " aria-label="Previous page: 4.1. kubernetes集群问题排查">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../monitor/README.md" class="navigation navigation-next " aria-label="Next page: 5. 监控体系">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"4.2. 指定Node调度与隔离","catalog":true,"date":"2018-06-23T16:22:24.000Z","type":"tags","subtitle":null,"header-img":"http://ozilwgpje.bkt.clouddn.com/scenery/building.jpg?imageslim","tags":["Kubernetes"],"catagories":["Kubernetes"],"level":"1.5.2","depth":2,"next":{"title":"5. 监控体系","level":"1.6","depth":1,"path":"monitor/README.md","ref":"monitor/README.md","articles":[{"title":"5.1. 监控体系介绍","level":"1.6.1","depth":2,"path":"monitor/kubernetes-cluster-monitoring.md","ref":"monitor/kubernetes-cluster-monitoring.md","articles":[]},{"title":"5.2. cAdvisor介绍","level":"1.6.2","depth":2,"path":"monitor/cadvisor-introduction.md","ref":"monitor/cadvisor-introduction.md","articles":[]},{"title":"5.3. Heapster介绍","level":"1.6.3","depth":2,"path":"monitor/heapster-introduction.md","ref":"monitor/heapster-introduction.md","articles":[]},{"title":"5.4. Influxdb介绍","level":"1.6.4","depth":2,"path":"monitor/influxdb-introduction.md","ref":"monitor/influxdb-introduction.md","articles":[]}]},"previous":{"title":"4.1. kubernetes集群问题排查","level":"1.5.1","depth":2,"path":"operation/kubernetes-troubleshooting.md","ref":"operation/kubernetes-troubleshooting.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"operation/nodeselector-and-taint.md","mtime":"2018-08-18T05:24:40.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-18T06:26:58.042Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

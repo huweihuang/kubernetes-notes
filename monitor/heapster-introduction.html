@@ -1,0 +1,900 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>5.3. Heapster介绍 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="influxdb-introduction.html" />
+    
+    
+    <link rel="prev" href="cadvisor-introduction.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../setup/README.md">
+            
+                <span>
+            
+                    
+                    1. 安装与配置
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../setup/install-k8s-by-kubespray.html">
+            
+                <a href="../setup/install-k8s-by-kubespray.html">
+            
+                    
+                    1.1. 使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../setup/install-k8s-by-minikube.html">
+            
+                <a href="../setup/install-k8s-by-minikube.html">
+            
+                    
+                    1.2. 使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../concepts/README.md">
+            
+                <span>
+            
+                    
+                    2. 基本概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../concepts/architecture/README.md">
+            
+                <span>
+            
+                    
+                    2.1. kubernetes架构
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                    2.1.1. Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                    2.1.2. 基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../concepts/object/README.md">
+            
+                <span>
+            
+                    
+                    2.2. kubernetes对象
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                    2.2.1. 理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                    2.2.2. kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../concepts/object/kubernetes-pod-introduction.html">
+            
+                <a href="../concepts/object/kubernetes-pod-introduction.html">
+            
+                    
+                    2.2.3. Pod详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../principle/README.md">
+            
+                <span>
+            
+                    
+                    3. 核心原理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../principle/kubernetes-core-principle-api-server.html">
+            
+                <a href="../principle/kubernetes-core-principle-api-server.html">
+            
+                    
+                    3.1. Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                <a href="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                    
+                    3.2. Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../principle/kubernetes-core-principle-scheduler.html">
+            
+                <a href="../principle/kubernetes-core-principle-scheduler.html">
+            
+                    
+                    3.3. Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../principle/kubernetes-core-principle-kubelet.html">
+            
+                <a href="../principle/kubernetes-core-principle-kubelet.html">
+            
+                    
+                    3.4. Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../operation/README.md">
+            
+                <span>
+            
+                    
+                    4. 运维指南
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../operation/kubernetes-troubleshooting.html">
+            
+                <a href="../operation/kubernetes-troubleshooting.html">
+            
+                    
+                    4.1. kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../operation/nodeselector-and-taint.html">
+            
+                <a href="../operation/nodeselector-and-taint.html">
+            
+                    
+                    4.2. 指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="README.md">
+            
+                <span>
+            
+                    
+                    5. 监控体系
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="kubernetes-cluster-monitoring.html">
+            
+                <a href="kubernetes-cluster-monitoring.html">
+            
+                    
+                    5.1. 监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="cadvisor-introduction.html">
+            
+                <a href="cadvisor-introduction.html">
+            
+                    
+                    5.2. cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.6.3" data-path="heapster-introduction.html">
+            
+                <a href="heapster-introduction.html">
+            
+                    
+                    5.3. Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="influxdb-introduction.html">
+            
+                <a href="influxdb-introduction.html">
+            
+                    
+                    5.4. Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >5.3. Heapster介绍</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="1-heapster&#x7B80;&#x4ECB;">1. heapster&#x7B80;&#x4ECB;</h2>
+<p>Heapster&#x662F;&#x5BB9;&#x5668;&#x96C6;&#x7FA4;&#x76D1;&#x63A7;&#x548C;&#x6027;&#x80FD;&#x5206;&#x6790;&#x5DE5;&#x5177;&#xFF0C;&#x5929;&#x7136;&#x7684;&#x652F;&#x6301;Kubernetes&#x548C;CoreOS&#x3002;
+Kubernetes&#x6709;&#x4E2A;&#x51FA;&#x540D;&#x7684;&#x76D1;&#x63A7;agent&#x2014;cAdvisor&#x3002;&#x5728;&#x6BCF;&#x4E2A;kubernetes Node&#x4E0A;&#x90FD;&#x4F1A;&#x8FD0;&#x884C;cAdvisor&#xFF0C;&#x5B83;&#x4F1A;&#x6536;&#x96C6;&#x672C;&#x673A;&#x4EE5;&#x53CA;&#x5BB9;&#x5668;&#x7684;&#x76D1;&#x63A7;&#x6570;&#x636E;(cpu,memory,filesystem,network,uptime)&#x3002;</p>
+<h2 id="2-heapster&#x90E8;&#x7F72;&#x4E0E;&#x914D;&#x7F6E;">2. heapster&#x90E8;&#x7F72;&#x4E0E;&#x914D;&#x7F6E;</h2>
+<h3 id="21-&#x6CE8;&#x610F;&#x4E8B;&#x9879;">2.1. &#x6CE8;&#x610F;&#x4E8B;&#x9879;</h3>
+<p>&#x9700;&#x540C;&#x6B65;&#x90E8;&#x7F72;&#x673A;&#x5668;&#x548C;&#x88AB;&#x91C7;&#x96C6;&#x673A;&#x5668;&#x7684;&#x65F6;&#x95F4;&#xFF1A;ntpdate time.windows.com</p>
+<p>&#x52A0;&#x5165;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#xFF0C;&#x5B9A;&#x671F;&#x540C;&#x6B65;&#x65F6;&#x95F4;</p>
+<p>crontab &#x2013;e</p>
+<p>30 5 <em> </em> *          /usr/sbin/ntpdate time.windows.com          //&#x6BCF;&#x5929;&#x65E9;&#x6668;5&#x70B9;&#x534A;&#x6267;&#x884C;</p>
+<h3 id="22-&#x5BB9;&#x5668;&#x5F0F;&#x90E8;&#x7F72;">2.2. &#x5BB9;&#x5668;&#x5F0F;&#x90E8;&#x7F72;</h3>
+<pre><code class="lang-shell">#&#x62C9;&#x53D6;&#x955C;&#x50CF;
+docker pull heapster:latest
+#&#x8FD0;&#x884C;&#x5BB9;&#x5668;
+docker run -d -p 8082:8082 --net=host heapster:latest --source=kubernetes:http://&lt;k8s-server-ip&gt;:8080?inClusterConfig=false\&amp;useServiceAccount=false --sink=influxdb:http://&lt;influxdb-ip&gt;:8086?db=&lt;k8s_env_zone&gt;
+</code></pre>
+<h3 id="23-&#x914D;&#x7F6E;&#x8BF4;&#x660E;">2.3. &#x914D;&#x7F6E;&#x8BF4;&#x660E;</h3>
+<p>&#x53EF;&#x4EE5;&#x53C2;&#x8003;<a href="https://github.com/kubernetes/heapster/tree/master/docs" target="_blank">&#x5B98;&#x65B9;&#x6587;&#x6863;</a></p>
+<h4 id="231-&#x2013;source">2.3.1. &#x2013;source</h4>
+<p>&#x2013;source: &#x6307;&#x5B9A;&#x6570;&#x636E;&#x83B7;&#x53D6;&#x6E90;&#x3002;&#x8FD9;&#x91CC;&#x6307;&#x5B9A;kube-apiserver&#x5373;&#x53EF;&#x3002;
+&#x540E;&#x7F00;&#x53C2;&#x6570;&#xFF1A;
+inClusterConfig:
+kubeletPort: &#x6307;&#x5B9A;kubelet&#x7684;&#x4F7F;&#x7528;&#x7AEF;&#x53E3;&#xFF0C;&#x9ED8;&#x8BA4;10255
+kubeletHttps: &#x662F;&#x5426;&#x4F7F;&#x7528;https&#x53BB;&#x8FDE;&#x63A5;kubelets(&#x9ED8;&#x8BA4;&#xFF1A;false)
+apiVersion: &#x6307;&#x5B9A;K8S&#x7684;apiversion
+insecure: &#x662F;&#x5426;&#x4F7F;&#x7528;&#x5B89;&#x5168;&#x8BC1;&#x4E66;(&#x9ED8;&#x8BA4;&#xFF1A;false)
+auth: &#x5B89;&#x5168;&#x8BA4;&#x8BC1;
+useServiceAccount: &#x662F;&#x5426;&#x4F7F;&#x7528;K8S&#x7684;&#x5B89;&#x5168;&#x4EE4;&#x724C;</p>
+<h4 id="232-&#x2013;sink">2.3.2. &#x2013;sink</h4>
+<p>&#x2013;sink: &#x6307;&#x5B9A;&#x540E;&#x7AEF;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x3002;&#x8FD9;&#x91CC;&#x6307;&#x5B9A;influxdb&#x6570;&#x636E;&#x5E93;&#x3002;
+&#x540E;&#x7F00;&#x53C2;&#x6570;&#xFF1A;
+user: InfluxDB&#x7528;&#x6237;
+pw: InfluxDB&#x5BC6;&#x7801;
+db: &#x6570;&#x636E;&#x5E93;&#x540D;
+secure: &#x5B89;&#x5168;&#x8FDE;&#x63A5;&#x5230;InfluxDB(&#x9ED8;&#x8BA4;&#xFF1A;false)
+withfields&#xFF1A; &#x4F7F;&#x7528;InfluxDB fields(&#x9ED8;&#x8BA4;&#xFF1A;false)&#x3002;</p>
+<h2 id="3-metrics">3. Metrics</h2>
+<table>
+<thead>
+<tr>
+<th>&#x5206;&#x7C7B;</th>
+<th>Metric Name</th>
+<th>Description</th>
+<th>&#x5907;&#x6CE8;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cpu</td>
+<td>cpu/limit</td>
+<td>CPU hard limit in millicores.</td>
+<td>CPU&#x4E0A;&#x9650;</td>
+</tr>
+<tr>
+<td></td>
+<td>cpu/node_capacity</td>
+<td>Cpu capacity of a node.</td>
+<td>Node&#x8282;&#x70B9;&#x7684;CPU&#x5BB9;&#x91CF;</td>
+</tr>
+<tr>
+<td></td>
+<td>cpu/node_allocatable</td>
+<td>Cpu allocatable of a node.</td>
+<td>Node&#x8282;&#x70B9;&#x53EF;&#x5206;&#x914D;&#x7684;CPU</td>
+</tr>
+<tr>
+<td></td>
+<td>cpu/node_reservation</td>
+<td>Share of cpu that is reserved on the node allocatable.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cpu/node_utilization</td>
+<td>CPU utilization as a share of node allocatable.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cpu/request</td>
+<td>CPU request (the guaranteed amount of resources) in millicores.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cpu/usage</td>
+<td>Cumulative CPU usage on all cores.</td>
+<td>CPU&#x603B;&#x4F7F;&#x7528;&#x91CF;</td>
+</tr>
+<tr>
+<td></td>
+<td>cpu/usage_rate</td>
+<td>CPU usage on all cores in millicores.</td>
+<td></td>
+</tr>
+<tr>
+<td>filesystem</td>
+<td>filesystem/usage</td>
+<td>Total number of bytes consumed on a filesystem.</td>
+<td>&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x4F7F;&#x7528;&#x91CF;</td>
+</tr>
+<tr>
+<td></td>
+<td>filesystem/limit</td>
+<td>The total size of filesystem in bytes.</td>
+<td>&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x7684;&#x4F7F;&#x7528;&#x4E0A;&#x9650;</td>
+</tr>
+<tr>
+<td></td>
+<td>filesystem/available</td>
+<td>The number of available bytes remaining in a the filesystem</td>
+<td>&#x53EF;&#x7528;&#x7684;&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x5BB9;&#x91CF;</td>
+</tr>
+<tr>
+<td></td>
+<td>filesystem/inodes</td>
+<td>The number of available inodes in a the filesystem</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>filesystem/inodes_free</td>
+<td>The number of free inodes remaining in a the filesystem</td>
+<td></td>
+</tr>
+<tr>
+<td>memory</td>
+<td>memory/limit</td>
+<td>Memory hard limit in bytes.</td>
+<td>&#x5185;&#x5B58;&#x4E0A;&#x9650;</td>
+</tr>
+<tr>
+<td></td>
+<td>memory/major_page_faults</td>
+<td>Number of major page faults.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>memory/major_page_faults_rate</td>
+<td>Number of major page faults per second.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>memory/node_capacity</td>
+<td>Memory capacity of a node.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>memory/node_allocatable</td>
+<td>Memory allocatable of a node.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>memory/node_reservation</td>
+<td>Share of memory that is reserved on the node allocatable.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>memory/node_utilization</td>
+<td>Memory utilization as a share of memory allocatable.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>memory/page_faults</td>
+<td>Number of page faults.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>memory/page_faults_rate</td>
+<td>Number of page faults per second.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>memory/request</td>
+<td>Memory request (the guaranteed amount of resources) in bytes.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>memory/usage</td>
+<td>Total memory usage.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>memory/cache</td>
+<td>Cache memory usage.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>memory/rss</td>
+<td>RSS memory usage.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>memory/working_set</td>
+<td>Total working set usage. Working set is the memory being used and not easily dropped by the kernel.</td>
+<td></td>
+</tr>
+<tr>
+<td>network</td>
+<td>network/rx</td>
+<td>Cumulative number of bytes received over the network.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>network/rx_errors</td>
+<td>Cumulative number of errors while receiving over the network.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>network/rx_errors_rate</td>
+<td>Number of errors while receiving over the network per second.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>network/rx_rate</td>
+<td>Number of bytes received over the network per second.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>network/tx</td>
+<td>Cumulative number of bytes sent over the network</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>network/tx_errors</td>
+<td>Cumulative number of errors while sending over the network</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>network/tx_errors_rate</td>
+<td>Number of errors while sending over the network</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>network/tx_rate</td>
+<td>Number of bytes sent over the network per second.</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>uptime</td>
+<td>Number of milliseconds since the container was started.</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-labels">4. Labels</h2>
+<table>
+<thead>
+<tr>
+<th>Label Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pod_id</td>
+<td>Unique ID of a Pod</td>
+</tr>
+<tr>
+<td>pod_name</td>
+<td>User-provided name of a Pod</td>
+</tr>
+<tr>
+<td>pod_namespace</td>
+<td>The namespace of a Pod</td>
+</tr>
+<tr>
+<td>container_base_image</td>
+<td>Base image for the container</td>
+</tr>
+<tr>
+<td>container_name</td>
+<td>User-provided name of the container or full cgroup name for system containers</td>
+</tr>
+<tr>
+<td>host_id</td>
+<td>Cloud-provider specified or user specified Identifier of a node</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>Hostname where the container ran</td>
+</tr>
+<tr>
+<td>labels</td>
+<td>Comma-separated(Default) list of user-provided labels. Format is &apos;key:value&apos;</td>
+</tr>
+<tr>
+<td>namespace_id</td>
+<td>UID of the namespace of a Pod</td>
+</tr>
+<tr>
+<td>resource_id</td>
+<td>A unique identifier used to differentiate multiple metrics of the same type. e.x. Fs partitions under filesystem/usage</td>
+</tr>
+</tbody>
+</table>
+<h2 id="5-heapster-api">5. heapster API</h2>
+<p>&#x89C1;&#x5B98;&#x65B9;&#x6587;&#x6863;&#xFF1A;<a href="https://github.com/kubernetes/heapster/blob/master/docs/model.md" target="_blank">https://github.com/kubernetes/heapster/blob/master/docs/model.md</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="cadvisor-introduction.html" class="navigation navigation-prev " aria-label="Previous page: 5.2. cAdvisor介绍">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="influxdb-introduction.html" class="navigation navigation-next " aria-label="Next page: 5.4. Influxdb介绍">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"5.3. Heapster介绍","catalog":true,"date":"2017-08-13T10:50:57.000Z","type":"categories","subtitle":null,"header-img":null,"tags":["Kubernetes"],"catagories":["Kubernetes"],"level":"1.6.3","depth":2,"next":{"title":"5.4. Influxdb介绍","level":"1.6.4","depth":2,"path":"monitor/influxdb-introduction.md","ref":"monitor/influxdb-introduction.md","articles":[]},"previous":{"title":"5.2. cAdvisor介绍","level":"1.6.2","depth":2,"path":"monitor/cadvisor-introduction.md","ref":"monitor/cadvisor-introduction.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"monitor/heapster-introduction.md","mtime":"2018-08-18T05:14:25.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-18T06:26:58.042Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

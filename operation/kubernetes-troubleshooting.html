@@ -1,0 +1,829 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>4.1. kubernetes集群问题排查 · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="nodeselector-and-taint.html" />
+    
+    
+    <link rel="prev" href="README.md" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../setup/README.md">
+            
+                <span>
+            
+                    
+                    1. 安装与配置
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../setup/install-k8s-by-kubespray.html">
+            
+                <a href="../setup/install-k8s-by-kubespray.html">
+            
+                    
+                    1.1. 使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../setup/install-k8s-by-minikube.html">
+            
+                <a href="../setup/install-k8s-by-minikube.html">
+            
+                    
+                    1.2. 使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../concepts/README.md">
+            
+                <span>
+            
+                    
+                    2. 基本概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../concepts/architecture/README.md">
+            
+                <span>
+            
+                    
+                    2.1. kubernetes架构
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                    2.1.1. Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                    2.1.2. 基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../concepts/object/README.md">
+            
+                <span>
+            
+                    
+                    2.2. kubernetes对象
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                    2.2.1. 理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                    2.2.2. kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../concepts/object/kubernetes-pod-introduction.html">
+            
+                <a href="../concepts/object/kubernetes-pod-introduction.html">
+            
+                    
+                    2.2.3. Pod详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../principle/README.md">
+            
+                <span>
+            
+                    
+                    3. 核心原理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../principle/kubernetes-core-principle-api-server.html">
+            
+                <a href="../principle/kubernetes-core-principle-api-server.html">
+            
+                    
+                    3.1. Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                <a href="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                    
+                    3.2. Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../principle/kubernetes-core-principle-scheduler.html">
+            
+                <a href="../principle/kubernetes-core-principle-scheduler.html">
+            
+                    
+                    3.3. Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../principle/kubernetes-core-principle-kubelet.html">
+            
+                <a href="../principle/kubernetes-core-principle-kubelet.html">
+            
+                    
+                    3.4. Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="README.md">
+            
+                <span>
+            
+                    
+                    4. 运维指南
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.5.1" data-path="kubernetes-troubleshooting.html">
+            
+                <a href="kubernetes-troubleshooting.html">
+            
+                    
+                    4.1. kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="nodeselector-and-taint.html">
+            
+                <a href="nodeselector-and-taint.html">
+            
+                    
+                    4.2. 指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../monitor/README.md">
+            
+                <span>
+            
+                    
+                    5. 监控体系
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../monitor/kubernetes-cluster-monitoring.html">
+            
+                <a href="../monitor/kubernetes-cluster-monitoring.html">
+            
+                    
+                    5.1. 监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../monitor/cadvisor-introduction.html">
+            
+                <a href="../monitor/cadvisor-introduction.html">
+            
+                    
+                    5.2. cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../monitor/heapster-introduction.html">
+            
+                <a href="../monitor/heapster-introduction.html">
+            
+                    
+                    5.3. Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../monitor/influxdb-introduction.html">
+            
+                <a href="../monitor/influxdb-introduction.html">
+            
+                    
+                    5.4. Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >4.1. kubernetes集群问题排查</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="1-&#x67E5;&#x770B;&#x7CFB;&#x7EDF;event&#x4E8B;&#x4EF6;">1. &#x67E5;&#x770B;&#x7CFB;&#x7EDF;Event&#x4E8B;&#x4EF6;</h2>
+<pre><code>kubectl describe pod &lt;PodName&gt; --namespace=&lt;NAMESPACE&gt;
+</code></pre><p>&#x8BE5;&#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x663E;&#x793A;Pod&#x521B;&#x5EFA;&#x65F6;&#x7684;&#x914D;&#x7F6E;&#x5B9A;&#x4E49;&#x3001;&#x72B6;&#x6001;&#x7B49;&#x4FE1;&#x606F;&#x548C;&#x6700;&#x8FD1;&#x7684;Event&#x4E8B;&#x4EF6;&#xFF0C;&#x4E8B;&#x4EF6;&#x4FE1;&#x606F;&#x53EF;&#x7528;&#x4E8E;&#x6392;&#x9519;&#x3002;&#x4F8B;&#x5982;&#x5F53;Pod&#x72B6;&#x6001;&#x4E3A;Pending&#xFF0C;&#x53EF;&#x901A;&#x8FC7;&#x67E5;&#x770B;Event&#x4E8B;&#x4EF6;&#x786E;&#x8BA4;&#x539F;&#x56E0;&#xFF0C;&#x4E00;&#x822C;&#x539F;&#x56E0;&#x6709;&#x51E0;&#x79CD;&#xFF1A;</p>
+<ul>
+<li>&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;Node&#x53EF;&#x8C03;&#x5EA6;</li>
+<li>&#x5F00;&#x542F;&#x4E86;&#x8D44;&#x6E90;&#x914D;&#x989D;&#x7BA1;&#x7406;&#x5E76;&#x4E14;&#x5F53;&#x524D;Pod&#x7684;&#x76EE;&#x6807;&#x8282;&#x70B9;&#x4E0A;&#x6070;&#x597D;&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;&#x8D44;&#x6E90;</li>
+<li>&#x6B63;&#x5728;&#x4E0B;&#x8F7D;&#x955C;&#x50CF;&#xFF08;&#x955C;&#x50CF;&#x62C9;&#x53D6;&#x8017;&#x65F6;&#x592A;&#x4E45;&#xFF09;&#x6216;&#x955C;&#x50CF;&#x4E0B;&#x8F7D;&#x5931;&#x8D25;&#x3002;</li>
+</ul>
+<p>kubectl describe&#x8FD8;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x5176;&#x5B83;k8s&#x5BF9;&#x8C61;&#xFF1A;NODE,RC,Service,Namespace,Secrets&#x3002;</p>
+<h3 id="11-pod">1.1. Pod</h3>
+<pre><code>kubectl describe pod &lt;PodName&gt; --namespace=&lt;NAMESPACE&gt;
+</code></pre><p>&#x4EE5;&#x4E0B;&#x662F;&#x5BB9;&#x5668;&#x7684;&#x542F;&#x52A8;&#x547D;&#x4EE4;&#x975E;&#x963B;&#x585E;&#x5F0F;&#x5BFC;&#x81F4;&#x5BB9;&#x5668;&#x6302;&#x6389;&#xFF0C;&#x88AB;k8s&#x9891;&#x7E41;&#x91CD;&#x542F;&#x6240;&#x4EA7;&#x751F;&#x7684;&#x4E8B;&#x4EF6;&#x3002;</p>
+<pre><code class="lang-shell">kubectl describe pod &lt;PodName&gt; --namespace=&lt;NAMESPACE&gt;  
+
+Events:
+  FirstSeen LastSeen    Count   From            SubobjectPath       Reason      Message
+  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;    &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;   &#x2500;&#x2500;&#x2500;&#x2500;            &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;       &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;      &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;
+  7m        7m      1   {scheduler }                    Scheduled   Successfully assigned yangsc-1-0-0-index0 to 10.8.216.19
+  7m        7m      1   {kubelet 10.8.216.19}   containers{infra}   Pulled      Container image &quot;gcr.io/kube-system/pause:0.8.0&quot; already present on machine
+  7m        7m      1   {kubelet 10.8.216.19}   containers{infra}   Created     Created with docker id 84f133c324d0
+  7m        7m      1   {kubelet 10.8.216.19}   containers{infra}   Started     Started with docker id 84f133c324d0
+  7m        7m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id 3f9f82abb145
+  7m        7m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id 3f9f82abb145
+  7m        7m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id fb112e4002f4
+  7m        7m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id fb112e4002f4
+  6m        6m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id 613b119d4474
+  6m        6m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id 613b119d4474
+  6m        6m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id 25cb68d1fd3d
+  6m        6m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id 25cb68d1fd3d
+  5m        5m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id 7d9ee8610b28
+  5m        5m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id 7d9ee8610b28
+  3m        3m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id 88b9e8d582dd
+  3m        3m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id 88b9e8d582dd
+  7m        1m      7   {kubelet 10.8.216.19}   containers{yangsc0} Pulling     Pulling image &quot;gcr.io/test/tcp-hello:1.0.0&quot;
+  1m        1m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id 089abff050e7
+  1m        1m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id 089abff050e7
+  7m        1m      7   {kubelet 10.8.216.19}   containers{yangsc0} Pulled      Successfully pulled image &quot;gcr.io/test/tcp-hello:1.0.0&quot;
+  6m        7s      34  {kubelet 10.8.216.19}   containers{yangsc0} Backoff     Back-off restarting failed docker container
+</code></pre>
+<h3 id="12-node">1.2. NODE</h3>
+<pre><code>kubectl describe node 10.8.216.20
+</code></pre><pre><code class="lang-shell">[root@FC-43745A-10 ~]# kubectl describe node 10.8.216.20  
+Name:           10.8.216.20  
+Labels:         kubernetes.io/hostname=10.8.216.20,namespace/bcs-cc=true,namespace/myview=true  
+CreationTimestamp:  Mon, 17 Apr 2017 11:32:52 +0800  
+Phase:            
+Conditions:  
+  Type      Status  LastHeartbeatTime           LastTransitionTime          Reason              Message  
+  &#x2500;&#x2500;&#x2500;&#x2500;      &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;           &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;          &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;              &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  
+  Ready     True    Fri, 18 Aug 2017 09:38:33 +0800     Tue, 02 May 2017 17:40:58 +0800     KubeletReady            kubelet is posting ready status  
+  OutOfDisk     False   Fri, 18 Aug 2017 09:38:33 +0800     Mon, 17 Apr 2017 11:31:27 +0800     KubeletHasSufficientDisk    kubelet has sufficient disk space available  
+Addresses:  10.8.216.20,10.8.216.20  
+Capacity:  
+ cpu:       32  
+ memory:    67323039744  
+ pods:      40  
+System Info:  
+ Machine ID:            723bafc7f6764022972b3eae1ce6b198  
+ System UUID:           4C4C4544-0042-4210-8044-C3C04F595631  
+ Boot ID:           da01f2e3-987a-425a-9ca7-1caaec35d1e5  
+ Kernel Version:        3.10.0-327.28.3.el7.x86_64  
+ OS Image:          CentOS Linux 7 (Core)  
+ Container Runtime Version: docker://1.13.1  
+ Kubelet Version:       v1.1.1-xxx2-13.1+79c90c68bfb72f-dirty  
+ Kube-Proxy Version:        v1.1.1-xxx2-13.1+79c90c68bfb72f-dirty  
+ExternalID:         10.8.216.20  
+Non-terminated Pods:        (6 in total)  
+  Namespace         Name                    CPU Requests    CPU Limits  Memory Requests Memory Limits  
+  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;         &#x2500;&#x2500;&#x2500;&#x2500;                    &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;    &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  
+  bcs-cc            bcs-cc-api-0-0-1364-index0      1 (3%)      1 (3%)      4294967296 (6%) 4294967296 (6%)  
+  bcs-cc            bcs-cc-api-0-0-1444-index0      1 (3%)      1 (3%)      4294967296 (6%) 4294967296 (6%)  
+  fw                fw-demo2-0-0-1519-index0        1 (3%)      1 (3%)      4294967296 (6%) 4294967296 (6%)  
+  myview            myview-api-0-0-1362-index0      1 (3%)      1 (3%)      4294967296 (6%) 4294967296 (6%)  
+  myview            myview-api-0-0-1442-index0      1 (3%)      1 (3%)      4294967296 (6%) 4294967296 (6%)  
+  qa-ts-dna         ts-dna-console3-0-0-1434-index0     1 (3%)      1 (3%)      4294967296 (6%) 4294967296 (6%)  
+Allocated resources:  
+  (Total limits may be over 100%, i.e., overcommitted. More info: http://releases.k8s.io/HEAD/docs/user-guide/compute-resources.md)  
+  CPU Requests  CPU Limits  Memory Requests     Memory Limits  
+  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;     &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  
+  6 (18%)   6 (18%)     25769803776 (38%)   25769803776 (38%)  
+No events.
+</code></pre>
+<h3 id="13-rc">1.3. RC</h3>
+<pre><code>kubectl describe rc mytest-1-0-0 --namespace=test
+</code></pre><pre><code class="lang-shell">[root@FC-43745A-10 ~]# kubectl describe rc mytest-1-0-0 --namespace=test  
+Name:       mytest-1-0-0  
+Namespace:  test  
+Image(s):   gcr.io/test/mywebcalculator:1.0.1  
+Selector:   app=mytest,appVersion=1.0.0  
+Labels:     app=mytest,appVersion=1.0.0,env=ts,zone=inner  
+Replicas:   1 current / 1 desired  
+Pods Status:    1 Running / 0 Waiting / 0 Succeeded / 0 Failed  
+No volumes.  
+Events:  
+  FirstSeen LastSeen    Count   From                SubobjectPath   Reason          Message  
+  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;    &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;   &#x2500;&#x2500;&#x2500;&#x2500;                &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;   &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;          &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  
+  20h       19h     9   {replication-controller }           FailedCreate        Error creating: Pod &quot;mytest-1-0-0-index0&quot; is forbidden: limited to 10 pods  
+  20h       17h     7   {replication-controller }           FailedCreate        Error creating: pods &quot;mytest-1-0-0-index0&quot; already exists  
+  20h       17h     4   {replication-controller }           SuccessfulCreate    Created pod: mytest-1-0-0-index0
+</code></pre>
+<h3 id="14-namespace">1.4. NAMESPACE</h3>
+<pre><code>kubectl describe namespace test
+</code></pre><pre><code class="lang-shell">[root@FC-43745A-10 ~]# kubectl describe namespace test  
+Name:   test  
+Labels: &lt;none&gt;  
+Status: Active  
+
+Resource Quotas  
+ Resource       Used        Hard  
+ ---            ---     ---  
+ cpu            5       20  
+ memory         1342177280  53687091200  
+ persistentvolumeclaims 0       10  
+ pods           4       10  
+ replicationcontrollers 8       20  
+ resourcequotas     1       1  
+ secrets        3       10  
+ services       8       20  
+
+No resource limits.
+</code></pre>
+<h3 id="15-service">1.5. Service</h3>
+<pre><code>kubectl describe service xxx-containers-1-1-0 --namespace=test
+</code></pre><pre><code class="lang-shell">[root@FC-43745A-10 ~]# kubectl describe service xxx-containers-1-1-0 --namespace=test  
+Name:           xxx-containers-1-1-0  
+Namespace:      test  
+Labels:         app=xxx-containers,appVersion=1.1.0,env=ts,zone=inner  
+Selector:       app=xxx-containers,appVersion=1.1.0  
+Type:           ClusterIP  
+IP:         10.254.46.42  
+Port:           port-dna-tcp-35913  35913/TCP  
+Endpoints:      10.0.92.17:35913  
+Port:           port-l7-tcp-8080    8080/TCP  
+Endpoints:      10.0.92.17:8080  
+Session Affinity:   None  
+No events.
+</code></pre>
+<h2 id="2-&#x67E5;&#x770B;&#x5BB9;&#x5668;&#x65E5;&#x5FD7;">2. &#x67E5;&#x770B;&#x5BB9;&#x5668;&#x65E5;&#x5FD7;</h2>
+<p>1&#x3001;&#x67E5;&#x770B;&#x6307;&#x5B9A;pod&#x7684;&#x65E5;&#x5FD7;</p>
+<pre><code class="lang-shell">kubectl logs &lt;pod_name&gt;
+
+kubectl logs -f &lt;pod_name&gt; #&#x7C7B;&#x4F3C;tail -f&#x7684;&#x65B9;&#x5F0F;&#x67E5;&#x770B;
+</code></pre>
+<p>2&#x3001;&#x67E5;&#x770B;&#x4E0A;&#x4E00;&#x4E2A;pod&#x7684;&#x65E5;&#x5FD7;</p>
+<pre><code>kubectl logs -p &lt;pod_name&gt;
+</code></pre><p>3&#x3001;&#x67E5;&#x770B;&#x6307;&#x5B9A;pod&#x4E2D;&#x6307;&#x5B9A;&#x5BB9;&#x5668;&#x7684;&#x65E5;&#x5FD7;</p>
+<pre><code>kubectl logs &lt;pod_name&gt; -c &lt;container_name&gt;
+</code></pre><p>4&#x3001;kubectl logs --help</p>
+<pre><code class="lang-shell">[root@node5 ~]# kubectl logs --help  
+Print the logs for a container in a pod. If the pod has only one container, the container name is optional.  
+Usage:  
+  kubectl logs [-f] [-p] POD [-c CONTAINER] [flags]  
+Aliases:  
+  logs, log  
+
+Examples:  
+# Return snapshot logs from pod nginx with only one container  
+$ kubectl logs nginx  
+# Return snapshot of previous terminated ruby container logs from pod web-1  
+$ kubectl logs -p -c ruby web-1  
+# Begin streaming the logs of the ruby container in pod web-1  
+$ kubectl logs -f -c ruby web-1  
+# Display only the most recent 20 lines of output in pod nginx  
+$ kubectl logs --tail=20 nginx  
+# Show all logs from pod nginx written in the last hour  
+$ kubectl logs --since=1h nginx
+</code></pre>
+<h2 id="3-&#x67E5;&#x770B;k8s&#x670D;&#x52A1;&#x65E5;&#x5FD7;">3. &#x67E5;&#x770B;k8s&#x670D;&#x52A1;&#x65E5;&#x5FD7;</h2>
+<h3 id="31-journalctl">3.1. journalctl</h3>
+<p>&#x5728;Linux&#x7CFB;&#x7EDF;&#x4E0A;systemd&#x7CFB;&#x7EDF;&#x6765;&#x7BA1;&#x7406;kubernetes&#x670D;&#x52A1;&#xFF0C;&#x5E76;&#x4E14;journal&#x7CFB;&#x7EDF;&#x4F1A;&#x63A5;&#x7BA1;&#x670D;&#x52A1;&#x7A0B;&#x5E8F;&#x7684;&#x8F93;&#x51FA;&#x65E5;&#x5FD7;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<strong>systemctl status <xxx>&#x6216;journalctl -u <xxx> -f</xxx></xxx></strong>&#x6765;&#x67E5;&#x770B;kubernetes&#x670D;&#x52A1;&#x7684;&#x65E5;&#x5FD7;&#x3002;</p>
+<p>&#x5176;&#x4E2D;kubernetes&#x7EC4;&#x4EF6;&#x5305;&#x62EC;&#xFF1A;</p>
+<table>
+<thead>
+<tr>
+<th>k8s&#x7EC4;&#x4EF6;</th>
+<th>&#x6D89;&#x53CA;&#x65E5;&#x5FD7;&#x5185;&#x5BB9;</th>
+<th>&#x5907;&#x6CE8;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kube-apiserver</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>kube-controller-manager</td>
+<td>Pod&#x6269;&#x5BB9;&#x76F8;&#x5173;&#x6216;RC&#x76F8;&#x5173;</td>
+<td></td>
+</tr>
+<tr>
+<td>kube-scheduler</td>
+<td>Pod&#x6269;&#x5BB9;&#x76F8;&#x5173;&#x6216;RC&#x76F8;&#x5173;</td>
+<td></td>
+</tr>
+<tr>
+<td>kubelet</td>
+<td>Pod&#x751F;&#x547D;&#x5468;&#x671F;&#x76F8;&#x5173;&#xFF1A;&#x521B;&#x5EFA;&#x3001;&#x505C;&#x6B62;&#x7B49;</td>
+<td></td>
+</tr>
+<tr>
+<td>etcd</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-&#x65E5;&#x5FD7;&#x6587;&#x4EF6;">3.2. &#x65E5;&#x5FD7;&#x6587;&#x4EF6;</h3>
+<p>&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x6307;&#x5B9A;&#x65E5;&#x5FD7;&#x5B58;&#x653E;&#x76EE;&#x5F55;&#x6765;&#x4FDD;&#x5B58;&#x548C;&#x67E5;&#x770B;&#x65E5;&#x5FD7;</p>
+<ul>
+<li>--logtostderr=false&#xFF1A;&#x4E0D;&#x8F93;&#x51FA;&#x5230;stderr</li>
+<li>--log-dir=/var/log/kubernetes:&#x65E5;&#x5FD7;&#x7684;&#x5B58;&#x653E;&#x76EE;&#x5F55;</li>
+<li>--alsologtostderr=false:&#x8BBE;&#x7F6E;&#x4E3A;true&#x8868;&#x793A;&#x65E5;&#x5FD7;&#x8F93;&#x51FA;&#x5230;&#x6587;&#x4EF6;&#x4E5F;&#x8F93;&#x51FA;&#x5230;stderr</li>
+<li>--v=0:glog&#x7684;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;</li>
+<li>--vmodule=gfs<em>=2,test</em>=4&#xFF1A;glog&#x57FA;&#x4E8E;&#x6A21;&#x5757;&#x7684;&#x8BE6;&#x7EC6;&#x65E5;&#x5FD7;&#x7EA7;&#x522B;</li>
+</ul>
+<h2 id="4-&#x5E38;&#x89C1;&#x95EE;&#x9898;">4. &#x5E38;&#x89C1;&#x95EE;&#x9898;</h2>
+<h3 id="41-pod&#x72B6;&#x6001;&#x4E00;&#x76F4;&#x4E3A;pending">4.1. Pod&#x72B6;&#x6001;&#x4E00;&#x76F4;&#x4E3A;Pending</h3>
+<pre><code>kubectl describe &lt;pod_name&gt; --namespace=&lt;NAMESPACE&gt;
+</code></pre><p>&#x67E5;&#x770B;&#x8BE5;POD&#x7684;&#x4E8B;&#x4EF6;&#x3002;</p>
+<ul>
+<li>&#x6B63;&#x5728;&#x4E0B;&#x8F7D;&#x955C;&#x50CF;&#x4F46;&#x62C9;&#x53D6;&#x4E0D;&#x4E0B;&#x6765;&#xFF08;&#x955C;&#x50CF;&#x62C9;&#x53D6;&#x8017;&#x65F6;&#x592A;&#x4E45;&#xFF09;[&#x4E00;&#x822C;&#x90FD;&#x662F;&#x8BE5;&#x539F;&#x56E0;]</li>
+<li>&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;Node&#x53EF;&#x8C03;&#x5EA6;</li>
+<li>&#x5F00;&#x542F;&#x4E86;&#x8D44;&#x6E90;&#x914D;&#x989D;&#x7BA1;&#x7406;&#x5E76;&#x4E14;&#x5F53;&#x524D;Pod&#x7684;&#x76EE;&#x6807;&#x8282;&#x70B9;&#x4E0A;&#x6070;&#x597D;&#x6CA1;&#x6709;&#x53EF;&#x7528;&#x7684;&#x8D44;&#x6E90;</li>
+</ul>
+<p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<ol>
+<li>&#x67E5;&#x770B;&#x8BE5;POD&#x6240;&#x5728;&#x5BBF;&#x4E3B;&#x673A;&#x4E0E;&#x955C;&#x50CF;&#x4ED3;&#x5E93;&#x4E4B;&#x95F4;&#x7684;&#x7F51;&#x7EDC;&#x662F;&#x5426;&#x6709;&#x95EE;&#x9898;&#xFF0C;&#x53EF;&#x4EE5;&#x624B;&#x52A8;&#x62C9;&#x53D6;&#x955C;&#x50CF;</li>
+<li>&#x5220;&#x9664;POD&#x5B9E;&#x4F8B;&#xFF0C;&#x8BA9;POD&#x8C03;&#x5EA6;&#x5230;&#x522B;&#x7684;&#x5BBF;&#x4E3B;&#x673A;&#x4E0A;</li>
+</ol>
+<h3 id="42-pod&#x521B;&#x5EFA;&#x540E;&#x4E0D;&#x65AD;&#x91CD;&#x542F;">4.2. Pod&#x521B;&#x5EFA;&#x540E;&#x4E0D;&#x65AD;&#x91CD;&#x542F;</h3>
+<p>kubectl get pods&#x4E2D;Pod&#x72B6;&#x6001;&#x4E00;&#x4F1A;running&#xFF0C;&#x4E00;&#x4F1A;&#x4E0D;&#x662F;&#xFF0C;&#x4E14;RESTARTS&#x6B21;&#x6570;&#x4E0D;&#x65AD;&#x589E;&#x52A0;&#x3002;</p>
+<p>&#x4E00;&#x822C;&#x539F;&#x56E0;&#x4E3A;&#x5BB9;&#x5668;&#x542F;&#x52A8;&#x547D;&#x4EE4;&#x4E0D;&#x662F;&#x963B;&#x585E;&#x5F0F;&#x547D;&#x4EE4;&#xFF0C;&#x5BFC;&#x81F4;&#x5BB9;&#x5668;&#x8FD0;&#x884C;&#x540E;&#x9A6C;&#x4E0A;&#x9000;&#x51FA;&#x3002;</p>
+<p>&#x975E;&#x963B;&#x585E;&#x5F0F;&#x547D;&#x4EE4;&#xFF1A;</p>
+<ul>
+<li>&#x672C;&#x8EAB;CMD&#x6307;&#x5B9A;&#x7684;&#x547D;&#x4EE4;&#x5C31;&#x662F;&#x975E;&#x963B;&#x585E;&#x5F0F;&#x547D;&#x4EE4;</li>
+<li>&#x5C06;&#x670D;&#x52A1;&#x542F;&#x52A8;&#x65B9;&#x5F0F;&#x8BBE;&#x7F6E;&#x4E3A;&#x540E;&#x53F0;&#x8FD0;&#x884C;</li>
+</ul>
+<p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<p>1&#x3001;&#x5C06;&#x547D;&#x4EE4;&#x6539;&#x4E3A;&#x963B;&#x585E;&#x5F0F;&#x547D;&#x4EE4;&#xFF08;&#x524D;&#x53F0;&#x8FD0;&#x884C;&#xFF09;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;<strong>zkServer.sh start-foreground</strong></p>
+<p>2&#x3001;java&#x8FD0;&#x884C;&#x7A0B;&#x5E8F;&#x7684;&#x542F;&#x52A8;&#x811A;&#x672C;&#x5C06; nohup xxx &amp;&#x7684;nobup&#x548C;&amp;&#x53BB;&#x6389;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;</p>
+<pre><code class="lang-shell">nohup JAVA_HOME/bin/java JAVA_OPTS -cp $CLASSPATH com.cnc.open.processor.Main &amp;
+</code></pre>
+<p>&#x6539;&#x4E3A;&#xFF1A;</p>
+<pre><code class="lang-shell">JAVA_HOME/bin/java JAVA_OPTS -cp $CLASSPATH com.cnc.open.processor.Main
+</code></pre>
+<p>&#x6587;&#x7AE0;&#x53C2;&#x8003;&#x300A;Kubernetes&#x6743;&#x5A01;&#x6307;&#x5357;&#x300B;</p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="README.md" class="navigation navigation-prev " aria-label="Previous page: 4. 运维指南">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="nodeselector-and-taint.html" class="navigation navigation-next " aria-label="Next page: 4.2. 指定Node调度与隔离">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"4.1. kubernetes集群问题排查","catalog":true,"date":"2017-09-20T10:50:57.000Z","type":"categories","subtitle":null,"header-img":null,"tags":["Kubernetes"],"catagories":["Kubernetes"],"level":"1.5.1","depth":2,"next":{"title":"4.2. 指定Node调度与隔离","level":"1.5.2","depth":2,"path":"operation/nodeselector-and-taint.md","ref":"operation/nodeselector-and-taint.md","articles":[]},"previous":{"title":"4. 运维指南","level":"1.5","depth":1,"path":"operation/README.md","ref":"operation/README.md","articles":[{"title":"4.1. kubernetes集群问题排查","level":"1.5.1","depth":2,"path":"operation/kubernetes-troubleshooting.md","ref":"operation/kubernetes-troubleshooting.md","articles":[]},{"title":"4.2. 指定Node调度与隔离","level":"1.5.2","depth":2,"path":"operation/nodeselector-and-taint.md","ref":"operation/nodeselector-and-taint.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"operation/kubernetes-troubleshooting.md","mtime":"2018-08-18T05:24:08.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-18T06:26:58.042Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

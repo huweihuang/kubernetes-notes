@@ -1,0 +1,1158 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>1.1. 使用kubespray安装kubernetes · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="install-k8s-by-minikube.html" />
+    
+    
+    <link rel="prev" href="README.md" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="README.md">
+            
+                <span>
+            
+                    
+                    1. 安装与配置
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.2.1" data-path="install-k8s-by-kubespray.html">
+            
+                <a href="install-k8s-by-kubespray.html">
+            
+                    
+                    1.1. 使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="install-k8s-by-minikube.html">
+            
+                <a href="install-k8s-by-minikube.html">
+            
+                    
+                    1.2. 使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../concepts/README.md">
+            
+                <span>
+            
+                    
+                    2. 基本概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../concepts/architecture/README.md">
+            
+                <span>
+            
+                    
+                    2.1. kubernetes架构
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                    2.1.1. Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                    2.1.2. 基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../concepts/object/README.md">
+            
+                <span>
+            
+                    
+                    2.2. kubernetes对象
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                    2.2.1. 理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                    2.2.2. kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../concepts/object/kubernetes-pod-introduction.html">
+            
+                <a href="../concepts/object/kubernetes-pod-introduction.html">
+            
+                    
+                    2.2.3. Pod详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../principle/README.md">
+            
+                <span>
+            
+                    
+                    3. 核心原理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../principle/kubernetes-core-principle-api-server.html">
+            
+                <a href="../principle/kubernetes-core-principle-api-server.html">
+            
+                    
+                    3.1. Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                <a href="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                    
+                    3.2. Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../principle/kubernetes-core-principle-scheduler.html">
+            
+                <a href="../principle/kubernetes-core-principle-scheduler.html">
+            
+                    
+                    3.3. Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../principle/kubernetes-core-principle-kubelet.html">
+            
+                <a href="../principle/kubernetes-core-principle-kubelet.html">
+            
+                    
+                    3.4. Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../operation/README.md">
+            
+                <span>
+            
+                    
+                    4. 运维指南
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../operation/kubernetes-troubleshooting.html">
+            
+                <a href="../operation/kubernetes-troubleshooting.html">
+            
+                    
+                    4.1. kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../operation/nodeselector-and-taint.html">
+            
+                <a href="../operation/nodeselector-and-taint.html">
+            
+                    
+                    4.2. 指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../monitor/README.md">
+            
+                <span>
+            
+                    
+                    5. 监控体系
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../monitor/kubernetes-cluster-monitoring.html">
+            
+                <a href="../monitor/kubernetes-cluster-monitoring.html">
+            
+                    
+                    5.1. 监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../monitor/cadvisor-introduction.html">
+            
+                <a href="../monitor/cadvisor-introduction.html">
+            
+                    
+                    5.2. cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../monitor/heapster-introduction.html">
+            
+                <a href="../monitor/heapster-introduction.html">
+            
+                    
+                    5.3. Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../monitor/influxdb-introduction.html">
+            
+                <a href="../monitor/influxdb-introduction.html">
+            
+                    
+                    5.4. Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >1.1. 使用kubespray安装kubernetes</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h2 id="1-&#x73AF;&#x5883;&#x51C6;&#x5907;">1. &#x73AF;&#x5883;&#x51C6;&#x5907;</h2>
+<h3 id="11-&#x90E8;&#x7F72;&#x673A;&#x5668;">1.1. &#x90E8;&#x7F72;&#x673A;&#x5668;</h3>
+<blockquote>
+<p>&#x4EE5;&#x4E0B;&#x673A;&#x5668;&#x4E3A;&#x865A;&#x62DF;&#x673A;</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>&#x673A;&#x5668;IP</th>
+<th>&#x4E3B;&#x673A;&#x540D;</th>
+<th>&#x89D2;&#x8272;</th>
+<th>&#x7CFB;&#x7EDF;&#x7248;&#x672C;</th>
+<th>&#x5907;&#x6CE8;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>172.16.94.140</td>
+<td>kube-master-0</td>
+<td>k8s master</td>
+<td>Centos 4.17.14</td>
+<td>&#x5185;&#x5B58;&#xFF1A;3G</td>
+</tr>
+<tr>
+<td>172.16.94.141</td>
+<td>kube-node-41</td>
+<td>k8s node</td>
+<td>Centos 4.17.14</td>
+<td>&#x5185;&#x5B58;&#xFF1A;3G</td>
+</tr>
+<tr>
+<td>172.16.94.142</td>
+<td>kube-node-42</td>
+<td>k8s node</td>
+<td>Centos 4.17.14</td>
+<td>&#x5185;&#x5B58;&#xFF1A;3G</td>
+</tr>
+<tr>
+<td>172.16.94.135</td>
+<td></td>
+<td>&#x90E8;&#x7F72;&#x7BA1;&#x7406;&#x673A;</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-&#x914D;&#x7F6E;&#x7BA1;&#x7406;&#x673A;">1.2. &#x914D;&#x7F6E;&#x7BA1;&#x7406;&#x673A;</h3>
+<p>&#x7BA1;&#x7406;&#x673A;&#x4E3B;&#x8981;&#x7528;&#x6765;&#x90E8;&#x7F72;k8s&#x96C6;&#x7FA4;&#xFF0C;&#x9700;&#x8981;&#x5B89;&#x88C5;&#x4EE5;&#x4E0B;&#x7248;&#x672C;&#x7684;&#x8F6F;&#x4EF6;&#xFF0C;&#x5177;&#x4F53;&#x53EF;&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><p><a href="https://github.com/kubernetes-incubator/kubespray#requirements" target="_blank">https://github.com/kubernetes-incubator/kubespray#requirements</a></p>
+</li>
+<li><p><a href="https://github.com/kubernetes-incubator/kubespray/blob/master/requirements.txt" target="_blank">https://github.com/kubernetes-incubator/kubespray/blob/master/requirements.txt</a></p>
+</li>
+</ul>
+<pre><code class="lang-shell">ansible&gt;=2.4.0
+jinja2&gt;=2.9.6
+netaddr
+pbr&gt;=1.6
+ansible-modules-hashivault&gt;=3.9.4
+hvac
+</code></pre>
+<p><strong>1&#x3001;&#x5B89;&#x88C5;&#x53CA;&#x914D;&#x7F6E;ansible</strong></p>
+<ul>
+<li>&#x53C2;&#x8003;<a href="https://blog.csdn.net/huwh_/article/details/81215579" target="_blank">ansible&#x7684;&#x4F7F;&#x7528;</a>&#x3002;</li>
+<li>&#x7ED9;&#x90E8;&#x7F72;&#x673A;&#x5668;&#x914D;&#x7F6E;SSH&#x7684;&#x514D;&#x5BC6;&#x767B;&#x5F55;&#x6743;&#x9650;&#xFF0C;&#x5177;&#x4F53;&#x53C2;&#x8003;<a href="https://blog.csdn.net/huwh_/article/details/78006127" target="_blank">ssh&#x514D;&#x5BC6;&#x767B;&#x5F55;</a>&#x3002;</li>
+</ul>
+<p><strong>2&#x3001;&#x5B89;&#x88C5;python-netaddr</strong></p>
+<pre><code class="lang-shell"># &#x5B89;&#x88C5;pip
+yum -y install epel-release
+yum -y install python-pip
+# &#x5B89;&#x88C5;python-netaddr
+pip install netaddr
+</code></pre>
+<p><strong>3&#x3001;&#x5347;&#x7EA7;Jinja</strong></p>
+<pre><code class="lang-shell"># Jinja 2.9 (or newer)
+pip install --upgrade jinja2
+</code></pre>
+<h3 id="13-&#x914D;&#x7F6E;&#x90E8;&#x7F72;&#x673A;&#x5668;">1.3. &#x914D;&#x7F6E;&#x90E8;&#x7F72;&#x673A;&#x5668;</h3>
+<p>&#x90E8;&#x7F72;&#x673A;&#x5668;&#x5373;&#x7528;&#x6765;&#x8FD0;&#x884C;k8s&#x96C6;&#x7FA4;&#x7684;&#x673A;&#x5668;&#xFF0C;&#x5305;&#x62EC;<code>Master</code>&#x548C;<code>Node</code>&#x3002;</p>
+<p><strong>1&#x3001;&#x786E;&#x8BA4;&#x7CFB;&#x7EDF;&#x7248;&#x672C;</strong></p>
+<p>&#x672C;&#x6587;&#x91C7;&#x7528;<code>centos7</code>&#x7684;&#x7CFB;&#x7EDF;&#xFF0C;&#x5EFA;&#x8BAE;&#x5C06;&#x7CFB;&#x7EDF;&#x5185;&#x6838;&#x5347;&#x7EA7;&#x5230;<code>4.x.x</code>&#x4EE5;&#x4E0A;&#x3002;</p>
+<p><strong>2&#x3001;&#x5173;&#x95ED;&#x9632;&#x706B;&#x5899;</strong></p>
+<pre><code class="lang-shell">systemctl stop firewalld
+systemctl disable firewalld
+iptables -F
+</code></pre>
+<p><strong>3&#x3001;&#x5173;&#x95ED;swap</strong></p>
+<p>Kubespary <code>v2.5.0</code>&#x7684;&#x7248;&#x672C;&#x9700;&#x8981;&#x5173;&#x95ED;swap&#xFF0C;&#x5177;&#x4F53;&#x53C2;&#x8003;</p>
+<ul>
+<li><a href="https://github.com/kubernetes-incubator/kubespray/blob/02cd5418c22d51e40261775908d55bc562206023/roles/kubernetes/preinstall/tasks/verify-settings.yml#L75" target="_blank">https://github.com/kubernetes-incubator/kubespray/blob/02cd5418c22d51e40261775908d55bc562206023/roles/kubernetes/preinstall/tasks/verify-settings.yml#L75</a></li>
+</ul>
+<pre><code class="lang-yaml"><span class="hljs-attr">- name:</span> Stop if swap enabled
+<span class="hljs-attr">  assert:</span>
+<span class="hljs-attr">    that:</span> ansible_swaptotal_mb == <span class="hljs-number">0</span>
+<span class="hljs-attr">  when:</span> kubelet_fail_swap_on|default(<span class="hljs-literal">true</span>)
+<span class="hljs-attr">  ignore_errors:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">{{ ignore_assert_errors }}</span>&quot;</span>
+</code></pre>
+<blockquote>
+<p><code>V2.6.0</code> &#x7248;&#x672C;&#x53BB;&#x9664;&#x4E86;swap&#x7684;&#x68C0;&#x67E5;&#xFF0C;&#x5177;&#x4F53;&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><a href="https://github.com/kubernetes-incubator/kubespray/commit/b902602d161f8c147f3d155d2ac5360244577127#diff-b92ae64dd18d34a96fbeb7f7e48a6a9b" target="_blank">https://github.com/kubernetes-incubator/kubespray/commit/b902602d161f8c147f3d155d2ac5360244577127#diff-b92ae64dd18d34a96fbeb7f7e48a6a9b</a></li>
+</ul>
+</blockquote>
+<p>&#x6267;&#x884C;&#x5173;&#x95ED;swap&#x547D;&#x4EE4;<code>swapoff -a</code>&#x3002;</p>
+<pre><code class="lang-shell">[root@master ~]#swapoff -a
+[root@master ~]#
+[root@master ~]# free -m
+              total        used        free      shared  buff/cache   available
+Mem:            976         366         135           6         474         393
+Swap:             0           0           0
+
+# swap &#x4E00;&#x680F;&#x4E3A;0&#xFF0C;&#x8868;&#x793A;&#x5DF2;&#x7ECF;&#x5173;&#x95ED;&#x4E86;swap
+</code></pre>
+<p><strong>4&#x3001;&#x786E;&#x8BA4;&#x90E8;&#x7F72;&#x673A;&#x5668;&#x5185;&#x5B58;</strong></p>
+<p>&#x7531;&#x4E8E;&#x672C;&#x6587;&#x91C7;&#x7528;&#x865A;&#x62DF;&#x673A;&#x90E8;&#x7F72;&#xFF0C;&#x5185;&#x5B58;&#x53EF;&#x80FD;&#x5B58;&#x5728;&#x4E0D;&#x8DB3;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x56E0;&#x6B64;&#x5C06;&#x865A;&#x62DF;&#x673A;&#x5185;&#x5B58;&#x8C03;&#x6574;&#x4E3A;3G&#x6216;&#x4EE5;&#x4E0A;&#xFF1B;&#x5982;&#x679C;&#x662F;&#x7269;&#x7406;&#x673A;&#x4E00;&#x822C;&#x4E0D;&#x4F1A;&#x6709;&#x5185;&#x5B58;&#x4E0D;&#x8DB3;&#x7684;&#x95EE;&#x9898;&#x3002;&#x5177;&#x4F53;&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><a href="https://github.com/kubernetes-incubator/kubespray/blob/95f1e4634a1c50fa77312d058a2b713353f4307e/roles/kubernetes/preinstall/tasks/verify-settings.yml#L52" target="_blank">https://github.com/kubernetes-incubator/kubespray/blob/95f1e4634a1c50fa77312d058a2b713353f4307e/roles/kubernetes/preinstall/tasks/verify-settings.yml#L52</a></li>
+</ul>
+<pre><code class="lang-yaml"><span class="hljs-attr">- name:</span> Stop if memory is too small for masters
+<span class="hljs-attr">  assert:</span>
+<span class="hljs-attr">    that:</span> ansible_memtotal_mb &gt;= <span class="hljs-number">1500</span>
+<span class="hljs-attr">  ignore_errors:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">{{ ignore_assert_errors }}</span>&quot;</span>
+<span class="hljs-attr">  when:</span> inventory_hostname in groups[<span class="hljs-string">&apos;kube-master&apos;</span>]
+
+<span class="hljs-attr">- name:</span> Stop if memory is too small for nodes
+<span class="hljs-attr">  assert:</span>
+<span class="hljs-attr">    that:</span> ansible_memtotal_mb &gt;= <span class="hljs-number">1024</span>
+<span class="hljs-attr">  ignore_errors:</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">{{ ignore_assert_errors }}</span>&quot;</span>
+<span class="hljs-attr">  when:</span> inventory_hostname in groups[<span class="hljs-string">&apos;kube-node&apos;</span>]
+</code></pre>
+<h3 id="14-&#x6D89;&#x53CA;&#x955C;&#x50CF;">1.4. &#x6D89;&#x53CA;&#x955C;&#x50CF;</h3>
+<p><code>Docker</code>&#x7248;&#x672C;&#x4E3A;<code>17.03.2-ce</code>&#x3002;</p>
+<p><strong>1&#x3001;Master&#x8282;&#x70B9;</strong></p>
+<table>
+<thead>
+<tr>
+<th>&#x955C;&#x50CF;</th>
+<th>&#x7248;&#x672C;</th>
+<th>&#x5927;&#x5C0F;</th>
+<th>&#x955C;&#x50CF;ID</th>
+<th>&#x5907;&#x6CE8;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gcr.io/google-containers/hyperkube</td>
+<td>v1.9.5</td>
+<td>620 MB</td>
+<td>a7e7fdbc5fee</td>
+<td>k8s</td>
+</tr>
+<tr>
+<td>quay.io/coreos/etcd</td>
+<td>v3.2.4</td>
+<td>35.7 MB</td>
+<td>498ffffcfd05</td>
+<td></td>
+</tr>
+<tr>
+<td>gcr.io/google_containers/pause-amd64</td>
+<td>3.0</td>
+<td>747 kB</td>
+<td>99e59f495ffa</td>
+<td></td>
+</tr>
+<tr>
+<td>quay.io/calico/node</td>
+<td>v2.6.8</td>
+<td>282 MB</td>
+<td>e96a297310fd</td>
+<td>calico</td>
+</tr>
+<tr>
+<td>quay.io/calico/cni</td>
+<td>v1.11.4</td>
+<td>70.8 MB</td>
+<td>4c4cb67d7a88</td>
+<td>calico</td>
+</tr>
+<tr>
+<td>quay.io/calico/ctl</td>
+<td>v1.6.3</td>
+<td>44.4 MB</td>
+<td>46d3aace8bc6</td>
+<td>calico</td>
+</tr>
+</tbody>
+</table>
+<p><strong>2&#x3001;Node&#x8282;&#x70B9;</strong></p>
+<table>
+<thead>
+<tr>
+<th>&#x955C;&#x50CF;</th>
+<th>&#x7248;&#x672C;</th>
+<th>&#x5927;&#x5C0F;</th>
+<th>&#x955C;&#x50CF;ID</th>
+<th>&#x5907;&#x6CE8;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gcr.io/google-containers/hyperkube</td>
+<td>v1.9.5</td>
+<td>620 MB</td>
+<td>a7e7fdbc5fee</td>
+<td>k8s</td>
+</tr>
+<tr>
+<td>gcr.io/google_containers/pause-amd64</td>
+<td>3.0</td>
+<td>747 kB</td>
+<td>99e59f495ffa</td>
+<td></td>
+</tr>
+<tr>
+<td>quay.io/calico/node</td>
+<td>v2.6.8</td>
+<td>282 MB</td>
+<td>e96a297310fd</td>
+<td>calico</td>
+</tr>
+<tr>
+<td>quay.io/calico/cni</td>
+<td>v1.11.4</td>
+<td>70.8 MB</td>
+<td>4c4cb67d7a88</td>
+<td>calico</td>
+</tr>
+<tr>
+<td>quay.io/calico/ctl</td>
+<td>v1.6.3</td>
+<td>44.4 MB</td>
+<td>46d3aace8bc6</td>
+<td>calico</td>
+</tr>
+<tr>
+<td>gcr.io/google_containers/k8s-dns-dnsmasq-nanny-amd64</td>
+<td>1.14.8</td>
+<td>40.9 MB</td>
+<td>c2ce1ffb51ed</td>
+<td>dns</td>
+</tr>
+<tr>
+<td>gcr.io/google_containers/k8s-dns-sidecar-amd64</td>
+<td>1.14.8</td>
+<td>42.2 MB</td>
+<td>6f7f2dc7fab5</td>
+<td>dns</td>
+</tr>
+<tr>
+<td>gcr.io/google_containers/k8s-dns-kube-dns-amd64</td>
+<td>1.14.8</td>
+<td>50.5 MB</td>
+<td>80cc5ea4b547</td>
+<td>dns</td>
+</tr>
+<tr>
+<td>gcr.io/google_containers/cluster-proportional-autoscaler-amd64</td>
+<td>1.1.2</td>
+<td>50.5 MB</td>
+<td>78cf3f492e6b</td>
+<td></td>
+</tr>
+<tr>
+<td>gcr.io/google_containers/kubernetes-dashboard-amd64</td>
+<td>v1.8.3</td>
+<td>102 MB</td>
+<td>0c60bcf89900</td>
+<td>dashboard</td>
+</tr>
+<tr>
+<td>nginx</td>
+<td>1.13</td>
+<td>109 MB</td>
+<td>ae513a47849c</td>
+</tr>
+</tbody>
+</table>
+<p><strong>3&#x3001;&#x8BF4;&#x660E;</strong></p>
+<ul>
+<li>&#x955C;&#x50CF;&#x88AB;&#x5899;&#x5E76;&#x4E14;&#x5168;&#x90E8;&#x955C;&#x50CF;&#x4E0B;&#x8F7D;&#x9700;&#x8981;&#x8F83;&#x591A;&#x65F6;&#x95F4;&#xFF0C;&#x5EFA;&#x8BAE;&#x63D0;&#x524D;&#x4E0B;&#x8F7D;&#x5230;&#x90E8;&#x7F72;&#x673A;&#x5668;&#x4E0A;&#x3002;</li>
+<li>hyperkube&#x955C;&#x50CF;&#x4E3B;&#x8981;&#x7528;&#x6765;&#x8FD0;&#x884C;k8s&#x6838;&#x5FC3;&#x7EC4;&#x4EF6;&#xFF08;&#x4F8B;&#x5982;kube-apiserver&#x7B49;&#xFF09;&#x3002;</li>
+<li>&#x6B64;&#x5904;&#x4F7F;&#x7528;&#x7684;&#x7F51;&#x7EDC;&#x7EC4;&#x4EF6;&#x4E3A;calico&#x3002;</li>
+</ul>
+<h2 id="2-&#x90E8;&#x7F72;&#x96C6;&#x7FA4;">2. &#x90E8;&#x7F72;&#x96C6;&#x7FA4;</h2>
+<h3 id="21-&#x4E0B;&#x8F7D;kubespary&#x7684;&#x6E90;&#x7801;">2.1. &#x4E0B;&#x8F7D;kubespary&#x7684;&#x6E90;&#x7801;</h3>
+<pre><code class="lang-shell">git clone https://github.com/kubernetes-incubator/kubespray.git
+</code></pre>
+<h3 id="22-&#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6;">2.2. &#x7F16;&#x8F91;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</h3>
+<h4 id="221-hostsini">2.2.1. hosts.ini</h4>
+<p><code>hosts.ini</code>&#x4E3B;&#x8981;&#x4E3A;&#x90E8;&#x7F72;&#x8282;&#x70B9;&#x673A;&#x5668;&#x4FE1;&#x606F;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x8DEF;&#x5F84;&#x4E3A;&#xFF1A;<code>kubespray/inventory/sample/hosts.ini</code>&#x3002;</p>
+<pre><code class="lang-shell">cd kubespray
+# &#x590D;&#x5236;&#x4E00;&#x4EFD;&#x914D;&#x7F6E;&#x8FDB;&#x884C;&#x4FEE;&#x6539;
+cp -rfp inventory/sample inventory/k8s
+vi inventory/k8s/hosts.ini
+</code></pre>
+<p>&#x4F8B;&#x5982;&#xFF1A;</p>
+<blockquote>
+<p>hosts.ini&#x6587;&#x4EF6;&#x53EF;&#x4EE5;&#x586B;&#x5199;&#x90E8;&#x7F72;&#x673A;&#x5668;&#x7684;&#x767B;&#x5F55;&#x5BC6;&#x7801;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4E0D;&#x586B;&#x5BC6;&#x7801;&#x800C;&#x8BBE;&#x7F6E;ssh&#x7684;&#x514D;&#x5BC6;&#x767B;&#x5F55;&#x3002;</p>
+</blockquote>
+<pre><code class="lang-shell">## Configure &apos;ip&apos; variable to bind kubernetes services on a
+## different ip than the default iface
+## &#x4E3B;&#x673A;&#x540D;             ssh&#x767B;&#x9646;IP                        ssh&#x7528;&#x6237;&#x540D;               ssh&#x767B;&#x9646;&#x5BC6;&#x7801;                 &#x673A;&#x5668;IP          &#x5B50;&#x7F51;&#x63A9;&#x7801;
+kube-master-0     ansible_ssh_host=172.16.94.140   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.140   mask=/24
+kube-node-41      ansible_ssh_host=172.16.94.141   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.141   mask=/24
+kube-node-42      ansible_ssh_host=172.16.94.142   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.142   mask=/24
+
+## configure a bastion host if your nodes are not directly reachable
+# bastion ansible_ssh_host=x.x.x.x
+
+[kube-master]
+kube-master-0
+
+[etcd]
+kube-master-0
+
+[kube-node]
+kube-node-41
+kube-node-42
+
+[k8s-cluster:children]
+kube-node
+kube-master
+
+[calico-rr]
+</code></pre>
+<h4 id="222-k8s-clusteryml">2.2.2. k8s-cluster.yml</h4>
+<p><code>k8s-cluster.yml</code>&#x4E3B;&#x8981;&#x4E3A;k8s&#x96C6;&#x7FA4;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x8DEF;&#x5F84;&#x4E3A;&#xFF1A;<code>kubespray/inventory/k8s/group_vars/k8s-cluster.yml</code>&#x3002;&#x8BE5;&#x6587;&#x4EF6;&#x53EF;&#x4EE5;&#x4FEE;&#x6539;&#x5B89;&#x88C5;&#x7684;k8s&#x96C6;&#x7FA4;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x53C2;&#x6570;&#x4E3A;&#xFF1A;kube_version: v1.9.5&#x3002;&#x5177;&#x4F53;&#x53EF;&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><a href="https://github.com/kubernetes-incubator/kubespray/blob/master/inventory/sample/group_vars/k8s-cluster.yml#L22" target="_blank">https://github.com/kubernetes-incubator/kubespray/blob/master/inventory/sample/group_vars/k8s-cluster.yml#L22</a></li>
+</ul>
+<h3 id="23-&#x6267;&#x884C;&#x90E8;&#x7F72;&#x64CD;&#x4F5C;">2.3. &#x6267;&#x884C;&#x90E8;&#x7F72;&#x64CD;&#x4F5C;</h3>
+<pre><code class="lang-shell"># &#x8FDB;&#x5165;&#x4E3B;&#x76EE;&#x5F55;
+cd kubespray
+# &#x6267;&#x884C;&#x90E8;&#x7F72;&#x547D;&#x4EE4;
+ansible-playbook -i inventory/k8s/hosts.ini cluster.yml -b -vvv
+</code></pre>
+<blockquote>
+<p>-vvv &#x53C2;&#x6570;&#x8868;&#x793A;&#x8F93;&#x51FA;&#x8FD0;&#x884C;&#x65E5;&#x5FD7;</p>
+</blockquote>
+<p>&#x5982;&#x679C;&#x9700;&#x8981;<code>&#x91CD;&#x7F6E;</code>&#x53EF;&#x4EE5;&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#xFF1A;</p>
+<pre><code class="lang-shell">ansible-playbook -i inventory/k8s/hosts.ini reset.yml -b -vvv
+</code></pre>
+<h2 id="3-&#x786E;&#x8BA4;&#x90E8;&#x7F72;&#x7ED3;&#x679C;">3. &#x786E;&#x8BA4;&#x90E8;&#x7F72;&#x7ED3;&#x679C;</h2>
+<h3 id="31-ansible&#x7684;&#x90E8;&#x7F72;&#x7ED3;&#x679C;">3.1. ansible&#x7684;&#x90E8;&#x7F72;&#x7ED3;&#x679C;</h3>
+<p>ansible&#x547D;&#x4EE4;&#x6267;&#x884C;&#x5B8C;&#xFF0C;&#x51FA;&#x73B0;&#x4EE5;&#x4E0B;&#x65E5;&#x5FD7;&#xFF0C;&#x5219;&#x8BF4;&#x660E;&#x90E8;&#x7F72;&#x6210;&#x529F;&#xFF0C;&#x5426;&#x5219;&#x6839;&#x636E;&#x62A5;&#x9519;&#x5185;&#x5BB9;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#x3002;</p>
+<pre><code class="lang-shell">PLAY RECAP *****************************************************************************
+kube-master-0              : ok=309  changed=30   unreachable=0    failed=0
+kube-node-41               : ok=203  changed=8    unreachable=0    failed=0
+kube-node-42               : ok=203  changed=8    unreachable=0    failed=0
+localhost                  : ok=2    changed=0    unreachable=0    failed=0
+</code></pre>
+<p>&#x4EE5;&#x4E0B;&#x4E3A;&#x90E8;&#x5206;&#x90E8;&#x7F72;&#x6267;&#x884C;&#x65E5;&#x5FD7;&#xFF1A;</p>
+<pre><code class="lang-shell">kubernetes/preinstall : Update package management cache (YUM) --------------------23.96s
+/root/gopath/src/kubespray/roles/kubernetes/preinstall/tasks/main.yml:121 
+kubernetes/master : Master | wait for the apiserver to be running ----------------23.44s
+/root/gopath/src/kubespray/roles/kubernetes/master/handlers/main.yml:79 
+kubernetes/preinstall : Install packages requirements ----------------------------20.20s
+/root/gopath/src/kubespray/roles/kubernetes/preinstall/tasks/main.yml:203 
+kubernetes/secrets : Check certs | check if a cert already exists on node --------13.94s
+/root/gopath/src/kubespray/roles/kubernetes/secrets/tasks/check-certs.yml:17 
+gather facts from all instances --------------------------------------------------9.98s
+/root/gopath/src/kubespray/cluster.yml:25 
+kubernetes/node : install | Compare host kubelet with hyperkube container --------9.66s
+/root/gopath/src/kubespray/roles/kubernetes/node/tasks/install_host.yml:2 
+kubernetes-apps/ansible : Kubernetes Apps | Start Resources -----------------------9.27s
+/root/gopath/src/kubespray/roles/kubernetes-apps/ansible/tasks/main.yml:37 
+kubernetes-apps/ansible : Kubernetes Apps | Lay Down KubeDNS Template ------------8.47s
+/root/gopath/src/kubespray/roles/kubernetes-apps/ansible/tasks/kubedns.yml:3
+download : Sync container ---------------------------------------------------------8.23s
+/root/gopath/src/kubespray/roles/download/tasks/main.yml:15 
+kubernetes-apps/network_plugin/calico : Start Calico resources --------------------7.82s
+/root/gopath/src/kubespray/roles/kubernetes-apps/network_plugin/calico/tasks/main.yml:2 
+download : Download items ---------------------------------------------------------7.67s
+/root/gopath/src/kubespray/roles/download/tasks/main.yml:6 
+download : Download items ---------------------------------------------------------7.48s
+/root/gopath/src/kubespray/roles/download/tasks/main.yml:6 
+download : Sync container ---------------------------------------------------------7.35s
+/root/gopath/src/kubespray/roles/download/tasks/main.yml:15 
+download : Download items ---------------------------------------------------------7.16s
+/root/gopath/src/kubespray/roles/download/tasks/main.yml:6 
+network_plugin/calico : Calico | Copy cni plugins from calico/cni container -------7.10s
+/root/gopath/src/kubespray/roles/network_plugin/calico/tasks/main.yml:62 
+download : Download items ---------------------------------------------------------7.04s
+/root/gopath/src/kubespray/roles/download/tasks/main.yml:6
+download : Download items ---------------------------------------------------------7.01s
+/root/gopath/src/kubespray/roles/download/tasks/main.yml:6 
+download : Sync container ---------------------------------------------------------7.00s
+/root/gopath/src/kubespray/roles/download/tasks/main.yml:15 
+download : Download items ---------------------------------------------------------6.98s
+/root/gopath/src/kubespray/roles/download/tasks/main.yml:6 
+download : Download items ---------------------------------------------------------6.79s
+/root/gopath/src/kubespray/roles/download/tasks/main.yml:6
+</code></pre>
+<h3 id="32-k8s&#x96C6;&#x7FA4;&#x8FD0;&#x884C;&#x7ED3;&#x679C;">3.2. k8s&#x96C6;&#x7FA4;&#x8FD0;&#x884C;&#x7ED3;&#x679C;</h3>
+<p><strong>1&#x3001;k8s&#x7EC4;&#x4EF6;&#x4FE1;&#x606F;</strong></p>
+<pre><code class="lang-shell"># kubectl get all --namespace=kube-system
+NAME             DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+ds/calico-node   3         3         3         3            3           &lt;none&gt;          2h
+
+NAME                          DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deploy/kube-dns               2         2         2            2           2h
+deploy/kubedns-autoscaler     1         1         1            1           2h
+deploy/kubernetes-dashboard   1         1         1            1           2h
+
+NAME                                 DESIRED   CURRENT   READY     AGE
+rs/kube-dns-79d99cdcd5               2         2         2         2h
+rs/kubedns-autoscaler-5564b5585f     1         1         1         2h
+rs/kubernetes-dashboard-69cb58d748   1         1         1         2h
+
+NAME             DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+ds/calico-node   3         3         3         3            3           &lt;none&gt;          2h
+
+NAME                          DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deploy/kube-dns               2         2         2            2           2h
+deploy/kubedns-autoscaler     1         1         1            1           2h
+deploy/kubernetes-dashboard   1         1         1            1           2h
+
+NAME                                 DESIRED   CURRENT   READY     AGE
+rs/kube-dns-79d99cdcd5               2         2         2         2h
+rs/kubedns-autoscaler-5564b5585f     1         1         1         2h
+rs/kubernetes-dashboard-69cb58d748   1         1         1         2h
+
+NAME                                       READY     STATUS    RESTARTS   AGE
+po/calico-node-22vsg                       1/1       Running   0          2h
+po/calico-node-t7zgw                       1/1       Running   0          2h
+po/calico-node-zqnx8                       1/1       Running   0          2h
+po/kube-apiserver-kube-master-0            1/1       Running   0          22h
+po/kube-controller-manager-kube-master-0   1/1       Running   0          2h
+po/kube-dns-79d99cdcd5-f2t6t               3/3       Running   0          2h
+po/kube-dns-79d99cdcd5-gw944               3/3       Running   0          2h
+po/kube-proxy-kube-master-0                1/1       Running   2          22h
+po/kube-proxy-kube-node-41                 1/1       Running   3          22h
+po/kube-proxy-kube-node-42                 1/1       Running   3          22h
+po/kube-scheduler-kube-master-0            1/1       Running   0          2h
+po/kubedns-autoscaler-5564b5585f-lt9bb     1/1       Running   0          2h
+po/kubernetes-dashboard-69cb58d748-wmb9x   1/1       Running   0          2h
+po/nginx-proxy-kube-node-41                1/1       Running   3          22h
+po/nginx-proxy-kube-node-42                1/1       Running   3          22h
+
+NAME                       TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)         AGE
+svc/kube-dns               ClusterIP   10.233.0.3     &lt;none&gt;        53/UDP,53/TCP   2h
+svc/kubernetes-dashboard   ClusterIP   10.233.27.24   &lt;none&gt;        443/TCP         2h
+</code></pre>
+<p><strong>2&#x3001;k8s&#x8282;&#x70B9;&#x4FE1;&#x606F;</strong></p>
+<pre><code class="lang-shell"># kubectl get nodes
+NAME            STATUS    ROLES     AGE       VERSION
+kube-master-0   Ready     master    22h       v1.9.5
+kube-node-41    Ready     node      22h       v1.9.5
+kube-node-42    Ready     node      22h       v1.9.5
+</code></pre>
+<p><strong>3&#x3001;&#x7EC4;&#x4EF6;&#x5065;&#x5EB7;&#x4FE1;&#x606F;</strong></p>
+<pre><code class="lang-shell"># kubectl get cs
+NAME                 STATUS    MESSAGE              ERROR
+scheduler            Healthy   ok
+controller-manager   Healthy   ok
+etcd-0               Healthy   {&quot;health&quot;: &quot;true&quot;}
+</code></pre>
+<h2 id="4-troubles-shooting">4. troubles shooting</h2>
+<p>&#x5728;&#x4F7F;&#x7528;kubespary&#x90E8;&#x7F72;k8s&#x96C6;&#x7FA4;&#x65F6;&#xFF0C;&#x4E3B;&#x8981;&#x9047;&#x5230;&#x4EE5;&#x4E0B;&#x62A5;&#x9519;&#x3002;</p>
+<h3 id="41-python-netaddr&#x672A;&#x5B89;&#x88C5;">4.1. python-netaddr&#x672A;&#x5B89;&#x88C5;</h3>
+<ul>
+<li>&#x62A5;&#x9519;&#x5185;&#x5BB9;&#xFF1A;</li>
+</ul>
+<pre><code class="lang-shell">fatal: [node1]: FAILED! =&gt; {&quot;failed&quot;: true, &quot;msg&quot;: &quot;The ipaddr filter requires python-netaddr be installed on the ansible controller&quot;}
+</code></pre>
+<ul>
+<li>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;</li>
+</ul>
+<p>&#x9700;&#x8981;&#x5B89;&#x88C5; python-netaddr&#xFF0C;&#x5177;&#x4F53;&#x53C2;&#x8003;&#x4E0A;&#x8FF0;[&#x73AF;&#x5883;&#x51C6;&#x5907;]&#x5185;&#x5BB9;&#x3002;</p>
+<h3 id="42-swap&#x672A;&#x5173;&#x95ED;">4.2. swap&#x672A;&#x5173;&#x95ED;</h3>
+<ul>
+<li>&#x62A5;&#x9519;&#x5185;&#x5BB9;&#xFF1A;</li>
+</ul>
+<pre><code class="lang-shell">fatal: [kube-master-0]: FAILED! =&gt; {
+    &quot;assertion&quot;: &quot;ansible_swaptotal_mb == 0&quot;,
+    &quot;changed&quot;: false,
+    &quot;evaluated_to&quot;: false
+}
+fatal: [kube-node-41]: FAILED! =&gt; {
+    &quot;assertion&quot;: &quot;ansible_swaptotal_mb == 0&quot;,
+    &quot;changed&quot;: false,
+    &quot;evaluated_to&quot;: false
+}
+fatal: [kube-node-42]: FAILED! =&gt; {
+    &quot;assertion&quot;: &quot;ansible_swaptotal_mb == 0&quot;,
+    &quot;changed&quot;: false,
+    &quot;evaluated_to&quot;: false
+}
+</code></pre>
+<ul>
+<li>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;</li>
+</ul>
+<p>&#x6240;&#x6709;&#x90E8;&#x7F72;&#x673A;&#x5668;&#x6267;&#x884C;<code>swapoff -a</code>&#x5173;&#x95ED;swap&#xFF0C;&#x5177;&#x4F53;&#x53C2;&#x8003;&#x4E0A;&#x8FF0;[&#x73AF;&#x5883;&#x51C6;&#x5907;]&#x5185;&#x5BB9;&#x3002;</p>
+<h3 id="43-&#x90E8;&#x7F72;&#x673A;&#x5668;&#x5185;&#x5B58;&#x8FC7;&#x5C0F;">4.3. &#x90E8;&#x7F72;&#x673A;&#x5668;&#x5185;&#x5B58;&#x8FC7;&#x5C0F;</h3>
+<ul>
+<li>&#x62A5;&#x9519;&#x5185;&#x5BB9;&#xFF1A;</li>
+</ul>
+<pre><code class="lang-shell">TASK [kubernetes/preinstall : Stop if memory is too small for masters] *********************************************************************************************************************************************************************************************************
+task path: /root/gopath/src/kubespray/roles/kubernetes/preinstall/tasks/verify-settings.yml:52
+Friday 10 August 2018  21:50:26 +0800 (0:00:00.940)       0:01:14.088 *********
+fatal: [kube-master-0]: FAILED! =&gt; {
+    &quot;assertion&quot;: &quot;ansible_memtotal_mb &gt;= 1500&quot;,
+    &quot;changed&quot;: false,
+    &quot;evaluated_to&quot;: false
+}
+
+TASK [kubernetes/preinstall : Stop if memory is too small for nodes] ***********************************************************************************************************************************************************************************************************
+task path: /root/gopath/src/kubespray/roles/kubernetes/preinstall/tasks/verify-settings.yml:58
+Friday 10 August 2018  21:50:27 +0800 (0:00:00.570)       0:01:14.659 *********
+fatal: [kube-node-41]: FAILED! =&gt; {
+    &quot;assertion&quot;: &quot;ansible_memtotal_mb &gt;= 1024&quot;,
+    &quot;changed&quot;: false,
+    &quot;evaluated_to&quot;: false
+}
+fatal: [kube-node-42]: FAILED! =&gt; {
+    &quot;assertion&quot;: &quot;ansible_memtotal_mb &gt;= 1024&quot;,
+    &quot;changed&quot;: false,
+    &quot;evaluated_to&quot;: false
+}
+    to retry, use: --limit @/root/gopath/src/kubespray/cluster.retry
+</code></pre>
+<ul>
+<li>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;</li>
+</ul>
+<p>&#x8C03;&#x5927;&#x6240;&#x6709;&#x90E8;&#x7F72;&#x673A;&#x5668;&#x7684;&#x5185;&#x5B58;&#xFF0C;&#x672C;&#x793A;&#x4F8B;&#x4E2D;&#x8C03;&#x6574;&#x4E3A;3G&#x6216;&#x4EE5;&#x4E0A;&#x3002;</p>
+<h3 id="44-kube-scheduler&#x7EC4;&#x4EF6;&#x8FD0;&#x884C;&#x5931;&#x8D25;">4.4. kube-scheduler&#x7EC4;&#x4EF6;&#x8FD0;&#x884C;&#x5931;&#x8D25;</h3>
+<p>kube-scheduler&#x7EC4;&#x4EF6;&#x8FD0;&#x884C;&#x5931;&#x8D25;&#xFF0C;&#x5BFC;&#x81F4;<a href="http://localhost:10251/healthz&#x8C03;&#x7528;&#x5931;&#x8D25;&#x3002;" target="_blank">http://localhost:10251/healthz&#x8C03;&#x7528;&#x5931;&#x8D25;&#x3002;</a></p>
+<ul>
+<li>&#x62A5;&#x9519;&#x5185;&#x5BB9;&#xFF1A;</li>
+</ul>
+<pre><code class="lang-shell">FAILED - RETRYING: Master | wait for kube-scheduler (1 retries left).
+FAILED - RETRYING: Master | wait for kube-scheduler (1 retries left).
+fatal: [node1]: FAILED! =&gt; {&quot;attempts&quot;: 60, &quot;changed&quot;: false, &quot;content&quot;: &quot;&quot;, &quot;failed&quot;: true, &quot;msg&quot;: &quot;Status code was not [200]: Request failed: &lt;urlopen error [Errno 111] Connection refused&gt;&quot;, &quot;redirected&quot;: false, &quot;status&quot;: -1, &quot;url&quot;: &quot;http://localhost:10251/healthz&quot;}
+</code></pre>
+<ul>
+<li>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;</li>
+</ul>
+<p>&#x53EF;&#x80FD;&#x662F;&#x5185;&#x5B58;&#x4E0D;&#x8DB3;&#x5BFC;&#x81F4;&#xFF0C;&#x672C;&#x793A;&#x4F8B;&#x4E2D;&#x8C03;&#x5927;&#x4E86;&#x90E8;&#x7F72;&#x673A;&#x5668;&#x7684;&#x5185;&#x5B58;&#x3002;</p>
+<h3 id="45-docker&#x5B89;&#x88C5;&#x5305;&#x51B2;&#x7A81;">4.5. docker&#x5B89;&#x88C5;&#x5305;&#x51B2;&#x7A81;</h3>
+<ul>
+<li>&#x62A5;&#x9519;&#x5185;&#x5BB9;&#xFF1A;</li>
+</ul>
+<pre><code class="lang-shell">failed: [k8s-node-1] (item={u&apos;name&apos;: u&apos;docker-engine-1.13.1-1.el7.centos&apos;}) =&gt; {
+    &quot;attempts&quot;: 4,
+    &quot;changed&quot;: false,
+    ...
+    &quot;item&quot;: {
+        &quot;name&quot;: &quot;docker-engine-1.13.1-1.el7.centos&quot;
+    },
+    &quot;msg&quot;: &quot;Error: docker-ce-selinux conflicts with 2:container-selinux-2.66-1.el7.noarch\n&quot;,
+    &quot;rc&quot;: 1,
+    &quot;results&quot;: [
+        &quot;Loaded plugins: fastestmirror\nLoading mirror speeds from cached hostfile\n * elrepo: mirrors.tuna.tsinghua.edu.cn\n * epel: mirrors.tongji.edu.cn\nPackage docker-engine is obsoleted by docker-ce, trying to install docker-ce-17.03.2.ce-1.el7.centos.x86_64 instead\nResolving Dependencies\n--&gt; Running transaction check\n---&gt; Package docker-ce.x86_64 0:17.03.2.ce-1.el7.centos will be installed\n--&gt; Processing Dependency: docker-ce-selinux &gt;= 17.03.2.ce-1.el7.centos for package: docker-ce-17.03.2.ce-1.el7.centos.x86_64\n--&gt; Processing Dependency: libltdl.so.7()(64bit) for package: docker-ce-17.03.2.ce-1.el7.centos.x86_64\n--&gt; Running transaction check\n---&gt; Package docker-ce-selinux.noarch 0:17.03.2.ce-1.el7.centos will be installed\n---&gt; Package libtool-ltdl.x86_64 0:2.4.2-22.el7_3 will be installed\n--&gt; Processing Conflict: docker-ce-selinux-17.03.2.ce-1.el7.centos.noarch conflicts docker-selinux\n--&gt; Restarting Dependency Resolution with new changes.\n--&gt; Running transaction check\n---&gt; Package container-selinux.noarch 2:2.55-1.el7 will be updated\n---&gt; Package container-selinux.noarch 2:2.66-1.el7 will be an update\n--&gt; Processing Conflict: docker-ce-selinux-17.03.2.ce-1.el7.centos.noarch conflicts docker-selinux\n--&gt; Finished Dependency Resolution\n You could try using --skip-broken to work around the problem\n You could try running: rpm -Va --nofiles --nodigest\n&quot;
+    ]
+}
+</code></pre>
+<ul>
+<li>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;</li>
+</ul>
+<p>&#x5378;&#x8F7D;&#x65E7;&#x7684;docker&#x7248;&#x672C;&#xFF0C;&#x7531;kubespary&#x81EA;&#x52A8;&#x5B89;&#x88C5;&#x3002;</p>
+<pre><code class="lang-shell">sudo yum remove -y docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine
+</code></pre>
+<p>&#x53C2;&#x8003;&#x6587;&#x7AE0;&#xFF1A;</p>
+<ul>
+<li><a href="https://github.com/kubernetes-incubator/kubespray" target="_blank">https://github.com/kubernetes-incubator/kubespray</a></li>
+</ul>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="README.md" class="navigation navigation-prev " aria-label="Previous page: 1. 安装与配置">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="install-k8s-by-minikube.html" class="navigation navigation-next " aria-label="Next page: 1.2. 使用minikube安装kubernetes">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"1.1. 使用kubespray安装kubernetes","catalog":true,"date":"2018-06-23T21:26:24.000Z","type":"tags","subtitle":null,"header-img":"http://ozilwgpje.bkt.clouddn.com/scenery/building.jpg?imageslim","tags":["Kubernetes"],"catagories":["Kubernetes"],"level":"1.2.1","depth":2,"next":{"title":"1.2. 使用minikube安装kubernetes","level":"1.2.2","depth":2,"path":"setup/install-k8s-by-minikube.md","ref":"setup/install-k8s-by-minikube.md","articles":[]},"previous":{"title":"1. 安装与配置","level":"1.2","depth":1,"path":"setup/README.md","ref":"setup/README.md","articles":[{"title":"1.1. 使用kubespray安装kubernetes","level":"1.2.1","depth":2,"path":"setup/install-k8s-by-kubespray.md","ref":"setup/install-k8s-by-kubespray.md","articles":[]},{"title":"1.2. 使用minikube安装kubernetes","level":"1.2.2","depth":2,"path":"setup/install-k8s-by-minikube.md","ref":"setup/install-k8s-by-minikube.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"setup/install-k8s-by-kubespray.md","mtime":"2018-08-18T04:29:13.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-18T06:26:58.042Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

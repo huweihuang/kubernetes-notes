@@ -1,0 +1,771 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>1.2. 使用minikube安装kubernetes · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../concepts/README.md" />
+    
+    
+    <link rel="prev" href="install-k8s-by-kubespray.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="README.md">
+            
+                <span>
+            
+                    
+                    1. 安装与配置
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="install-k8s-by-kubespray.html">
+            
+                <a href="install-k8s-by-kubespray.html">
+            
+                    
+                    1.1. 使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.2.2" data-path="install-k8s-by-minikube.html">
+            
+                <a href="install-k8s-by-minikube.html">
+            
+                    
+                    1.2. 使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../concepts/README.md">
+            
+                <span>
+            
+                    
+                    2. 基本概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="../concepts/architecture/README.md">
+            
+                <span>
+            
+                    
+                    2.1. kubernetes架构
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                    2.1.1. Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                    2.1.2. 基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="../concepts/object/README.md">
+            
+                <span>
+            
+                    
+                    2.2. kubernetes对象
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                    2.2.1. 理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                    2.2.2. kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../concepts/object/kubernetes-pod-introduction.html">
+            
+                <a href="../concepts/object/kubernetes-pod-introduction.html">
+            
+                    
+                    2.2.3. Pod详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../principle/README.md">
+            
+                <span>
+            
+                    
+                    3. 核心原理
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../principle/kubernetes-core-principle-api-server.html">
+            
+                <a href="../principle/kubernetes-core-principle-api-server.html">
+            
+                    
+                    3.1. Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                <a href="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                    
+                    3.2. Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../principle/kubernetes-core-principle-scheduler.html">
+            
+                <a href="../principle/kubernetes-core-principle-scheduler.html">
+            
+                    
+                    3.3. Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../principle/kubernetes-core-principle-kubelet.html">
+            
+                <a href="../principle/kubernetes-core-principle-kubelet.html">
+            
+                    
+                    3.4. Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../operation/README.md">
+            
+                <span>
+            
+                    
+                    4. 运维指南
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../operation/kubernetes-troubleshooting.html">
+            
+                <a href="../operation/kubernetes-troubleshooting.html">
+            
+                    
+                    4.1. kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../operation/nodeselector-and-taint.html">
+            
+                <a href="../operation/nodeselector-and-taint.html">
+            
+                    
+                    4.2. 指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="../monitor/README.md">
+            
+                <span>
+            
+                    
+                    5. 监控体系
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../monitor/kubernetes-cluster-monitoring.html">
+            
+                <a href="../monitor/kubernetes-cluster-monitoring.html">
+            
+                    
+                    5.1. 监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../monitor/cadvisor-introduction.html">
+            
+                <a href="../monitor/cadvisor-introduction.html">
+            
+                    
+                    5.2. cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../monitor/heapster-introduction.html">
+            
+                <a href="../monitor/heapster-introduction.html">
+            
+                    
+                    5.3. Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.4" data-path="../monitor/influxdb-introduction.html">
+            
+                <a href="../monitor/influxdb-introduction.html">
+            
+                    
+                    5.4. Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >1.2. 使用minikube安装kubernetes</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <blockquote>
+<p>&#x4EE5;&#x4E0B;&#x5185;&#x5BB9;&#x57FA;&#x4E8E;Linux&#x7CFB;&#x7EDF;&#xFF0C;&#x7279;&#x522B;&#x4E3A;Ubuntu&#x7CFB;&#x7EDF;</p>
+</blockquote>
+<h2 id="1-&#x5B89;&#x88C5;kubectl">1. &#x5B89;&#x88C5;kubectl</h2>
+<pre><code class="lang-shell">curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl &amp;&amp; chmod +x kubectl &amp;&amp; sudo mv kubectl /usr/local/bin/
+</code></pre>
+<p>&#x4E0B;&#x8F7D;&#x6307;&#x5B9A;&#x7248;&#x672C;&#xFF0C;&#x4F8B;&#x5982;&#x4E0B;&#x8F7D;v1.9.0&#x7248;&#x672C;</p>
+<pre><code class="lang-shell">curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.9.0/bin/linux/amd64/kubectl &amp;&amp; chmod +x kubectl &amp;&amp; sudo mv kubectl /usr/local/bin/
+</code></pre>
+<h2 id="2-&#x5B89;&#x88C5;minikube">2. &#x5B89;&#x88C5;minikube</h2>
+<p><code>minikube</code>&#x7684;&#x6E90;&#x7801;&#x5730;&#x5740;&#xFF1A;<a href="https://github.com/kubernetes/minikube" target="_blank">https://github.com/kubernetes/minikube</a></p>
+<h3 id="21-&#x5B89;&#x88C5;minikube">2.1 &#x5B89;&#x88C5;minikube</h3>
+<p>&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x4E3A;&#x5B89;&#x88C5;<code>latest</code>&#x7248;&#x672C;&#x7684;<code>minikube</code>&#x3002;</p>
+<pre><code class="lang-shell">curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 &amp;&amp; chmod +x minikube &amp;&amp; sudo mv minikube /usr/local/bin/
+</code></pre>
+<p>&#x5B89;&#x88C5;&#x6307;&#x5B9A;&#x7248;&#x672C;&#x53EF;&#x5230;<a href="https://github.com/kubernetes/minikube/releases&#x4E0B;&#x8F7D;&#x5BF9;&#x5E94;&#x7248;&#x672C;&#x3002;" target="_blank">https://github.com/kubernetes/minikube/releases&#x4E0B;&#x8F7D;&#x5BF9;&#x5E94;&#x7248;&#x672C;&#x3002;</a></p>
+<p>&#x4F8B;&#x5982;&#xFF1A;&#x4EE5;&#x4E0B;&#x4E3A;&#x5B89;&#x88C5;<code>v0.28.2</code>&#x7248;&#x672C;</p>
+<pre><code class="lang-shell">curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.28.2/minikube-linux-amd64 &amp;&amp; chmod +x minikube &amp;&amp; sudo mv minikube /usr/local/bin/
+</code></pre>
+<h3 id="22-minikube&#x547D;&#x4EE4;&#x5E2E;&#x52A9;">2.2 minikube&#x547D;&#x4EE4;&#x5E2E;&#x52A9;</h3>
+<pre><code class="lang-shell">Minikube is a CLI tool that provisions and manages single-node Kubernetes clusters optimized for development workflows.
+
+Usage:
+  minikube [command]
+
+Available Commands:
+  addons           Modify minikube&apos;s kubernetes addons
+  cache            Add or delete an image from the local cache.
+  completion       Outputs minikube shell completion for the given shell (bash or zsh)
+  config           Modify minikube config
+  dashboard        Opens/displays the kubernetes dashboard URL for your local cluster
+  delete           Deletes a local kubernetes cluster
+  docker-env       Sets up docker env variables; similar to &apos;$(docker-machine env)&apos;
+  get-k8s-versions Gets the list of Kubernetes versions available for minikube when using the localkube bootstrapper
+  ip               Retrieves the IP address of the running cluster
+  logs             Gets the logs of the running localkube instance, used for debugging minikube, not user code
+  mount            Mounts the specified directory into minikube
+  profile          Profile sets the current minikube profile
+  service          Gets the kubernetes URL(s) for the specified service in your local cluster
+  ssh              Log into or run a command on a machine with SSH; similar to &apos;docker-machine ssh&apos;
+  ssh-key          Retrieve the ssh identity key path of the specified cluster
+  start            Starts a local kubernetes cluster
+  status           Gets the status of a local kubernetes cluster
+  stop             Stops a running local kubernetes cluster
+  update-check     Print current and latest version number
+  update-context   Verify the IP address of the running cluster in kubeconfig.
+  version          Print the version of minikube
+
+Flags:
+      --alsologtostderr                  log to standard error as well as files
+  -b, --bootstrapper string              The name of the cluster bootstrapper that will set up the kubernetes cluster. (default &quot;localkube&quot;)
+      --log_backtrace_at traceLocation   when logging hits line file:N, emit a stack trace (default :0)
+      --log_dir string                   If non-empty, write log files in this directory
+      --loglevel int                     Log level (0 = DEBUG, 5 = FATAL) (default 1)
+      --logtostderr                      log to standard error instead of files
+  -p, --profile string                   The name of the minikube VM being used.
+    This can be modified to allow for multiple minikube instances to be run independently (default &quot;minikube&quot;)
+      --stderrthreshold severity         logs at or above this threshold go to stderr (default 2)
+  -v, --v Level                          log level for V logs
+      --vmodule moduleSpec               comma-separated list of pattern=N settings for file-filtered logging
+
+Use &quot;minikube [command] --help&quot; for more information about a command.
+</code></pre>
+<h2 id="3-&#x4F7F;&#x7528;minikube&#x5B89;&#x88C5;k8s&#x96C6;&#x7FA4;">3. &#x4F7F;&#x7528;minikube&#x5B89;&#x88C5;k8s&#x96C6;&#x7FA4;</h2>
+<h3 id="31-minikube-start">3.1. minikube start</h3>
+<p>&#x53EF;&#x4EE5;&#x4EE5;<code>Docker</code>&#x7684;&#x65B9;&#x5F0F;&#x8FD0;&#x884C;k8s&#x7684;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F46;&#x9700;&#x8981;&#x5148;&#x5B89;&#x88C5;Docker(&#x53EF;&#x53C2;&#x8003;<a href="">Docker&#x5B89;&#x88C5;</a>)&#xFF0C;&#x542F;&#x52A8;&#x53C2;&#x6570;&#x4F7F;&#x7528;<code>--vm-driver=none</code>&#x3002;</p>
+<pre><code class="lang-shell">minikube start --vm-driver=none
+</code></pre>
+<p>&#x4F8B;&#x5982;&#xFF1A;</p>
+<pre><code class="lang-shell">root@ubuntu:~# minikube start --vm-driver=none
+Starting local Kubernetes v1.10.0 cluster...
+Starting VM...
+Getting VM IP address...
+Moving files into cluster...
+Downloading kubeadm v1.10.0
+Downloading kubelet v1.10.0
+^[[DFinished Downloading kubelet v1.10.0
+Finished Downloading kubeadm v1.10.0
+Setting up certs...
+Connecting to cluster...
+Setting up kubeconfig...
+Starting cluster components...
+Kubectl is now configured to use the cluster.
+===================
+WARNING: IT IS RECOMMENDED NOT TO RUN THE NONE DRIVER ON PERSONAL WORKSTATIONS
+    The &apos;none&apos; driver will run an insecure kubernetes apiserver as root that may leave the host vulnerable to CSRF attacks
+
+When using the none driver, the kubectl config and credentials generated will be root owned and will appear in the root home directory.
+You will need to move the files to the appropriate location and then set the correct permissions.  An example of this is below:
+
+    sudo mv /root/.kube $HOME/.kube # this will write over any previous configuration
+    sudo chown -R $USER $HOME/.kube
+    sudo chgrp -R $USER $HOME/.kube
+
+    sudo mv /root/.minikube $HOME/.minikube # this will write over any previous configuration
+    sudo chown -R $USER $HOME/.minikube
+    sudo chgrp -R $USER $HOME/.minikube
+
+This can also be done automatically by setting the env var CHANGE_MINIKUBE_NONE_USER=true
+Loading cached images from config file.
+</code></pre>
+<p>&#x5B89;&#x88C5;&#x6307;&#x5B9A;&#x7248;&#x672C;&#x7684;kubernetes&#x96C6;&#x7FA4;</p>
+<pre><code class="lang-shell"># &#x67E5;&#x9605;&#x7248;&#x672C;
+minikube get-k8s-versions
+# &#x9009;&#x62E9;&#x7248;&#x672C;&#x542F;&#x52A8;
+minikube start --kubernetes-version v1.7.3 --vm-driver=none
+</code></pre>
+<h3 id="32-minikube-status">3.2. minikube status</h3>
+<pre><code class="lang-shell">$ minikube status
+minikube: Running
+cluster: Running
+kubectl: Correctly Configured: pointing to minikube-vm at 172.16.94.139
+</code></pre>
+<h3 id="33-minikube-stop">3.3. minikube stop</h3>
+<p><code>minikube stop</code> &#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x505C;&#x6B62;&#x96C6;&#x7FA4;&#x3002; &#x8BE5;&#x547D;&#x4EE4;&#x4F1A;&#x5173;&#x95ED; minikube &#x865A;&#x62DF;&#x673A;&#xFF0C;&#x4F46;&#x5C06;&#x4FDD;&#x7559;&#x6240;&#x6709;&#x96C6;&#x7FA4;&#x72B6;&#x6001;&#x548C;&#x6570;&#x636E;&#x3002; &#x518D;&#x6B21;&#x542F;&#x52A8;&#x96C6;&#x7FA4;&#x5C06;&#x6062;&#x590D;&#x5230;&#x4E4B;&#x524D;&#x7684;&#x72B6;&#x6001;&#x3002;</p>
+<h3 id="34-minikube-delete">3.4. minikube delete</h3>
+<p><code>minikube delete</code> &#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x5220;&#x9664;&#x96C6;&#x7FA4;&#x3002; &#x8BE5;&#x547D;&#x4EE4;&#x5C06;&#x5173;&#x95ED;&#x5E76;&#x5220;&#x9664; minikube &#x865A;&#x62DF;&#x673A;&#x3002;&#x6CA1;&#x6709;&#x6570;&#x636E;&#x6216;&#x72B6;&#x6001;&#x4F1A;&#x88AB;&#x4FDD;&#x5B58;&#x4E0B;&#x6765;&#x3002;</p>
+<h2 id="4-&#x67E5;&#x770B;&#x90E8;&#x7F72;&#x7ED3;&#x679C;">4. &#x67E5;&#x770B;&#x90E8;&#x7F72;&#x7ED3;&#x679C;</h2>
+<h3 id="41-&#x90E8;&#x7F72;&#x7EC4;&#x4EF6;">4.1. &#x90E8;&#x7F72;&#x7EC4;&#x4EF6;</h3>
+<pre><code class="lang-shell">root@ubuntu:~# kubectl get all --namespace=kube-system
+NAME                                        READY     STATUS    RESTARTS   AGE
+pod/etcd-minikube                           1/1       Running   0          38m
+pod/kube-addon-manager-minikube             1/1       Running   0          38m
+pod/kube-apiserver-minikube                 1/1       Running   1          39m
+pod/kube-controller-manager-minikube        1/1       Running   0          38m
+pod/kube-dns-86f4d74b45-bdfnx               3/3       Running   0          38m
+pod/kube-proxy-dqdvg                        1/1       Running   0          38m
+pod/kube-scheduler-minikube                 1/1       Running   0          38m
+pod/kubernetes-dashboard-5498ccf677-c2gnh   1/1       Running   0          38m
+pod/storage-provisioner                     1/1       Running   0          38m
+
+NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)         AGE
+service/kube-dns               ClusterIP   10.96.0.10      &lt;none&gt;        53/UDP,53/TCP   38m
+service/kubernetes-dashboard   NodePort    10.104.48.227   &lt;none&gt;        80:30000/TCP    38m
+
+NAME                        DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+daemonset.apps/kube-proxy   1         1         1         1            1           &lt;none&gt;          38m
+
+NAME                                   DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/kube-dns               1         1         1            1           38m
+deployment.apps/kubernetes-dashboard   1         1         1            1           38m
+
+NAME                                              DESIRED   CURRENT   READY     AGE
+replicaset.apps/kube-dns-86f4d74b45               1         1         1         38m
+replicaset.apps/kubernetes-dashboard-5498ccf677   1         1         1         38m
+</code></pre>
+<h3 id="42-dashboard">4.2. dashboard</h3>
+<p>&#x901A;&#x8FC7;&#x8BBF;&#x95EE;<code>ip:port</code>&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;<a href="http://172.16.94.139:30000/&#xFF0C;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;k8s&#x7684;`dashboard`&#x63A7;&#x5236;&#x53F0;&#x3002;" target="_blank">http://172.16.94.139:30000/&#xFF0C;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;k8s&#x7684;`dashboard`&#x63A7;&#x5236;&#x53F0;&#x3002;</a></p>
+<p><img src="http://res.cloudinary.com/dqxtn0ick/image/upload/v1533695750/article/kubernetes/arch/dashboard.png" width="100%"></p>
+<h2 id="5-troubleshooting">5. troubleshooting</h2>
+<h3 id="51-&#x6CA1;&#x6709;&#x5B89;&#x88C5;virtualbox">5.1. &#x6CA1;&#x6709;&#x5B89;&#x88C5;VirtualBox</h3>
+<pre><code class="lang-shell">[root@minikube ~]# minikube start
+Starting local Kubernetes v1.10.0 cluster...
+Starting VM...
+Downloading Minikube ISO
+ 160.27 MB / 160.27 MB [============================================] 100.00% 0s
+E0727 15:47:08.655647    9407 start.go:174] Error starting host: Error creating host: Error executing step: Running precreate checks.
+: VBoxManage not found. Make sure VirtualBox is installed and VBoxManage is in the path.
+
+ Retrying.
+E0727 15:47:08.656994    9407 start.go:180] Error starting host:  Error creating host: Error executing step: Running precreate checks.
+: VBoxManage not found. Make sure VirtualBox is installed and VBoxManage is in the path
+================================================================================
+An error has occurred. Would you like to opt in to sending anonymized crash
+information to minikube to help prevent future errors?
+To opt out of these messages, run the command:
+    minikube config set WantReportErrorPrompt false
+================================================================================
+Please enter your response [Y/n]:
+</code></pre>
+<p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF0C;&#x5148;&#x5B89;&#x88C5;VirtualBox&#x3002;</p>
+<h3 id="52-&#x6CA1;&#x6709;&#x5B89;&#x88C5;docker">5.2. &#x6CA1;&#x6709;&#x5B89;&#x88C5;Docker</h3>
+<pre><code class="lang-shell">[root@minikube ~]# minikube start --vm-driver=none
+Starting local Kubernetes v1.10.0 cluster...
+Starting VM...
+E0727 15:56:54.936706    9441 start.go:174] Error starting host: Error creating host: Error executing step: Running precreate checks.
+: docker cannot be found on the path for this machine. A docker installation is a requirement for using the none driver: exec: &quot;docker&quot;: executable file not found in $PATH.
+
+ Retrying.
+E0727 15:56:54.938930    9441 start.go:180] Error starting host:  Error creating host: Error executing step: Running precreate checks.
+: docker cannot be found on the path for this machine. A docker installation is a requirement for using the none driver: exec: &quot;docker&quot;: executable file not found in $PATH
+</code></pre>
+<p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF0C;&#x5148;&#x5B89;&#x88C5;Docker&#x3002;</p>
+<p>&#x6587;&#x7AE0;&#x53C2;&#x8003;&#xFF1A;</p>
+<p><a href="https://github.com/kubernetes/minikube" target="_blank">https://github.com/kubernetes/minikube</a></p>
+<p><a href="https://kubernetes.io/docs/setup/minikube/" target="_blank">https://kubernetes.io/docs/setup/minikube/</a></p>
+<p><a href="https://kubernetes.io/docs/tasks/tools/install-minikube/" target="_blank">https://kubernetes.io/docs/tasks/tools/install-minikube/</a></p>
+<p><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/" target="_blank">https://kubernetes.io/docs/tasks/tools/install-kubectl/</a></p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="install-k8s-by-kubespray.html" class="navigation navigation-prev " aria-label="Previous page: 1.1. 使用kubespray安装kubernetes">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../concepts/README.md" class="navigation navigation-next " aria-label="Next page: 2. 基本概念">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"1.2. 使用minikube安装kubernetes","catalog":true,"date":"2018-06-23T20:26:24.000Z","type":"tags","subtitle":null,"header-img":"http://ozilwgpje.bkt.clouddn.com/scenery/building.jpg?imageslim","tags":["Kubernetes"],"catagories":["Kubernetes"],"level":"1.2.2","depth":2,"next":{"title":"2. 基本概念","level":"1.3","depth":1,"path":"concepts/README.md","ref":"concepts/README.md","articles":[{"title":"2.1. kubernetes架构","level":"1.3.1","depth":2,"path":"concepts/architecture/README.md","ref":"concepts/architecture/README.md","articles":[{"title":"2.1.1. Kubernetes总架构图","level":"1.3.1.1","depth":3,"path":"concepts/architecture/kubernetes-architecture.md","ref":"concepts/architecture/kubernetes-architecture.md","articles":[]},{"title":"2.1.2. 基于Docker及Kubernetes技术构建容器云（PaaS）平台概述","level":"1.3.1.2","depth":3,"path":"concepts/architecture/paas-based-on-docker-and-kubernetes.md","ref":"concepts/architecture/paas-based-on-docker-and-kubernetes.md","articles":[]}]},{"title":"2.2. kubernetes对象","level":"1.3.2","depth":2,"path":"concepts/object/README.md","ref":"concepts/object/README.md","articles":[{"title":"2.2.1. 理解kubernetes对象","level":"1.3.2.1","depth":3,"path":"concepts/object/understanding-kubernetes-objects.md","ref":"concepts/object/understanding-kubernetes-objects.md","articles":[]},{"title":"2.2.2. kubernetes常用对象说明","level":"1.3.2.2","depth":3,"path":"concepts/object/kubernetes-basic-concepts.md","ref":"concepts/object/kubernetes-basic-concepts.md","articles":[]},{"title":"2.2.3. Pod详解","level":"1.3.2.3","depth":3,"path":"concepts/object/kubernetes-pod-introduction.md","ref":"concepts/object/kubernetes-pod-introduction.md","articles":[]}]}]},"previous":{"title":"1.1. 使用kubespray安装kubernetes","level":"1.2.1","depth":2,"path":"setup/install-k8s-by-kubespray.md","ref":"setup/install-k8s-by-kubespray.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"setup/install-k8s-by-minikube.md","mtime":"2018-08-18T04:29:13.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-18T06:26:58.042Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
