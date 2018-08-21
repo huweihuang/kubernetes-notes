@@ -1,14 +1,14 @@
 
 <!DOCTYPE HTML>
-<html lang="" >
+<html lang="zh-hans" >
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>5.1. 监控体系介绍 · GitBook</title>
+        <title>监控体系介绍 · Kubernetes 学习笔记</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
-        
+        <meta name="author" content="胡伟煌">
         
         
     
@@ -17,11 +17,31 @@
     
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
                 
             
                 
-                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-toc-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
                 
             
                 
@@ -49,6 +69,8 @@
         
     
     
+    
+    
     <meta name="HandheldFriendly" content="true"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -60,8 +82,28 @@
     <link rel="next" href="cadvisor-introduction.html" />
     
     
-    <link rel="prev" href="README.md" />
+    <link rel="prev" href="./" />
     
+
+    
+        <link rel="shortcut icon" href='../favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../favicon.ico' type="image/x-icon">
+    
+    
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"};
+    </script>
 
     </head>
     <body>
@@ -71,7 +113,7 @@
         
             
 <div id="book-search-input" role="search">
-    <input type="text" placeholder="Type to search" />
+    <input type="text" placeholder="输入并搜索" />
 </div>
 
             
@@ -82,7 +124,16 @@
 <ul class="summary">
     
     
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com" target="_blank" class="custom-link">胡伟煌</a>
+        </li>
+    
+    
 
+    
+    <li class="divider"></li>
     
 
     
@@ -94,6 +145,8 @@
                 <a href="../">
             
                     
+                        <b>1.1.</b>
+                    
                     Introduction
             
                 </a>
@@ -102,12 +155,14 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="../setup/README.md">
+        <li class="chapter " data-level="1.2" data-path="../setup/">
             
-                <span>
+                <a href="../setup/">
             
                     
-                    1. 安装与配置
+                        <b>1.2.</b>
+                    
+                    安装与配置
             
                 </a>
             
@@ -121,7 +176,9 @@
                 <a href="../setup/install-k8s-by-kubespray.html">
             
                     
-                    1.1. 使用kubespray安装kubernetes
+                        <b>1.2.1.</b>
+                    
+                    使用kubespray安装kubernetes
             
                 </a>
             
@@ -134,7 +191,9 @@
                 <a href="../setup/install-k8s-by-minikube.html">
             
                     
-                    1.2. 使用minikube安装kubernetes
+                        <b>1.2.2.</b>
+                    
+                    使用minikube安装kubernetes
             
                 </a>
             
@@ -147,12 +206,14 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="../concepts/README.md">
+        <li class="chapter " data-level="1.3" data-path="../concepts/">
             
-                <span>
+                <a href="../concepts/">
             
                     
-                    2. 基本概念
+                        <b>1.3.</b>
+                    
+                    基本概念
             
                 </a>
             
@@ -161,12 +222,14 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="../concepts/architecture/README.md">
+        <li class="chapter " data-level="1.3.1" data-path="../concepts/architecture/">
             
-                <span>
+                <a href="../concepts/architecture/">
             
                     
-                    2.1. kubernetes架构
+                        <b>1.3.1.</b>
+                    
+                    kubernetes架构
             
                 </a>
             
@@ -180,7 +243,9 @@
                 <a href="../concepts/architecture/kubernetes-architecture.html">
             
                     
-                    2.1.1. Kubernetes总架构图
+                        <b>1.3.1.1.</b>
+                    
+                    Kubernetes总架构图
             
                 </a>
             
@@ -193,7 +258,9 @@
                 <a href="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
             
                     
-                    2.1.2. 基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+                        <b>1.3.1.2.</b>
+                    
+                    基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
             
                 </a>
             
@@ -206,12 +273,14 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.2" data-path="../concepts/object/README.md">
+        <li class="chapter " data-level="1.3.2" data-path="../concepts/object/">
             
-                <span>
+                <a href="../concepts/object/">
             
                     
-                    2.2. kubernetes对象
+                        <b>1.3.2.</b>
+                    
+                    kubernetes对象
             
                 </a>
             
@@ -225,7 +294,9 @@
                 <a href="../concepts/object/understanding-kubernetes-objects.html">
             
                     
-                    2.2.1. 理解kubernetes对象
+                        <b>1.3.2.1.</b>
+                    
+                    理解kubernetes对象
             
                 </a>
             
@@ -238,7 +309,9 @@
                 <a href="../concepts/object/kubernetes-basic-concepts.html">
             
                     
-                    2.2.2. kubernetes常用对象说明
+                        <b>1.3.2.2.</b>
+                    
+                    kubernetes常用对象说明
             
                 </a>
             
@@ -251,7 +324,9 @@
                 <a href="../concepts/object/kubernetes-pod-introduction.html">
             
                     
-                    2.2.3. Pod详解
+                        <b>1.3.2.3.</b>
+                    
+                    Pod详解
             
                 </a>
             
@@ -269,12 +344,14 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="../principle/README.md">
+        <li class="chapter " data-level="1.4" data-path="../principle/">
             
-                <span>
+                <a href="../principle/">
             
                     
-                    3. 核心原理
+                        <b>1.4.</b>
+                    
+                    核心原理
             
                 </a>
             
@@ -288,7 +365,9 @@
                 <a href="../principle/kubernetes-core-principle-api-server.html">
             
                     
-                    3.1. Api Server
+                        <b>1.4.1.</b>
+                    
+                    Api Server
             
                 </a>
             
@@ -301,7 +380,9 @@
                 <a href="../principle/kubernetes-core-principle-controller-manager.html">
             
                     
-                    3.2. Controller Manager
+                        <b>1.4.2.</b>
+                    
+                    Controller Manager
             
                 </a>
             
@@ -314,7 +395,9 @@
                 <a href="../principle/kubernetes-core-principle-scheduler.html">
             
                     
-                    3.3. Scheduler
+                        <b>1.4.3.</b>
+                    
+                    Scheduler
             
                 </a>
             
@@ -327,7 +410,9 @@
                 <a href="../principle/kubernetes-core-principle-kubelet.html">
             
                     
-                    3.4. Kubelet
+                        <b>1.4.4.</b>
+                    
+                    Kubelet
             
                 </a>
             
@@ -340,12 +425,14 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="../operation/README.md">
+        <li class="chapter " data-level="1.5" data-path="../operation/">
             
-                <span>
+                <a href="../operation/">
             
                     
-                    4. 运维指南
+                        <b>1.5.</b>
+                    
+                    运维指南
             
                 </a>
             
@@ -359,7 +446,9 @@
                 <a href="../operation/kubernetes-troubleshooting.html">
             
                     
-                    4.1. kubernetes集群问题排查
+                        <b>1.5.1.</b>
+                    
+                    kubernetes集群问题排查
             
                 </a>
             
@@ -372,7 +461,9 @@
                 <a href="../operation/nodeselector-and-taint.html">
             
                     
-                    4.2. 指定Node调度与隔离
+                        <b>1.5.2.</b>
+                    
+                    指定Node调度与隔离
             
                 </a>
             
@@ -385,12 +476,14 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="README.md">
+        <li class="chapter " data-level="1.6" data-path="./">
             
-                <span>
+                <a href="./">
             
                     
-                    5. 监控体系
+                        <b>1.6.</b>
+                    
+                    监控体系
             
                 </a>
             
@@ -404,7 +497,9 @@
                 <a href="kubernetes-cluster-monitoring.html">
             
                     
-                    5.1. 监控体系介绍
+                        <b>1.6.1.</b>
+                    
+                    监控体系介绍
             
                 </a>
             
@@ -417,7 +512,9 @@
                 <a href="cadvisor-introduction.html">
             
                     
-                    5.2. cAdvisor介绍
+                        <b>1.6.2.</b>
+                    
+                    cAdvisor介绍
             
                 </a>
             
@@ -430,7 +527,9 @@
                 <a href="heapster-introduction.html">
             
                     
-                    5.3. Heapster介绍
+                        <b>1.6.3.</b>
+                    
+                    Heapster介绍
             
                 </a>
             
@@ -443,7 +542,9 @@
                 <a href="influxdb-introduction.html">
             
                     
-                    5.4. Influxdb介绍
+                        <b>1.6.4.</b>
+                    
+                    Influxdb介绍
             
                 </a>
             
@@ -463,7 +564,7 @@
 
     <li>
         <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
-            Published with GitBook
+            本书使用 GitBook 发布
         </a>
     </li>
 </ul>
@@ -486,7 +587,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >5.1. 监控体系介绍</a>
+        <a href=".." >监控体系介绍</a>
     </h1>
 </div>
 
@@ -496,7 +597,7 @@
                     <div class="page-wrapper" tabindex="-1" role="main">
                         <div class="page-inner">
                             
-<div id="book-search-results">
+<div class="search-plus" id="book-search-results">
     <div class="search-noresults">
     
                                 <section class="normal markdown-section">
@@ -511,7 +612,7 @@
 <h3 id="14-grafana">1.4. Grafana</h3>
 <p>&#x901A;&#x8FC7;Dashboard&#x5C06;InfluxDB&#x7684;&#x65F6;&#x5E8F;&#x6570;&#x636E;&#x5C55;&#x73B0;&#x6210;&#x56FE;&#x8868;&#x5F62;&#x5F0F;&#xFF0C;&#x4FBF;&#x4E8E;&#x67E5;&#x770B;&#x96C6;&#x7FA4;&#x8FD0;&#x884C;&#x72B6;&#x6001;&#x3002;&#x9879;&#x76EE;&#x4E3B;&#x9875;&#x4E3A;<a href="http://Grafana.org&#x3002;" target="_blank">http://Grafana.org&#x3002;</a></p>
 <h3 id="15-&#x603B;&#x4F53;&#x67B6;&#x6784;&#x56FE;">1.5. &#x603B;&#x4F53;&#x67B6;&#x6784;&#x56FE;</h3>
-<p><img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png" alt="k8s&#x76D1;&#x63A7;&#x67B6;&#x6784;&#x56FE;"></p>
+<figure id="fig1.6.1.1"><img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png" alt="k8s&#x76D1;&#x63A7;&#x67B6;&#x6784;&#x56FE;"><figcaption>&#x56FE;&#x7247; - k8s&#x76D1;&#x63A7;&#x67B6;&#x6784;&#x56FE;</figcaption></figure>
 <p>&#x5176;&#x4E2D;&#x5F53;&#x524D;Kubernetes&#x4E2D;&#xFF0C;Heapster&#x3001;InfluxDB&#x3001;Grafana&#x5747;&#x4EE5;Pod&#x7684;&#x5F62;&#x5F0F;&#x542F;&#x52A8;&#x548C;&#x8FD0;&#x884C;&#x3002;Heapster&#x4E0E;Master&#x9700;&#x914D;&#x7F6E;&#x5B89;&#x5168;&#x8FDE;&#x63A5;&#x3002;</p>
 <h2 id="2-&#x90E8;&#x7F72;&#x4E0E;&#x4F7F;&#x7528;">2. &#x90E8;&#x7F72;&#x4E0E;&#x4F7F;&#x7528;</h2>
 <h3 id="21-cadvisor">2.1. cAdvisor</h3>
@@ -520,166 +621,166 @@
 <h3 id="22-service">2.2. Service</h3>
 <h4 id="221-heapster-service">2.2.1. heapster-service</h4>
 <p><strong>heapster-service.yaml</strong></p>
-<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span>v1
-<span class="hljs-attr">kind:</span>Service
-<span class="hljs-attr">metadata:</span>
-<span class="hljs-attr">  label:</span>
-    kubenetes.io/cluster-service:<span class="hljs-string">&quot;true&quot;</span>
-    kubernetes.io/name:Heapster
-<span class="hljs-attr">  name:</span>heapster
-<span class="hljs-attr">  namespace:</span>kube-system
-<span class="hljs-attr">spec:</span>
-<span class="hljs-attr">  ports:</span>
-<span class="hljs-attr">    - port:</span><span class="hljs-number">80</span>
-<span class="hljs-attr">      targetPort:</span><span class="hljs-number">8082</span>
-<span class="hljs-attr">  selector:</span>
-<span class="hljs-attr">    k8s-app:</span>heapster
+<pre class="language-"><code class="lang-yaml">apiVersion<span class="token punctuation">:</span>v1
+kind<span class="token punctuation">:</span>Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">label</span><span class="token punctuation">:</span>
+    kubenetes.io/cluster<span class="token punctuation">-</span>service<span class="token punctuation">:</span><span class="token string">&quot;true&quot;</span>
+    kubernetes.io/name<span class="token punctuation">:</span>Heapster
+  name<span class="token punctuation">:</span>heapster
+  namespace<span class="token punctuation">:</span>kube<span class="token punctuation">-</span>system
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> port<span class="token punctuation">:</span><span class="token number">80</span>
+      targetPort<span class="token punctuation">:</span><span class="token number">8082</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    k8s<span class="token punctuation">-</span>app<span class="token punctuation">:</span>heapster
 </code></pre>
 <h4 id="222-influxdb-service">2.2.2. influxdb-service</h4>
 <p><strong>influxdb-service.yaml</strong></p>
-<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span>v1
-<span class="hljs-attr">kind:</span>Service
-<span class="hljs-attr">metadata:</span>
-<span class="hljs-attr">  label:</span><span class="hljs-literal">null</span>
-<span class="hljs-attr">  name:</span>monitoring-InfluxDB
-<span class="hljs-attr">  namespace:</span>kube-system
-<span class="hljs-attr">spec:</span>
-<span class="hljs-attr">  type:</span>Nodeport
-<span class="hljs-attr">  ports:</span>
-<span class="hljs-attr">    - name:</span>http
-<span class="hljs-attr">      port:</span><span class="hljs-number">80</span>
-<span class="hljs-attr">      targetPort:</span><span class="hljs-number">8083</span>
-<span class="hljs-attr">    - name:</span>api
-<span class="hljs-attr">      port:</span><span class="hljs-number">8086</span>
-<span class="hljs-attr">      targetPort:</span><span class="hljs-number">8086</span>
-<span class="hljs-attr">      Nodeport:</span><span class="hljs-number">8086</span>
-<span class="hljs-attr">  selector:</span>
-<span class="hljs-attr">    name:</span>influxGrafana
+<pre class="language-"><code class="lang-yaml">apiVersion<span class="token punctuation">:</span>v1
+kind<span class="token punctuation">:</span>Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  label<span class="token punctuation">:</span><span class="token null important">null</span>
+  name<span class="token punctuation">:</span>monitoring<span class="token punctuation">-</span>InfluxDB
+  namespace<span class="token punctuation">:</span>kube<span class="token punctuation">-</span>system
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  type<span class="token punctuation">:</span>Nodeport
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> name<span class="token punctuation">:</span>http
+      port<span class="token punctuation">:</span><span class="token number">80</span>
+      targetPort<span class="token punctuation">:</span><span class="token number">8083</span>
+    <span class="token punctuation">-</span> name<span class="token punctuation">:</span>api
+      port<span class="token punctuation">:</span><span class="token number">8086</span>
+      targetPort<span class="token punctuation">:</span><span class="token number">8086</span>
+      Nodeport<span class="token punctuation">:</span><span class="token number">8086</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    name<span class="token punctuation">:</span>influxGrafana
 </code></pre>
 <h4 id="223-grafana-service">2.2.3. grafana-service</h4>
 <p><strong>grafana-service.yaml</strong></p>
-<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span>v1
-<span class="hljs-attr">kind:</span>Service
-<span class="hljs-attr">metadata:</span>
-<span class="hljs-attr">  label:</span>
-    kubenetes.io/cluster-service:<span class="hljs-string">&quot;true&quot;</span>
-    kubernetes.io/name:monitoring-Grafana
-<span class="hljs-attr">  name:</span>monitoring-Grafana
-<span class="hljs-attr">  namespace:</span>kube-system
-<span class="hljs-attr">spec:</span>
-<span class="hljs-attr">  type:</span>Nodeport
-<span class="hljs-attr">  ports:</span>
-<span class="hljs-attr">      port:</span><span class="hljs-number">80</span>
-<span class="hljs-attr">      targetPort:</span><span class="hljs-number">8080</span>
-<span class="hljs-attr">      Nodeport:</span><span class="hljs-number">8085</span>
-<span class="hljs-attr">  selector:</span>
-<span class="hljs-attr">    name:</span>influxGrafana
+<pre class="language-"><code class="lang-yaml">apiVersion<span class="token punctuation">:</span>v1
+kind<span class="token punctuation">:</span>Service
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  <span class="token key atrule">label</span><span class="token punctuation">:</span>
+    kubenetes.io/cluster<span class="token punctuation">-</span>service<span class="token punctuation">:</span><span class="token string">&quot;true&quot;</span>
+    kubernetes.io/name<span class="token punctuation">:</span>monitoring<span class="token punctuation">-</span>Grafana
+  name<span class="token punctuation">:</span>monitoring<span class="token punctuation">-</span>Grafana
+  namespace<span class="token punctuation">:</span>kube<span class="token punctuation">-</span>system
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  type<span class="token punctuation">:</span>Nodeport
+  <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+      port<span class="token punctuation">:</span><span class="token number">80</span>
+      targetPort<span class="token punctuation">:</span><span class="token number">8080</span>
+      Nodeport<span class="token punctuation">:</span><span class="token number">8085</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    name<span class="token punctuation">:</span>influxGrafana
 </code></pre>
 <p>&#x4F7F;&#x7528;type=NodePort&#x5C06;InfluxDB&#x548C;Grafana&#x66B4;&#x9732;&#x5728;Node&#x7684;&#x7AEF;&#x53E3;&#x4E0A;&#xFF0C;&#x4EE5;&#x4FBF;&#x901A;&#x8FC7;&#x6D4F;&#x89C8;&#x5668;&#x8FDB;&#x884C;&#x8BBF;&#x95EE;&#x3002;</p>
 <h4 id="224-&#x521B;&#x5EFA;service">2.2.4. &#x521B;&#x5EFA;service</h4>
-<pre><code class="lang-shell">kubectl create -f heapster-service.yaml
+<pre class="language-"><code class="lang-shell">kubectl create -f heapster-service.yaml
 kubectl create -f InfluxDB-service.yaml
 kubectl create -f Grafana-service.yaml
 </code></pre>
 <h3 id="23-replicationcontroller">2.3. ReplicationController</h3>
 <h4 id="231-influxdb-grafana-controller">2.3.1. influxdb-grafana-controller</h4>
 <p><strong>influxdb-grafana-controller-v3.yaml</strong> </p>
-<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span>v1
-<span class="hljs-attr">kind:</span>ReplicationController
-<span class="hljs-attr">metadata:</span>
-<span class="hljs-attr">  name:</span>monitoring-influxdb-grafana-v3
-<span class="hljs-attr">  namespace:</span>kube-system
-<span class="hljs-attr">  labels:</span>
-<span class="hljs-attr">    k8s-app:</span>influxGrafana
-<span class="hljs-attr">    version:</span>v3
-    kubernetes.io/cluster-service:<span class="hljs-string">&quot;true
-spec:
-  replicas:1
-  selector:
-    k8s-app:influxGrafana
-    version:v3
-  template:
-    metadata:
-      labels:
-        k8s-app:influxGrafana
-        version:v3
-        kubernetes.io/cluster-service:&quot;</span><span class="hljs-literal">true</span>
-<span class="hljs-attr">    spec:</span>
-<span class="hljs-attr">      containers:</span>
-<span class="hljs-attr">        - image:</span>gcr.io/google_containers/heapster_influxdb:v0<span class="hljs-number">.5</span>
-<span class="hljs-attr">          name:</span>influxdb
-<span class="hljs-attr">          resources:</span>
-<span class="hljs-attr">            limits:</span>
-<span class="hljs-attr">              cpu:</span><span class="hljs-number">100</span>m
-<span class="hljs-attr">              memory:</span><span class="hljs-number">500</span>Mi
-<span class="hljs-attr">            requests:</span>
-<span class="hljs-attr">              cpu:</span><span class="hljs-number">100</span>m
-<span class="hljs-attr">              memory:</span><span class="hljs-number">500</span>Mi
-<span class="hljs-attr">          ports:</span>
-<span class="hljs-attr">            - containerPort:</span><span class="hljs-number">8083</span>
-<span class="hljs-attr">            - containerPort:</span><span class="hljs-number">8086</span>
-<span class="hljs-attr">          volumeMounts:</span>
-<span class="hljs-attr">            -name:</span>influxdb-persistent-storage
-<span class="hljs-attr">             mountPath:</span>/data
-<span class="hljs-attr">        - image:</span>grc.io/google_containers/heapster_grafana:v2<span class="hljs-number">.6</span><span class="hljs-number">.0</span><span class="hljs-bullet">-2</span>
-<span class="hljs-attr">          name:</span>grafana
-<span class="hljs-attr">          resources:</span>
-<span class="hljs-attr">            limits:</span>
-<span class="hljs-attr">              cpu:</span><span class="hljs-number">100</span>m
-<span class="hljs-attr">              memory:</span><span class="hljs-number">100</span>Mi
-<span class="hljs-attr">            requests:</span>
-<span class="hljs-attr">              cpu:</span><span class="hljs-number">100</span>m
-<span class="hljs-attr">              memory:</span><span class="hljs-number">100</span>Mi
-<span class="hljs-attr">          env:</span>
-<span class="hljs-attr">            - name:</span>INFLUXDB_SERVICE_URL
-<span class="hljs-attr">              value:</span>http://monitoring-influxdb:<span class="hljs-number">8086</span>
-<span class="hljs-attr">            - name:</span>GF_AUTH_BASIC_ENABLED
-<span class="hljs-attr">              value:</span><span class="hljs-string">&quot;false&quot;</span>
-<span class="hljs-attr">            - name:</span>GF_AUTH_ANONYMOUS_ENABLED
-<span class="hljs-attr">              value:</span><span class="hljs-string">&quot;true&quot;</span>
-<span class="hljs-attr">            - name:</span>GF_AUTH_ANONYMOUS_ORG_ROLE
-<span class="hljs-attr">              value:</span>Admin
-<span class="hljs-attr">            - name:</span>GF_SERVER_ROOT_URL
-<span class="hljs-attr">              value:</span>/api/v1/proxy/namespace/kube-system/services/monitoring-grafana/
-<span class="hljs-attr">          volumeMounts:</span>
-<span class="hljs-attr">            - name:</span>grafana-persistent-storage
-<span class="hljs-attr">              mountPath:</span>/var
-<span class="hljs-attr">      volumes:</span>
-<span class="hljs-attr">        - name:</span>influxdb-persistent-storage
-          emptyDir{}
-<span class="hljs-attr">        - name:</span>grafana-persistent-storage
-          emptyDir{}
+<pre class="language-"><code class="lang-yaml">apiVersion<span class="token punctuation">:</span>v1
+kind<span class="token punctuation">:</span>ReplicationController
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+  name<span class="token punctuation">:</span>monitoring<span class="token punctuation">-</span>influxdb<span class="token punctuation">-</span>grafana<span class="token punctuation">-</span>v3
+  namespace<span class="token punctuation">:</span>kube<span class="token punctuation">-</span>system
+  <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+    k8s<span class="token punctuation">-</span>app<span class="token punctuation">:</span>influxGrafana
+    version<span class="token punctuation">:</span>v3
+    kubernetes.io/cluster<span class="token punctuation">-</span>service<span class="token punctuation">:</span>&quot;true
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+  replicas<span class="token punctuation">:</span><span class="token number">1</span>
+  <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+    k8s<span class="token punctuation">-</span>app<span class="token punctuation">:</span>influxGrafana
+    version<span class="token punctuation">:</span>v3
+  <span class="token key atrule">template</span><span class="token punctuation">:</span>
+    <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+      <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        k8s<span class="token punctuation">-</span>app<span class="token punctuation">:</span>influxGrafana
+        version<span class="token punctuation">:</span>v3
+        kubernetes.io/cluster<span class="token punctuation">-</span>service<span class="token punctuation">:</span>&quot;true
+    <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+      <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> image<span class="token punctuation">:</span>gcr.io/google_containers/heapster_influxdb<span class="token punctuation">:</span>v0.5
+          name<span class="token punctuation">:</span>influxdb
+          <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+            <span class="token key atrule">limits</span><span class="token punctuation">:</span>
+              cpu<span class="token punctuation">:</span>100m
+              memory<span class="token punctuation">:</span>500Mi
+            <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+              cpu<span class="token punctuation">:</span>100m
+              memory<span class="token punctuation">:</span>500Mi
+          <span class="token key atrule">ports</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> containerPort<span class="token punctuation">:</span><span class="token number">8083</span>
+            <span class="token punctuation">-</span> containerPort<span class="token punctuation">:</span><span class="token number">8086</span>
+          <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span>name<span class="token punctuation">:</span>influxdb<span class="token punctuation">-</span>persistent<span class="token punctuation">-</span>storage
+             mountPath<span class="token punctuation">:</span>/data
+        <span class="token punctuation">-</span> image<span class="token punctuation">:</span>grc.io/google_containers/heapster_grafana<span class="token punctuation">:</span>v2.6.0<span class="token punctuation">-</span><span class="token number">2</span>
+          name<span class="token punctuation">:</span>grafana
+          <span class="token key atrule">resources</span><span class="token punctuation">:</span>
+            <span class="token key atrule">limits</span><span class="token punctuation">:</span>
+              cpu<span class="token punctuation">:</span>100m
+              memory<span class="token punctuation">:</span>100Mi
+            <span class="token key atrule">requests</span><span class="token punctuation">:</span>
+              cpu<span class="token punctuation">:</span>100m
+              memory<span class="token punctuation">:</span>100Mi
+          <span class="token key atrule">env</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> name<span class="token punctuation">:</span>INFLUXDB_SERVICE_URL
+              value<span class="token punctuation">:</span>http<span class="token punctuation">:</span>//monitoring<span class="token punctuation">-</span>influxdb<span class="token punctuation">:</span><span class="token number">8086</span>
+            <span class="token punctuation">-</span> name<span class="token punctuation">:</span>GF_AUTH_BASIC_ENABLED
+              value<span class="token punctuation">:</span><span class="token string">&quot;false&quot;</span>
+            <span class="token punctuation">-</span> name<span class="token punctuation">:</span>GF_AUTH_ANONYMOUS_ENABLED
+              value<span class="token punctuation">:</span><span class="token string">&quot;true&quot;</span>
+            <span class="token punctuation">-</span> name<span class="token punctuation">:</span>GF_AUTH_ANONYMOUS_ORG_ROLE
+              value<span class="token punctuation">:</span>Admin
+            <span class="token punctuation">-</span> name<span class="token punctuation">:</span>GF_SERVER_ROOT_URL
+              value<span class="token punctuation">:</span>/api/v1/proxy/namespace/kube<span class="token punctuation">-</span>system/services/monitoring<span class="token punctuation">-</span>grafana/
+          <span class="token key atrule">volumeMounts</span><span class="token punctuation">:</span>
+            <span class="token punctuation">-</span> name<span class="token punctuation">:</span>grafana<span class="token punctuation">-</span>persistent<span class="token punctuation">-</span>storage
+              mountPath<span class="token punctuation">:</span>/var
+      <span class="token key atrule">volumes</span><span class="token punctuation">:</span>
+        <span class="token punctuation">-</span> name<span class="token punctuation">:</span>influxdb<span class="token punctuation">-</span>persistent<span class="token punctuation">-</span>storage
+          emptyDir<span class="token punctuation">{</span><span class="token punctuation">}</span>
+        <span class="token punctuation">-</span> name<span class="token punctuation">:</span>grafana<span class="token punctuation">-</span>persistent<span class="token punctuation">-</span>storage
+          emptyDir<span class="token punctuation">{</span><span class="token punctuation">}</span>
 </code></pre>
 <h4 id="232-heapster-controller">2.3.2. heapster-controller</h4>
 <p><strong>heapster-controller.yaml</strong></p>
-<pre><code class="lang-yaml"><span class="hljs-attr">apiVersion:</span>v1
-<span class="hljs-attr">kind:</span>ReplicationController
-<span class="hljs-attr">metadata:</span>
-<span class="hljs-attr">    labels:</span>
-<span class="hljs-attr">        k8s-app:</span>heapster
-<span class="hljs-attr">        name:</span>heapster
-<span class="hljs-attr">        version:</span>v6
-<span class="hljs-attr">    name:</span>heapster
-<span class="hljs-attr">    namespace:</span>kube-system
-<span class="hljs-attr">spec:</span>
-<span class="hljs-attr">    replicas:</span><span class="hljs-number">1</span>
-<span class="hljs-attr">    selector:</span>
-<span class="hljs-attr">        name:</span>heapster
-<span class="hljs-attr">        k8s-app:</span>heapster
-<span class="hljs-attr">        version:</span>v6
-<span class="hljs-attr">    template:</span>
-<span class="hljs-attr">        metadata:</span>
-<span class="hljs-attr">            labels:</span>
-<span class="hljs-attr">                k8s-app:</span>heapster
-<span class="hljs-attr">                version:</span>v6
-<span class="hljs-attr">        spec:</span>
-<span class="hljs-attr">            containers:</span>
-<span class="hljs-attr">                - image:</span>gcr.io/google_containers/heapster:v0<span class="hljs-number">.17</span><span class="hljs-number">.0</span>
-<span class="hljs-attr">                  name:</span>heapster
-<span class="hljs-attr">                  command:</span>
-<span class="hljs-bullet">                    -</span> /heapster
-<span class="hljs-bullet">                    -</span> --source=kubernetes:http://<span class="hljs-number">192.168</span><span class="hljs-number">.1</span><span class="hljs-number">.128</span>:<span class="hljs-number">8080</span>?inClusterConfig=flase&amp;kubeletHttps=<span class="hljs-literal">true</span>&amp;useServiceAccount=<span class="hljs-literal">true</span>&amp;auth=
-<span class="hljs-bullet">                    -</span> --sink=InfluxDB:http://monitoring-InfluxDB:<span class="hljs-number">8086</span>
+<pre class="language-"><code class="lang-yaml">apiVersion<span class="token punctuation">:</span>v1
+kind<span class="token punctuation">:</span>ReplicationController
+<span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+    <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+        k8s<span class="token punctuation">-</span>app<span class="token punctuation">:</span>heapster
+        name<span class="token punctuation">:</span>heapster
+        version<span class="token punctuation">:</span>v6
+    name<span class="token punctuation">:</span>heapster
+    namespace<span class="token punctuation">:</span>kube<span class="token punctuation">-</span>system
+<span class="token key atrule">spec</span><span class="token punctuation">:</span>
+    replicas<span class="token punctuation">:</span><span class="token number">1</span>
+    <span class="token key atrule">selector</span><span class="token punctuation">:</span>
+        name<span class="token punctuation">:</span>heapster
+        k8s<span class="token punctuation">-</span>app<span class="token punctuation">:</span>heapster
+        version<span class="token punctuation">:</span>v6
+    <span class="token key atrule">template</span><span class="token punctuation">:</span>
+        <span class="token key atrule">metadata</span><span class="token punctuation">:</span>
+            <span class="token key atrule">labels</span><span class="token punctuation">:</span>
+                k8s<span class="token punctuation">-</span>app<span class="token punctuation">:</span>heapster
+                version<span class="token punctuation">:</span>v6
+        <span class="token key atrule">spec</span><span class="token punctuation">:</span>
+            <span class="token key atrule">containers</span><span class="token punctuation">:</span>
+                <span class="token punctuation">-</span> image<span class="token punctuation">:</span>gcr.io/google_containers/heapster<span class="token punctuation">:</span>v0.17.0
+                  name<span class="token punctuation">:</span>heapster
+                  <span class="token key atrule">command</span><span class="token punctuation">:</span>
+                    <span class="token punctuation">-</span> /heapster
+                    <span class="token punctuation">-</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>source=kubernetes<span class="token punctuation">:</span>http<span class="token punctuation">:</span>//192.168.1.128<span class="token punctuation">:</span>8080<span class="token punctuation">?</span>inClusterConfig=flase<span class="token important">&amp;kubeletHttps</span>=true<span class="token important">&amp;useServiceAccount</span>=true<span class="token important">&amp;auth</span>=
+                    <span class="token punctuation">-</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>sink=InfluxDB<span class="token punctuation">:</span>http<span class="token punctuation">:</span>//monitoring<span class="token punctuation">-</span>InfluxDB<span class="token punctuation">:</span><span class="token number">8086</span>
 </code></pre>
 <p>Heapster&#x8BBE;&#x7F6E;&#x542F;&#x52A8;&#x53C2;&#x6570;&#x8BF4;&#x660E;&#xFF1A;</p>
 <p>1&#x3001;&#x2013;source</p>
@@ -687,7 +788,7 @@ spec:
 <p>2&#x3001;&#x2013;sink</p>
 <p>&#x914D;&#x7F6E;&#x540E;&#x7AEF;&#x7684;&#x5B58;&#x50A8;&#x7CFB;&#x7EDF;&#xFF0C;&#x672C;&#x4F8B;&#x4E2D;&#x4F7F;&#x7528;InfluxDB&#x3002;URL&#x4E2D;&#x4E3B;&#x673A;&#x540D;&#x7684;&#x5730;&#x5740;&#x662F;InfluxDB&#x7684;Service&#x540D;&#x5B57;&#xFF0C;&#x9700;&#x8981;DNS&#x670D;&#x52A1;&#x6B63;&#x5E38;&#x5DE5;&#x4F5C;&#xFF0C;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x914D;&#x7F6E;DNS&#x670D;&#x52A1;&#x53EF;&#x4F7F;&#x7528;Service&#x7684;ClusterIP&#x5730;&#x5740;&#x3002;</p>
 <h4 id="233-&#x521B;&#x5EFA;replicationcontroller">2.3.3. &#x521B;&#x5EFA;ReplicationController</h4>
-<pre><code class="lang-shell">kubelet create -f InfluxDB-Grafana-controller.yaml
+<pre class="language-"><code class="lang-shell">kubelet create -f InfluxDB-Grafana-controller.yaml
 kubelet create -f heapster-controller.yaml
 </code></pre>
 <h2 id="3-&#x67E5;&#x770B;&#x754C;&#x9762;&#x53CA;&#x6570;&#x636E;">3. &#x67E5;&#x770B;&#x754C;&#x9762;&#x53CA;&#x6570;&#x636E;</h2>
@@ -697,30 +798,32 @@ kubelet create -f heapster-controller.yaml
 <p>&#x8BBF;&#x95EE;&#x4EFB;&#x610F;&#x4E00;&#x53F0;Node&#x673A;&#x5668;&#x7684;30080&#x7AEF;&#x53E3;&#x3002;</p>
 <h2 id="4-&#x5BB9;&#x5668;&#x5316;&#x90E8;&#x7F72;">4. &#x5BB9;&#x5668;&#x5316;&#x90E8;&#x7F72;</h2>
 <h3 id="41-&#x62C9;&#x53D6;&#x955C;&#x50CF;">4.1. &#x62C9;&#x53D6;&#x955C;&#x50CF;</h3>
-<pre><code class="lang-shell">docker pull influxdb:latest
+<pre class="language-"><code class="lang-shell">docker pull influxdb:latest
 docker pull cadvisor:latest
 docker pull grafana:latest
 docker pull heapster:latest
 </code></pre>
 <h3 id="42-&#x8FD0;&#x884C;&#x5BB9;&#x5668;">4.2. &#x8FD0;&#x884C;&#x5BB9;&#x5668;</h3>
 <h4 id="421-influxdb">4.2.1. influxdb</h4>
-<pre><code class="lang-shell">#influxdb
+<pre class="language-"><code class="lang-shell">#influxdb
 docker run -d -p 8083:8083 -p 8086:8086 --expose 8090 --expose 8099 --volume=/opt/data/influxdb:/data --name influxsrv influxdb:latest
 </code></pre>
 <h4 id="422-cadvisor">4.2.2. cadvisor</h4>
-<pre><code class="lang-shell">#cadvisor
+<pre class="language-"><code class="lang-shell">#cadvisor
 docker run --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --publish=8080:8080 --detach=true --link influxsrv:influxsrv --name=cadvisor cadvisor:latest -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086
 </code></pre>
 <h4 id="423-grafana">4.2.3. grafana</h4>
-<pre><code class="lang-shell">#grafana
+<pre class="language-"><code class="lang-shell">#grafana
 docker run -d -p 3000:3000 -e INFLUXDB_HOST=influxsrv -e INFLUXDB_PORT=8086 -e INFLUXDB_NAME=cadvisor -e INFLUXDB_USER=root -e INFLUXDB_PASS=root --link influxsrv:influxsrv --name grafana grafana:latest
 </code></pre>
 <h4 id="424-heapster">4.2.4. heapster</h4>
-<pre><code class="lang-shell">docker run -d -p 8082:8082 --net=host heapster:canary --source=kubernetes:http://`k8s-server-ip`:8080?inClusterConfig=false/&amp;useServiceAccount=false --sink=influxdb:http://`influxdb-ip`:8086
+<pre class="language-"><code class="lang-shell">docker run -d -p 8082:8082 --net=host heapster:canary --source=kubernetes:http://`k8s-server-ip`:8080?inClusterConfig=false/&amp;useServiceAccount=false --sink=influxdb:http://`influxdb-ip`:8086
 </code></pre>
 <h3 id="43-&#x8BBF;&#x95EE;">4.3. &#x8BBF;&#x95EE;</h3>
 <p>&#x5728;&#x6D4F;&#x89C8;&#x5668;&#x8F93;&#x5165;<code>IP</code>:<code>PORT</code></p>
-
+<footer class="page-footer"><span class="copyright">Copyright &#xA9; www.huweihuang.com 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
+2018-08-18 14:55:54
+</span></footer>
                                 
                                 </section>
                             
@@ -747,12 +850,12 @@ docker run -d -p 3000:3000 -e INFLUXDB_HOST=influxsrv -e INFLUXDB_PORT=8086 -e I
 
             
                 
-                <a href="README.md" class="navigation navigation-prev " aria-label="Previous page: 5. 监控体系">
+                <a href="./" class="navigation navigation-prev " aria-label="Previous page: 监控体系">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="cadvisor-introduction.html" class="navigation navigation-next " aria-label="Next page: 5.2. cAdvisor介绍">
+                <a href="cadvisor-introduction.html" class="navigation navigation-next " aria-label="Next page: cAdvisor介绍">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -763,7 +866,7 @@ docker run -d -p 3000:3000 -e INFLUXDB_HOST=influxsrv -e INFLUXDB_PORT=8086 -e I
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"5.1. 监控体系介绍","catalog":true,"date":"2017-08-13T10:50:57.000Z","type":"categories","subtitle":null,"header-img":null,"tags":["Kubernetes"],"catagories":["Kubernetes"],"level":"1.6.1","depth":2,"next":{"title":"5.2. cAdvisor介绍","level":"1.6.2","depth":2,"path":"monitor/cadvisor-introduction.md","ref":"monitor/cadvisor-introduction.md","articles":[]},"previous":{"title":"5. 监控体系","level":"1.6","depth":1,"path":"monitor/README.md","ref":"monitor/README.md","articles":[{"title":"5.1. 监控体系介绍","level":"1.6.1","depth":2,"path":"monitor/kubernetes-cluster-monitoring.md","ref":"monitor/kubernetes-cluster-monitoring.md","articles":[]},{"title":"5.2. cAdvisor介绍","level":"1.6.2","depth":2,"path":"monitor/cadvisor-introduction.md","ref":"monitor/cadvisor-introduction.md","articles":[]},{"title":"5.3. Heapster介绍","level":"1.6.3","depth":2,"path":"monitor/heapster-introduction.md","ref":"monitor/heapster-introduction.md","articles":[]},{"title":"5.4. Influxdb介绍","level":"1.6.4","depth":2,"path":"monitor/influxdb-introduction.md","ref":"monitor/influxdb-introduction.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"monitor/kubernetes-cluster-monitoring.md","mtime":"2018-08-18T06:55:54.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-19T10:36:34.223Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"监控体系介绍","catalog":true,"date":"2017-08-13T10:50:57.000Z","type":"categories","subtitle":null,"header-img":null,"tags":["Kubernetes"],"catagories":["Kubernetes"],"level":"1.6.1","depth":2,"next":{"title":"cAdvisor介绍","level":"1.6.2","depth":2,"path":"monitor/cadvisor-introduction.md","ref":"monitor/cadvisor-introduction.md","articles":[]},"previous":{"title":"监控体系","level":"1.6","depth":1,"path":"monitor/README.md","ref":"monitor/README.md","articles":[{"title":"监控体系介绍","level":"1.6.1","depth":2,"path":"monitor/kubernetes-cluster-monitoring.md","ref":"monitor/kubernetes-cluster-monitoring.md","articles":[]},{"title":"cAdvisor介绍","level":"1.6.2","depth":2,"path":"monitor/cadvisor-introduction.md","ref":"monitor/cadvisor-introduction.md","articles":[]},{"title":"Heapster介绍","level":"1.6.3","depth":2,"path":"monitor/heapster-introduction.md","ref":"monitor/heapster-introduction.md","articles":[]},{"title":"Influxdb介绍","level":"1.6.4","depth":2,"path":"monitor/influxdb-introduction.md","ref":"monitor/influxdb-introduction.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"github":{"url":"https://github.com/huweihuang/kubernetes-notes"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.1","level":"1.3.2.2","list_caption":"Figure: pod","alt":"pod","nro":1,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"1.3.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.2","level":"1.3.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"1.3.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.3","level":"1.3.2.2","list_caption":"Figure: service","alt":"service","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"1.3.2.2.3"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.1","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":4,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.1"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.2","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.2"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.3","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":3,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.3"},{"backlink":"principle/kubernetes-core-principle-api-server.html#fig1.4.1.1","level":"1.4.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"1.4.1.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.1","level":"1.4.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"1.4.2.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.2","level":"1.4.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":9,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"1.4.2.2"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.3","level":"1.4.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"1.4.2.3"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.4","level":"1.4.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"1.4.2.4"},{"backlink":"principle/kubernetes-core-principle-scheduler.html#fig1.4.3.1","level":"1.4.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"1.4.3.1"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig1.6.1.1","level":"1.6.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"1.6.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig1.6.2.1","level":"1.6.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"1.6.2.1"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"胡伟煌":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"monitor/kubernetes-cluster-monitoring.md","mtime":"2018-08-18T06:55:54.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-21T12:49:57.854Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
@@ -773,19 +876,43 @@ docker run -d -p 3000:3000 -e INFLUXDB_HOST=influxsrv -e INFLUXDB_PORT=8086 -e I
     <script src="../gitbook/theme.js"></script>
     
         
-        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
         
     
         
-        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
         
     
         
-        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        <script src="../gitbook/gitbook-plugin-page-toc-button/plugin.js"></script>
         
     
         
-        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        <script src="../gitbook/gitbook-plugin-editlink/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-3-ba/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-ga/plugin.js"></script>
         
     
         
