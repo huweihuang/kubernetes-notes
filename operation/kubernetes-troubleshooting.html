@@ -82,8 +82,6 @@
     <link rel="next" href="nodeselector-and-taint.html" />
     
     
-    <link rel="prev" href="./" />
-    
 
     
         <link rel="shortcut icon" href='../favicon.ico' type="image/x-icon">
@@ -127,7 +125,7 @@
     
         
         <li>
-            <a href="https://www.huweihuang.com" target="_blank" class="custom-link">胡伟煌</a>
+            <a href="https://www.huweihuang.com" target="_blank" class="custom-link">胡伟煌的博客</a>
         </li>
     
     
@@ -155,16 +153,16 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2" data-path="../setup/">
+        <li class="chapter " data-level="1.2" >
             
-                <a href="../setup/">
+                <span>
             
                     
                         <b>1.2.</b>
                     
                     安装与配置
             
-                </a>
+                </span>
             
 
             
@@ -206,32 +204,32 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3" data-path="../concepts/">
+        <li class="chapter " data-level="1.3" >
             
-                <a href="../concepts/">
+                <span>
             
                     
                         <b>1.3.</b>
                     
                     基本概念
             
-                </a>
+                </span>
             
 
             
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="../concepts/architecture/">
+        <li class="chapter " data-level="1.3.1" >
             
-                <a href="../concepts/architecture/">
+                <span>
             
                     
                         <b>1.3.1.</b>
                     
                     kubernetes架构
             
-                </a>
+                </span>
             
 
             
@@ -273,16 +271,16 @@
             
         </li>
     
-        <li class="chapter " data-level="1.3.2" data-path="../concepts/object/">
+        <li class="chapter " data-level="1.3.2" >
             
-                <a href="../concepts/object/">
+                <span>
             
                     
                         <b>1.3.2.</b>
                     
                     kubernetes对象
             
-                </a>
+                </span>
             
 
             
@@ -344,16 +342,16 @@
             
         </li>
     
-        <li class="chapter " data-level="1.4" data-path="../principle/">
+        <li class="chapter " data-level="1.4" >
             
-                <a href="../principle/">
+                <span>
             
                     
                         <b>1.4.</b>
                     
                     核心原理
             
-                </a>
+                </span>
             
 
             
@@ -425,16 +423,16 @@
             
         </li>
     
-        <li class="chapter " data-level="1.5" data-path="./">
+        <li class="chapter " data-level="1.5" >
             
-                <a href="./">
+                <span>
             
                     
                         <b>1.5.</b>
                     
                     运维指南
             
-                </a>
+                </span>
             
 
             
@@ -476,16 +474,16 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="../monitor/">
+        <li class="chapter " data-level="1.6" >
             
-                <a href="../monitor/">
+                <span>
             
                     
                         <b>1.6.</b>
                     
                     监控体系
             
-                </a>
+                </span>
             
 
             
@@ -614,38 +612,38 @@
 <h3 id="11-pod">1.1. Pod</h3>
 <pre class="language-"><code>kubectl describe pod <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PodName</span><span class="token punctuation">&gt;</span></span> --namespace=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>NAMESPACE</span><span class="token punctuation">&gt;</span></span>
 </code></pre><p>&#x4EE5;&#x4E0B;&#x662F;&#x5BB9;&#x5668;&#x7684;&#x542F;&#x52A8;&#x547D;&#x4EE4;&#x975E;&#x963B;&#x585E;&#x5F0F;&#x5BFC;&#x81F4;&#x5BB9;&#x5668;&#x6302;&#x6389;&#xFF0C;&#x88AB;k8s&#x9891;&#x7E41;&#x91CD;&#x542F;&#x6240;&#x4EA7;&#x751F;&#x7684;&#x4E8B;&#x4EF6;&#x3002;</p>
-<pre class="language-"><code class="lang-shell">kubectl describe pod <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>PodName</span><span class="token punctuation">&gt;</span></span> --namespace=<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>NAMESPACE</span><span class="token punctuation">&gt;</span></span>  
+<pre class="language-"><code class="lang-bash">kubectl describe pod <span class="token operator">&lt;</span>PodName<span class="token operator">&gt;</span> --namespace<span class="token operator">=</span><span class="token operator">&lt;</span>NAMESPACE<span class="token operator">&gt;</span>  
 
 Events:
   FirstSeen LastSeen    Count   From            SubobjectPath       Reason      Message
   &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;    &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;   &#x2500;&#x2500;&#x2500;&#x2500;            &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;       &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;      &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;
-  7m        7m      1   {scheduler }                    Scheduled   Successfully assigned yangsc-1-0-0-index0 to 10.8.216.19
-  7m        7m      1   {kubelet 10.8.216.19}   containers{infra}   Pulled      Container image &quot;gcr.io/kube-system/pause:0.8.0&quot; already present on machine
-  7m        7m      1   {kubelet 10.8.216.19}   containers{infra}   Created     Created with docker id 84f133c324d0
-  7m        7m      1   {kubelet 10.8.216.19}   containers{infra}   Started     Started with docker id 84f133c324d0
-  7m        7m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id 3f9f82abb145
-  7m        7m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id 3f9f82abb145
-  7m        7m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id fb112e4002f4
-  7m        7m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id fb112e4002f4
-  6m        6m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id 613b119d4474
-  6m        6m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id 613b119d4474
-  6m        6m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id 25cb68d1fd3d
-  6m        6m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id 25cb68d1fd3d
-  5m        5m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id 7d9ee8610b28
-  5m        5m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id 7d9ee8610b28
-  3m        3m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id 88b9e8d582dd
-  3m        3m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id 88b9e8d582dd
-  7m        1m      7   {kubelet 10.8.216.19}   containers{yangsc0} Pulling     Pulling image &quot;gcr.io/test/tcp-hello:1.0.0&quot;
-  1m        1m      1   {kubelet 10.8.216.19}   containers{yangsc0} Started     Started with docker id 089abff050e7
-  1m        1m      1   {kubelet 10.8.216.19}   containers{yangsc0} Created     Created with docker id 089abff050e7
-  7m        1m      7   {kubelet 10.8.216.19}   containers{yangsc0} Pulled      Successfully pulled image &quot;gcr.io/test/tcp-hello:1.0.0&quot;
-  6m        7s      34  {kubelet 10.8.216.19}   containers{yangsc0} Backoff     Back-off restarting failed docker container
+  7m        7m      1   <span class="token punctuation">{</span>scheduler <span class="token punctuation">}</span>                    Scheduled   Successfully assigned yangsc-1-0-0-index0 to 10.8.216.19
+  7m        7m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>infra<span class="token punctuation">}</span>   Pulled      Container image <span class="token string">&quot;gcr.io/kube-system/pause:0.8.0&quot;</span> already present on machine
+  7m        7m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>infra<span class="token punctuation">}</span>   Created     Created with docker <span class="token function">id</span> 84f133c324d0
+  7m        7m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>infra<span class="token punctuation">}</span>   Started     Started with docker <span class="token function">id</span> 84f133c324d0
+  7m        7m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Started     Started with docker <span class="token function">id</span> 3f9f82abb145
+  7m        7m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Created     Created with docker <span class="token function">id</span> 3f9f82abb145
+  7m        7m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Created     Created with docker <span class="token function">id</span> fb112e4002f4
+  7m        7m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Started     Started with docker <span class="token function">id</span> fb112e4002f4
+  6m        6m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Created     Created with docker <span class="token function">id</span> 613b119d4474
+  6m        6m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Started     Started with docker <span class="token function">id</span> 613b119d4474
+  6m        6m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Created     Created with docker <span class="token function">id</span> 25cb68d1fd3d
+  6m        6m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Started     Started with docker <span class="token function">id</span> 25cb68d1fd3d
+  5m        5m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Started     Started with docker <span class="token function">id</span> 7d9ee8610b28
+  5m        5m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Created     Created with docker <span class="token function">id</span> 7d9ee8610b28
+  3m        3m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Started     Started with docker <span class="token function">id</span> 88b9e8d582dd
+  3m        3m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Created     Created with docker <span class="token function">id</span> 88b9e8d582dd
+  7m        1m      7   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Pulling     Pulling image <span class="token string">&quot;gcr.io/test/tcp-hello:1.0.0&quot;</span>
+  1m        1m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Started     Started with docker <span class="token function">id</span> 089abff050e7
+  1m        1m      1   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Created     Created with docker <span class="token function">id</span> 089abff050e7
+  7m        1m      7   <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Pulled      Successfully pulled image <span class="token string">&quot;gcr.io/test/tcp-hello:1.0.0&quot;</span>
+  6m        7s      34  <span class="token punctuation">{</span>kubelet 10.8.216.19<span class="token punctuation">}</span>   containers<span class="token punctuation">{</span>yangsc0<span class="token punctuation">}</span> Backoff     Back-off restarting failed docker container
 </code></pre>
 <h3 id="12-node">1.2. NODE</h3>
 <pre class="language-"><code>kubectl describe node 10.8.216.20
-</code></pre><pre class="language-"><code class="lang-shell">[root@FC-43745A-10 ~]# kubectl describe node 10.8.216.20  
+</code></pre><pre class="language-"><code class="lang-bash"><span class="token punctuation">[</span>root@FC-43745A-10 ~<span class="token punctuation">]</span><span class="token comment"># kubectl describe node 10.8.216.20  </span>
 Name:           10.8.216.20  
-Labels:         kubernetes.io/hostname=10.8.216.20,namespace/bcs-cc=true,namespace/myview=true  
+Labels:         kubernetes.io/hostname<span class="token operator">=</span>10.8.216.20,namespace/bcs-cc<span class="token operator">=</span>true,namespace/myview<span class="token operator">=</span>true  
 CreationTimestamp:  Mon, 17 Apr 2017 11:32:52 +0800  
 Phase:            
 Conditions:  
@@ -663,50 +661,50 @@ System Info:
  System UUID:           4C4C4544-0042-4210-8044-C3C04F595631  
  Boot ID:           da01f2e3-987a-425a-9ca7-1caaec35d1e5  
  Kernel Version:        3.10.0-327.28.3.el7.x86_64  
- OS Image:          CentOS Linux 7 (Core)  
+ OS Image:          CentOS Linux 7 <span class="token punctuation">(</span>Core<span class="token punctuation">)</span>  
  Container Runtime Version: docker://1.13.1  
  Kubelet Version:       v1.1.1-xxx2-13.1+79c90c68bfb72f-dirty  
  Kube-Proxy Version:        v1.1.1-xxx2-13.1+79c90c68bfb72f-dirty  
 ExternalID:         10.8.216.20  
-Non-terminated Pods:        (6 in total)  
+Non-terminated Pods:        <span class="token punctuation">(</span>6 <span class="token keyword">in</span> total<span class="token punctuation">)</span>  
   Namespace         Name                    CPU Requests    CPU Limits  Memory Requests Memory Limits  
   &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;         &#x2500;&#x2500;&#x2500;&#x2500;                    &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;    &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  
-  bcs-cc            bcs-cc-api-0-0-1364-index0      1 (3%)      1 (3%)      4294967296 (6%) 4294967296 (6%)  
-  bcs-cc            bcs-cc-api-0-0-1444-index0      1 (3%)      1 (3%)      4294967296 (6%) 4294967296 (6%)  
-  fw                fw-demo2-0-0-1519-index0        1 (3%)      1 (3%)      4294967296 (6%) 4294967296 (6%)  
-  myview            myview-api-0-0-1362-index0      1 (3%)      1 (3%)      4294967296 (6%) 4294967296 (6%)  
-  myview            myview-api-0-0-1442-index0      1 (3%)      1 (3%)      4294967296 (6%) 4294967296 (6%)  
-  qa-ts-dna         ts-dna-console3-0-0-1434-index0     1 (3%)      1 (3%)      4294967296 (6%) 4294967296 (6%)  
+  bcs-cc            bcs-cc-api-0-0-1364-index0      1 <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>      1 <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>      4294967296 <span class="token punctuation">(</span>6%<span class="token punctuation">)</span> 4294967296 <span class="token punctuation">(</span>6%<span class="token punctuation">)</span>  
+  bcs-cc            bcs-cc-api-0-0-1444-index0      1 <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>      1 <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>      4294967296 <span class="token punctuation">(</span>6%<span class="token punctuation">)</span> 4294967296 <span class="token punctuation">(</span>6%<span class="token punctuation">)</span>  
+  fw                fw-demo2-0-0-1519-index0        1 <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>      1 <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>      4294967296 <span class="token punctuation">(</span>6%<span class="token punctuation">)</span> 4294967296 <span class="token punctuation">(</span>6%<span class="token punctuation">)</span>  
+  myview            myview-api-0-0-1362-index0      1 <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>      1 <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>      4294967296 <span class="token punctuation">(</span>6%<span class="token punctuation">)</span> 4294967296 <span class="token punctuation">(</span>6%<span class="token punctuation">)</span>  
+  myview            myview-api-0-0-1442-index0      1 <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>      1 <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>      4294967296 <span class="token punctuation">(</span>6%<span class="token punctuation">)</span> 4294967296 <span class="token punctuation">(</span>6%<span class="token punctuation">)</span>  
+  qa-ts-dna         ts-dna-console3-0-0-1434-index0     1 <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>      1 <span class="token punctuation">(</span>3%<span class="token punctuation">)</span>      4294967296 <span class="token punctuation">(</span>6%<span class="token punctuation">)</span> 4294967296 <span class="token punctuation">(</span>6%<span class="token punctuation">)</span>  
 Allocated resources:  
-  (Total limits may be over 100%, i.e., overcommitted. More info: http://releases.k8s.io/HEAD/docs/user-guide/compute-resources.md)  
+  <span class="token punctuation">(</span>Total limits may be over 100%, i.e., overcommitted. More info: http://releases.k8s.io/HEAD/docs/user-guide/compute-resources.md<span class="token punctuation">)</span>  
   CPU Requests  CPU Limits  Memory Requests     Memory Limits  
   &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;     &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  
-  6 (18%)   6 (18%)     25769803776 (38%)   25769803776 (38%)  
+  6 <span class="token punctuation">(</span>18%<span class="token punctuation">)</span>   6 <span class="token punctuation">(</span>18%<span class="token punctuation">)</span>     25769803776 <span class="token punctuation">(</span>38%<span class="token punctuation">)</span>   25769803776 <span class="token punctuation">(</span>38%<span class="token punctuation">)</span>  
 No events.
 </code></pre>
 <h3 id="13-rc">1.3. RC</h3>
 <pre class="language-"><code>kubectl describe rc mytest-1-0-0 --namespace=test
-</code></pre><pre class="language-"><code class="lang-shell">[root@FC-43745A-10 ~]# kubectl describe rc mytest-1-0-0 --namespace=test  
+</code></pre><pre class="language-"><code class="lang-bash"><span class="token punctuation">[</span>root@FC-43745A-10 ~<span class="token punctuation">]</span><span class="token comment"># kubectl describe rc mytest-1-0-0 --namespace=test  </span>
 Name:       mytest-1-0-0  
-Namespace:  test  
-Image(s):   gcr.io/test/mywebcalculator:1.0.1  
-Selector:   app=mytest,appVersion=1.0.0  
-Labels:     app=mytest,appVersion=1.0.0,env=ts,zone=inner  
+Namespace:  <span class="token function">test</span>  
+Image<span class="token punctuation">(</span>s<span class="token punctuation">)</span>:   gcr.io/test/mywebcalculator:1.0.1  
+Selector:   app<span class="token operator">=</span>mytest,appVersion<span class="token operator">=</span>1.0.0  
+Labels:     app<span class="token operator">=</span>mytest,appVersion<span class="token operator">=</span>1.0.0,env<span class="token operator">=</span>ts,zone<span class="token operator">=</span>inner  
 Replicas:   1 current / 1 desired  
 Pods Status:    1 Running / 0 Waiting / 0 Succeeded / 0 Failed  
 No volumes.  
 Events:  
   FirstSeen LastSeen    Count   From                SubobjectPath   Reason          Message  
   &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500; &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;    &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;   &#x2500;&#x2500;&#x2500;&#x2500;                &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;   &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;          &#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;&#x2500;  
-  20h       19h     9   {replication-controller }           FailedCreate        Error creating: Pod &quot;mytest-1-0-0-index0&quot; is forbidden: limited to 10 pods  
-  20h       17h     7   {replication-controller }           FailedCreate        Error creating: pods &quot;mytest-1-0-0-index0&quot; already exists  
-  20h       17h     4   {replication-controller }           SuccessfulCreate    Created pod: mytest-1-0-0-index0
+  20h       19h     9   <span class="token punctuation">{</span>replication-controller <span class="token punctuation">}</span>           FailedCreate        Error creating: Pod <span class="token string">&quot;mytest-1-0-0-index0&quot;</span> is forbidden: limited to 10 pods  
+  20h       17h     7   <span class="token punctuation">{</span>replication-controller <span class="token punctuation">}</span>           FailedCreate        Error creating: pods <span class="token string">&quot;mytest-1-0-0-index0&quot;</span> already exists  
+  20h       17h     4   <span class="token punctuation">{</span>replication-controller <span class="token punctuation">}</span>           SuccessfulCreate    Created pod: mytest-1-0-0-index0
 </code></pre>
 <h3 id="14-namespace">1.4. NAMESPACE</h3>
 <pre class="language-"><code>kubectl describe namespace test
-</code></pre><pre class="language-"><code class="lang-shell">[root@FC-43745A-10 ~]# kubectl describe namespace test  
-Name:   test  
-Labels: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>none</span><span class="token punctuation">&gt;</span></span>  
+</code></pre><pre class="language-"><code class="lang-bash"><span class="token punctuation">[</span>root@FC-43745A-10 ~<span class="token punctuation">]</span><span class="token comment"># kubectl describe namespace test  </span>
+Name:   <span class="token function">test</span>  
+Labels: <span class="token operator">&lt;</span>none<span class="token operator">&gt;</span>  
 Status: Active  
 
 Resource Quotas  
@@ -725,11 +723,11 @@ No resource limits.
 </code></pre>
 <h3 id="15-service">1.5. Service</h3>
 <pre class="language-"><code>kubectl describe service xxx-containers-1-1-0 --namespace=test
-</code></pre><pre class="language-"><code class="lang-shell">[root@FC-43745A-10 ~]# kubectl describe service xxx-containers-1-1-0 --namespace=test  
+</code></pre><pre class="language-"><code class="lang-bash"><span class="token punctuation">[</span>root@FC-43745A-10 ~<span class="token punctuation">]</span><span class="token comment"># kubectl describe service xxx-containers-1-1-0 --namespace=test  </span>
 Name:           xxx-containers-1-1-0  
-Namespace:      test  
-Labels:         app=xxx-containers,appVersion=1.1.0,env=ts,zone=inner  
-Selector:       app=xxx-containers,appVersion=1.1.0  
+Namespace:      <span class="token function">test</span>  
+Labels:         app<span class="token operator">=</span>xxx-containers,appVersion<span class="token operator">=</span>1.1.0,env<span class="token operator">=</span>ts,zone<span class="token operator">=</span>inner  
+Selector:       app<span class="token operator">=</span>xxx-containers,appVersion<span class="token operator">=</span>1.1.0  
 Type:           ClusterIP  
 IP:         10.254.46.42  
 Port:           port-dna-tcp-35913  35913/TCP  
@@ -741,33 +739,33 @@ No events.
 </code></pre>
 <h2 id="2-&#x67E5;&#x770B;&#x5BB9;&#x5668;&#x65E5;&#x5FD7;">2. &#x67E5;&#x770B;&#x5BB9;&#x5668;&#x65E5;&#x5FD7;</h2>
 <p>1&#x3001;&#x67E5;&#x770B;&#x6307;&#x5B9A;pod&#x7684;&#x65E5;&#x5FD7;</p>
-<pre class="language-"><code class="lang-shell">kubectl logs <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pod_name</span><span class="token punctuation">&gt;</span></span>
+<pre class="language-"><code class="lang-bash">kubectl logs <span class="token operator">&lt;</span>pod_name<span class="token operator">&gt;</span>
 
-kubectl logs -f <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pod_name</span><span class="token punctuation">&gt;</span></span> #&#x7C7B;&#x4F3C;tail -f&#x7684;&#x65B9;&#x5F0F;&#x67E5;&#x770B;
+kubectl logs -f <span class="token operator">&lt;</span>pod_name<span class="token operator">&gt;</span> <span class="token comment">#&#x7C7B;&#x4F3C;tail -f&#x7684;&#x65B9;&#x5F0F;&#x67E5;&#x770B;</span>
 </code></pre>
 <p>2&#x3001;&#x67E5;&#x770B;&#x4E0A;&#x4E00;&#x4E2A;pod&#x7684;&#x65E5;&#x5FD7;</p>
 <pre class="language-"><code>kubectl logs -p <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pod_name</span><span class="token punctuation">&gt;</span></span>
 </code></pre><p>3&#x3001;&#x67E5;&#x770B;&#x6307;&#x5B9A;pod&#x4E2D;&#x6307;&#x5B9A;&#x5BB9;&#x5668;&#x7684;&#x65E5;&#x5FD7;</p>
 <pre class="language-"><code>kubectl logs <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pod_name</span><span class="token punctuation">&gt;</span></span> -c <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>container_name</span><span class="token punctuation">&gt;</span></span>
 </code></pre><p>4&#x3001;kubectl logs --help</p>
-<pre class="language-"><code class="lang-shell">[root@node5 ~]# kubectl logs --help  
-Print the logs for a container in a pod. If the pod has only one container, the container name is optional.  
+<pre class="language-"><code class="lang-bash"><span class="token punctuation">[</span>root@node5 ~<span class="token punctuation">]</span><span class="token comment"># kubectl logs --help  </span>
+Print the logs <span class="token keyword">for</span> a container <span class="token keyword">in</span> a pod. If the pod has only one container, the container name is optional.  
 Usage:  
-  kubectl logs [-f] [-p] POD [-c CONTAINER] [flags]  
+  kubectl logs <span class="token punctuation">[</span>-f<span class="token punctuation">]</span> <span class="token punctuation">[</span>-p<span class="token punctuation">]</span> POD <span class="token punctuation">[</span>-c CONTAINER<span class="token punctuation">]</span> <span class="token punctuation">[</span>flags<span class="token punctuation">]</span>  
 Aliases:  
   logs, log  
 
 Examples:  
-# Return snapshot logs from pod nginx with only one container  
+<span class="token comment"># Return snapshot logs from pod nginx with only one container  </span>
 $ kubectl logs nginx  
-# Return snapshot of previous terminated ruby container logs from pod web-1  
+<span class="token comment"># Return snapshot of previous terminated ruby container logs from pod web-1  </span>
 $ kubectl logs -p -c ruby web-1  
-# Begin streaming the logs of the ruby container in pod web-1  
+<span class="token comment"># Begin streaming the logs of the ruby container in pod web-1  </span>
 $ kubectl logs -f -c ruby web-1  
-# Display only the most recent 20 lines of output in pod nginx  
-$ kubectl logs --tail=20 nginx  
-# Show all logs from pod nginx written in the last hour  
-$ kubectl logs --since=1h nginx
+<span class="token comment"># Display only the most recent 20 lines of output in pod nginx  </span>
+$ kubectl logs --tail<span class="token operator">=</span>20 nginx  
+<span class="token comment"># Show all logs from pod nginx written in the last hour  </span>
+$ kubectl logs --since<span class="token operator">=</span>1h nginx
 </code></pre>
 <h2 id="3-&#x67E5;&#x770B;k8s&#x670D;&#x52A1;&#x65E5;&#x5FD7;">3. &#x67E5;&#x770B;k8s&#x670D;&#x52A1;&#x65E5;&#x5FD7;</h2>
 <h3 id="31-journalctl">3.1. journalctl</h3>
@@ -842,14 +840,14 @@ $ kubectl logs --since=1h nginx
 <p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF1A;</p>
 <p>1&#x3001;&#x5C06;&#x547D;&#x4EE4;&#x6539;&#x4E3A;&#x963B;&#x585E;&#x5F0F;&#x547D;&#x4EE4;&#xFF08;&#x524D;&#x53F0;&#x8FD0;&#x884C;&#xFF09;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;<strong>zkServer.sh start-foreground</strong></p>
 <p>2&#x3001;java&#x8FD0;&#x884C;&#x7A0B;&#x5E8F;&#x7684;&#x542F;&#x52A8;&#x811A;&#x672C;&#x5C06; nohup xxx &amp;&#x7684;nobup&#x548C;&amp;&#x53BB;&#x6389;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;</p>
-<pre class="language-"><code class="lang-shell">nohup JAVA_HOME/bin/java JAVA_OPTS -cp $CLASSPATH com.cnc.open.processor.Main &amp;
+<pre class="language-"><code class="lang-bash"><span class="token function">nohup</span> JAVA_HOME/bin/java JAVA_OPTS -cp <span class="token variable">$CLASSPATH</span> com.cnc.open.processor.Main <span class="token operator">&amp;</span>
 </code></pre>
 <p>&#x6539;&#x4E3A;&#xFF1A;</p>
-<pre class="language-"><code class="lang-shell">JAVA_HOME/bin/java JAVA_OPTS -cp $CLASSPATH com.cnc.open.processor.Main
+<pre class="language-"><code class="lang-bash">JAVA_HOME/bin/java JAVA_OPTS -cp <span class="token variable">$CLASSPATH</span> com.cnc.open.processor.Main
 </code></pre>
 <p>&#x6587;&#x7AE0;&#x53C2;&#x8003;&#x300A;Kubernetes&#x6743;&#x5A01;&#x6307;&#x5357;&#x300B;</p>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; www.huweihuang.com 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
-2018-08-18 14:55:54
+2018-08-23 10:05:04
 </span></footer>
                                 
                                 </section>
@@ -877,12 +875,8 @@ $ kubectl logs --since=1h nginx
 
             
                 
-                <a href="./" class="navigation navigation-prev " aria-label="Previous page: 运维指南">
-                    <i class="fa fa-angle-left"></i>
-                </a>
                 
-                
-                <a href="nodeselector-and-taint.html" class="navigation navigation-next " aria-label="Next page: 指定Node调度与隔离">
+                <a href="nodeselector-and-taint.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 指定Node调度与隔离">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -893,7 +887,7 @@ $ kubectl logs --since=1h nginx
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"kubernetes集群问题排查","catalog":true,"date":"2017-09-20T10:50:57.000Z","type":"categories","subtitle":null,"header-img":null,"tags":["Kubernetes"],"catagories":["Kubernetes"],"level":"1.5.1","depth":2,"next":{"title":"指定Node调度与隔离","level":"1.5.2","depth":2,"path":"operation/nodeselector-and-taint.md","ref":"operation/nodeselector-and-taint.md","articles":[]},"previous":{"title":"运维指南","level":"1.5","depth":1,"path":"operation/README.md","ref":"operation/README.md","articles":[{"title":"kubernetes集群问题排查","level":"1.5.1","depth":2,"path":"operation/kubernetes-troubleshooting.md","ref":"operation/kubernetes-troubleshooting.md","articles":[]},{"title":"指定Node调度与隔离","level":"1.5.2","depth":2,"path":"operation/nodeselector-and-taint.md","ref":"operation/nodeselector-and-taint.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"github":{"url":"https://github.com/huweihuang/kubernetes-notes"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.1","level":"1.3.2.2","list_caption":"Figure: pod","alt":"pod","nro":1,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"1.3.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.2","level":"1.3.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"1.3.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.3","level":"1.3.2.2","list_caption":"Figure: service","alt":"service","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"1.3.2.2.3"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.1","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":4,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.1"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.2","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.2"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.3","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":3,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.3"},{"backlink":"principle/kubernetes-core-principle-api-server.html#fig1.4.1.1","level":"1.4.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"1.4.1.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.1","level":"1.4.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"1.4.2.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.2","level":"1.4.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":9,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"1.4.2.2"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.3","level":"1.4.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"1.4.2.3"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.4","level":"1.4.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"1.4.2.4"},{"backlink":"principle/kubernetes-core-principle-scheduler.html#fig1.4.3.1","level":"1.4.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"1.4.3.1"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig1.6.1.1","level":"1.6.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"1.6.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig1.6.2.1","level":"1.6.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"1.6.2.1"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"胡伟煌":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"operation/kubernetes-troubleshooting.md","mtime":"2018-08-18T06:55:54.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-21T12:49:57.854Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"kubernetes集群问题排查","catalog":true,"date":"2017-09-20T10:50:57.000Z","type":"categories","subtitle":null,"header-img":null,"tags":["Kubernetes"],"catagories":["Kubernetes"],"level":"1.5.1","depth":2,"next":{"title":"指定Node调度与隔离","level":"1.5.2","depth":2,"path":"operation/nodeselector-and-taint.md","ref":"operation/nodeselector-and-taint.md","articles":[]},"previous":{"title":"运维指南","level":"1.5","depth":1,"ref":"","articles":[{"title":"kubernetes集群问题排查","level":"1.5.1","depth":2,"path":"operation/kubernetes-troubleshooting.md","ref":"operation/kubernetes-troubleshooting.md","articles":[]},{"title":"指定Node调度与隔离","level":"1.5.2","depth":2,"path":"operation/nodeselector-and-taint.md","ref":"operation/nodeselector-and-taint.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"github":{"url":"https://github.com/huweihuang"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.1","level":"1.3.2.2","list_caption":"Figure: pod","alt":"pod","nro":1,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"1.3.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.2","level":"1.3.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"1.3.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.3","level":"1.3.2.2","list_caption":"Figure: service","alt":"service","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"1.3.2.2.3"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.1","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":4,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.1"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.2","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.2"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.3","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":3,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.3"},{"backlink":"principle/kubernetes-core-principle-api-server.html#fig1.4.1.1","level":"1.4.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"1.4.1.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.1","level":"1.4.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"1.4.2.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.2","level":"1.4.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":9,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"1.4.2.2"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.3","level":"1.4.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"1.4.2.3"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.4","level":"1.4.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"1.4.2.4"},{"backlink":"principle/kubernetes-core-principle-scheduler.html#fig1.4.3.1","level":"1.4.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"1.4.3.1"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig1.6.1.1","level":"1.6.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"1.6.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig1.6.2.1","level":"1.6.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"1.6.2.1"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"胡伟煌的博客":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"operation/kubernetes-troubleshooting.md","mtime":"2018-08-23T02:05:04.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-23T02:13:19.295Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
