@@ -1,0 +1,1241 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Pod限额 · Kubernetes 学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="胡伟煌">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-toc-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="quality-of-service.html" />
+    
+    
+    <link rel="prev" href="resource-quota.html" />
+    
+
+    
+        <link rel="shortcut icon" href='../favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../favicon.ico' type="image/x-icon">
+    
+    
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com" target="_blank" class="custom-link">胡伟煌的博客</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                        <b>1.1.</b>
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                        <b>1.2.</b>
+                    
+                    安装与配置
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../setup/install-k8s-by-kubespray.html">
+            
+                <a href="../setup/install-k8s-by-kubespray.html">
+            
+                    
+                        <b>1.2.1.</b>
+                    
+                    使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../setup/install-k8s-by-minikube.html">
+            
+                <a href="../setup/install-k8s-by-minikube.html">
+            
+                    
+                        <b>1.2.2.</b>
+                    
+                    使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                        <b>1.3.</b>
+                    
+                    基本概念
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <span>
+            
+                    
+                        <b>1.3.1.</b>
+                    
+                    kubernetes架构
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                        <b>1.3.1.1.</b>
+                    
+                    Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                        <b>1.3.1.2.</b>
+                    
+                    基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <span>
+            
+                    
+                        <b>1.3.2.</b>
+                    
+                    kubernetes对象
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                        <b>1.3.2.1.</b>
+                    
+                    理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                        <b>1.3.2.2.</b>
+                    
+                    kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../concepts/object/kubernetes-pod-introduction.html">
+            
+                <a href="../concepts/object/kubernetes-pod-introduction.html">
+            
+                    
+                        <b>1.3.2.3.</b>
+                    
+                    Pod详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                        <b>1.4.</b>
+                    
+                    核心原理
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../principle/kubernetes-core-principle-api-server.html">
+            
+                <a href="../principle/kubernetes-core-principle-api-server.html">
+            
+                    
+                        <b>1.4.1.</b>
+                    
+                    Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                <a href="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                    
+                        <b>1.4.2.</b>
+                    
+                    Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../principle/kubernetes-core-principle-scheduler.html">
+            
+                <a href="../principle/kubernetes-core-principle-scheduler.html">
+            
+                    
+                        <b>1.4.3.</b>
+                    
+                    Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../principle/kubernetes-core-principle-kubelet.html">
+            
+                <a href="../principle/kubernetes-core-principle-kubelet.html">
+            
+                    
+                        <b>1.4.4.</b>
+                    
+                    Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../principle/kubernetes-network.html">
+            
+                <a href="../principle/kubernetes-network.html">
+            
+                    
+                        <b>1.4.5.</b>
+                    
+                    网络原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" >
+            
+                <span>
+            
+                    
+                        <b>1.5.</b>
+                    
+                    资源配额
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="resource-quota.html">
+            
+                <a href="resource-quota.html">
+            
+                    
+                        <b>1.5.1.</b>
+                    
+                    资源配额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.2" data-path="limit-range.html">
+            
+                <a href="limit-range.html">
+            
+                    
+                        <b>1.5.2.</b>
+                    
+                    Pod限额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="quality-of-service.html">
+            
+                <a href="quality-of-service.html">
+            
+                    
+                        <b>1.5.3.</b>
+                    
+                    资源服务质量
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                        <b>1.6.</b>
+                    
+                    运维指南
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../operation/kubectl.html">
+            
+                <a href="../operation/kubectl.html">
+            
+                    
+                        <b>1.6.1.</b>
+                    
+                    kubectl命令工具
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../operation/kubernetes-troubleshooting.html">
+            
+                <a href="../operation/kubernetes-troubleshooting.html">
+            
+                    
+                        <b>1.6.2.</b>
+                    
+                    kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../operation/nodeselector-and-taint.html">
+            
+                <a href="../operation/nodeselector-and-taint.html">
+            
+                    
+                        <b>1.6.3.</b>
+                    
+                    指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                        <b>1.7.</b>
+                    
+                    开发指南
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../develop/client-go.html">
+            
+                <a href="../develop/client-go.html">
+            
+                    
+                        <b>1.7.1.</b>
+                    
+                    client-go的使用及源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" >
+            
+                <span>
+            
+                    
+                        <b>1.8.</b>
+                    
+                    监控体系
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../monitor/kubernetes-cluster-monitoring.html">
+            
+                <a href="../monitor/kubernetes-cluster-monitoring.html">
+            
+                    
+                        <b>1.8.1.</b>
+                    
+                    监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../monitor/cadvisor-introduction.html">
+            
+                <a href="../monitor/cadvisor-introduction.html">
+            
+                    
+                        <b>1.8.2.</b>
+                    
+                    cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../monitor/heapster-introduction.html">
+            
+                <a href="../monitor/heapster-introduction.html">
+            
+                    
+                        <b>1.8.3.</b>
+                    
+                    Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../monitor/influxdb-introduction.html">
+            
+                <a href="../monitor/influxdb-introduction.html">
+            
+                    
+                        <b>1.8.4.</b>
+                    
+                    Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Pod限额</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="pod&#x9650;&#x989D;&#xFF08;limitrange&#xFF09;">Pod&#x9650;&#x989D;&#xFF08;LimitRange&#xFF09;</h1>
+<blockquote>
+<p><code>ResourceQuota</code>&#x5BF9;&#x8C61;&#x662F;&#x9650;&#x5236;&#x67D0;&#x4E2A;namespace&#x4E0B;<code>&#x6240;&#x6709;Pod(&#x5BB9;&#x5668;)</code>&#x7684;&#x8D44;&#x6E90;&#x9650;&#x989D;</p>
+<p><code>LimitRange</code>&#x5BF9;&#x8C61;&#x662F;&#x9650;&#x5236;&#x67D0;&#x4E2A;namespace<code>&#x5355;&#x4E2A;Pod(&#x5BB9;&#x5668;</code>)&#x7684;&#x8D44;&#x6E90;&#x9650;&#x989D;</p>
+</blockquote>
+<p><code>LimitRange</code>&#x5BF9;&#x8C61;&#x7528;&#x6765;&#x5B9A;&#x4E49;&#x67D0;&#x4E2A;<code>&#x547D;&#x540D;&#x7A7A;&#x95F4;</code>&#x4E0B;&#x67D0;&#x79CD;<code>&#x8D44;&#x6E90;&#x5BF9;&#x8C61;</code>&#x7684;&#x4F7F;&#x7528;&#x9650;&#x989D;&#xFF0C;&#x5176;&#x4E2D;&#x8D44;&#x6E90;&#x5BF9;&#x8C61;&#x5305;&#x62EC;&#xFF1A;<code>Pod</code>&#x3001;<code>Container</code>&#x3001;<code>PersistentVolumeClaim</code>&#x3002;</p>
+<h2 id="1-&#x4E3A;namespace&#x914D;&#x7F6E;cpu&#x548C;&#x5185;&#x5B58;&#x7684;&#x9ED8;&#x8BA4;&#x503C;">1. &#x4E3A;namespace&#x914D;&#x7F6E;CPU&#x548C;&#x5185;&#x5B58;&#x7684;&#x9ED8;&#x8BA4;&#x503C;</h2>
+<p>&#x5982;&#x679C;&#x5728;&#x4E00;&#x4E2A;&#x62E5;&#x6709;&#x9ED8;&#x8BA4;&#x5185;&#x5B58;&#x6216;CPU&#x9650;&#x989D;&#x7684;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x4E2D;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5BB9;&#x5668;&#xFF0C;&#x5E76;&#x4E14;&#x8FD9;&#x4E2A;&#x5BB9;&#x5668;&#x672A;&#x6307;&#x5B9A;&#x5B83;&#x81EA;&#x5DF1;&#x7684;&#x5185;&#x5B58;&#x6216;CPU&#x7684;<code>limit</code>&#xFF0C; &#x5B83;&#x4F1A;&#x88AB;&#x5206;&#x914D;&#x8FD9;&#x4E2A;&#x9ED8;&#x8BA4;&#x7684;&#x5185;&#x5B58;&#x6216;CPU&#x7684;<code>limit</code>&#x3002;&#x65E2;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;pod&#x7684;<code>limit</code>&#x548C;<code>request</code>&#x624D;&#x4F1A;&#x5206;&#x914D;&#x9ED8;&#x8BA4;&#x7684;&#x5185;&#x5B58;&#x6216;CPU&#x7684;<code>request</code>&#x3002;</p>
+<h3 id="11-namespace&#x7684;&#x5185;&#x5B58;&#x9ED8;&#x8BA4;&#x503C;">1.1. namespace&#x7684;&#x5185;&#x5B58;&#x9ED8;&#x8BA4;&#x503C;</h3>
+<pre class="language-"><code class="lang-shell"><span class="token comment"># &#x521B;&#x5EFA;namespace</span>
+$ kubectl create namespace default-mem-example
+
+<span class="token comment"># &#x521B;&#x5EFA;LimitRange</span>
+$ <span class="token function">cat</span> memory-defaults.yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: mem-limit-range
+spec:
+  limits:
+  - default:
+      memory: 512Mi
+    defaultRequest:
+      memory: 256Mi
+    type: Container
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-defaults.yaml --namespace<span class="token operator">=</span>default-mem-example
+
+<span class="token comment"># &#x521B;&#x5EFA;Pod,&#x672A;&#x6307;&#x5B9A;&#x5185;&#x5B58;&#x7684;limit&#x548C;request</span>
+$ <span class="token function">cat</span> memory-defaults-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: default-mem-demo
+spec:
+  containers:
+  - name: default-mem-demo-ctr
+    image: nginx
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-defaults-pod.yaml --namespace<span class="token operator">=</span>default-mem-example
+
+<span class="token comment"># &#x67E5;&#x770B;Pod</span>
+$ kubectl get pod default-mem-demo --output<span class="token operator">=</span>yaml --namespace<span class="token operator">=</span>default-mem-example
+containers:
+- image: nginx
+  imagePullPolicy: Always
+  name: default-mem-demo-ctr
+  resources:
+    limits:
+      memory: 512Mi
+    requests:
+      memory: 256Mi
+</code></pre>
+<h3 id="12-namespace&#x7684;cpu&#x9ED8;&#x8BA4;&#x503C;">1.2. namespace&#x7684;CPU&#x9ED8;&#x8BA4;&#x503C;</h3>
+<pre class="language-"><code class="lang-shell"><span class="token comment"># &#x521B;&#x5EFA;namespace</span>
+$ kubectl create namespace default-cpu-example
+
+<span class="token comment"># &#x521B;&#x5EFA;LimitRange</span>
+$ <span class="token function">cat</span> cpu-defaults.yaml 
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: cpu-limit-range
+spec:
+  limits:
+  - default:
+      cpu: 1
+    defaultRequest:
+      cpu: 0.5
+    type: Container
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-defaults.yaml --namespace<span class="token operator">=</span>default-cpu-example    
+
+<span class="token comment"># &#x521B;&#x5EFA;Pod&#xFF0C;&#x672A;&#x6307;&#x5B9A;CPU&#x7684;limit&#x548C;request</span>
+$ <span class="token function">cat</span> cpu-defaults-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: default-cpu-demo
+spec:
+  containers:
+  - name: default-cpu-demo-ctr
+    image: nginx
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-defaults-pod.yaml --namespace<span class="token operator">=</span>default-cpu-example
+
+<span class="token comment"># &#x67E5;&#x770B;Pod</span>
+$ kubectl get pod default-cpu-demo --output<span class="token operator">=</span>yaml --namespace<span class="token operator">=</span>default-cpu-example
+containers:
+- image: nginx
+  imagePullPolicy: Always
+  name: default-cpu-demo-ctr
+  resources:
+    limits:
+      cpu: <span class="token string">&quot;1&quot;</span>
+    requests:
+      cpu: 500m
+</code></pre>
+<h3 id="13-&#x8BF4;&#x660E;">1.3 &#x8BF4;&#x660E;</h3>
+<ol>
+<li>&#x5982;&#x679C;&#x6CA1;&#x6709;&#x6307;&#x5B9A;pod&#x7684;<code>request</code>&#x548C;<code>limit</code>&#xFF0C;&#x5219;&#x521B;&#x5EFA;&#x7684;pod&#x4F1A;&#x4F7F;&#x7528;<code>LimitRange</code>&#x5BF9;&#x8C61;&#x5B9A;&#x4E49;&#x7684;&#x9ED8;&#x8BA4;&#x503C;&#xFF08;request&#x548C;limit&#xFF09;</li>
+<li>&#x5982;&#x679C;&#x6307;&#x5B9A;pod&#x7684;<code>limit</code>&#x4F46;&#x672A;&#x6307;&#x5B9A;<code>request</code>&#xFF0C;&#x5219;&#x521B;&#x5EFA;&#x7684;pod&#x7684;<code>request</code>&#x503C;&#x4F1A;&#x53D6;<code>limit</code>&#x7684;&#x503C;&#xFF0C;&#x800C;&#x4E0D;&#x4F1A;&#x53D6;LimitRange&#x5BF9;&#x8C61;&#x5B9A;&#x4E49;&#x7684;request&#x9ED8;&#x8BA4;&#x503C;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x6307;&#x5B9A;pod&#x7684;<code>request</code>&#x4F46;&#x672A;&#x6307;&#x5B9A;<code>limit</code>&#xFF0C;&#x5219;&#x521B;&#x5EFA;&#x7684;pod&#x7684;<code>limit</code>&#x503C;&#x4F1A;&#x53D6;<code>LimitRange</code>&#x5BF9;&#x8C61;&#x5B9A;&#x4E49;&#x7684;<code>limit</code>&#x9ED8;&#x8BA4;&#x503C;&#x3002;</li>
+</ol>
+<p><strong>&#x9ED8;&#x8BA4;Limit&#x548C;request&#x7684;&#x52A8;&#x673A;</strong></p>
+<p>&#x5982;&#x679C;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x5177;&#x6709;<code>&#x8D44;&#x6E90;&#x914D;&#x989D;&#xFF08;ResourceQuota&#xFF09;</code>, &#x5B83;&#x4E3A;&#x5185;&#x5B58;&#x9650;&#x989D;&#xFF08;CPU&#x9650;&#x989D;&#xFF09;&#x8BBE;&#x7F6E;&#x9ED8;&#x8BA4;&#x503C;&#x662F;&#x6709;&#x610F;&#x4E49;&#x7684;&#x3002; &#x4EE5;&#x4E0B;&#x662F;&#x8D44;&#x6E90;&#x914D;&#x989D;&#x5BF9;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x65BD;&#x52A0;&#x7684;&#x4E24;&#x4E2A;&#x9650;&#x5236;&#xFF1A;</p>
+<ul>
+<li>&#x5728;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x8FD0;&#x884C;&#x7684;&#x6BCF;&#x4E00;&#x4E2A;&#x5BB9;&#x5668;&#x5FC5;&#x987B;&#x6709;&#x5B83;&#x81EA;&#x5DF1;&#x7684;&#x5185;&#x5B58;&#x9650;&#x989D;&#xFF08;CPU&#x9650;&#x989D;&#xFF09;&#x3002;</li>
+<li>&#x5728;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x4E2D;&#x6240;&#x6709;&#x7684;&#x5BB9;&#x5668;&#x4F7F;&#x7528;&#x7684;&#x5185;&#x5B58;&#x603B;&#x91CF;&#xFF08;CPU&#x603B;&#x91CF;&#xFF09;&#x4E0D;&#x80FD;&#x8D85;&#x51FA;&#x6307;&#x5B9A;&#x7684;&#x9650;&#x989D;&#x3002;</li>
+</ul>
+<p>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x5BB9;&#x5668;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#x5B83;&#x81EA;&#x5DF1;&#x7684;&#x5185;&#x5B58;&#x9650;&#x989D;&#xFF08;CPU&#x9650;&#x989D;&#xFF09;&#xFF0C;&#x5B83;&#x5C06;&#x88AB;&#x8D4B;&#x4E88;&#x9ED8;&#x8BA4;&#x7684;&#x9650;&#x989D;&#x503C;&#xFF0C;&#x7136;&#x540E;&#x5B83;&#x624D;&#x53EF;&#x4EE5;&#x5728;&#x88AB;&#x914D;&#x989D;&#x9650;&#x5236;&#x7684;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x4E2D;&#x8FD0;&#x884C;&#x3002;</p>
+<h2 id="2-&#x4E3A;namespace&#x914D;&#x7F6E;cpu&#x548C;&#x5185;&#x5B58;&#x7684;&#x6700;&#x5927;&#x6700;&#x5C0F;&#x503C;">2. &#x4E3A;namespace&#x914D;&#x7F6E;CPU&#x548C;&#x5185;&#x5B58;&#x7684;&#x6700;&#x5927;&#x6700;&#x5C0F;&#x503C;</h2>
+<h3 id="21-&#x5185;&#x5B58;&#x7684;&#x6700;&#x5927;&#x6700;&#x5C0F;&#x503C;">2.1. &#x5185;&#x5B58;&#x7684;&#x6700;&#x5927;&#x6700;&#x5C0F;&#x503C;</h3>
+<p><strong>&#x521B;&#x5EFA;LimitRange</strong></p>
+<pre class="language-"><code class="lang-shell"><span class="token comment"># &#x521B;&#x5EFA;namespace</span>
+$ kubectl create namespace constraints-mem-example
+
+<span class="token comment"># &#x521B;&#x5EFA;LimitRange</span>
+$ <span class="token function">cat</span> memory-constraints.yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: mem-min-max-demo-lr
+spec:
+  limits:
+  - max:
+      memory: 1Gi
+    min:
+      memory: 500Mi
+    type: Container
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-constraints.yaml --namespace<span class="token operator">=</span>constraints-mem-example
+
+<span class="token comment"># &#x67E5;&#x770B;LimitRange</span>
+$ kubectl get limitrange cpu-min-max-demo --namespace<span class="token operator">=</span>constraints-mem-example --output<span class="token operator">=</span>yaml
+<span class="token punctuation">..</span>.
+  limits:
+  - default:
+      memory: 1Gi
+    defaultRequest:
+      memory: 1Gi
+    max:
+      memory: 1Gi
+    min:
+      memory: 500Mi
+    type: Container
+<span class="token punctuation">..</span>.
+<span class="token comment"># LimitRange&#x8BBE;&#x7F6E;&#x4E86;&#x6700;&#x5927;&#x6700;&#x5C0F;&#x503C;&#xFF0C;&#x4F46;&#x6CA1;&#x6709;&#x8BBE;&#x7F6E;&#x9ED8;&#x8BA4;&#x503C;&#xFF0C;&#x4E5F;&#x4F1A;&#x88AB;&#x81EA;&#x52A8;&#x8BBE;&#x7F6E;&#x9ED8;&#x8BA4;&#x503C;&#x3002;</span>
+</code></pre>
+<p><strong>&#x521B;&#x5EFA;&#x7B26;&#x5408;&#x8981;&#x6C42;&#x7684;Pod</strong></p>
+<pre class="language-"><code class="lang-shell"><span class="token comment"># &#x521B;&#x5EFA;&#x7B26;&#x5408;&#x8981;&#x6C42;&#x7684;Pod</span>
+$ <span class="token function">cat</span> memory-constraints-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: constraints-mem-demo
+spec:
+  containers:
+  - name: constraints-mem-demo-ctr
+    image: nginx
+    resources:
+      limits:
+        memory: <span class="token string">&quot;800Mi&quot;</span>
+      requests:
+        memory: <span class="token string">&quot;600Mi&quot;</span>
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-constraints-pod.yaml --namespace<span class="token operator">=</span>constraints-mem-example
+
+<span class="token comment"># &#x67E5;&#x770B;Pod</span>
+$ kubectl get pod constraints-mem-demo --output<span class="token operator">=</span>yaml --namespace<span class="token operator">=</span>constraints-mem-example
+<span class="token punctuation">..</span>.
+resources:
+  limits:
+     memory: 800Mi
+  requests:
+    memory: 600Mi
+<span class="token punctuation">..</span>.
+</code></pre>
+<p><strong>&#x521B;&#x5EFA;&#x8D85;&#x8FC7;&#x6700;&#x5927;&#x5185;&#x5B58;limit&#x7684;pod</strong></p>
+<pre class="language-"><code class="lang-shell">$ <span class="token function">cat</span> memory-constraints-pod-2.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: constraints-mem-demo-2
+spec:
+  containers:
+  - name: constraints-mem-demo-2-ctr
+    image: nginx
+    resources:
+      limits:
+        memory: <span class="token string">&quot;1.5Gi&quot;</span>  <span class="token comment"># &#x8D85;&#x8FC7;&#x6700;&#x5927;&#x503C; 1Gi</span>
+      requests:
+        memory: <span class="token string">&quot;800Mi&quot;</span>
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-constraints-pod-2.yaml --namespace<span class="token operator">=</span>constraints-mem-example
+
+<span class="token comment"># Pod&#x521B;&#x5EFA;&#x5931;&#x8D25;&#xFF0C;&#x56E0;&#x4E3A;&#x5BB9;&#x5668;&#x6307;&#x5B9A;&#x7684;limit&#x8FC7;&#x5927;</span>
+Error from server <span class="token punctuation">(</span>Forbidden<span class="token punctuation">)</span>: error when creating <span class="token string">&quot;docs/tasks/administer-cluster/memory-constraints-pod-2.yaml&quot;</span><span class="token keyword">:</span>
+pods <span class="token string">&quot;constraints-mem-demo-2&quot;</span> is forbidden: maximum memory usage per Container is 1Gi, but limit is 1536Mi.
+</code></pre>
+<p><strong>&#x521B;&#x5EFA;&#x5C0F;&#x4E8E;&#x6700;&#x5C0F;&#x5185;&#x5B58;request&#x7684;Pod</strong></p>
+<pre class="language-"><code class="lang-shell">$ <span class="token function">cat</span> memory-constraints-pod-3.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: constraints-mem-demo-3
+spec:
+  containers:
+  - name: constraints-mem-demo-3-ctr
+    image: nginx
+    resources:
+      limits:
+        memory: <span class="token string">&quot;800Mi&quot;</span>
+      requests:
+        memory: <span class="token string">&quot;100Mi&quot;</span>   <span class="token comment"># &#x5C0F;&#x4E8E;&#x6700;&#x5C0F;&#x503C;500Mi</span>
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-constraints-pod-3.yaml --namespace<span class="token operator">=</span>constraints-mem-example         
+
+<span class="token comment"># Pod&#x521B;&#x5EFA;&#x5931;&#x8D25;&#xFF0C;&#x56E0;&#x4E3A;&#x5BB9;&#x5668;&#x6307;&#x5B9A;&#x7684;&#x5185;&#x5B58;request&#x8FC7;&#x5C0F;</span>
+Error from server <span class="token punctuation">(</span>Forbidden<span class="token punctuation">)</span>: error when creating <span class="token string">&quot;docs/tasks/administer-cluster/memory-constraints-pod-3.yaml&quot;</span><span class="token keyword">:</span>
+pods <span class="token string">&quot;constraints-mem-demo-3&quot;</span> is forbidden: minimum memory usage per Container is 500Mi, but request is 100Mi.
+</code></pre>
+<p><strong>&#x521B;&#x5EFA;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#x4EFB;&#x4F55;&#x5185;&#x5B58;limit&#x548C;request&#x7684;pod</strong></p>
+<pre class="language-"><code class="lang-shell">$ <span class="token function">cat</span> memory-constraints-pod-4.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: constraints-mem-demo-4
+spec:
+  containers:
+  - name: constraints-mem-demo-4-ctr
+    image: nginx
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/memory-constraints-pod-4.yaml --namespace<span class="token operator">=</span>constraints-mem-example
+
+<span class="token comment"># &#x67E5;&#x770B;Pod</span>
+$ kubectl get pod constraints-mem-demo-4 --namespace<span class="token operator">=</span>constraints-mem-example --output<span class="token operator">=</span>yaml
+<span class="token punctuation">..</span>.
+resources:
+  limits:
+    memory: 1Gi
+  requests:
+    memory: 1Gi
+<span class="token punctuation">..</span>.
+</code></pre>
+<p>&#x5BB9;&#x5668;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#x81EA;&#x5DF1;&#x7684; CPU &#x8BF7;&#x6C42;&#x548C;&#x9650;&#x5236;&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x5C06;&#x4ECE; LimitRange &#x83B7;&#x53D6;&#x9ED8;&#x8BA4;&#x7684; CPU &#x8BF7;&#x6C42;&#x548C;&#x9650;&#x5236;&#x503C;&#x3002;</p>
+<h3 id="22-cpu&#x7684;&#x6700;&#x5927;&#x6700;&#x5C0F;&#x503C;">2.2. CPU&#x7684;&#x6700;&#x5927;&#x6700;&#x5C0F;&#x503C;</h3>
+<p><strong>&#x521B;&#x5EFA;LimitRange</strong></p>
+<pre class="language-"><code class="lang-shell"><span class="token comment"># &#x521B;&#x5EFA;namespace</span>
+$ kubectl create namespace constraints-cpu-example
+
+<span class="token comment"># &#x521B;&#x5EFA;LimitRange</span>
+$ <span class="token function">cat</span> cpu-constraints.yaml
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: cpu-min-max-demo-lr
+spec:
+  limits:
+  - max:
+      cpu: <span class="token string">&quot;800m&quot;</span>
+    min:
+      cpu: <span class="token string">&quot;200m&quot;</span>
+    type: Container
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-constraints.yaml --namespace<span class="token operator">=</span>constraints-cpu-example
+
+<span class="token comment"># &#x67E5;&#x770B;LimitRange</span>
+$ kubectl get limitrange cpu-min-max-demo-lr --output<span class="token operator">=</span>yaml --namespace<span class="token operator">=</span>constraints-cpu-example
+<span class="token punctuation">..</span>.
+limits:
+- default:
+    cpu: 800m
+  defaultRequest:
+    cpu: 800m
+  max:
+    cpu: 800m
+  min:
+    cpu: 200m
+  type: Container
+<span class="token punctuation">..</span>.
+</code></pre>
+<p><strong>&#x521B;&#x5EFA;&#x7B26;&#x5408;&#x8981;&#x6C42;&#x7684;Pod</strong></p>
+<pre class="language-"><code class="lang-shell">$ <span class="token function">cat</span> cpu-constraints-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: constraints-cpu-demo
+spec:
+  containers:
+  - name: constraints-cpu-demo-ctr
+    image: nginx
+    resources:
+      limits:
+        cpu: <span class="token string">&quot;800m&quot;</span>
+      requests:
+        cpu: <span class="token string">&quot;500m&quot;</span>
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-constraints-pod.yaml --namespace<span class="token operator">=</span>constraints-cpu-example
+
+<span class="token comment"># &#x67E5;&#x770B;Pod</span>
+$ kubectl get pod constraints-cpu-demo --output<span class="token operator">=</span>yaml --namespace<span class="token operator">=</span>constraints-cpu-example
+<span class="token punctuation">..</span>.
+resources:
+  limits:
+    cpu: 800m
+  requests:
+    cpu: 500m
+<span class="token punctuation">..</span>.
+</code></pre>
+<p><strong>&#x521B;&#x5EFA;&#x8D85;&#x8FC7;&#x6700;&#x5927;CPU limit&#x7684;Pod</strong></p>
+<pre class="language-"><code class="lang-shell">$ <span class="token function">cat</span> cpu-constraints-pod-2.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: constraints-cpu-demo-2
+spec:
+  containers:
+  - name: constraints-cpu-demo-2-ctr
+    image: nginx
+    resources:
+      limits:
+        cpu: <span class="token string">&quot;1.5&quot;</span>
+      requests:
+        cpu: <span class="token string">&quot;500m&quot;</span>
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-constraints-pod-2.yaml --namespace<span class="token operator">=</span>constraints-cpu-example
+
+<span class="token comment"># Pod&#x521B;&#x5EFA;&#x5931;&#x8D25;&#xFF0C;&#x56E0;&#x4E3A;&#x5BB9;&#x5668;&#x6307;&#x5B9A;&#x7684;CPU limit&#x8FC7;&#x5927;</span>
+Error from server <span class="token punctuation">(</span>Forbidden<span class="token punctuation">)</span>: error when creating <span class="token string">&quot;docs/tasks/administer-cluster/cpu-constraints-pod-2.yaml&quot;</span><span class="token keyword">:</span>
+pods <span class="token string">&quot;constraints-cpu-demo-2&quot;</span> is forbidden: maximum cpu usage per Container is 800m, but limit is 1500m.
+</code></pre>
+<p><strong>&#x521B;&#x5EFA;&#x5C0F;&#x4E8E;&#x6700;&#x5C0F;CPU request&#x7684;Pod</strong></p>
+<pre class="language-"><code class="lang-shell">$ <span class="token function">cat</span> cpu-constraints-pod-3.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: constraints-cpu-demo-4
+spec:
+  containers:
+  - name: constraints-cpu-demo-4-ctr
+    image: nginx
+    resources:
+      limits:
+        cpu: <span class="token string">&quot;800m&quot;</span>
+      requests:
+        cpu: <span class="token string">&quot;100m&quot;</span>
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-constraints-pod-3.yaml --namespace<span class="token operator">=</span>constraints-cpu-example
+
+<span class="token comment"># Pod&#x521B;&#x5EFA;&#x5931;&#x8D25;&#xFF0C;&#x56E0;&#x4E3A;&#x5BB9;&#x5668;&#x6307;&#x5B9A;&#x7684;CPU request&#x8FC7;&#x5C0F;</span>
+Error from server <span class="token punctuation">(</span>Forbidden<span class="token punctuation">)</span>: error when creating <span class="token string">&quot;docs/tasks/administer-cluster/cpu-constraints-pod-3.yaml&quot;</span><span class="token keyword">:</span>
+pods <span class="token string">&quot;constraints-cpu-demo-4&quot;</span> is forbidden: minimum cpu usage per Container is 200m, but request is 100m.
+</code></pre>
+<p><strong>&#x521B;&#x5EFA;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#x4EFB;&#x4F55;CPU limit&#x548C;request&#x7684;pod</strong></p>
+<pre class="language-"><code class="lang-shell">$ <span class="token function">cat</span> cpu-constraints-pod-4.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: constraints-cpu-demo-4
+spec:
+  containers:
+  - name: constraints-cpu-demo-4-ctr
+    image: vish/stress
+
+$ kubectl create -f https://k8s.io/docs/tasks/administer-cluster/cpu-constraints-pod-4.yaml --namespace<span class="token operator">=</span>constraints-cpu-example    
+
+<span class="token comment"># &#x67E5;&#x770B;Pod</span>
+kubectl get pod constraints-cpu-demo-4 --namespace<span class="token operator">=</span>constraints-cpu-example --output<span class="token operator">=</span>yaml
+<span class="token punctuation">..</span>.
+resources:
+  limits:
+    cpu: 800m
+  requests:
+    cpu: 800m
+<span class="token punctuation">..</span>.
+</code></pre>
+<p>&#x5BB9;&#x5668;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#x81EA;&#x5DF1;&#x7684; CPU &#x8BF7;&#x6C42;&#x548C;&#x9650;&#x5236;&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x5C06;&#x4ECE; LimitRange &#x83B7;&#x53D6;&#x9ED8;&#x8BA4;&#x7684; CPU &#x8BF7;&#x6C42;&#x548C;&#x9650;&#x5236;&#x503C;&#x3002;</p>
+<h3 id="23-&#x8BF4;&#x660E;">2.3. &#x8BF4;&#x660E;</h3>
+<p>LimitRange &#x5728; namespace &#x4E2D;&#x65BD;&#x52A0;&#x7684;&#x6700;&#x5C0F;&#x548C;&#x6700;&#x5927;&#x5185;&#x5B58;&#xFF08;CPU&#xFF09;&#x9650;&#x5236;&#x53EA;&#x6709;&#x5728;&#x521B;&#x5EFA;&#x548C;&#x66F4;&#x65B0; Pod &#x65F6;&#x624D;&#x4F1A;&#x88AB;&#x5E94;&#x7528;&#x3002;&#x6539;&#x53D8; LimitRange &#x4E0D;&#x4F1A;&#x5BF9;&#x4E4B;&#x524D;&#x521B;&#x5EFA;&#x7684; Pod &#x9020;&#x6210;&#x5F71;&#x54CD;&#x3002;</p>
+<p>Kubernetes &#x90FD;&#x4F1A;&#x6267;&#x884C;&#x4E0B;&#x5217;&#x6B65;&#x9AA4;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C;&#x5BB9;&#x5668;&#x6CA1;&#x6709;&#x6307;&#x5B9A;&#x81EA;&#x5DF1;&#x7684;&#x5185;&#x5B58;&#xFF08;CPU&#xFF09;&#x8BF7;&#x6C42;&#xFF08;request&#xFF09;&#x548C;&#x9650;&#x5236;&#xFF08;limit&#xFF09;&#xFF0C;&#x7CFB;&#x7EDF;&#x5C06;&#x4F1A;&#x4E3A;&#x5176;&#x5206;&#x914D;&#x9ED8;&#x8BA4;&#x503C;&#x3002;</li>
+<li>&#x9A8C;&#x8BC1;&#x5BB9;&#x5668;&#x7684;&#x5185;&#x5B58;&#xFF08;CPU&#xFF09;&#x8BF7;&#x6C42;&#x5927;&#x4E8E;&#x7B49;&#x4E8E;&#x6700;&#x5C0F;&#x503C;&#x3002;</li>
+<li>&#x9A8C;&#x8BC1;&#x5BB9;&#x5668;&#x7684;&#x5185;&#x5B58;&#xFF08;CPU&#xFF09;&#x9650;&#x5236;&#x5C0F;&#x4E8E;&#x7B49;&#x4E8E;&#x6700;&#x5927;&#x503C;&#x3002;</li>
+</ul>
+<p>&#x53C2;&#x8003;&#x6587;&#x7AE0;&#xFF1A;</p>
+<ul>
+<li><p><a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/" target="_blank">https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/</a></p>
+</li>
+<li><p><a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/" target="_blank">https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/cpu-default-namespace/</a></p>
+</li>
+<li><p><a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/" target="_blank">https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-constraint-namespace/</a></p>
+</li>
+<li><p><a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/" target="_blank">https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/cpu-constraint-namespace/</a></p>
+</li>
+<li><p><a href="https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/" target="_blank">https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/quota-memory-cpu-namespace/</a></p>
+</li>
+</ul>
+<footer class="page-footer"><span class="copyright">Copyright &#xA9; www.huweihuang.com 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
+2018-08-23 20:33:10
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="resource-quota.html" class="navigation navigation-prev " aria-label="Previous page: 资源配额">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="quality-of-service.html" class="navigation navigation-next " aria-label="Next page: 资源服务质量">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Pod限额","level":"1.5.2","depth":2,"next":{"title":"资源服务质量","level":"1.5.3","depth":2,"path":"resource/quality-of-service.md","ref":"resource/quality-of-service.md","articles":[]},"previous":{"title":"资源配额","level":"1.5.1","depth":2,"path":"resource/resource-quota.md","ref":"resource/resource-quota.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"github":{"url":"https://github.com/huweihuang"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.1","level":"1.3.2.2","list_caption":"Figure: pod","alt":"pod","nro":1,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"1.3.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.2","level":"1.3.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"1.3.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.3","level":"1.3.2.2","list_caption":"Figure: service","alt":"service","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"1.3.2.2.3"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.1","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":4,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.1"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.2","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.2"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.3","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":3,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.3"},{"backlink":"principle/kubernetes-core-principle-api-server.html#fig1.4.1.1","level":"1.4.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"1.4.1.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.1","level":"1.4.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"1.4.2.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.2","level":"1.4.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":9,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"1.4.2.2"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.3","level":"1.4.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"1.4.2.3"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.4","level":"1.4.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"1.4.2.4"},{"backlink":"principle/kubernetes-core-principle-scheduler.html#fig1.4.3.1","level":"1.4.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"1.4.3.1"},{"backlink":"principle/kubernetes-network.html#fig1.4.5.1","level":"1.4.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/network-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.4.5.1"},{"backlink":"principle/kubernetes-network.html#fig1.4.5.2","level":"1.4.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/container-network.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.4.5.2"},{"backlink":"principle/kubernetes-network.html#fig1.4.5.3","level":"1.4.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":15,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/bridge.png","index":3,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.4.5.3"},{"backlink":"principle/kubernetes-network.html#fig1.4.5.4","level":"1.4.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":16,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/pod-network.png","index":4,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.4.5.4"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig1.8.1.1","level":"1.8.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":17,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"1.8.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig1.8.2.1","level":"1.8.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":18,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"1.8.2.1"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"胡伟煌的博客":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"resource/limit-range.md","mtime":"2018-08-23T12:33:10.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-23T12:41:27.013Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-page-toc-button/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-editlink/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-3-ba/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

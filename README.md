@@ -2,6 +2,7 @@
 > Kubernetes 学习笔记
 
 # Summary
+
 * [Introduction](README.md)
 
 * [安装与配置]()
@@ -20,12 +21,19 @@
     * [Controller Manager](principle/kubernetes-core-principle-controller-manager.md)
     * [Scheduler](principle/kubernetes-core-principle-scheduler.md)
     * [Kubelet](principle/kubernetes-core-principle-kubelet.md)
+    * [网络原理](principle/kubernetes-network.md)
+* [资源配额]()
+    * [资源配额](resource/resource-quota.md)
+    * [Pod限额](resource/limit-range.md)
+    * [资源服务质量](resource/quality-of-service.md)   
 * [运维指南]()
+    * [kubectl命令工具](operation/kubectl.md)
     * [kubernetes集群问题排查](operation/kubernetes-troubleshooting.md)
     * [指定Node调度与隔离](operation/nodeselector-and-taint.md)
+* [开发指南]()
+    * [client-go的使用及源码分析](develop/client-go.md)
 * [监控体系]()
     * [监控体系介绍](monitor/kubernetes-cluster-monitoring.md)
     * [cAdvisor介绍](monitor/cadvisor-introduction.md)
     * [Heapster介绍](monitor/heapster-introduction.md)
     * [Influxdb介绍](monitor/influxdb-introduction.md)
-  
