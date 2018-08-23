@@ -11,15 +11,15 @@ catagories:
 - Kubernetes
 ---
 
-## 1. cAdvisor简介
+# 1. cAdvisor简介
 
 ​	cAdvisor对Node机器上的资源及容器进行实时监控和性能数据采集，包括CPU使用情况、内存使用情况、网络吞吐量及文件系统使用情况，cAdvisor集成在Kubelet中，当kubelet启动时会自动启动cAdvisor，即一个cAdvisor仅对一台Node机器进行监控。kubelet的启动参数--cadvisor-port可以定义cAdvisor对外提供服务的端口，默认为4194。可以通过浏览器<Node_IP:port>访问。项目主页：[http://github.com/google/cadvisor。]()
 
-## 2. cAdvisor结构图
+# 2. cAdvisor结构图
 
 ![cAdvisor](https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png)
 
-## 3. Metrics
+# 3. Metrics
 
 | 分类         | 字段                 | 描述                                       |
 | ---------- | ------------------ | ---------------------------------------- |
@@ -38,9 +38,9 @@ catagories:
 |            | fs_limit           | Filesystem limit                         |
 |            | fs_usage           | Filesystem usage                         |
 
-## 4. cAdvisor源码
+# 4. cAdvisor源码
 
-### 4.1. cAdvisor入口函数
+## 4.1. cAdvisor入口函数
 
 **cadvisor.go**
 
@@ -102,7 +102,7 @@ containerManager, err := manager.New(memoryStorage, sysFs, *maxHousekeepingInter
 err := containerManager.Start()
 ```
 
-### 4.2. cAdvisor Client的使用
+## 4.2. cAdvisor Client的使用
 
 ```go
 import "github.com/google/cadvisor/client"
@@ -111,7 +111,7 @@ func main(){
 }
 ```
 
-#### 4.2.1 client定义
+## 4.2.1 client定义
 
 **cadvisor/client/client.go**
 
@@ -131,7 +131,7 @@ func NewClient(url string) (*Client, error) {
 }
 ```
 
-#### 4.2.2. client方法
+## 4.2.2. client方法
 
 **1）MachineInfo**
 

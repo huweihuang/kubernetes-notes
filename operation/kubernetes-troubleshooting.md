@@ -11,7 +11,7 @@ catagories:
 - Kubernetes
 ---
 
-## 1. 查看系统Event事件
+# 1. 查看系统Event事件
 
  ```
 kubectl describe pod <PodName> --namespace=<NAMESPACE> 
@@ -25,7 +25,7 @@ kubectl describe pod <PodName> --namespace=<NAMESPACE>
 
 kubectl describe还可以查看其它k8s对象：NODE,RC,Service,Namespace,Secrets。
 
-### 1.1. Pod
+## 1.1. Pod
 
 ```
 kubectl describe pod <PodName> --namespace=<NAMESPACE>
@@ -62,7 +62,7 @@ Events:
   6m        7s      34  {kubelet 10.8.216.19}   containers{yangsc0} Backoff     Back-off restarting failed docker container
 ```
 
-### 1.2. NODE
+## 1.2. NODE
 
 ```
 kubectl describe node 10.8.216.20
@@ -111,7 +111,7 @@ Allocated resources:
 No events.  
 ```
 
-### 1.3. RC
+## 1.3. RC
 
 ```
 kubectl describe rc mytest-1-0-0 --namespace=test
@@ -135,7 +135,7 @@ Events:
   20h       17h     4   {replication-controller }           SuccessfulCreate    Created pod: mytest-1-0-0-index0  
 ```
 
-### 1.4. NAMESPACE
+## 1.4. NAMESPACE
 
 ```
 kubectl describe namespace test
@@ -162,7 +162,7 @@ Resource Quotas
 No resource limits.  
 ```
 
-### 1.5. Service
+## 1.5. Service
 
 ```
 kubectl describe service xxx-containers-1-1-0 --namespace=test
@@ -184,7 +184,7 @@ Session Affinity:   None
 No events.  
 ```
 
-## 2. 查看容器日志
+# 2. 查看容器日志
 
 1、查看指定pod的日志
 
@@ -229,9 +229,9 @@ $ kubectl logs --tail=20 nginx
 $ kubectl logs --since=1h nginx  
 ```
 
-## 3. 查看k8s服务日志
+# 3. 查看k8s服务日志
 
-### 3.1. journalctl
+## 3.1. journalctl
 
 在Linux系统上systemd系统来管理kubernetes服务，并且journal系统会接管服务程序的输出日志，可以通过**systemctl status <xxx>或journalctl -u <xxx> -f**来查看kubernetes服务的日志。
 
@@ -245,7 +245,7 @@ $ kubectl logs --since=1h nginx
 | kubelet                 | Pod生命周期相关：创建、停止等 |      |
 | etcd                    |                  |      |
 
-### 3.2. 日志文件
+## 3.2. 日志文件
 
 也可以通过指定日志存放目录来保存和查看日志
 
@@ -255,9 +255,9 @@ $ kubectl logs --since=1h nginx
 - --v=0:glog的日志级别
 - --vmodule=gfs*=2,test*=4：glog基于模块的详细日志级别
 
-## 4. 常见问题
+# 4. 常见问题
 
-### 4.1. Pod状态一直为Pending
+## 4.1. Pod状态一直为Pending
 
 ```
 kubectl describe <pod_name> --namespace=<NAMESPACE>
@@ -274,7 +274,7 @@ kubectl describe <pod_name> --namespace=<NAMESPACE>
 1. 查看该POD所在宿主机与镜像仓库之间的网络是否有问题，可以手动拉取镜像
 2. 删除POD实例，让POD调度到别的宿主机上
 
-### 4.2. Pod创建后不断重启
+## 4.2. Pod创建后不断重启
 
 kubectl get pods中Pod状态一会running，一会不是，且RESTARTS次数不断增加。
 

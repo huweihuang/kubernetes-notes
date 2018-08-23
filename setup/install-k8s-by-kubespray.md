@@ -1,19 +1,6 @@
----
-title: "[Kubernetes] 使用kubespray安装k8s集群"
-catalog: true
-date: 2018-6-23 21:26:24
-type: "tags"
-subtitle:
-header-img: "http://ozilwgpje.bkt.clouddn.com/scenery/building.jpg?imageslim"
-tags:
-- Kubernetes
-catagories:
-- Kubernetes
----
+# 1. 环境准备
 
-## 1. 环境准备
-
-### 1.1. 部署机器
+## 1.1. 部署机器
 
 > 以下机器为虚拟机
 
@@ -24,7 +11,7 @@ catagories:
 | 172.16.94.142 | kube-node-42  | k8s node   | Centos 4.17.14 | 内存：3G |
 | 172.16.94.135 |               | 部署管理机 |                |          |
 
-### 1.2. 配置管理机
+## 1.2. 配置管理机
 
 管理机主要用来部署k8s集群，需要安装以下版本的软件，具体可参考：
 
@@ -63,7 +50,7 @@ pip install netaddr
 pip install --upgrade jinja2
 ```
 
-### 1.3. 配置部署机器
+## 1.3. 配置部署机器
 
 部署机器即用来运行k8s集群的机器，包括`Master`和`Node`。
 
@@ -130,7 +117,7 @@ Swap:             0           0           0
   when: inventory_hostname in groups['kube-node']
 ```
 
-### 1.4. 涉及镜像
+## 1.4. 涉及镜像
 
 `Docker`版本为`17.03.2-ce`。
 
@@ -167,17 +154,17 @@ Swap:             0           0           0
 - hyperkube镜像主要用来运行k8s核心组件（例如kube-apiserver等）。
 - 此处使用的网络组件为calico。
 
-## 2. 部署集群
+# 2. 部署集群
 
-### 2.1. 下载kubespary的源码
+## 2.1. 下载kubespary的源码
 
 ```bash
 git clone https://github.com/kubernetes-incubator/kubespray.git
 ```
 
-### 2.2. 编辑配置文件
+## 2.2. 编辑配置文件
 
-#### 2.2.1. hosts.ini
+## 2.2.1. hosts.ini
 
 `hosts.ini`主要为部署节点机器信息的文件，路径为：`kubespray/inventory/sample/hosts.ini`。
 
@@ -193,14 +180,14 @@ vi inventory/k8s/hosts.ini
 > hosts.ini文件可以填写部署机器的登录密码，也可以不填密码而设置ssh的免密登录。
 
 ```bash
-## Configure 'ip' variable to bind kubernetes services on a
-## different ip than the default iface
-## 主机名             ssh登陆IP                        ssh用户名               ssh登陆密码                 机器IP          子网掩码
+# Configure 'ip' variable to bind kubernetes services on a
+# different ip than the default iface
+# 主机名             ssh登陆IP                        ssh用户名               ssh登陆密码                 机器IP          子网掩码
 kube-master-0     ansible_ssh_host=172.16.94.140   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.140   mask=/24
 kube-node-41      ansible_ssh_host=172.16.94.141   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.141   mask=/24
 kube-node-42      ansible_ssh_host=172.16.94.142   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.142   mask=/24
 
-## configure a bastion host if your nodes are not directly reachable
+# configure a bastion host if your nodes are not directly reachable
 # bastion ansible_ssh_host=x.x.x.x
 
 [kube-master]
@@ -220,13 +207,13 @@ kube-master
 [calico-rr]
 ```
 
-#### 2.2.2. k8s-cluster.yml
+## 2.2.2. k8s-cluster.yml
 
 `k8s-cluster.yml`主要为k8s集群的配置文件，路径为：`kubespray/inventory/k8s/group_vars/k8s-cluster.yml`。该文件可以修改安装的k8s集群的版本，参数为：kube_version: v1.9.5。具体可参考：
 
 - https://github.com/kubernetes-incubator/kubespray/blob/master/inventory/sample/group_vars/k8s-cluster.yml#L22
 
-### 2.3. 执行部署操作
+## 2.3. 执行部署操作
 
 ```bash
 # 进入主目录
@@ -243,9 +230,9 @@ ansible-playbook -i inventory/k8s/hosts.ini cluster.yml -b -vvv
 ansible-playbook -i inventory/k8s/hosts.ini reset.yml -b -vvv
 ```
 
-## 3. 确认部署结果
+# 3. 确认部署结果
 
-### 3.1. ansible的部署结果
+## 3.1. ansible的部署结果
 
 ansible命令执行完，出现以下日志，则说明部署成功，否则根据报错内容进行修改。
 
@@ -302,7 +289,7 @@ download : Download items ------------------------------------------------------
 /root/gopath/src/kubespray/roles/download/tasks/main.yml:6 
 ```
 
-### 3.2. k8s集群运行结果
+## 3.2. k8s集群运行结果
 
 **1、k8s组件信息**
 
@@ -376,11 +363,11 @@ controller-manager   Healthy   ok
 etcd-0               Healthy   {"health": "true"}
 ```
 
-## 4. troubles shooting
+# 4. troubles shooting
 
 在使用kubespary部署k8s集群时，主要遇到以下报错。
 
-### 4.1. python-netaddr未安装
+## 4.1. python-netaddr未安装
 
 - 报错内容：
 
@@ -392,7 +379,7 @@ fatal: [node1]: FAILED! => {"failed": true, "msg": "The ipaddr filter requires p
 
 需要安装 python-netaddr，具体参考上述[环境准备]内容。
 
-### 4.2. swap未关闭
+## 4.2. swap未关闭
 
 - 报错内容：
 
@@ -418,7 +405,7 @@ fatal: [kube-node-42]: FAILED! => {
 
 所有部署机器执行`swapoff -a`关闭swap，具体参考上述[环境准备]内容。
 
-### 4.3. 部署机器内存过小
+## 4.3. 部署机器内存过小
 
 - 报错内容：
 
@@ -452,7 +439,7 @@ fatal: [kube-node-42]: FAILED! => {
 
 调大所有部署机器的内存，本示例中调整为3G或以上。
 
-### 4.4. kube-scheduler组件运行失败
+## 4.4. kube-scheduler组件运行失败
 
 kube-scheduler组件运行失败，导致http://localhost:10251/healthz调用失败。
 
@@ -468,7 +455,7 @@ fatal: [node1]: FAILED! => {"attempts": 60, "changed": false, "content": "", "fa
 
 可能是内存不足导致，本示例中调大了部署机器的内存。
 
-### 4.5. docker安装包冲突
+## 4.5. docker安装包冲突
 
 - 报错内容：
 

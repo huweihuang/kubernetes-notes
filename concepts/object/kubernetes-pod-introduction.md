@@ -11,14 +11,14 @@ catagories:
 - Kubernetes
 ---
 
-## 1. Pod的基本用法
+# 1. Pod的基本用法
 
-### 1.1. 说明
+## 1.1. 说明
 
 1. Pod实际上是**容器的集合**，在k8s中对运行容器的要求为：容器的主程序需要一直在前台运行，而不是后台运行。应用可以改造成前台运行的方式，例如Go语言的程序，直接运行二进制文件；java语言则运行主类；tomcat程序可以写个运行脚本。或者通过supervisor的进程管理工具，即supervisor在前台运行，应用程序由supervisor管理在后台运行。具体可参考[supervisord](http://blog.csdn.net/huwh_/article/details/77108245)。
 2. 当多个应用之间是紧耦合的关系时，可以将多个应用一起放在一个Pod中，同个Pod中的多个容器之间互相访问可以通过localhost来通信（可以把Pod理解成一个虚拟机，共享网络和存储卷）。
 
-### 1.2. Pod相关命令
+## 1.2. Pod相关命令
 
 | 操作        | 命令                                       | 说明                   |
 | --------- | ---------------------------------------- | -------------------- |
@@ -28,7 +28,7 @@ catagories:
 | 删除        | kubectl delete pod `<POD_NAME>` ;kubectl delete pod --all |                      |
 | 更新        | kubectl replace pod.yaml                 |                      |
 
-## 2. Pod的定义文件
+# 2. Pod的定义文件
 
 ```yaml
 apiVersion: v1
@@ -110,7 +110,7 @@ metadata:
 ```
 
 
-## 3. 静态pod
+# 3. 静态pod
 
 静态Pod是由kubelet进行管理，仅存在于特定Node上的Pod。它们不能通过API Server进行管理，无法与ReplicationController、Deployment或DaemonSet进行关联，并且kubelet也无法对其健康检查。
 
@@ -118,7 +118,7 @@ metadata:
 
 创建静态Pod的方式：
 
-### 3.1. 通过配置文件方式
+## 3.1. 通过配置文件方式
 
 需要设置kubelet的启动参数“–config”，指定kubelet需要监控的配置文件所在目录，kubelet会定期扫描该目录，并根据该目录的.yaml或.json文件进行创建操作。静态Pod无法通过API Server删除（若删除会变成pending状态），如需删除该Pod则将yaml或json文件从这个目录中删除。
 
@@ -142,7 +142,7 @@ spec:
     containerPort: 80
 ```
 
-## 4. Pod容器共享Volume
+# 4. Pod容器共享Volume
 
 同一个Pod中的多个容器可以共享Pod级别的存储卷Volume,Volume可以定义为各种类型，多个容器各自进行挂载，将Pod的Volume挂载为容器内部需要的目录。
 
@@ -182,11 +182,11 @@ spec:
 1. kubectl logs `<pod_name>` -c `<container_name>`
 2. kubectl exec -it `<pod_name>` -c `<container_name>` – tail /usr/local/tomcat/logs/catalina.xx.log
 
-## 5. Pod的配置管理
+# 5. Pod的配置管理
 
 Kubernetes v1.2的版本提供统一的集群配置管理方案–ConfigMap。
 
-### 5.1. ConfigMap：容器应用的配置管理
+## 5.1. ConfigMap：容器应用的配置管理
 
 使用场景：
 
@@ -198,9 +198,9 @@ ConfigMap以一个或多个key:value的形式保存在kubernetes系统中供应�
 
 可以通过yaml配置文件或者使用kubectl create configmap命令的方式创建ConfigMap。
 
-### 5.2. 创建ConfigMap
+## 5.2. 创建ConfigMap
 
-#### 5.2.1. 通过yaml文件方式
+## 5.2.1. 通过yaml文件方式
 
 cm-appvars.yaml
 
@@ -224,7 +224,7 @@ kubectl describe configmap cm-appvars
 
 kubectl get configmap cm-appvars -o yaml
 
-#### 5.2.2. 通过kubectl命令行方式
+## 5.2.2. 通过kubectl命令行方式
 
 通过kubectl create configmap创建，使用参数--from-file或--from-literal指定内容，可以在一行中指定多个参数。
 
@@ -247,7 +247,7 @@ kubectl create configmap NAME --from-literal=key1=value1 --from-literal=key2=val
 1. 通过环境变量获取ConfigMap中的内容。
 2. 通过Volume挂载的方式将ConfigMap中的内容挂载为容器内部的文件或目录。
 
-#### 5.2.3. 通过环境变量的方式
+## 5.2.3. 通过环境变量的方式
 
 ConfigMap的yaml文件:cm-appvars.yaml
 
@@ -294,16 +294,16 @@ kubectl get pods --show-all
 
 kubectl logs cm-test-pod
 
-### 5.3. 使用ConfigMap的限制条件
+## 5.3. 使用ConfigMap的限制条件
 
 - ConfigMap必须在Pod之前创建
 - ConfigMap也可以定义为属于某个Namespace。只有处于相同Namespace中的Pod可以引用它。
 - kubelet只支持可以被API Server管理的Pod使用ConfigMap。静态Pod无法引用。
 - 在Pod对ConfigMap进行挂载操作时，容器内只能挂载为“目录”，无法挂载为文件。
 
-## 6. Pod的生命周期
+# 6. Pod的生命周期
 
-### 6.1. Pod的状态
+## 6.1. Pod的状态
 
 | 状态值       | 说明                                       |
 | --------- | ---------------------------------------- |
@@ -313,7 +313,7 @@ kubectl logs cm-test-pod
 | Failed    | Pod内所有容器均已退出，但至少一个容器退出失败                 |
 | Unknown   | 由于某种原因无法获取Pod状态，例如网络通信不畅                 |
 
-### 6.2. Pod的重启策略
+## 6.2. Pod的重启策略
 
 | 重启策略      | 说明                              |
 | --------- | ------------------------------- |
@@ -329,7 +329,7 @@ kubectl logs cm-test-pod
 2. Job：OnFailure或Never，确保容器执行完后不再重启。
 3. kubelet：在Pod失效的时候重启它，不论RestartPolicy设置为什么值，并且不会对Pod进行健康检查。
 
-### 6.3. 常见的状态转换场景
+## 6.3. 常见的状态转换场景
 
 | Pod的容器数 | Pod当前状态 | 发生的事件    | Pod结果状态              |                         |                     |
 | ------- | ------- | -------- | -------------------- | ----------------------- | ------------------- |
@@ -339,7 +339,7 @@ kubectl logs cm-test-pod
 | 包含两个容器  | Running | 1个容器失败退出 | Running              | Running                 | Running             |
 | 包含两个容器  | Running | 容器被OOM杀掉 | Running              | Running                 | Failure             |
 
-## 7. Pod健康检查
+# 7. Pod健康检查
 
 Pod的健康状态由两类探针来检查：LivenessProbe和ReadinessProbe。
 
@@ -428,11 +428,11 @@ spec:
       timeoutSeconds: 1
 ```
 
-## 8. Pod调度
+# 8. Pod调度
 
 在kubernetes集群中，Pod（container）是应用的载体，一般通过RC、Deployment、DaemonSet、Job等对象来完成Pod的调度与自愈功能。
 
-### 8.1. RC、Deployment:全自动调度
+## 8.1. RC、Deployment:全自动调度
 
 RC的功能即保持集群中始终运行着指定个数的Pod。
 
@@ -442,7 +442,7 @@ RC的功能即保持集群中始终运行着指定个数的Pod。
 - NodeSelector[定向调度]
 - NodeAffinity[亲和性调度]
 
-#### 8.1.1. NodeSelector[定向调度]
+## 8.1.1. NodeSelector[定向调度]
 
 k8s中kube-scheduler负责实现Pod的调度，内部系统通过一系列算法最终计算出最佳的目标节点。如果需要将Pod调度到指定Node上，则可以通过Node的标签（Label）和Pod的nodeSelector属性相匹配来达到目的。
 
@@ -459,7 +459,7 @@ k8s中kube-scheduler负责实现Pod的调度，内部系统通过一系列算法
 
 对集群中不同类型的Node打上不同的标签，可控制应用运行Node的范围。例如role=frontend;role=backend;role=database。
 
-#### 8.1.2. NodeAffinity[亲和性调度]
+## 8.1.2. NodeAffinity[亲和性调度]
 
 NodeAffinity意为Node亲和性调度策略，NodeSelector为精确匹配，NodeAffinity为条件范围匹配，通过In（属于）、NotIn（不属于）、Exists（存在一个条件）、DoesNotExist（不存在）、Gt（大于）、Lt（小于）等操作符来选择Node，使调度更加灵活。
 
@@ -469,7 +469,7 @@ NodeAffinity意为Node亲和性调度策略，NodeSelector为精确匹配，Node
 
 如果同时设置了NodeSelector和NodeAffinity，则系统将需要同时满足两者的设置才能进行调度。
 
-#### 8.1.3. DaemonSet：特定场景调度
+## 8.1.3. DaemonSet：特定场景调度
 
 DaemonSet是kubernetes1.2版本新增的一种资源对象，用于管理在集群中**每个Node**上**仅运行一份Pod**的副本实例。
 
@@ -483,11 +483,11 @@ DaemonSet是kubernetes1.2版本新增的一种资源对象，用于管理在集�
 
 DaemonSet的Pod调度策略与RC类似，除了使用系统内置算法在每台Node上进行调度，也可以通过NodeSelector或NodeAffinity来指定满足条件的Node范围进行调度。
 
-#### **8.1.4. Job：批处理调度**
+## **8.1.4. Job：批处理调度**
 
 kubernetes从1.2版本开始支持批处理类型的应用，可以通过kubernetes Job资源对象来定义并启动一个批处理任务。批处理任务通常并行（或串行）启动多个计算进程去处理一批工作项（work item），处理完后，整个批处理任务结束。
 
-##### **8.1.4.1. 批处理的三种模式**
+### **8.1.4.1. 批处理的三种模式**
 
 ![这里写图片描述](<http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png>)
 
@@ -504,7 +504,7 @@ kubernetes从1.2版本开始支持批处理类型的应用，可以通过kuberne
 - **Queue with Variable Pod Count**
   采用一个任务队列存放Work item，一个Job对象作为消费者去完成这些Work item，其中Job会启动N个Pod，每个Pod对应一个Work item。**但Pod的数量是可变的**。
 
-##### 8.1.4.2. Job的三种类型
+### 8.1.4.2. Job的三种类型
 
 **1）Non-parallel Jobs**
 
@@ -525,23 +525,23 @@ kubernetes从1.2版本开始支持批处理类型的应用，可以通过kuberne
 - 如果一个Pod成功结束，则此时应该不存在其他Pod还在干活的情况，它们应该都处于即将结束、退出的状态
 - 如果所有的Pod都结束了，且至少一个Pod成功结束，则整个Job算是成功结束
 
-## 9. Pod伸缩
+# 9. Pod伸缩
 
 k8s中RC的用来保持集群中始终运行指定数目的实例，通过RC的scale机制可以完成Pod的扩容和缩容（伸缩）。
 
-### 9.1. 手动伸缩（scale）
+## 9.1. 手动伸缩（scale）
 
 ```bash
 kubectl scale rc redis-slave --replicas=3
 ```
 
-### 9.2. 自动伸缩（HPA）
+## 9.2. 自动伸缩（HPA）
 
 Horizontal Pod Autoscaler（HPA）控制器用于实现基于CPU使用率进行自动Pod伸缩的功能。HPA控制器基于Master的kube-controller-manager服务启动参数--horizontal-pod-autoscaler-sync-period定义是时长（默认30秒），周期性监控目标Pod的CPU使用率，并在满足条件时对ReplicationController或Deployment中的Pod副本数进行调整，以符合用户定义的平均Pod CPU使用率。Pod CPU使用率来源于heapster组件，因此需安装该组件。
 
 可以通过kubectl autoscale命令进行快速创建或者使用yaml配置文件进行创建。创建之前需已存在一个RC或Deployment对象，并且该RC或Deployment中的Pod必须定义resources.requests.cpu的资源请求值，以便heapster采集到该Pod的CPU。
 
-#### 9.2.1. 通过kubectl autoscale创建
+## 9.2.1. 通过kubectl autoscale创建
 
 例如：
 
@@ -602,7 +602,7 @@ kubectl create -f php-apache-svc.yaml
 kubectl autoscale rc php-apache --min=1 --max=10 --cpu-percent=50
 ```
 
-#### 9.2.2. 通过yaml配置文件创建
+## 9.2.2. 通过yaml配置文件创建
 
 hpa-php-apache.yaml
 
@@ -633,11 +633,11 @@ kubectl create -f hpa-php-apache.yaml
 kubectl get hpa
 ```
 
-## 10. Pod滚动升级
+# 10. Pod滚动升级
 
 k8s中的滚动升级通过执行kubectl rolling-update命令完成，该命令创建一个新的RC（与旧的RC在同一个命名空间中），然后自动控制旧的RC中的Pod副本数逐渐减少为0，同时新的RC中的Pod副本数从0逐渐增加到附加值，但滚动升级中Pod副本数（包括新Pod和旧Pod）保持原预期值。
 
-### 10.1. 通过配置文件实现
+## 10.1. 通过配置文件实现
 
 redis-master-controller-v2.yaml
 
@@ -678,7 +678,7 @@ spec:
 kubectl rolling-update redis-master -f redis-master-controller-v2.yaml
 ```
 
-### 10.2. 通过kubectl rolling-update命令实现
+## 10.2. 通过kubectl rolling-update命令实现
 
 ```bash
 kubectl rolling-update redis-master --image=redis-master:2.0
@@ -686,7 +686,7 @@ kubectl rolling-update redis-master --image=redis-master:2.0
 
 与使用配置文件实现不同在于，该执行结果旧的RC被删除，新的RC仍使用旧的RC的名字。
 
-### 10.3. 升级回滚
+## 10.3. 升级回滚
 
 kubectl rolling-update加参数--rollback实现回滚操作
 

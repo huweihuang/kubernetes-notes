@@ -11,7 +11,7 @@ catagories:
 - Kubernetes
 ---
 
-## 1. kubernetes对象概述
+# 1. kubernetes对象概述
 
 kubernetes中的对象是一些持久化的实体，可以理解为是对`集群状态的描述或期望`。
 
@@ -28,7 +28,7 @@ kubernetes中的对象是一些持久化的实体，可以理解为是对`集群
 - `kubectl`命令工具
 - `Client library`的方式，例如 [client-go](https://github.com/kubernetes/client-go)
 
-## 2. Spec and Status
+# 2. Spec and Status
 
 每个kubernetes对象的结构描述都包含`spec`和`status`两个部分。
 
@@ -39,7 +39,7 @@ kubernetes中的对象是一些持久化的实体，可以理解为是对`集群
 
 例如：当你定义`Deployment`的描述文件，指定集群中运行3个实例，那么kubernetes会始终保持集群中运行3个实例，如果任何实例挂掉，kubernetes会自动重建新的实例来保持集群中始终运行用户预期的3个实例。
 
-## 3. 对象描述文件
+# 3. 对象描述文件
 
 当你要创建一个kubernetes对象的时候，需要提供该对象的描述信息`spec`，来描述你的对象在kubernetes中的预期状态。
 
@@ -78,7 +78,7 @@ kubectl create -f https://k8s.io/docs/user-guide/nginx-deployment.yaml --record
 deployment "nginx-deployment" created
 ```
 
-## 4. 必须字段
+# 4. 必须字段
 
 在对象描述文件`.yaml`中，必须包含以下字段。
 

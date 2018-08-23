@@ -1,19 +1,7 @@
----
-title: "[Kubernetes] 使用minikube安装k8s集群"
-catalog: true
-date: 2018-6-23 20:26:24
-type: "tags"
-subtitle:
-header-img: "http://ozilwgpje.bkt.clouddn.com/scenery/building.jpg?imageslim"
-tags:
-- Kubernetes
-catagories:
-- Kubernetes
----
 
 > 以下内容基于Linux系统，特别为Ubuntu系统
 
-## 1. 安装kubectl
+# 1. 安装kubectl
 
 ```bash
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
@@ -25,11 +13,11 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s htt
 curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.9.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 ```
 
-## 2. 安装minikube
+# 2. 安装minikube
 
 `minikube`的源码地址：https://github.com/kubernetes/minikube
 
-### 2.1 安装minikube
+## 2.1 安装minikube
 
 以下命令为安装`latest`版本的`minikube`。
 
@@ -45,7 +33,7 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.28.2/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 ```
 
-### 2.2 minikube命令帮助
+## 2.2 minikube命令帮助
 
 ```bash
 Minikube is a CLI tool that provisions and manages single-node Kubernetes clusters optimized for development workflows.
@@ -92,9 +80,9 @@ Flags:
 Use "minikube [command] --help" for more information about a command.
 ```
 
-## 3. 使用minikube安装k8s集群
+# 3. 使用minikube安装k8s集群
 
-### 3.1. minikube start
+## 3.1. minikube start
 
 可以以`Docker`的方式运行k8s的组件，但需要先安装Docker(可参考[Docker安装]())，启动参数使用`--vm-driver=none`。
 
@@ -147,7 +135,7 @@ minikube get-k8s-versions
 minikube start --kubernetes-version v1.7.3 --vm-driver=none
 ```
 
-### 3.2. minikube status
+## 3.2. minikube status
 
 ```bash
 $ minikube status
@@ -156,17 +144,17 @@ cluster: Running
 kubectl: Correctly Configured: pointing to minikube-vm at 172.16.94.139
 ```
 
-### 3.3. minikube stop
+## 3.3. minikube stop
 
 `minikube stop` 命令可以用来停止集群。 该命令会关闭 minikube 虚拟机，但将保留所有集群状态和数据。 再次启动集群将恢复到之前的状态。
 
-### 3.4. minikube delete
+## 3.4. minikube delete
 
 `minikube delete` 命令可以用来删除集群。 该命令将关闭并删除 minikube 虚拟机。没有数据或状态会被保存下来。
 
-## 4. 查看部署结果
+# 4. 查看部署结果
 
-### 4.1. 部署组件
+## 4.1. 部署组件
 
 ```bash
 root@ubuntu:~# kubectl get all --namespace=kube-system
@@ -197,15 +185,15 @@ replicaset.apps/kube-dns-86f4d74b45               1         1         1         
 replicaset.apps/kubernetes-dashboard-5498ccf677   1         1         1         38m
 ```
 
-### 4.2. dashboard
+## 4.2. dashboard
 
 通过访问`ip:port`，例如：http://172.16.94.139:30000/，可以访问k8s的`dashboard`控制台。
 
 <img src="http://res.cloudinary.com/dqxtn0ick/image/upload/v1533695750/article/kubernetes/arch/dashboard.png" width = "100%"/>
 
-## 5. troubleshooting
+# 5. troubleshooting
 
-### 5.1. 没有安装VirtualBox
+## 5.1. 没有安装VirtualBox
 
 ```bash
 [root@minikube ~]# minikube start
@@ -230,7 +218,7 @@ Please enter your response [Y/n]:
 
 解决方法，先安装VirtualBox。
 
-### 5.2. 没有安装Docker
+## 5.2. 没有安装Docker
 
 ```bash
 [root@minikube ~]# minikube start --vm-driver=none

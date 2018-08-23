@@ -11,15 +11,15 @@ catagories:
 - Kubernetes
 ---
 
-## 1. NodeSelector
+# 1. NodeSelector
 
-### 1.1. 概念
+## 1.1. 概念
 
 如果需要`限制Pod到指定的Node`上运行，则可以给Node打标签并给Pod配置NodeSelector。
 
-### 1.2. 使用方式
+## 1.2. 使用方式
 
-#### 1.2.1. 给Node打标签
+## 1.2.1. 给Node打标签
 
 ```bash
 # get node的name
@@ -34,7 +34,7 @@ kubectl label nodes node-1 disktype=ssd
 kubectl get nodes --show-labels
 ```
 
-#### 1.2.2. 给Pod设置NodeSelector
+## 1.2.2. 给Pod设置NodeSelector
 
 ```yaml
 apiVersion: v1
@@ -52,19 +52,19 @@ spec:
     disktype: ssd    # 对应Node的Label
 ```
 
-### 1.3. 亲和性（Affinity）和反亲和性（Anti-affinity）
+## 1.3. 亲和性（Affinity）和反亲和性（Anti-affinity）
 
 > 待补充
 
-## 2. Taint 和 Toleration
+# 2. Taint 和 Toleration
 
-### 2.1. 概念
+## 2.1. 概念
 
 `nodeSelector`可以通过`打标签`的形式让Pod被调度到指定的Node上，`Taint `则相反，它使节点能够排斥一类特定的Pod，除非Pod被指定了`toleration`的标签。（`taint`即污点，Node被打上污点；只有容忍[toleration]这些污点的Pod才可能被调度到该Node）。
 
-### 2.2. 使用方式
+## 2.2. 使用方式
 
-#### 2.2.1. kubectl taint
+## 2.2.1. kubectl taint
 
 ```bash
 # 给节点增加一个taint，它的key是<key>，value是<value>，effect是NoSchedule。
@@ -90,7 +90,7 @@ tolerations:
   effect: "NoSchedule"
 ```
 
-#### 2.2.2. 匹配规则：
+## 2.2.2. 匹配规则：
 
 一个 toleration 和一个 taint 相“匹配”是指它们有一样的 key 和 effect ，并且：
 
@@ -120,7 +120,7 @@ tolerations:
 - 如果未被过滤的 taint 中不存在 effect 值为 `NoSchedule` 的 taint，但是存在 effect 值为 `PreferNoSchedule` 的 taint，则 Kubernetes 会*尝试*将 pod 分配到该节点。
 - 如果未被过滤的 taint 中存在一个以上 effect 值为 `NoExecute` 的 taint，则 Kubernetes 不会将 pod 分配到该节点（如果 pod 还未在节点上运行），或者将 pod 从该节点驱逐（如果 pod 已经在节点上运行）。
 
-#### 2.2.3. effect的类型
+## 2.2.3. effect的类型
 
 - `NoSchedule`：只有拥有和这个 taint 相匹配的 toleration 的 pod 才能够被分配到这个节点。
 
@@ -137,9 +137,9 @@ tolerations:
     tolerationSeconds: 3600
   ```
 
-### 2.3. 使用场景
+## 2.3. 使用场景
 
-#### 2.3.1. 专用节点
+## 2.3.1. 专用节点
 
 ```bash
 kubectl taint nodes <nodename> dedicated=<groupName>:NoSchedule
@@ -149,7 +149,7 @@ kubectl taint nodes <nodename> dedicated=<groupName>:NoSchedule
 
 如果想**让Pod只调度某些节点且某些节点只接受对应的Pod**，则需要在Node上添加`Label`（例如：`dedicated=groupName`），同时给Pod的`nodeSelector`添加对应的`Label`。
 
-#### 2.3.2. 特殊硬件节点
+## 2.3.2. 特殊硬件节点
 
 如果某些节点配置了特殊硬件（例如CPU），希望不使用这些特殊硬件的Pod不被调度该Node，以便保留必要资源。即可给Node设置`taint`和`label`，同时给Pod设置`toleration`和`label`来使得这些Node专门被指定Pod使用。
 
@@ -160,7 +160,7 @@ kubectl taint nodes nodename special=true:NoSchedule
 kubectl taint nodes nodename special=true:PreferNoSchedule
 ```
 
-#### 2.3.3. 基于taint驱逐
+## 2.3.3. 基于taint驱逐
 
 effect 值 `NoExecute` ，它会影响已经在节点上运行的 pod，即根据策略对Pod进行驱逐。
 

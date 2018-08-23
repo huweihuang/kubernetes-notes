@@ -11,14 +11,14 @@ catagories:
 - Kubernetes
 ---
 
-## 1. heapster简介
+# 1. heapster简介
 
 Heapster是容器集群监控和性能分析工具，天然的支持Kubernetes和CoreOS。
 Kubernetes有个出名的监控agent—cAdvisor。在每个kubernetes Node上都会运行cAdvisor，它会收集本机以及容器的监控数据(cpu,memory,filesystem,network,uptime)。
 
-## 2. heapster部署与配置
+# 2. heapster部署与配置
 
-### 2.1. 注意事项
+## 2.1. 注意事项
 
 需同步部署机器和被采集机器的时间：ntpdate time.windows.com
 
@@ -28,7 +28,7 @@ crontab –e
 
 30 5 * * *          /usr/sbin/ntpdate time.windows.com          //每天早晨5点半执行
 
-### 2.2. 容器式部署
+## 2.2. 容器式部署
 
 ```bash
 #拉取镜像
@@ -37,11 +37,11 @@ docker pull heapster:latest
 docker run -d -p 8082:8082 --net=host heapster:latest --source=kubernetes:http://<k8s-server-ip>:8080?inClusterConfig=false\&useServiceAccount=false --sink=influxdb:http://<influxdb-ip>:8086?db=<k8s_env_zone>
 ```
 
-### 2.3. 配置说明
+## 2.3. 配置说明
 
 可以参考[官方文档](https://github.com/kubernetes/heapster/tree/master/docs)
 
-#### 2.3.1. –source
+## 2.3.1. –source
 
 –source: 指定数据获取源。这里指定kube-apiserver即可。
 后缀参数：
@@ -53,7 +53,7 @@ insecure: 是否使用安全证书(默认：false)
 auth: 安全认证
 useServiceAccount: 是否使用K8S的安全令牌
 
-#### 2.3.2. –sink
+## 2.3.2. –sink
 
 –sink: 指定后端数据存储。这里指定influxdb数据库。
 后缀参数：
@@ -63,7 +63,7 @@ db: 数据库名
 secure: 安全连接到InfluxDB(默认：false)
 withfields： 使用InfluxDB fields(默认：false)。
 
-## 3. Metrics
+# 3. Metrics
 
 | 分类         | Metric Name                   | Description                              | 备注            |
 | ---------- | ----------------------------- | ---------------------------------------- | ------------- |
@@ -104,7 +104,7 @@ withfields： 使用InfluxDB fields(默认：false)。
 |            | network/tx_rate               | Number of bytes sent over the network per second. |               |
 |            | uptime                        | Number of milliseconds since the container was started. |          -     |
 
-## 4. Labels
+# 4. Labels
 
 | Label Name           | Description                              |
 | -------------------- | ---------------------------------------- |
@@ -119,7 +119,7 @@ withfields： 使用InfluxDB fields(默认：false)。
 | namespace_id         | UID of the namespace of a Pod            |
 | resource_id          | A unique identifier used to differentiate multiple metrics of the same type. e.x. Fs partitions under filesystem/usage |
 
-## 5. heapster API
+# 5. heapster API
 
 见官方文档：[https://github.com/kubernetes/heapster/blob/master/docs/model.md](https://github.com/kubernetes/heapster/blob/master/docs/model.md)
 

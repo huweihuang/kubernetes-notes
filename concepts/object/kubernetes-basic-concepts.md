@@ -11,36 +11,36 @@ catagories:
 - Kubernetes
 ---
 
-## 1. Master
+# 1. Master
 
 集群的控制节点，负责整个集群的管理和控制，kubernetes的所有的命令基本都是发给Master，由它来负责具体的执行过程。
 
-### 1.1. Master的组件
+## 1.1. Master的组件
 
 - kube-apiserver：资源增删改查的入口
 - kube-controller-manager：资源对象的大总管
 - kube-scheduler：负责资源调度（Pod调度）
 - etcd Server:kubernetes的所有的资源对象的数据保存在etcd中。
 
-## 2. Node
+# 2. Node
 
 Node是集群的工作负载节点，默认情况kubelet会向Master注册自己，一旦Node被纳入集群管理范围，kubelet会定时向Master汇报自身的情报，包括操作系统，Docker版本，机器资源情况等。
 
 如果Node超过指定时间不上报信息，会被Master判断为“失联”，标记为Not Ready，随后Master会触发Pod转移。
 
-### 2.1. Node的组件
+## 2.1. Node的组件
 
 - kubelet:Pod的管家，与Master通信
 - kube-proxy：实现kubernetes Service的通信与负载均衡机制的重要组件
 - Docker：容器的创建和管理
 
-### 2.2. Node相关命令
+## 2.2. Node相关命令
 
 kubectl get nodes
 
 kuebctl describe node {node_name}
 
-### 2.3. describe命令的Node信息
+## 2.3. describe命令的Node信息
 
 - Node基本信息：名称、标签、创建时间等
 - Node当前的状态，Node启动后会进行自检工作，磁盘是否满，内存是否不足，若都正常则切换为Ready状态。
@@ -52,7 +52,7 @@ kuebctl describe node {node_name}
 - 已分配的资源使用概要，例如资源申请的最低、最大允许使用量占系统总量的百分比
 - Node相关的Event信息。
 
-## 3. Pod
+# 3. Pod
 
 Pod是Kubernetes中操作的基本单元。每个Pod中有个根容器(Pause容器)，Pause容器的状态代表整个容器组的状态，其他业务容器共享Pause的IP，即Pod IP，共享Pause挂载的Volume，这样简化了同个Pod中不同容器之间的网络问题和文件共享问题。
 
@@ -71,7 +71,7 @@ Pod是Kubernetes中操作的基本单元。每个Pod中有个根容器(Pause容�
 
 ![pod2](https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png)
 
-## 4. Label
+# 4. Label
 
 1. Label是一个键值对，可以附加在任何对象上，比如Node,Pod,Service,RC等。Label和资源对象是多对多的关系，即一个Label可以被添加到多个对象上，一个对象也可以定义多个Label。
 2. Label的作用主要用来实现精细的、多维度的资源分组管理，以便进行资源分配，调度，配置，部署等工作。
@@ -87,7 +87,7 @@ Pod是Kubernetes中操作的基本单元。每个Pod中有个根容器(Pause容�
 2. kube-proxy进程通过Service的Label Selector来选择对应Pod，自动建立每个Service到对应Pod的请求转发路由表，从而实现Service的智能负载均衡机制。
 3. kube-scheduler实现Pod定向调度：对Node定义特定的Label，并且在Pod定义文件中使用NodeSelector标签调度策略。
 
-## 5. Replication Controller(RC)
+# 5. Replication Controller(RC)
 
 RC是k8s系统中的核心概念，定义了一个期望的场景。
 
@@ -105,7 +105,7 @@ RC特性说明：
 4. Kubernetes1.2以上版本将RC升级为Replica Set，它与当前RC的唯一区别在于Replica Set支持基于集合的Label Selector(Set-based selector)，而旧版本RC只支持基于等式的Label Selector(equality-based selector)。
 5. Kubernetes1.2以上版本通过Deployment来维护Replica Set而不是单独使用Replica Set。即控制流为：Delpoyment→Replica Set→Pod。即新版本的Deployment+Replica Set替代了RC的作用。
 
-## 6. Deployment
+# 6. Deployment
 
 Deployment是kubernetes 1.2引入的概念，用来解决Pod的编排问题。Deployment可以理解为RC的升级版（RC+Reolicat Set）。特点在于可以随时知道Pod的部署进度，即对Pod的创建、调度、绑定节点、启动容器完整过程的进度展示。
 
@@ -119,7 +119,7 @@ Deployment是kubernetes 1.2引入的概念，用来解决Pod的编排问题。De
 
 可以通过kubectl describe deployment来查看Deployment控制的Pod的水平拓展过程。
 
-## 7. Horizontal Pod Autoscaler(HPA)
+# 7. Horizontal Pod Autoscaler(HPA)
 
 Horizontal Pod Autoscaler(HPA)即Pod横向自动扩容，与RC一样也属于k8s的资源对象。
 
@@ -130,19 +130,19 @@ Pod负载度量指标：
 - CPUUtilizationPercentage：Pod所有副本自身的CPU利用率的平均值。即当前Pod的CPU使用量除以Pod Request的值。
 - 应用自定义的度量指标，比如服务每秒内响应的请求数（TPS/QPS）。
 
-## 8. Service(服务)
+# 8. Service(服务)
 
-### 8.1. Service概述
+## 8.1. Service概述
 
 ![service](https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png)
 
 Service定义了一个服务的访问入口地址，前端应用通过这个入口地址访问其背后的一组由Pod副本组成的集群实例，Service与其后端的Pod副本集群之间是通过Label Selector来实现“无缝对接”。RC保证Service的Pod副本实例数目保持预期水平。
 
-### 8.2. kubernetes的服务发现机制
+## 8.2. kubernetes的服务发现机制
 
 主要通过kube-dns这个组件来进行DNS方式的服务发现。
 
-### 8.3. 外部系统访问Service的问题
+## 8.3. 外部系统访问Service的问题
 
 | IP类型       | 说明           |
 | ---------- | ------------ |
@@ -150,35 +150,35 @@ Service定义了一个服务的访问入口地址，前端应用通过这个入�
 | Pod IP     | Pod的IP地址     |
 | Cluster IP | Service的IP地址 |
 
-#### 8.3.1. Node IP
+## 8.3.1. Node IP
 
 NodeIP是集群中每个节点的物理网卡IP地址，是真实存在的物理网络，kubernetes集群之外的节点访问kubernetes内的某个节点或TCP/IP服务的时候，需要通过NodeIP进行通信。
 
-#### 8.3.2. Pod IP
+## 8.3.2. Pod IP
 
 Pod IP是每个Pod的IP地址，是Docker Engine根据docker0网桥的IP段地址进行分配的，是一个虚拟二层网络，集群中一个Pod的容器访问另一个Pod中的容器，是通过Pod IP进行通信的，而真实的TCP/IP流量是通过Node IP所在的网卡流出的。
 
-#### 8.3.3. Cluster IP
+## 8.3.3. Cluster IP
 
 1. Service的Cluster IP是一个虚拟IP，只作用于Service这个对象，由kubernetes管理和分配IP地址（来源于Cluster IP地址池）。
 2. Cluster IP无法被ping通，因为没有一个实体网络对象来响应。
 3. Cluster IP结合Service Port组成的具体通信端口才具备TCP/IP通信基础，属于kubernetes集群内，集群外访问该IP和端口需要额外处理。
 4. k8s集群内Node IP 、Pod IP、Cluster IP之间的通信采取k8s自己的特殊的路由规则，与传统IP路由不同。
 
-#### 8.3.4. 外部访问Kubernetes集群
+## 8.3.4. 外部访问Kubernetes集群
 
 通过宿主机与容器端口映射的方式进行访问，例如：Service定位文件如下：
 
 可以通过任意Node的IP 加端口访问该服务。也可以通过Nginx或HAProxy来设置负载均衡。
 
-## 9. Volume(存储卷)
+# 9. Volume(存储卷)
 
-### 9.1. Volume的功能
+## 9.1. Volume的功能
 
 1. Volume是Pod中能够被多个容器访问的共享目录，可以让容器的数据写到宿主机上或者写文件到网络存储中
 2. 可以实现容器配置文件集中化定义与管理，通过ConfigMap资源对象来实现。
 
-### 9.2. Volume的特点
+## 9.2. Volume的特点
 
 k8s中的Volume与Docker的Volume相似，但不完全相同。
 
@@ -186,13 +186,13 @@ k8s中的Volume与Docker的Volume相似，但不完全相同。
 2. k8s的Volume与Pod生命周期相关而不是容器是生命周期，即容器挂掉，数据不会丢失但是Pod挂掉，数据则会丢失。
 3. k8s中的Volume支持多种类型的Volume：Ceph、GlusterFS等分布式系统。
 
-### 9.3. Volume的使用方式
+## 9.3. Volume的使用方式
 
 先在Pod上声明一个Volume，然后容器引用该Volume并Mount到容器的某个目录。
 
-### 9.4. Volume类型
+## 9.4. Volume类型
 
-#### 9.4.1. emptyDir
+## 9.4.1. emptyDir
 
 emptyDir Volume是在Pod分配到Node时创建的，初始内容为空，无须指定宿主机上对应的目录文件，由K8S自动分配一个目录，当Pod被删除时，对应的emptyDir数据也会永久删除。
 
@@ -206,7 +206,7 @@ emptyDir Volume是在Pod分配到Node时创建的，初始内容为空，无须�
 
 目前用户无法设置emptyVolume的使用介质，如果kubelet的配置使用硬盘则emptyDir将创建在该硬盘上。
 
-#### 9.4.2. hostPath
+## 9.4.2. hostPath
 
 hostPath是在Pod上挂载宿主机上的文件或目录。
 
@@ -220,7 +220,7 @@ hostPath是在Pod上挂载宿主机上的文件或目录。
 1. 在不同的Node上具有相同配置的Pod可能会因为宿主机上的目录或文件不同导致对Volume上目录或文件的访问结果不一致。
 2. 如果使用了资源配额管理，则kubernetes无法将hostPath在宿主机上使用的资源纳入管理。
 
-#### 9.4.3. gcePersistentDisk
+## 9.4.3. gcePersistentDisk
 
 表示使用谷歌公有云提供的永久磁盘（Persistent Disk ,PD）存放Volume的数据，它与EmptyDir不同，PD上的内容会被永久保存。当Pod被删除时，PD只是被卸载时，但不会被删除。需要先创建一个永久磁盘，才能使用gcePersistentDisk。
 
@@ -229,7 +229,7 @@ hostPath是在Pod上挂载宿主机上的文件或目录。
 - Node(运行kubelet的节点)需要是GCE虚拟机。
 - 虚拟机需要与PD存在于相同的GCE项目中和Zone中。
 
-## 10. Persistent Volume
+# 10. Persistent Volume
 
 Volume定义在Pod上，属于“计算资源”的一部分，而Persistent Volume和Persistent Volume Claim是网络存储，简称PV和PVC，可以理解为k8s集群中某个网络存储中对应的一块存储。
 
@@ -244,7 +244,7 @@ PV是有状态的对象，状态类型如下：
 - Released:对应的PVC已经删除，但资源还没有回收
 - Failed:PV自动回收失败
 
-## 11. Namespace
+# 11. Namespace
 
 Namespace即命名空间，主要用于多租户的资源隔离，通过将资源对象分配到不同的Namespace上，便于不同的分组在共享资源的同时可以被分别管理。
 
@@ -254,7 +254,7 @@ k8s集群启动后会默认创建一个“default”的Namespace。可以通过k
 
 **Namespace yaml文件的定义**
 
-## 12. Annotation(注解)
+# 12. Annotation(注解)
 
 Annotation与Label类似，也使用key/value的形式进行定义，Label定义元数据（Metadata）,Annotation定义“附加”信息。
 

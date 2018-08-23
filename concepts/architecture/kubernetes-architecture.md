@@ -11,13 +11,13 @@ catagories:
 - Kubernetes
 ---
 
-## 1. Kubernetes的总架构图
+# 1. Kubernetes的总架构图
 
 <img src="http://res.cloudinary.com/dqxtn0ick/image/upload/v1512807164/article/kubernetes/arch/k8s-arch.jpg" width="90%">
 
-## 2. Kubernetes各个组件介绍
+# 2. Kubernetes各个组件介绍
 
-### 2.1 kube-master[控制节点]
+## 2.1 kube-master[控制节点]
 
 **master的工作流程图**
 
@@ -31,7 +31,7 @@ catagories:
 6. 在API Server响应Kubecfg的请求后，Scheduler会根据Kubernetes Client获取集群中运行Pod及Minion/Node信息。
 7. 依据从Kubernetes Client获取的信息，Scheduler将未分发的Pod分发到可用的Minion/Node节点上。
 
-#### 2.1.1 API Server[资源操作入口]
+## 2.1.1 API Server[资源操作入口]
 
 1. 提供了资源对象的唯一操作入口，其他所有组件都必须通过它提供的API来操作资源数据，只有API Server与存储通信，其他模块通过API Server访问集群状态。
 
@@ -42,7 +42,7 @@ catagories:
 
 更多API Server信息请参考：[Kubernetes核心原理（一）之API Server](http://www.huweihuang.com/article/kubernetes/core-principle/kubernetes-core-principle-api-server/)
 
-#### 2.1.2 Controller Manager[内部管理控制中心]
+## 2.1.2 Controller Manager[内部管理控制中心]
 
 1. 实现集群故障检测和恢复的自动化工作，负责执行各种控制器，主要有：
    - endpoint-controller：定期关联service和pod(关联信息由endpoint对象维护)，保证service到pod的映射总是最新的。
@@ -50,7 +50,7 @@ catagories:
 
 更多Controller Manager信息请参考：[Kubernetes核心原理（二）之Controller Manager](http://www.huweihuang.com/article/kubernetes/core-principle/kubernetes-core-principle-controller-manager/)
 
-#### 2.1.3 Scheduler[集群分发调度器]
+## 2.1.3 Scheduler[集群分发调度器]
 
 1. Scheduler收集和分析当前Kubernetes集群中所有Minion/Node节点的资源(内存、CPU)负载情况，然后依此分发新建的Pod到Kubernetes集群中可用的节点。
 2. 实时监测Kubernetes集群中未分发和已分发的所有运行的Pod。
@@ -59,13 +59,13 @@ catagories:
 
 更多Scheduler信息请参考：[Kubernetes核心原理（三）之Scheduler](http://www.huweihuang.com/article/kubernetes/core-principle/kubernetes-core-principle-scheduler/)
 
-### 2.2 kube-node[服务节点]
+## 2.2 kube-node[服务节点]
 
 **kubelet结构图**
 
 <img src="http://res.cloudinary.com/dqxtn0ick/image/upload/v1510578888/article/kubernetes/arch/kubelet.png" width="60%">
 
-#### 2.2.1 Kubelet[节点上的Pod管家]
+## 2.2.1 Kubelet[节点上的Pod管家]
 
 1. 负责Node节点上pod的创建、修改、监控、删除等全生命周期的管理
 2. 定时上报本Node的状态信息给API Server。
@@ -80,12 +80,12 @@ catagories:
 
 更多Kubelet信息请参考：[Kubernetes核心原理（四）之Kubelet](http://www.huweihuang.com/article/kubernetes/core-principle/kubernetes-core-principle-kubelet/)
 
-#### 2.2.2 Proxy[负载均衡、路由转发]
+## 2.2.2 Proxy[负载均衡、路由转发]
 
 1. Proxy是为了解决外部网络能够访问跨机器集群中容器提供的应用服务而设计的，运行在每个Minion/Node上。Proxy提供TCP/UDP sockets的proxy，每创建一种Service，Proxy主要从etcd获取Services和Endpoints的配置信息（也可以从file获取），然后根据配置信息在Minion/Node上启动一个Proxy的进程并监听相应的服务端口，当外部请求发生时，Proxy会根据Load Balancer将请求分发到后端正确的容器处理。
 2. Proxy不但解决了同一主宿机相同服务端口冲突的问题，还提供了Service转发服务端口对外提供服务的能力，Proxy后端使用了随机、轮循负载均衡算法。
 
-#### 2.2.3 kubectl（kubelet client）[集群管理命令行工具集]
+## 2.2.3 kubectl（kubelet client）[集群管理命令行工具集]
 
 1. 通过客户端的kubectl命令集操作，API Server响应对应的命令结果，从而达到对kubernetes集群的管理。
 

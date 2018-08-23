@@ -11,7 +11,7 @@ catagories:
 - Kubernetes
 ---
 
-## 1. InfluxDB简介
+# 1. InfluxDB简介
 
 InfluxDB是一个当下比较流行的时序数据库，InfluxDB使用 Go 语言编写，无需外部依赖，安装配置非常方便，适合构建大型分布式系统的监控系统。
 
@@ -23,31 +23,31 @@ InfluxDB是一个当下比较流行的时序数据库，InfluxDB使用 Go 语言
 
 3）基于事件：它支持任意的事件数据
 
-## 2. InfluxDB安装
+# 2. InfluxDB安装
 
-### 1）安装
+## 1）安装
 
 wget [https://dl.influxdata.com/influxdb/releases/influxdb-0.13.0.x86_64.rpm](https://dl.influxdata.com/influxdb/releases/influxdb-0.13.0.x86_64.rpm)
 
 yum localinstall influxdb-0.13.0.armhf.rpm
 
-### 2）启动
+## 2）启动
 
 service influxdb start
 
-### 3）访问
+## 3）访问
 
 http://服务器IP:8083
 
-### 4）docker image方式安装
+## 4）docker image方式安装
 
 docker pull influxdb
 
 docker run -d -p 8083:8083 -p 8086:8086 --expose 8090 --expose 8099 --volume=/opt/data/influxdb:/data --name influxsrv influxdb:latest
 
-## 3. InfluxDB的基本概念
+# 3. InfluxDB的基本概念
 
-### 3.1. 与传统数据库中的名词做比较
+## 3.1. 与传统数据库中的名词做比较
 
 | influxDB中的名词 | 传统数据库中的概念 |
 | ------------ | --------- |
@@ -55,9 +55,9 @@ docker run -d -p 8083:8083 -p 8086:8086 --expose 8090 --expose 8099 --volume=/op
 | measurement  | 数据库中的表    |
 | points       | 表里面的一行数据  |
 
-### 3.2. InfluxDB中独有的概念
+## 3.2. InfluxDB中独有的概念
 
-#### 3.2.1. Point
+## 3.2.1. Point
 
 Point由时间戳（time）、数据（field）、标签（tags）组成。
 
@@ -69,13 +69,13 @@ Point相当于传统数据库里的一行数据，如下表所示：
 | fields  | 各种记录值（没有索引的属性）也就是记录的值：温度， 湿度 |
 | tags    | 各种有索引的属性：地区，海拔               |
 
-#### 3.2.2. series
+## 3.2.2. series
 
 所有在数据库中的数据，都需要通过图表来展示，而这个series表示这个表里面的数据，可以在图表上画成几条线：通过tags排列组合算出来
 
 show series from cpu
 
-## 4. InfluxDB的基本操作
+# 4. InfluxDB的基本操作
 
 InfluxDB提供三种操作方式：
 
@@ -85,7 +85,7 @@ InfluxDB提供三种操作方式：
 
 3）各语言API库
 
-### 4.1. InfluxDB数据库操作
+## 4.1. InfluxDB数据库操作
 
 | 操作      | 命令                        |
 | ------- | ------------------------- |
@@ -94,7 +94,7 @@ InfluxDB提供三种操作方式：
 | 删除数据库   | drop database `db_name`   |
 | 使用某个数据库 | use `db_name`             |
 
-### 4.2. InfluxDB数据表操作
+## 4.2. InfluxDB数据表操作
 
 | 操作       | 命令                                       | 说明                                       |
 | -------- | ---------------------------------------- | ---------------------------------------- |
