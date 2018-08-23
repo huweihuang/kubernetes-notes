@@ -15,13 +15,13 @@ catagories:
 
 ## 1. 安装kubectl
 
-```shell
+```bash
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 ```
 
 下载指定版本，例如下载v1.9.0版本
 
-```shell
+```bash
 curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.9.0/bin/linux/amd64/kubectl && chmod +x kubectl && sudo mv kubectl /usr/local/bin/
 ```
 
@@ -33,7 +33,7 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.9.0/bin/li
 
 以下命令为安装`latest`版本的`minikube`。
 
-```shell
+```bash
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 ```
 
@@ -41,13 +41,13 @@ curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/miniku
 
 例如：以下为安装`v0.28.2`版本
 
-```shell
+```bash
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.28.2/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 ```
 
 ### 2.2 minikube命令帮助
 
-```shell
+```bash
 Minikube is a CLI tool that provisions and manages single-node Kubernetes clusters optimized for development workflows.
 
 Usage:
@@ -98,13 +98,13 @@ Use "minikube [command] --help" for more information about a command.
 
 可以以`Docker`的方式运行k8s的组件，但需要先安装Docker(可参考[Docker安装]())，启动参数使用`--vm-driver=none`。
 
-```shell
+```bash
 minikube start --vm-driver=none
 ```
 
 例如：
 
-```shell
+```bash
 root@ubuntu:~# minikube start --vm-driver=none
 Starting local Kubernetes v1.10.0 cluster...
 Starting VM...
@@ -140,7 +140,7 @@ Loading cached images from config file.
 
 安装指定版本的kubernetes集群
 
-```shell
+```bash
 # 查阅版本
 minikube get-k8s-versions
 # 选择版本启动
@@ -149,7 +149,7 @@ minikube start --kubernetes-version v1.7.3 --vm-driver=none
 
 ### 3.2. minikube status
 
-```shell
+```bash
 $ minikube status
 minikube: Running
 cluster: Running
@@ -168,7 +168,7 @@ kubectl: Correctly Configured: pointing to minikube-vm at 172.16.94.139
 
 ### 4.1. 部署组件
 
-```shell
+```bash
 root@ubuntu:~# kubectl get all --namespace=kube-system
 NAME                                        READY     STATUS    RESTARTS   AGE
 pod/etcd-minikube                           1/1       Running   0          38m
@@ -207,7 +207,7 @@ replicaset.apps/kubernetes-dashboard-5498ccf677   1         1         1         
 
 ### 5.1. 没有安装VirtualBox
 
-```shell
+```bash
 [root@minikube ~]# minikube start
 Starting local Kubernetes v1.10.0 cluster...
 Starting VM...
@@ -232,7 +232,7 @@ Please enter your response [Y/n]:
 
 ### 5.2. 没有安装Docker
 
-```shell
+```bash
 [root@minikube ~]# minikube start --vm-driver=none
 Starting local Kubernetes v1.10.0 cluster...
 Starting VM...

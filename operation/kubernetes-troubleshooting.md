@@ -33,7 +33,7 @@ kubectl describe pod <PodName> --namespace=<NAMESPACE>
 
 以下是容器的启动命令非阻塞式导致容器挂掉，被k8s频繁重启所产生的事件。
 
-```shell
+```bash
 kubectl describe pod <PodName> --namespace=<NAMESPACE>  
 
 Events:
@@ -68,7 +68,7 @@ Events:
 kubectl describe node 10.8.216.20
 ```
 
-```shell
+```bash
 [root@FC-43745A-10 ~]# kubectl describe node 10.8.216.20  
 Name:           10.8.216.20  
 Labels:         kubernetes.io/hostname=10.8.216.20,namespace/bcs-cc=true,namespace/myview=true  
@@ -117,7 +117,7 @@ No events.
 kubectl describe rc mytest-1-0-0 --namespace=test
 ```
 
-```shell
+```bash
 [root@FC-43745A-10 ~]# kubectl describe rc mytest-1-0-0 --namespace=test  
 Name:       mytest-1-0-0  
 Namespace:  test  
@@ -141,7 +141,7 @@ Events:
 kubectl describe namespace test
 ```
 
-```shell
+```bash
 [root@FC-43745A-10 ~]# kubectl describe namespace test  
 Name:   test  
 Labels: <none>  
@@ -168,7 +168,7 @@ No resource limits.
 kubectl describe service xxx-containers-1-1-0 --namespace=test
 ```
 
-```shell
+```bash
 [root@FC-43745A-10 ~]# kubectl describe service xxx-containers-1-1-0 --namespace=test  
 Name:           xxx-containers-1-1-0  
 Namespace:      test  
@@ -188,7 +188,7 @@ No events.
 
 1、查看指定pod的日志
 
-```shell
+```bash
 kubectl logs <pod_name>
 
 kubectl logs -f <pod_name> #类似tail -f的方式查看
@@ -208,7 +208,7 @@ kubectl logs <pod_name> -c <container_name>
 
 4、kubectl logs --help
 
-```shell
+```bash
 [root@node5 ~]# kubectl logs --help  
 Print the logs for a container in a pod. If the pod has only one container, the container name is optional.  
 Usage:  
@@ -291,13 +291,13 @@ kubectl get pods中Pod状态一会running，一会不是，且RESTARTS次数不�
 
 2、java运行程序的启动脚本将 nohup xxx &的nobup和&去掉，例如：
 
-```shell
+```bash
 nohup JAVA_HOME/bin/java JAVA_OPTS -cp $CLASSPATH com.cnc.open.processor.Main &
 ```
 
 改为：
 
-```shell
+```bash
 JAVA_HOME/bin/java JAVA_OPTS -cp $CLASSPATH com.cnc.open.processor.Main
 ```
 

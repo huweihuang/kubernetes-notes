@@ -21,7 +21,7 @@ catagories:
 
 #### 1.2.1. 给Node打标签
 
-```shell
+```bash
 # get node的name
 kubectl get nodes
 
@@ -66,7 +66,7 @@ spec:
 
 #### 2.2.1. kubectl taint
 
-```shell
+```bash
 # 给节点增加一个taint，它的key是<key>，value是<value>，effect是NoSchedule。
 kubectl taint nodes <node_name> <key>=<value>:NoSchedule
 ```
@@ -141,7 +141,7 @@ tolerations:
 
 #### 2.3.1. 专用节点
 
-```shell
+```bash
 kubectl taint nodes <nodename> dedicated=<groupName>:NoSchedule
 ```
 
@@ -153,7 +153,7 @@ kubectl taint nodes <nodename> dedicated=<groupName>:NoSchedule
 
 如果某些节点配置了特殊硬件（例如CPU），希望不使用这些特殊硬件的Pod不被调度该Node，以便保留必要资源。即可给Node设置`taint`和`label`，同时给Pod设置`toleration`和`label`来使得这些Node专门被指定Pod使用。
 
-```shell
+```bash
 # kubectl taint
 kubectl taint nodes nodename special=true:NoSchedule 
 # 或者

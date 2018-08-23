@@ -52,7 +52,7 @@ Kubernetes REST API可参考[https://kubernetes.io/docs/api-reference/v1.6/](htt
 
 #### 2.3.1. curl
 
-```shell
+```bash
 curl localhost:8080/api
 curl localhost:8080/api/v1/pods
 curl localhost:8080/api/v1/services
@@ -67,7 +67,7 @@ kubectl proxy --port=8080 &
 
 具体见kubectl proxy --help
 
-```shell
+```bash
 [root@node5 ~]# kubectl proxy --help
 To proxy all of the kubernetes api and nothing else, use:
 kubectl proxy --api-prefix=/
@@ -152,7 +152,7 @@ k8s API Server最主要的REST接口是资源对象的增删改查，另外还�
 
 关于Node相关的接口的REST路径为：/api/v1/proxy/nodes/{name}，其中{name}为节点的名称或IP地址。
 
-```shell
+```bash
 /api/v1/proxy/nodes/{name}/pods/    #列出指定节点内所有Pod的信息
 /api/v1/proxy/nodes/{name}/stats/   #列出指定节点内物理资源的统计信息
 /api/v1/prxoy/nodes/{name}/spec/    #列出指定节点的概要信息
@@ -160,7 +160,7 @@ k8s API Server最主要的REST接口是资源对象的增删改查，另外还�
 
 这里获取的Pod信息来自Node而非etcd数据库，两者时间点可能存在偏差。如果在kubelet进程启动时加--enable-debugging-handles=true参数，那么kubernetes Proxy API还会增加以下接口：
 
-```shell
+```bash
 /api/v1/proxy/nodes/{name}/run      #在节点上运行某个容器
 /api/v1/proxy/nodes/{name}/exec     #在节点上的某个容器中运行某条命令
 /api/v1/proxy/nodes/{name}/attach   #在节点上attach某个容器
@@ -173,7 +173,7 @@ k8s API Server最主要的REST接口是资源对象的增删改查，另外还�
 
 ### 3.2. Pod相关接口
 
-```shell
+```bash
 /api/v1/proxy/namespaces/{namespace}/pods/{name}/{path:*}      #访问pod的某个服务接口
 /api/v1/proxy/namespaces/{namespace}/pods/{name}               #访问Pod
 #以下写法不同，功能一样
@@ -183,7 +183,7 @@ k8s API Server最主要的REST接口是资源对象的增删改查，另外还�
 
 ### 3.3. Service相关接口
 
-```shell
+```bash
 /api/v1/proxy/namespaces/{namespace}/services/{name}
 ```
 

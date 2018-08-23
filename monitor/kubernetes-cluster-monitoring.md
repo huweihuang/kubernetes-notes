@@ -118,7 +118,7 @@ spec:
 
 #### 2.2.4. 创建service
 
-```shell
+```bash
 kubectl create -f heapster-service.yaml
 kubectl create -f InfluxDB-service.yaml
 kubectl create -f Grafana-service.yaml
@@ -245,7 +245,7 @@ Heapster设置启动参数说明：
 
 #### 2.3.3. 创建ReplicationController
 
-```shell
+```bash
 kubelet create -f InfluxDB-Grafana-controller.yaml
 kubelet create -f heapster-controller.yaml
 ```
@@ -264,7 +264,7 @@ kubelet create -f heapster-controller.yaml
 
 ### 4.1. 拉取镜像
 
-```shell
+```bash
 docker pull influxdb:latest
 docker pull cadvisor:latest
 docker pull grafana:latest
@@ -275,28 +275,28 @@ docker pull heapster:latest
 
 #### 4.2.1. influxdb
 
-```shell
+```bash
 #influxdb
 docker run -d -p 8083:8083 -p 8086:8086 --expose 8090 --expose 8099 --volume=/opt/data/influxdb:/data --name influxsrv influxdb:latest
 ```
 
 #### 4.2.2. cadvisor
 
-```shell
+```bash
 #cadvisor
 docker run --volume=/:/rootfs:ro --volume=/var/run:/var/run:rw --volume=/sys:/sys:ro --volume=/var/lib/docker/:/var/lib/docker:ro --publish=8080:8080 --detach=true --link influxsrv:influxsrv --name=cadvisor cadvisor:latest -storage_driver=influxdb -storage_driver_db=cadvisor -storage_driver_host=influxsrv:8086
 ```
 
 #### 4.2.3. grafana
 
-```shell
+```bash
 #grafana
 docker run -d -p 3000:3000 -e INFLUXDB_HOST=influxsrv -e INFLUXDB_PORT=8086 -e INFLUXDB_NAME=cadvisor -e INFLUXDB_USER=root -e INFLUXDB_PASS=root --link influxsrv:influxsrv --name grafana grafana:latest
 ```
 
 #### 4.2.4. heapster
 
-```shell
+```bash
 docker run -d -p 8082:8082 --net=host heapster:canary --source=kubernetes:http://`k8s-server-ip`:8080?inClusterConfig=false/&useServiceAccount=false --sink=influxdb:http://`influxdb-ip`:8086
 ```
 

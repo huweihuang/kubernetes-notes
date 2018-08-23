@@ -71,7 +71,7 @@ spec:
 
 执行`kubectl create`的命令
 
-```shell
+```bash
 #create command
 kubectl create -f https://k8s.io/docs/user-guide/nginx-deployment.yaml --record
 #output

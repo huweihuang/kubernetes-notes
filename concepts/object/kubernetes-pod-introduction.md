@@ -531,7 +531,7 @@ k8s中RC的用来保持集群中始终运行指定数目的实例，通过RC的s
 
 ### 9.1. 手动伸缩（scale）
 
-```shell
+```bash
 kubectl scale rc redis-slave --replicas=3
 ```
 
@@ -572,7 +572,7 @@ spec:
 
 创建php-apache的RC
 
-```shell
+```bash
 kubectl create -f php-apache-rc.yaml
 ```
 
@@ -592,13 +592,13 @@ spec:
 
 创建php-apache的Service
 
-```shell
+```bash
 kubectl create -f php-apache-svc.yaml
 ```
 
 创建HPA控制器
 
-```shell
+```bash
 kubectl autoscale rc php-apache --min=1 --max=10 --cpu-percent=50
 ```
 
@@ -623,13 +623,13 @@ spec:
 
 创建hpa
 
-```shell
+```bash
 kubectl create -f hpa-php-apache.yaml
 ```
 
 查看hpa
 
-```shell
+```bash
 kubectl get hpa
 ```
 
@@ -674,13 +674,13 @@ spec:
 
 运行kubectl rolling-update
 
-```shell
+```bash
 kubectl rolling-update redis-master -f redis-master-controller-v2.yaml
 ```
 
 ### 10.2. 通过kubectl rolling-update命令实现
 
-```shell
+```bash
 kubectl rolling-update redis-master --image=redis-master:2.0
 ```
 
@@ -690,7 +690,7 @@ kubectl rolling-update redis-master --image=redis-master:2.0
 
 kubectl rolling-update加参数--rollback实现回滚操作
 
-```shell
+```bash
 kubectl rolling-update redis-master --image=kubeguide/redis-master:2.0 --rollback
 ```
 

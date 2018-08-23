@@ -6,7 +6,7 @@
     "author": "胡伟煌",
     "links": {
         "sidebar": {
-            "胡伟煌": "https://www.huweihuang.com"
+            "胡伟煌的博客": "https://www.huweihuang.com"
         }
     },
     "plugins": [
@@ -32,7 +32,7 @@
             "showLevel": true
         },
         "github": {
-            "url": "https://github.com/huweihuang/kubernetes-notes"
+            "url": "https://github.com/huweihuang"
         },
         "editlink": {
             "base": "https://github.com/huweihuang/kubernetes-notes/blob/master/",

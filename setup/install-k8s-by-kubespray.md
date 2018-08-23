@@ -32,7 +32,7 @@ catagories:
 
 - https://github.com/kubernetes-incubator/kubespray/blob/master/requirements.txt
 
-```shell
+```bash
 ansible>=2.4.0
 jinja2>=2.9.6
 netaddr
@@ -48,7 +48,7 @@ hvac
 
 **2、安装python-netaddr**
 
-```shell
+```bash
 # 安装pip
 yum -y install epel-release
 yum -y install python-pip
@@ -58,7 +58,7 @@ pip install netaddr
 
 **3、升级Jinja**
 
-```shell
+```bash
 # Jinja 2.9 (or newer)
 pip install --upgrade jinja2
 ```
@@ -73,7 +73,7 @@ pip install --upgrade jinja2
 
 **2、关闭防火墙**
 
-```shell
+```bash
 systemctl stop firewalld
 systemctl disable firewalld
 iptables -F
@@ -99,7 +99,7 @@ Kubespary `v2.5.0`的版本需要关闭swap，具体参考
 
 执行关闭swap命令`swapoff -a`。
 
-```shell
+```bash
 [root@master ~]#swapoff -a
 [root@master ~]#
 [root@master ~]# free -m
@@ -171,7 +171,7 @@ Swap:             0           0           0
 
 ### 2.1. 下载kubespary的源码
 
-```shell
+```bash
 git clone https://github.com/kubernetes-incubator/kubespray.git
 ```
 
@@ -181,7 +181,7 @@ git clone https://github.com/kubernetes-incubator/kubespray.git
 
 `hosts.ini`主要为部署节点机器信息的文件，路径为：`kubespray/inventory/sample/hosts.ini`。
 
-```shell
+```bash
 cd kubespray
 # 复制一份配置进行修改
 cp -rfp inventory/sample inventory/k8s
@@ -192,7 +192,7 @@ vi inventory/k8s/hosts.ini
 
 > hosts.ini文件可以填写部署机器的登录密码，也可以不填密码而设置ssh的免密登录。
 
-```shell
+```bash
 ## Configure 'ip' variable to bind kubernetes services on a
 ## different ip than the default iface
 ## 主机名             ssh登陆IP                        ssh用户名               ssh登陆密码                 机器IP          子网掩码
@@ -228,7 +228,7 @@ kube-master
 
 ### 2.3. 执行部署操作
 
-```shell
+```bash
 # 进入主目录
 cd kubespray
 # 执行部署命令
@@ -239,7 +239,7 @@ ansible-playbook -i inventory/k8s/hosts.ini cluster.yml -b -vvv
 
 如果需要`重置`可以执行以下命令：
 
-```shell
+```bash
 ansible-playbook -i inventory/k8s/hosts.ini reset.yml -b -vvv
 ```
 
@@ -249,7 +249,7 @@ ansible-playbook -i inventory/k8s/hosts.ini reset.yml -b -vvv
 
 ansible命令执行完，出现以下日志，则说明部署成功，否则根据报错内容进行修改。
 
-```shell
+```bash
 PLAY RECAP *****************************************************************************
 kube-master-0              : ok=309  changed=30   unreachable=0    failed=0
 kube-node-41               : ok=203  changed=8    unreachable=0    failed=0
@@ -259,7 +259,7 @@ localhost                  : ok=2    changed=0    unreachable=0    failed=0
 
 以下为部分部署执行日志：
 
-```shell
+```bash
 kubernetes/preinstall : Update package management cache (YUM) --------------------23.96s
 /root/gopath/src/kubespray/roles/kubernetes/preinstall/tasks/main.yml:121 
 kubernetes/master : Master | wait for the apiserver to be running ----------------23.44s
@@ -306,7 +306,7 @@ download : Download items ------------------------------------------------------
 
 **1、k8s组件信息**
 
-```shell
+```bash
 # kubectl get all --namespace=kube-system
 NAME             DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
 ds/calico-node   3         3         3         3            3           <none>          2h
@@ -358,7 +358,7 @@ svc/kubernetes-dashboard   ClusterIP   10.233.27.24   <none>        443/TCP     
 
 **2、k8s节点信息**
 
-```shell
+```bash
 # kubectl get nodes
 NAME            STATUS    ROLES     AGE       VERSION
 kube-master-0   Ready     master    22h       v1.9.5
@@ -368,7 +368,7 @@ kube-node-42    Ready     node      22h       v1.9.5
 
 **3、组件健康信息**
 
-```shell
+```bash
 # kubectl get cs
 NAME                 STATUS    MESSAGE              ERROR
 scheduler            Healthy   ok
@@ -384,7 +384,7 @@ etcd-0               Healthy   {"health": "true"}
 
 - 报错内容：
 
-```shell
+```bash
 fatal: [node1]: FAILED! => {"failed": true, "msg": "The ipaddr filter requires python-netaddr be installed on the ansible controller"}
 ```
 
@@ -396,7 +396,7 @@ fatal: [node1]: FAILED! => {"failed": true, "msg": "The ipaddr filter requires p
 
 - 报错内容：
 
-```shell
+```bash
 fatal: [kube-master-0]: FAILED! => {
     "assertion": "ansible_swaptotal_mb == 0",
     "changed": false,
@@ -422,7 +422,7 @@ fatal: [kube-node-42]: FAILED! => {
 
 - 报错内容：
 
-```shell
+```bash
 TASK [kubernetes/preinstall : Stop if memory is too small for masters] *********************************************************************************************************************************************************************************************************
 task path: /root/gopath/src/kubespray/roles/kubernetes/preinstall/tasks/verify-settings.yml:52
 Friday 10 August 2018  21:50:26 +0800 (0:00:00.940)       0:01:14.088 *********
@@ -458,7 +458,7 @@ kube-scheduler组件运行失败，导致http://localhost:10251/healthz调用失
 
 - 报错内容：
 
-```shell
+```bash
 FAILED - RETRYING: Master | wait for kube-scheduler (1 retries left).
 FAILED - RETRYING: Master | wait for kube-scheduler (1 retries left).
 fatal: [node1]: FAILED! => {"attempts": 60, "changed": false, "content": "", "failed": true, "msg": "Status code was not [200]: Request failed: <urlopen error [Errno 111] Connection refused>", "redirected": false, "status": -1, "url": "http://localhost:10251/healthz"}
@@ -472,7 +472,7 @@ fatal: [node1]: FAILED! => {"attempts": 60, "changed": false, "content": "", "fa
 
 - 报错内容：
 
-```shell
+```bash
 failed: [k8s-node-1] (item={u'name': u'docker-engine-1.13.1-1.el7.centos'}) => {
     "attempts": 4,
     "changed": false,
@@ -492,7 +492,7 @@ failed: [k8s-node-1] (item={u'name': u'docker-engine-1.13.1-1.el7.centos'}) => {
 
 卸载旧的docker版本，由kubespary自动安装。
 
-```shell
+```bash
 sudo yum remove -y docker \
                   docker-client \
                   docker-client-latest \

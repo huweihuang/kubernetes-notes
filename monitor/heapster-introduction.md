@@ -30,7 +30,7 @@ crontab –e
 
 ### 2.2. 容器式部署
 
-```shell
+```bash
 #拉取镜像
 docker pull heapster:latest
 #运行容器
