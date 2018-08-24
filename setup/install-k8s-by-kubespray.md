@@ -164,7 +164,7 @@ git clone https://github.com/kubernetes-incubator/kubespray.git
 
 ## 2.2. 编辑配置文件
 
-## 2.2.1. hosts.ini
+### 2.2.1. hosts.ini
 
 `hosts.ini`主要为部署节点机器信息的文件，路径为：`kubespray/inventory/sample/hosts.ini`。
 
@@ -207,7 +207,7 @@ kube-master
 [calico-rr]
 ```
 
-## 2.2.2. k8s-cluster.yml
+### 2.2.2. k8s-cluster.yml
 
 `k8s-cluster.yml`主要为k8s集群的配置文件，路径为：`kubespray/inventory/k8s/group_vars/k8s-cluster.yml`。该文件可以修改安装的k8s集群的版本，参数为：kube_version: v1.9.5。具体可参考：
 

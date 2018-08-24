@@ -25,7 +25,8 @@
         "theme-default",
         "-highlight", "prism", "prism-themes",
         "sitemap-general",
-        "ga"
+        "ga",
+        "disqus"
     ],
     "pluginsConfig": {
         "theme-default": {
@@ -68,6 +69,9 @@
         },
         "ga": {
             "token": "UA-114718458-2"
+        },
+        "disqus": {
+            "shortName": "huweihuang"
         }
     }
 }
