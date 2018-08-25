@@ -54,8 +54,13 @@
             "modify_format": "YYYY-MM-DD HH:mm:ss"
         },
         "favicon": {
-            "shortcut": "favicon.ico",
-            "bookmark": "favicon.ico"
+            "shortcut": "images/favicon.ico",
+            "bookmark": "images/favicon.ico",
+            "appleTouch": "images/favicon.ico",
+            "appleTouchMore": {
+                "120x120": "images/favicon.ico",
+                "180x180": "images/favicon.ico"
+            }
         },
         "3-ba": {
             "token": "e146d71b77957235bba1e709d930f62e"
