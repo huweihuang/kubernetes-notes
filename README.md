@@ -36,6 +36,7 @@
     * [指定Node调度与隔离](operation/nodeselector-and-taint.md)
 * [开发指南]()
     * [client-go的使用及源码分析](develop/client-go.md)
+    * [nfs-client-provisioner源码分析](develop/nfs-client-provisioner.md)
 * [监控体系]()
     * [监控体系介绍](monitor/kubernetes-cluster-monitoring.md)
     * [cAdvisor介绍](monitor/cadvisor-introduction.md)
