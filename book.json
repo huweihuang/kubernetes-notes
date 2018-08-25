@@ -26,7 +26,8 @@
         "-highlight", "prism", "prism-themes",
         "sitemap-general",
         "ga",
-        "disqus"
+        "disqus",
+        "donate"
     ],
     "pluginsConfig": {
         "theme-default": {
@@ -72,6 +73,14 @@
         },
         "disqus": {
             "shortName": "huweihuang"
+        },
+        "donate": {
+            "wechat": "http://ozilwgpje.bkt.clouddn.com/donate/wechatpay.jpg",
+            "alipay": "http://ozilwgpje.bkt.clouddn.com/donate/alipay.jpg",
+            "title": "",
+            "button": "赏",
+            "alipayText": "支付宝打赏",
+            "wechatText": "微信打赏"
         }
     }
 }
