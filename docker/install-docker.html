@@ -1,0 +1,1274 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>安装Docker · Kubernetes 学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="胡伟煌">
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-page-toc-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="docker-architecture.html" />
+    
+    
+
+    
+        <link rel="shortcut icon" href='../favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../favicon.ico' type="image/x-icon">
+    
+    
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com" target="_blank" class="custom-link">胡伟煌的博客</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                        <b>1.1.</b>
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                        <b>1.2.</b>
+                    
+                    安装与配置
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../setup/install-k8s-by-kubespray.html">
+            
+                <a href="../setup/install-k8s-by-kubespray.html">
+            
+                    
+                        <b>1.2.1.</b>
+                    
+                    使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../setup/install-k8s-by-minikube.html">
+            
+                <a href="../setup/install-k8s-by-minikube.html">
+            
+                    
+                        <b>1.2.2.</b>
+                    
+                    使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                        <b>1.3.</b>
+                    
+                    基本概念
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <span>
+            
+                    
+                        <b>1.3.1.</b>
+                    
+                    kubernetes架构
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                        <b>1.3.1.1.</b>
+                    
+                    Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                        <b>1.3.1.2.</b>
+                    
+                    基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <span>
+            
+                    
+                        <b>1.3.2.</b>
+                    
+                    kubernetes对象
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                        <b>1.3.2.1.</b>
+                    
+                    理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                        <b>1.3.2.2.</b>
+                    
+                    kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../concepts/object/kubernetes-pod-introduction.html">
+            
+                <a href="../concepts/object/kubernetes-pod-introduction.html">
+            
+                    
+                        <b>1.3.2.3.</b>
+                    
+                    Pod详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                        <b>1.4.</b>
+                    
+                    核心原理
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../principle/kubernetes-core-principle-api-server.html">
+            
+                <a href="../principle/kubernetes-core-principle-api-server.html">
+            
+                    
+                        <b>1.4.1.</b>
+                    
+                    Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                <a href="../principle/kubernetes-core-principle-controller-manager.html">
+            
+                    
+                        <b>1.4.2.</b>
+                    
+                    Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../principle/kubernetes-core-principle-scheduler.html">
+            
+                <a href="../principle/kubernetes-core-principle-scheduler.html">
+            
+                    
+                        <b>1.4.3.</b>
+                    
+                    Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../principle/kubernetes-core-principle-kubelet.html">
+            
+                <a href="../principle/kubernetes-core-principle-kubelet.html">
+            
+                    
+                        <b>1.4.4.</b>
+                    
+                    Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../principle/kubernetes-network.html">
+            
+                <a href="../principle/kubernetes-network.html">
+            
+                    
+                        <b>1.4.5.</b>
+                    
+                    网络原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" >
+            
+                <span>
+            
+                    
+                        <b>1.5.</b>
+                    
+                    资源配额
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../resource/resource-quota.html">
+            
+                <a href="../resource/resource-quota.html">
+            
+                    
+                        <b>1.5.1.</b>
+                    
+                    资源配额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../resource/limit-range.html">
+            
+                <a href="../resource/limit-range.html">
+            
+                    
+                        <b>1.5.2.</b>
+                    
+                    Pod限额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../resource/quality-of-service.html">
+            
+                <a href="../resource/quality-of-service.html">
+            
+                    
+                        <b>1.5.3.</b>
+                    
+                    资源服务质量
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                        <b>1.6.</b>
+                    
+                    运维指南
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../operation/kubectl.html">
+            
+                <a href="../operation/kubectl.html">
+            
+                    
+                        <b>1.6.1.</b>
+                    
+                    kubectl命令工具
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../operation/kubernetes-troubleshooting.html">
+            
+                <a href="../operation/kubernetes-troubleshooting.html">
+            
+                    
+                        <b>1.6.2.</b>
+                    
+                    kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../operation/nodeselector-and-taint.html">
+            
+                <a href="../operation/nodeselector-and-taint.html">
+            
+                    
+                        <b>1.6.3.</b>
+                    
+                    指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                        <b>1.7.</b>
+                    
+                    开发指南
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../develop/client-go.html">
+            
+                <a href="../develop/client-go.html">
+            
+                    
+                        <b>1.7.1.</b>
+                    
+                    client-go的使用及源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" >
+            
+                <span>
+            
+                    
+                        <b>1.8.</b>
+                    
+                    监控体系
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../monitor/kubernetes-cluster-monitoring.html">
+            
+                <a href="../monitor/kubernetes-cluster-monitoring.html">
+            
+                    
+                        <b>1.8.1.</b>
+                    
+                    监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../monitor/cadvisor-introduction.html">
+            
+                <a href="../monitor/cadvisor-introduction.html">
+            
+                    
+                        <b>1.8.2.</b>
+                    
+                    cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../monitor/heapster-introduction.html">
+            
+                <a href="../monitor/heapster-introduction.html">
+            
+                    
+                        <b>1.8.3.</b>
+                    
+                    Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../monitor/influxdb-introduction.html">
+            
+                <a href="../monitor/influxdb-introduction.html">
+            
+                    
+                        <b>1.8.4.</b>
+                    
+                    Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" >
+            
+                <span>
+            
+                    
+                        <b>1.9.</b>
+                    
+                    Docker
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="1.9.1" data-path="install-docker.html">
+            
+                <a href="install-docker.html">
+            
+                    
+                        <b>1.9.1.</b>
+                    
+                    安装Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="docker-architecture.html">
+            
+                <a href="docker-architecture.html">
+            
+                    
+                        <b>1.9.2.</b>
+                    
+                    Docker架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="docker-commands-principle.html">
+            
+                <a href="docker-commands-principle.html">
+            
+                    
+                        <b>1.9.3.</b>
+                    
+                    Docker常用命令原理图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="dockerfile-usage.html">
+            
+                <a href="dockerfile-usage.html">
+            
+                    
+                        <b>1.9.4.</b>
+                    
+                    Dockerfile使用说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" >
+            
+                <span>
+            
+                    
+                        <b>1.9.5.</b>
+                    
+                    Docker源码分析
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.5.1" data-path="code-analysis/code-analysis-of-docker-client.html">
+            
+                <a href="code-analysis/code-analysis-of-docker-client.html">
+            
+                    
+                        <b>1.9.5.1.</b>
+                    
+                    Docker Client
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5.2" data-path="code-analysis/code-analysis-of-docker-daemon.html">
+            
+                <a href="code-analysis/code-analysis-of-docker-daemon.html">
+            
+                    
+                        <b>1.9.5.2.</b>
+                    
+                    Docker Daemon
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5.3" data-path="code-analysis/code-analysis-of-docker-server.html">
+            
+                <a href="code-analysis/code-analysis-of-docker-server.html">
+            
+                    
+                        <b>1.9.5.3.</b>
+                    
+                    Docker Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" >
+            
+                <span>
+            
+                    
+                        <b>1.10.</b>
+                    
+                    第三方应用
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" >
+            
+                <span>
+            
+                    
+                        <b>1.10.1.</b>
+                    
+                    Etcd
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="../third/etcd/etcd-introduction.html">
+            
+                <a href="../third/etcd/etcd-introduction.html">
+            
+                    
+                        <b>1.10.1.1.</b>
+                    
+                    Etcd介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="../third/etcd/etcd-setup-flags.html">
+            
+                <a href="../third/etcd/etcd-setup-flags.html">
+            
+                    
+                        <b>1.10.1.2.</b>
+                    
+                    Etcd启动配置参数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.3" data-path="../third/etcd/etcd-auth-and-security.html">
+            
+                <a href="../third/etcd/etcd-auth-and-security.html">
+            
+                    
+                        <b>1.10.1.3.</b>
+                    
+                    Etcd访问控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.4" data-path="../third/etcd/etcdctl-v2.html">
+            
+                <a href="../third/etcd/etcdctl-v2.html">
+            
+                    
+                        <b>1.10.1.4.</b>
+                    
+                    etcdctl命令工具-V2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.5" data-path="../third/etcd/etcdctl-v3.html">
+            
+                <a href="../third/etcd/etcdctl-v3.html">
+            
+                    
+                        <b>1.10.1.5.</b>
+                    
+                    etcdctl命令工具-V3
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" >
+            
+                <span>
+            
+                    
+                        <b>1.10.2.</b>
+                    
+                    Flannel
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="../third/flannel/flannel-introduction.html">
+            
+                <a href="../third/flannel/flannel-introduction.html">
+            
+                    
+                        <b>1.10.2.1.</b>
+                    
+                    Flannel介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >安装Docker</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="1-centos-&#x5B89;&#x88C5;docker">1. CentOS &#x5B89;&#x88C5;Docker</h1>
+<blockquote>
+<p>&#x5EFA;&#x8BAE;&#x4F7F;&#x7528;centos7</p>
+</blockquote>
+<h2 id="11-&#x5B89;&#x88C5;docker">1.1. &#x5B89;&#x88C5;Docker</h2>
+<h3 id="111-&#x5378;&#x8F7D;&#x65E7;&#x7248;&#x672C;">1.1.1. &#x5378;&#x8F7D;&#x65E7;&#x7248;&#x672C;</h3>
+<p>&#x65E7;&#x7248;&#x672C;&#x7684;Docker&#x547D;&#x540D;&#x4E3A;<code>docker</code>&#x6216;<code>docker-engine</code>&#xFF0C;&#x5982;&#x679C;&#x6709;&#x5B89;&#x88C5;&#x65E7;&#x7248;&#x672C;&#xFF0C;&#x5148;&#x5378;&#x8F7D;&#x65E7;&#x7248;&#x672C;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> yum remove -y docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-selinux \
+                  docker-engine-selinux \
+                  docker-engine
+</code></pre>
+<h3 id="112-&#x4F7F;&#x7528;&#x4ED3;&#x5E93;&#x5B89;&#x88C5;">1.1.2. &#x4F7F;&#x7528;&#x4ED3;&#x5E93;&#x5B89;&#x88C5;</h3>
+<p>1&#x3001;&#x5B89;&#x88C5;yum-utils&#x3001;device-mapper-persistent-data&#x3001;lvm2</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> yum <span class="token function">install</span> -y yum-utils \
+  device-mapper-persistent-data \
+  lvm2
+</code></pre>
+<p>2&#x3001;&#x6DFB;&#x52A0;&#x8F6F;&#x4EF6;&#x6E90;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+</code></pre>
+<h3 id="113-&#x5B89;&#x88C5;docker">1.1.3. &#x5B89;&#x88C5;Docker</h3>
+<p>&#x5B89;&#x88C5;&#x6700;&#x65B0;&#x7248;&#x672C;&#x7684;Docker CE&#x3002;</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> yum <span class="token function">install</span> -y docker-ce
+</code></pre>
+<h3 id="114-&#x542F;&#x52A8;docker">1.1.4. &#x542F;&#x52A8;Docker</h3>
+<pre class="language-"><code class="lang-bash"><span class="token comment"># &#x542F;&#x52A8;Docker</span>
+$ <span class="token function">sudo</span> systemctl start docker
+<span class="token comment"># &#x8FD0;&#x884C;&#x5BB9;&#x5668;</span>
+$ <span class="token function">sudo</span> docker run hello-world
+</code></pre>
+<h2 id="12-&#x5B89;&#x88C5;&#x6307;&#x5B9A;&#x7248;&#x672C;docker">1.2. &#x5B89;&#x88C5;&#x6307;&#x5B9A;&#x7248;&#x672C;Docker</h2>
+<p>1&#x3001;&#x5217;&#x51FA;&#x53EF;&#x5B89;&#x88C5;&#x7248;&#x672C;</p>
+<pre class="language-"><code class="lang-bash">$ yum list docker-ce --showduplicates <span class="token operator">|</span> <span class="token function">sort</span> -r
+
+docker-ce.x86_64            18.03.0.ce-1.el7.centos             docker-ce-stable
+</code></pre>
+<p>2&#x3001;&#x5B89;&#x88C5;&#x6307;&#x5B9A;&#x7248;&#x672C;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;docker-ce-18.03.0.ce</p>
+<pre class="language-"><code class="lang-bash">$ <span class="token function">sudo</span> yum <span class="token function">install</span> docker-ce-<span class="token operator">&lt;</span>VERSION STRING<span class="token operator">&gt;</span>
+</code></pre>
+<h2 id="13-&#x5347;&#x7EA7;docker">1.3. &#x5347;&#x7EA7;Docker</h2>
+<p>&#x4F9D;&#x636E;1.2&#x7684;&#x65B9;&#x6CD5;&#x9009;&#x62E9;&#x6307;&#x5B9A;&#x7248;&#x672C;&#x5B89;&#x88C5;&#x3002;</p>
+<h2 id="14-&#x5378;&#x8F7D;docker">1.4. &#x5378;&#x8F7D;Docker</h2>
+<pre class="language-"><code class="lang-bash"><span class="token comment"># &#x5378;&#x8F7D;Docker</span>
+$ <span class="token function">sudo</span> yum remove docker-ce
+
+<span class="token comment"># &#x6E05;&#x7406;&#x955C;&#x50CF;&#x3001;&#x5BB9;&#x5668;&#x3001;&#x5B58;&#x50A8;&#x5377;&#x7B49;</span>
+$ <span class="token function">sudo</span> <span class="token function">rm</span> -rf /var/lib/docker
+</code></pre>
+<h1 id="2-ubuntu-&#x5B89;&#x88C5;docker">2. Ubuntu &#x5B89;&#x88C5;Docker</h1>
+<h2 id="21-&#x5B89;&#x88C5;docker">2.1. &#x5B89;&#x88C5;Docker</h2>
+<h3 id="211-&#x5378;&#x8F7D;&#x65E7;&#x7248;&#x672C;">2.1.1. &#x5378;&#x8F7D;&#x65E7;&#x7248;&#x672C;</h3>
+<p>&#x65E7;&#x7248;&#x672C;&#x7684;Docker&#x547D;&#x540D;&#x4E3A;<code>docker</code>&#x6216;<code>docker-engine</code>&#xFF0C;&#x5982;&#x679C;&#x6709;&#x5B89;&#x88C5;&#x65E7;&#x7248;&#x672C;&#xFF0C;&#x5148;&#x5378;&#x8F7D;&#x65E7;&#x7248;&#x672C;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> remove docker docker-engine docker.io
+</code></pre>
+<h3 id="212-&#x4F7F;&#x7528;&#x4ED3;&#x5E93;&#x5B89;&#x88C5;">2.1.2. &#x4F7F;&#x7528;&#x4ED3;&#x5E93;&#x5B89;&#x88C5;</h3>
+<p>1&#x3001;&#x5347;&#x7EA7;apt</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> update
+</code></pre>
+<p>2&#x3001;&#x5141;&#x8BB8;apt&#x4F7F;&#x7528;https</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> \
+    apt-transport-https \
+    ca-certificates \
+    <span class="token function">curl</span> \
+    software-properties-common
+</code></pre>
+<p>3&#x3001;&#x6DFB;&#x52A0;Docker &#x5B98;&#x65B9;&#x7684;GPG&#x5BC6;&#x94A5;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">curl</span> -fsSL https://download.docker.com/linux/ubuntu/gpg <span class="token operator">|</span> <span class="token function">sudo</span> apt-key add -
+</code></pre>
+<p>4&#x3001;&#x6DFB;&#x52A0;Docker&#x8F6F;&#x4EF6;&#x6E90;</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> add-apt-repository \
+   <span class="token string">&quot;deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   <span class="token variable"><span class="token variable">$(</span>lsb_release -cs<span class="token variable">)</span></span> \
+   stable&quot;</span>
+</code></pre>
+<h3 id="213-&#x5B89;&#x88C5;docker">2.1.3. &#x5B89;&#x88C5;Docker</h3>
+<pre class="language-"><code class="lang-bash"><span class="token comment"># update</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> update
+
+<span class="token comment"># install docker</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> docker-ce
+</code></pre>
+<h3 id="214-&#x542F;&#x52A8;docker">2.1.4. &#x542F;&#x52A8;Docker</h3>
+<pre class="language-"><code class="lang-bash"><span class="token comment"># &#x8BBE;&#x7F6E;&#x4E3A;&#x5F00;&#x673A;&#x542F;&#x52A8;</span>
+<span class="token function">sudo</span> systemctl <span class="token function">enable</span> docker
+<span class="token comment"># &#x542F;&#x52A8;docker</span>
+<span class="token function">sudo</span> systemctl start docker
+</code></pre>
+<h2 id="22-&#x5B89;&#x88C5;&#x6307;&#x5B9A;&#x7248;&#x672C;docker">2.2. &#x5B89;&#x88C5;&#x6307;&#x5B9A;&#x7248;&#x672C;Docker</h2>
+<p>1&#x3001;&#x5217;&#x51FA;&#x4ED3;&#x5E93;&#x7684;&#x53EF;&#x5B89;&#x88C5;&#x7248;&#x672C;&#xFF0C;<code>apt-cache madison docker-ce</code>&#x3002;</p>
+<pre class="language-"><code class="lang-bash"><span class="token comment"># apt-cache madison docker-ce</span>
+ docker-ce <span class="token operator">|</span> 18.06.0~ce~3-0~ubuntu <span class="token operator">|</span> https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+ docker-ce <span class="token operator">|</span> 18.03.1~ce~3-0~ubuntu <span class="token operator">|</span> https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages
+</code></pre>
+<p>2&#x3001;&#x6307;&#x5B9A;&#x7248;&#x672C;&#x5B89;&#x88C5;</p>
+<p>&#x4F8B;&#x5982;&#xFF1A;docker-ce=18.03.0~ce-0~ubuntu</p>
+<pre class="language-"><code class="lang-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> docker-ce<span class="token operator">=</span><span class="token operator">&lt;</span>VERSION<span class="token operator">&gt;</span>
+</code></pre>
+<h2 id="23--&#x5347;&#x7EA7;docker">2.3.  &#x5347;&#x7EA7;Docker</h2>
+<pre class="language-"><code class="lang-bash"><span class="token comment"># &#x66F4;&#x65B0;&#x6E90;</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> update
+<span class="token comment"># &#x4F9D;&#x636E;&#x4E0A;&#x8FF0;&#x65B9;&#x6CD5;&#xFF0C;&#x6307;&#x5B9A;&#x7248;&#x672C;&#x5B89;&#x88C5;</span>
+</code></pre>
+<h2 id="24-&#x5378;&#x8F7D;docker">2.4. &#x5378;&#x8F7D;Docker</h2>
+<pre class="language-"><code class="lang-bash"><span class="token comment"># &#x5378;&#x8F7D; docker ce</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> purge docker-ce
+
+<span class="token comment"># &#x6E05;&#x7406;&#x955C;&#x50CF;&#x3001;&#x5BB9;&#x5668;&#x3001;&#x5B58;&#x50A8;&#x5377;&#x7B49;</span>
+<span class="token function">sudo</span> <span class="token function">rm</span> -rf /var/lib/docker
+</code></pre>
+<p>&#x6587;&#x7AE0;&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><p><a href="https://docs.docker.com/install/linux/docker-ce/centos/" target="_blank">https://docs.docker.com/install/linux/docker-ce/centos/</a></p>
+</li>
+<li><p><a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" target="_blank">https://docs.docker.com/install/linux/docker-ce/ubuntu/</a></p>
+</li>
+</ul>
+<footer class="page-footer"><span class="copyright">Copyright &#xA9; www.huweihuang.com 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
+2018-08-25 13:32:51
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+                <a href="docker-architecture.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Docker架构图">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"安装Docker","level":"1.9.1","depth":2,"next":{"title":"Docker架构图","level":"1.9.2","depth":2,"path":"docker/docker-architecture.md","ref":"docker/docker-architecture.md","articles":[]},"previous":{"title":"Docker","level":"1.9","depth":1,"ref":"","articles":[{"title":"安装Docker","level":"1.9.1","depth":2,"path":"docker/install-docker.md","ref":"docker/install-docker.md","articles":[]},{"title":"Docker架构图","level":"1.9.2","depth":2,"path":"docker/docker-architecture.md","ref":"docker/docker-architecture.md","articles":[]},{"title":"Docker常用命令原理图","level":"1.9.3","depth":2,"path":"docker/docker-commands-principle.md","ref":"docker/docker-commands-principle.md","articles":[]},{"title":"Dockerfile使用说明","level":"1.9.4","depth":2,"path":"docker/dockerfile-usage.md","ref":"docker/dockerfile-usage.md","articles":[]},{"title":"Docker源码分析","level":"1.9.5","depth":2,"ref":"","articles":[{"title":"Docker Client","level":"1.9.5.1","depth":3,"path":"docker/code-analysis/code-analysis-of-docker-client.md","ref":"docker/code-analysis/code-analysis-of-docker-client.md","articles":[]},{"title":"Docker Daemon","level":"1.9.5.2","depth":3,"path":"docker/code-analysis/code-analysis-of-docker-daemon.md","ref":"docker/code-analysis/code-analysis-of-docker-daemon.md","articles":[]},{"title":"Docker Server","level":"1.9.5.3","depth":3,"path":"docker/code-analysis/code-analysis-of-docker-server.md","ref":"docker/code-analysis/code-analysis-of-docker-server.md","articles":[]}]}]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga","disqus"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"huweihuang"},"github":{"url":"https://github.com/huweihuang"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.1","level":"1.3.2.2","list_caption":"Figure: pod","alt":"pod","nro":1,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"1.3.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.2","level":"1.3.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"1.3.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.3","level":"1.3.2.2","list_caption":"Figure: service","alt":"service","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"1.3.2.2.3"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.1","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":4,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.1"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.2","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.2"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.3","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":3,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.3"},{"backlink":"principle/kubernetes-core-principle-api-server.html#fig1.4.1.1","level":"1.4.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"1.4.1.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.1","level":"1.4.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"1.4.2.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.2","level":"1.4.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":9,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"1.4.2.2"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.3","level":"1.4.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"1.4.2.3"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.4","level":"1.4.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"1.4.2.4"},{"backlink":"principle/kubernetes-core-principle-scheduler.html#fig1.4.3.1","level":"1.4.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"1.4.3.1"},{"backlink":"principle/kubernetes-network.html#fig1.4.5.1","level":"1.4.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/network-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.4.5.1"},{"backlink":"principle/kubernetes-network.html#fig1.4.5.2","level":"1.4.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/container-network.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.4.5.2"},{"backlink":"principle/kubernetes-network.html#fig1.4.5.3","level":"1.4.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":15,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/bridge.png","index":3,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.4.5.3"},{"backlink":"principle/kubernetes-network.html#fig1.4.5.4","level":"1.4.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":16,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/pod-network.png","index":4,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.4.5.4"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig1.8.1.1","level":"1.8.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":17,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"1.8.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig1.8.2.1","level":"1.8.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":18,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"1.8.2.1"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.1","level":"1.9.3","list_caption":"Figure: 1","alt":"1","nro":19,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578327/article/docker/commands/1.png","index":1,"caption_template":"图片 - _CAPTION_","label":"1","attributes":{},"skip":false,"key":"1.9.3.1"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.2","level":"1.9.3","list_caption":"Figure: 2.1","alt":"2.1","nro":20,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578328/article/docker/commands/2.1.png","index":2,"caption_template":"图片 - _CAPTION_","label":"2.1","attributes":{},"skip":false,"key":"1.9.3.2"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.3","level":"1.9.3","list_caption":"Figure: 3.2","alt":"3.2","nro":21,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578328/article/docker/commands/3.2.png","index":3,"caption_template":"图片 - _CAPTION_","label":"3.2","attributes":{},"skip":false,"key":"1.9.3.3"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.4","level":"1.9.3","list_caption":"Figure: 4.1.1","alt":"4.1.1","nro":22,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.1.1.png","index":4,"caption_template":"图片 - _CAPTION_","label":"4.1.1","attributes":{},"skip":false,"key":"1.9.3.4"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.5","level":"1.9.3","list_caption":"Figure: 4.1.2","alt":"4.1.2","nro":23,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.1.2.png","index":5,"caption_template":"图片 - _CAPTION_","label":"4.1.2","attributes":{},"skip":false,"key":"1.9.3.5"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.6","level":"1.9.3","list_caption":"Figure: 4.1.3","alt":"4.1.3","nro":24,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.1.3.png","index":6,"caption_template":"图片 - _CAPTION_","label":"4.1.3","attributes":{},"skip":false,"key":"1.9.3.6"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.7","level":"1.9.3","list_caption":"Figure: 4.2.1.1","alt":"4.2.1.1","nro":25,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.1.png","index":7,"caption_template":"图片 - _CAPTION_","label":"4.2.1.1","attributes":{},"skip":false,"key":"1.9.3.7"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.8","level":"1.9.3","list_caption":"Figure: 4.2.1.2","alt":"4.2.1.2","nro":26,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.2.png","index":8,"caption_template":"图片 - _CAPTION_","label":"4.2.1.2","attributes":{},"skip":false,"key":"1.9.3.8"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.9","level":"1.9.3","list_caption":"Figure: 4.2.1.3","alt":"4.2.1.3","nro":27,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.3.png","index":9,"caption_template":"图片 - _CAPTION_","label":"4.2.1.3","attributes":{},"skip":false,"key":"1.9.3.9"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.10","level":"1.9.3","list_caption":"Figure: 4.2.1.3.1","alt":"4.2.1.3.1","nro":28,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.2.1.3.1.png","index":10,"caption_template":"图片 - _CAPTION_","label":"4.2.1.3.1","attributes":{},"skip":false,"key":"1.9.3.10"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.11","level":"1.9.3","list_caption":"Figure: 4.2.1.4","alt":"4.2.1.4","nro":29,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.4.png","index":11,"caption_template":"图片 - _CAPTION_","label":"4.2.1.4","attributes":{},"skip":false,"key":"1.9.3.11"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.12","level":"1.9.3","list_caption":"Figure: 4.2.1.5","alt":"4.2.1.5","nro":30,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.5.png","index":12,"caption_template":"图片 - _CAPTION_","label":"4.2.1.5","attributes":{},"skip":false,"key":"1.9.3.12"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.13","level":"1.9.3","list_caption":"Figure: 4.2.1.6","alt":"4.2.1.6","nro":31,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.6.png","index":13,"caption_template":"图片 - _CAPTION_","label":"4.2.1.6","attributes":{},"skip":false,"key":"1.9.3.13"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.14","level":"1.9.3","list_caption":"Figure: 4.2.1.7","alt":"4.2.1.7","nro":32,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.7.png","index":14,"caption_template":"图片 - _CAPTION_","label":"4.2.1.7","attributes":{},"skip":false,"key":"1.9.3.14"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.15","level":"1.9.3","list_caption":"Figure: 4.2.1.7.2","alt":"4.2.1.7.2","nro":33,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.7.2.png","index":15,"caption_template":"图片 - _CAPTION_","label":"4.2.1.7.2","attributes":{},"skip":false,"key":"1.9.3.15"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.16","level":"1.9.3","list_caption":"Figure: 4.2.1.8.1","alt":"4.2.1.8.1","nro":34,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.8.1.png","index":16,"caption_template":"图片 - _CAPTION_","label":"4.2.1.8.1","attributes":{},"skip":false,"key":"1.9.3.16"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.17","level":"1.9.3","list_caption":"Figure: 4.2.1.8.2","alt":"4.2.1.8.2","nro":35,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.8.2.png","index":17,"caption_template":"图片 - _CAPTION_","label":"4.2.1.8.2","attributes":{},"skip":false,"key":"1.9.3.17"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.18","level":"1.9.3","list_caption":"Figure: 4.2.2.1.1","alt":"4.2.2.1.1","nro":36,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.1.1.png","index":18,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.1","attributes":{},"skip":false,"key":"1.9.3.18"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.19","level":"1.9.3","list_caption":"Figure: 4.2.2.1.2","alt":"4.2.2.1.2","nro":37,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.1.2.png","index":19,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.2","attributes":{},"skip":false,"key":"1.9.3.19"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.20","level":"1.9.3","list_caption":"Figure: 4.2.2.1.3","alt":"4.2.2.1.3","nro":38,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.1.3.png","index":20,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.3","attributes":{},"skip":false,"key":"1.9.3.20"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.21","level":"1.9.3","list_caption":"Figure: 4.2.2.2.1","alt":"4.2.2.2.1","nro":39,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.2.1.png","index":21,"caption_template":"图片 - _CAPTION_","label":"4.2.2.2.1","attributes":{},"skip":false,"key":"1.9.3.21"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.22","level":"1.9.3","list_caption":"Figure: 4.2.2.2.2","alt":"4.2.2.2.2","nro":40,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.2.2.png","index":22,"caption_template":"图片 - _CAPTION_","label":"4.2.2.2.2","attributes":{},"skip":false,"key":"1.9.3.22"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.23","level":"1.9.3","list_caption":"Figure: 4.2.2.3.1","alt":"4.2.2.3.1","nro":41,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.3.1.png","index":23,"caption_template":"图片 - _CAPTION_","label":"4.2.2.3.1","attributes":{},"skip":false,"key":"1.9.3.23"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.24","level":"1.9.3","list_caption":"Figure: 4.2.3.1","alt":"4.2.3.1","nro":42,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.1.png","index":24,"caption_template":"图片 - _CAPTION_","label":"4.2.3.1","attributes":{},"skip":false,"key":"1.9.3.24"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.25","level":"1.9.3","list_caption":"Figure: 4.2.3.2","alt":"4.2.3.2","nro":43,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.2.png","index":25,"caption_template":"图片 - _CAPTION_","label":"4.2.3.2","attributes":{},"skip":false,"key":"1.9.3.25"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.26","level":"1.9.3","list_caption":"Figure: 4.2.3.3","alt":"4.2.3.3","nro":44,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.3.png","index":26,"caption_template":"图片 - _CAPTION_","label":"4.2.3.3","attributes":{},"skip":false,"key":"1.9.3.26"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.27","level":"1.9.3","list_caption":"Figure: 4.2.3.4","alt":"4.2.3.4","nro":45,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578333/article/docker/commands/4.2.3.4.png","index":27,"caption_template":"图片 - _CAPTION_","label":"4.2.3.4","attributes":{},"skip":false,"key":"1.9.3.27"},{"backlink":"third/etcd/etcd-introduction.html#fig1.10.1.1.1","level":"1.10.1.1","list_caption":"Figure: raft","alt":"raft","nro":46,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/raft.png","index":1,"caption_template":"图片 - _CAPTION_","label":"raft","attributes":{},"skip":false,"key":"1.10.1.1.1"},{"backlink":"third/etcd/etcd-introduction.html#fig1.10.1.1.2","level":"1.10.1.1","list_caption":"Figure: etcd的架构图","alt":"etcd的架构图","nro":47,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/etcd-architecture.jpg","index":2,"caption_template":"图片 - _CAPTION_","label":"etcd的架构图","attributes":{},"skip":false,"key":"1.10.1.1.2"},{"backlink":"third/flannel/flannel-introduction.html#fig1.10.2.1.1","level":"1.10.2.1","list_caption":"Figure: 动态路由","alt":"动态路由","nro":48,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/dynamic-route.png","index":1,"caption_template":"图片 - _CAPTION_","label":"动态路由","attributes":{},"skip":false,"key":"1.10.2.1.1"},{"backlink":"third/flannel/flannel-introduction.html#fig1.10.2.1.2","level":"1.10.2.1","list_caption":"Figure: flannel","alt":"flannel","nro":49,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/flannel.png","index":2,"caption_template":"图片 - _CAPTION_","label":"flannel","attributes":{},"skip":false,"key":"1.10.2.1.2"},{"backlink":"third/flannel/flannel-introduction.html#fig1.10.2.1.3","level":"1.10.2.1","list_caption":"Figure: UDP封装","alt":"UDP封装","nro":50,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578569/article/flannel/udp.png","index":3,"caption_template":"图片 - _CAPTION_","label":"UDP封装","attributes":{},"skip":false,"key":"1.10.2.1.3"},{"backlink":"third/flannel/flannel-introduction.html#fig1.10.2.1.4","level":"1.10.2.1","list_caption":"Figure: docker启动参数","alt":"docker启动参数","nro":51,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/docker-init-args.png","index":4,"caption_template":"图片 - _CAPTION_","label":"docker启动参数","attributes":{},"skip":false,"key":"1.10.2.1.4"},{"backlink":"third/flannel/flannel-introduction.html#fig1.10.2.1.5","level":"1.10.2.1","list_caption":"Figure: 数据发送节点路由表","alt":"数据发送节点路由表","nro":52,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataSendRouteTable.png","index":5,"caption_template":"图片 - _CAPTION_","label":"数据发送节点路由表","attributes":{},"skip":false,"key":"1.10.2.1.5"},{"backlink":"third/flannel/flannel-introduction.html#fig1.10.2.1.6","level":"1.10.2.1","list_caption":"Figure: 数据接收节点路由表","alt":"数据接收节点路由表","nro":53,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataReceiveRouteTable.png","index":6,"caption_template":"图片 - _CAPTION_","label":"数据接收节点路由表","attributes":{},"skip":false,"key":"1.10.2.1.6"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"胡伟煌的博客":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"docker/install-docker.md","mtime":"2018-08-25T05:32:51.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-25T06:53:14.087Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-page-toc-button/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-editlink/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-3-ba/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,1528 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Docker Server · Kubernetes 学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="胡伟煌">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-toc-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="code-analysis-of-docker-daemon.html" />
+    
+
+    
+        <link rel="shortcut icon" href='../../favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../../favicon.ico' type="image/x-icon">
+    
+    
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com" target="_blank" class="custom-link">胡伟煌的博客</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                        <b>1.1.</b>
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" >
+            
+                <span>
+            
+                    
+                        <b>1.2.</b>
+                    
+                    安装与配置
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.2.1" data-path="../../setup/install-k8s-by-kubespray.html">
+            
+                <a href="../../setup/install-k8s-by-kubespray.html">
+            
+                    
+                        <b>1.2.1.</b>
+                    
+                    使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2.2" data-path="../../setup/install-k8s-by-minikube.html">
+            
+                <a href="../../setup/install-k8s-by-minikube.html">
+            
+                    
+                        <b>1.2.2.</b>
+                    
+                    使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" >
+            
+                <span>
+            
+                    
+                        <b>1.3.</b>
+                    
+                    基本概念
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" >
+            
+                <span>
+            
+                    
+                        <b>1.3.1.</b>
+                    
+                    kubernetes架构
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1.1" data-path="../../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                        <b>1.3.1.1.</b>
+                    
+                    Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.1.2" data-path="../../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                        <b>1.3.1.2.</b>
+                    
+                    基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" >
+            
+                <span>
+            
+                    
+                        <b>1.3.2.</b>
+                    
+                    kubernetes对象
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.2.1" data-path="../../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                        <b>1.3.2.1.</b>
+                    
+                    理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.2" data-path="../../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                        <b>1.3.2.2.</b>
+                    
+                    kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2.3" data-path="../../concepts/object/kubernetes-pod-introduction.html">
+            
+                <a href="../../concepts/object/kubernetes-pod-introduction.html">
+            
+                    
+                        <b>1.3.2.3.</b>
+                    
+                    Pod详解
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" >
+            
+                <span>
+            
+                    
+                        <b>1.4.</b>
+                    
+                    核心原理
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../../principle/kubernetes-core-principle-api-server.html">
+            
+                <a href="../../principle/kubernetes-core-principle-api-server.html">
+            
+                    
+                        <b>1.4.1.</b>
+                    
+                    Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../principle/kubernetes-core-principle-controller-manager.html">
+            
+                <a href="../../principle/kubernetes-core-principle-controller-manager.html">
+            
+                    
+                        <b>1.4.2.</b>
+                    
+                    Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../principle/kubernetes-core-principle-scheduler.html">
+            
+                <a href="../../principle/kubernetes-core-principle-scheduler.html">
+            
+                    
+                        <b>1.4.3.</b>
+                    
+                    Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../../principle/kubernetes-core-principle-kubelet.html">
+            
+                <a href="../../principle/kubernetes-core-principle-kubelet.html">
+            
+                    
+                        <b>1.4.4.</b>
+                    
+                    Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../../principle/kubernetes-network.html">
+            
+                <a href="../../principle/kubernetes-network.html">
+            
+                    
+                        <b>1.4.5.</b>
+                    
+                    网络原理
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" >
+            
+                <span>
+            
+                    
+                        <b>1.5.</b>
+                    
+                    资源配额
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../../resource/resource-quota.html">
+            
+                <a href="../../resource/resource-quota.html">
+            
+                    
+                        <b>1.5.1.</b>
+                    
+                    资源配额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../../resource/limit-range.html">
+            
+                <a href="../../resource/limit-range.html">
+            
+                    
+                        <b>1.5.2.</b>
+                    
+                    Pod限额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../resource/quality-of-service.html">
+            
+                <a href="../../resource/quality-of-service.html">
+            
+                    
+                        <b>1.5.3.</b>
+                    
+                    资源服务质量
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                        <b>1.6.</b>
+                    
+                    运维指南
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.6.1" data-path="../../operation/kubectl.html">
+            
+                <a href="../../operation/kubectl.html">
+            
+                    
+                        <b>1.6.1.</b>
+                    
+                    kubectl命令工具
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.2" data-path="../../operation/kubernetes-troubleshooting.html">
+            
+                <a href="../../operation/kubernetes-troubleshooting.html">
+            
+                    
+                        <b>1.6.2.</b>
+                    
+                    kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6.3" data-path="../../operation/nodeselector-and-taint.html">
+            
+                <a href="../../operation/nodeselector-and-taint.html">
+            
+                    
+                        <b>1.6.3.</b>
+                    
+                    指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" >
+            
+                <span>
+            
+                    
+                        <b>1.7.</b>
+                    
+                    开发指南
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.7.1" data-path="../../develop/client-go.html">
+            
+                <a href="../../develop/client-go.html">
+            
+                    
+                        <b>1.7.1.</b>
+                    
+                    client-go的使用及源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" >
+            
+                <span>
+            
+                    
+                        <b>1.8.</b>
+                    
+                    监控体系
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.8.1" data-path="../../monitor/kubernetes-cluster-monitoring.html">
+            
+                <a href="../../monitor/kubernetes-cluster-monitoring.html">
+            
+                    
+                        <b>1.8.1.</b>
+                    
+                    监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.2" data-path="../../monitor/cadvisor-introduction.html">
+            
+                <a href="../../monitor/cadvisor-introduction.html">
+            
+                    
+                        <b>1.8.2.</b>
+                    
+                    cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.3" data-path="../../monitor/heapster-introduction.html">
+            
+                <a href="../../monitor/heapster-introduction.html">
+            
+                    
+                        <b>1.8.3.</b>
+                    
+                    Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8.4" data-path="../../monitor/influxdb-introduction.html">
+            
+                <a href="../../monitor/influxdb-introduction.html">
+            
+                    
+                        <b>1.8.4.</b>
+                    
+                    Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9" >
+            
+                <span>
+            
+                    
+                        <b>1.9.</b>
+                    
+                    Docker
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.1" data-path="../install-docker.html">
+            
+                <a href="../install-docker.html">
+            
+                    
+                        <b>1.9.1.</b>
+                    
+                    安装Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.2" data-path="../docker-architecture.html">
+            
+                <a href="../docker-architecture.html">
+            
+                    
+                        <b>1.9.2.</b>
+                    
+                    Docker架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.3" data-path="../docker-commands-principle.html">
+            
+                <a href="../docker-commands-principle.html">
+            
+                    
+                        <b>1.9.3.</b>
+                    
+                    Docker常用命令原理图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.4" data-path="../dockerfile-usage.html">
+            
+                <a href="../dockerfile-usage.html">
+            
+                    
+                        <b>1.9.4.</b>
+                    
+                    Dockerfile使用说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5" >
+            
+                <span>
+            
+                    
+                        <b>1.9.5.</b>
+                    
+                    Docker源码分析
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.9.5.1" data-path="code-analysis-of-docker-client.html">
+            
+                <a href="code-analysis-of-docker-client.html">
+            
+                    
+                        <b>1.9.5.1.</b>
+                    
+                    Docker Client
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.9.5.2" data-path="code-analysis-of-docker-daemon.html">
+            
+                <a href="code-analysis-of-docker-daemon.html">
+            
+                    
+                        <b>1.9.5.2.</b>
+                    
+                    Docker Daemon
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.9.5.3" data-path="code-analysis-of-docker-server.html">
+            
+                <a href="code-analysis-of-docker-server.html">
+            
+                    
+                        <b>1.9.5.3.</b>
+                    
+                    Docker Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10" >
+            
+                <span>
+            
+                    
+                        <b>1.10.</b>
+                    
+                    第三方应用
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1" >
+            
+                <span>
+            
+                    
+                        <b>1.10.1.</b>
+                    
+                    Etcd
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.1.1" data-path="../../third/etcd/etcd-introduction.html">
+            
+                <a href="../../third/etcd/etcd-introduction.html">
+            
+                    
+                        <b>1.10.1.1.</b>
+                    
+                    Etcd介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.2" data-path="../../third/etcd/etcd-setup-flags.html">
+            
+                <a href="../../third/etcd/etcd-setup-flags.html">
+            
+                    
+                        <b>1.10.1.2.</b>
+                    
+                    Etcd启动配置参数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.3" data-path="../../third/etcd/etcd-auth-and-security.html">
+            
+                <a href="../../third/etcd/etcd-auth-and-security.html">
+            
+                    
+                        <b>1.10.1.3.</b>
+                    
+                    Etcd访问控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.4" data-path="../../third/etcd/etcdctl-v2.html">
+            
+                <a href="../../third/etcd/etcdctl-v2.html">
+            
+                    
+                        <b>1.10.1.4.</b>
+                    
+                    etcdctl命令工具-V2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.1.5" data-path="../../third/etcd/etcdctl-v3.html">
+            
+                <a href="../../third/etcd/etcdctl-v3.html">
+            
+                    
+                        <b>1.10.1.5.</b>
+                    
+                    etcdctl命令工具-V3
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.10.2" >
+            
+                <span>
+            
+                    
+                        <b>1.10.2.</b>
+                    
+                    Flannel
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.10.2.1" data-path="../../third/flannel/flannel-introduction.html">
+            
+                <a href="../../third/flannel/flannel-introduction.html">
+            
+                    
+                        <b>1.10.2.1.</b>
+                    
+                    Flannel介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >Docker Server</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="1-docker-server&#x521B;&#x5EFA;&#x6D41;&#x7A0B;">1. Docker Server&#x521B;&#x5EFA;&#x6D41;&#x7A0B;</h1>
+<p>Docker Server&#x662F;Daemon Server&#x7684;&#x91CD;&#x8981;&#x7EC4;&#x6210;&#x90E8;&#x5206;&#xFF0C;&#x529F;&#x80FD;&#xFF1A;&#x63A5;&#x6536;Docker Client&#x53D1;&#x9001;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x6309;&#x7167;&#x76F8;&#x5E94;&#x7684;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#x5B9E;&#x73B0;&#x8BF7;&#x6C42;&#x7684;&#x8DEF;&#x7531;&#x5206;&#x53D1;&#xFF0C;&#x6700;&#x7EC8;&#x5C06;&#x8BF7;&#x6C42;&#x5904;&#x7406;&#x7684;&#x7ED3;&#x679C;&#x8FD4;&#x56DE;&#x7ED9;Docker Client&#x3002;
+Docker Daemon&#x542F;&#x52A8;&#xFF0C;&#x5728;mainDaemon()&#x8FD0;&#x884C;&#x7684;&#x6700;&#x540E;&#x521B;&#x5EFA;&#x5E76;&#x8FD0;&#x884C;serverapi&#x7684;Job&#xFF0C;&#x8BA9;Docker Daemon&#x63D0;&#x4F9B;API&#x8BBF;&#x95EE;&#x670D;&#x52A1;&#x3002;
+Docker Server&#x7684;&#x6574;&#x4E2A;&#x751F;&#x547D;&#x5468;&#x671F;</p>
+<ol>
+<li>&#x521B;&#x5EFA;Docker Server&#x7684;Job</li>
+<li>&#x914D;&#x7F6E;Job&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF;</li>
+<li>&#x89E6;&#x53D1;&#x6267;&#x884C;Job</li>
+</ol>
+<p>&#x8BF4;&#x660E;&#xFF1A;&#x672C;&#x6587;&#x5206;&#x6790;&#x7684;&#x4EE3;&#x7801;&#x4E3A;Docker 1.2.0&#x7248;&#x672C;&#x3002;</p>
+<h2 id="11-&#x521B;&#x5EFA;serverapi&#x7684;job">1.1. &#x521B;&#x5EFA;&#x201C;serverapi&#x201D;&#x7684;Job</h2>
+<p><strong>/docker/daemon.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">mainDaemon</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>
+      <span class="token comment">// Serve api</span>
+      job <span class="token operator">:=</span> eng<span class="token punctuation">.</span><span class="token function">Job</span><span class="token punctuation">(</span><span class="token string">&quot;serveapi&quot;</span><span class="token punctuation">,</span> flHosts<span class="token operator">...</span><span class="token punctuation">)</span>
+      <span class="token operator">...</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+<p>&#x8FD0;&#x884C;serverapi&#x7684;Job&#x65F6;&#xFF0C;&#x4F1A;&#x6267;&#x884C;&#x8BE5;Job&#x7684;&#x5904;&#x7406;&#x65B9;&#x6CD5;api.ServeApi&#x3002;</p>
+<h2 id="12-&#x914D;&#x7F6E;job&#x73AF;&#x5883;&#x53D8;&#x91CF;">1.2. &#x914D;&#x7F6E;Job&#x73AF;&#x5883;&#x53D8;&#x91CF;</h2>
+<p><strong>/docker/daemon.go</strong></p>
+<pre class="language-"><code class="lang-go">job<span class="token punctuation">.</span><span class="token function">SetenvBool</span><span class="token punctuation">(</span><span class="token string">&quot;Logging&quot;</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+job<span class="token punctuation">.</span><span class="token function">SetenvBool</span><span class="token punctuation">(</span><span class="token string">&quot;EnableCors&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span>flEnableCors<span class="token punctuation">)</span>
+job<span class="token punctuation">.</span><span class="token function">Setenv</span><span class="token punctuation">(</span><span class="token string">&quot;Version&quot;</span><span class="token punctuation">,</span> dockerversion<span class="token punctuation">.</span>VERSION<span class="token punctuation">)</span>
+job<span class="token punctuation">.</span><span class="token function">Setenv</span><span class="token punctuation">(</span><span class="token string">&quot;SocketGroup&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span>flSocketGroup<span class="token punctuation">)</span>
+
+job<span class="token punctuation">.</span><span class="token function">SetenvBool</span><span class="token punctuation">(</span><span class="token string">&quot;Tls&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span>flTls<span class="token punctuation">)</span>
+job<span class="token punctuation">.</span><span class="token function">SetenvBool</span><span class="token punctuation">(</span><span class="token string">&quot;TlsVerify&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span>flTlsVerify<span class="token punctuation">)</span>
+job<span class="token punctuation">.</span><span class="token function">Setenv</span><span class="token punctuation">(</span><span class="token string">&quot;TlsCa&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span>flCa<span class="token punctuation">)</span>
+job<span class="token punctuation">.</span><span class="token function">Setenv</span><span class="token punctuation">(</span><span class="token string">&quot;TlsCert&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span>flCert<span class="token punctuation">)</span>
+job<span class="token punctuation">.</span><span class="token function">Setenv</span><span class="token punctuation">(</span><span class="token string">&quot;TlsKey&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span>flKey<span class="token punctuation">)</span>
+job<span class="token punctuation">.</span><span class="token function">SetenvBool</span><span class="token punctuation">(</span><span class="token string">&quot;BufferRequests&quot;</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x53C2;&#x6570;&#x5206;&#x4E3A;&#x4E24;&#x79CD;</p>
+<ul>
+<li>&#x521B;&#x5EFA;Job&#x5B9E;&#x4F8B;&#x65F6;&#xFF0C;&#x7528;&#x6307;&#x5B9A;&#x53C2;&#x6570;&#x76F4;&#x63A5;&#x521D;&#x59CB;&#x5316;Job&#x7684;Args&#x5C5E;&#x6027;</li>
+<li>&#x521B;&#x5EFA;Job&#x540E;&#xFF0C;&#x7ED9;Job&#x6DFB;&#x52A0;&#x6307;&#x5B9A;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF;</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x540D;</th>
+<th>FLAG&#x53C2;&#x6570;</th>
+<th>&#x9ED8;&#x8BA4;</th>
+<th>&#x4F5C;&#x7528;&#x503C;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logging</td>
+<td></td>
+<td>true</td>
+<td>&#x542F;&#x7528;Docker&#x5BB9;&#x5668;&#x7684;&#x65E5;&#x5FD7;&#x8F93;&#x51FA;</td>
+</tr>
+<tr>
+<td>EnableCors</td>
+<td>flEnableCors</td>
+<td>false</td>
+<td>&#x5728;&#x8FDC;&#x7A0B;API&#x4E2D;&#x63D0;&#x4F9B;CORS&#x5934;</td>
+</tr>
+<tr>
+<td>Version</td>
+<td></td>
+<td></td>
+<td>&#x663E;&#x793A;Docker&#x7248;&#x672C;&#x53F7;</td>
+</tr>
+<tr>
+<td>SocketGroup</td>
+<td>flSockerGroup</td>
+<td>docker</td>
+<td>&#x5728;daemon&#x6A21;&#x5F0F;&#x4E2D;unix domain socket&#x5206;&#x914D;&#x7528;&#x6237;&#x7EC4;&#x540D;</td>
+</tr>
+<tr>
+<td>Tls</td>
+<td>flTls</td>
+<td>false</td>
+<td>&#x4F7F;&#x7528;TLS&#x5B89;&#x5168;&#x4F20;&#x8F93;&#x534F;&#x8BAE;</td>
+</tr>
+<tr>
+<td>TlsVerify</td>
+<td>flTlsVerify</td>
+<td>false</td>
+<td>&#x4F7F;&#x7528;TLS&#x5E76;&#x9A8C;&#x8BC1;&#x8FDC;&#x7A0B;&#x5BA2;&#x6237;&#x7AEF;</td>
+</tr>
+<tr>
+<td>TlsCa</td>
+<td>flCa</td>
+<td></td>
+<td>&#x6307;&#x5B9A;CA&#x6587;&#x4EF6;&#x8DEF;&#x5F84;</td>
+</tr>
+<tr>
+<td>TlsCert</td>
+<td>flCert</td>
+<td></td>
+<td>TLS&#x8BC1;&#x4E66;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;</td>
+</tr>
+<tr>
+<td>TlsKey</td>
+<td>flKey</td>
+<td></td>
+<td>TLS&#x5BC6;&#x94A5;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;</td>
+</tr>
+<tr>
+<td>BufferRequest</td>
+<td></td>
+<td>true</td>
+<td>&#x7F13;&#x5B58;Docker Client&#x8BF7;&#x6C42;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="13-&#x8FD0;&#x884C;job">1.3. &#x8FD0;&#x884C;Job</h2>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">if</span> err <span class="token operator">:=</span> job<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    log<span class="token punctuation">.</span><span class="token function">Fatal</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Docker&#x5728;eng&#x5BF9;&#x8C61;&#x4E2D;&#x6CE8;&#x518C;&#x8FC7;&#x952E;&#x4F4D;serverapi&#x7684;&#x5904;&#x7406;&#x65B9;&#x6CD5;&#xFF0C;&#x5728;&#x8FD0;&#x884C;Job&#x7684;&#x65F6;&#x5019;&#x6267;&#x884C;&#x8FD9;&#x4E2A;&#x5904;&#x7406;&#x65B9;&#x6CD5;&#x7684;&#x503C;&#x51FD;&#x6570;&#xFF0C;&#x76F8;&#x5E94;&#x7684;&#x5904;&#x7406;&#x65B9;&#x6CD5;&#x7684;&#x503C;&#x4E3A;api.ServeApi&#x3002;</p>
+<h1 id="2-serveapi&#x8FD0;&#x884C;&#x6D41;&#x7A0B;">2. ServeApi&#x8FD0;&#x884C;&#x6D41;&#x7A0B;</h1>
+<p>&#x200B;     ServeApi&#x5C5E;&#x4E8E;Docker Server&#x63D0;&#x4F9B;API&#x670D;&#x52A1;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x76D1;&#x542C;&#x8BF7;&#x6C42;&#x3001;&#x5904;&#x7406;&#x8BF7;&#x6C42;&#x3001;&#x54CD;&#x5E94;&#x8BF7;&#x6C42;&#x7684;&#x670D;&#x52A1;&#x7AEF;&#xFF0C;&#x652F;&#x6301;&#x4E09;&#x79CD;&#x534F;&#x8BAE;&#xFF1A;TCP&#x534F;&#x8BAE;&#x3001;UNIX Socket&#x5F62;&#x5F0F;&#x4EE5;&#x53CA;fd&#x7684;&#x5F62;&#x5F0F;&#x3002;&#x529F;&#x80FD;&#x662F;&#xFF1A;&#x5FAA;&#x73AF;&#x68C0;&#x67E5;Docker Daemon&#x652F;&#x6301;&#x7684;&#x6240;&#x6709;&#x534F;&#x8BAE;&#xFF0C;&#x5E76;&#x4E3A;&#x6BCF;&#x4E00;&#x79CD;&#x534F;&#x8BAE;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x534F;&#x7A0B;goroutine&#xFF0C;&#x5E76;&#x5728;&#x534F;&#x7A0B;&#x5185;&#x90E8;&#x914D;&#x7F6E;&#x4E00;&#x4E2A;&#x670D;&#x52A1;&#x4E8E;HTTP&#x8BF7;&#x6C42;&#x7684;&#x670D;&#x52A1;&#x7AEF;&#x3002;</p>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// ServeApi loops through all of the protocols sent in to docker and spawns</span>
+<span class="token comment">// off a go routine to setup a serving http.Server for each.</span>
+<span class="token keyword">func</span> <span class="token function">ServeApi</span><span class="token punctuation">(</span>job <span class="token operator">*</span>engine<span class="token punctuation">.</span>Job<span class="token punctuation">)</span> engine<span class="token punctuation">.</span>Status <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>job<span class="token punctuation">.</span>Args<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> job<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;usage: %s PROTO://ADDR [PROTO://ADDR ...]&quot;</span><span class="token punctuation">,</span> job<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">var</span> <span class="token punctuation">(</span>
+        protoAddrs <span class="token operator">=</span> job<span class="token punctuation">.</span>Args
+        chErrors   <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token builtin">error</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>protoAddrs<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+    activationLock <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> protoAddr <span class="token operator">:=</span> <span class="token keyword">range</span> protoAddrs <span class="token punctuation">{</span>
+        protoAddrParts <span class="token operator">:=</span> strings<span class="token punctuation">.</span><span class="token function">SplitN</span><span class="token punctuation">(</span>protoAddr<span class="token punctuation">,</span> <span class="token string">&quot;://&quot;</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>protoAddrParts<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">2</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> job<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;usage: %s PROTO://ADDR [PROTO://ADDR ...]&quot;</span><span class="token punctuation">,</span> job<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            log<span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Listening for HTTP on %s (%s)&quot;</span><span class="token punctuation">,</span> protoAddrParts<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> protoAddrParts<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+            chErrors <span class="token operator">&lt;-</span> <span class="token function">ListenAndServe</span><span class="token punctuation">(</span>protoAddrParts<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> protoAddrParts<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> job<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token function">len</span><span class="token punctuation">(</span>protoAddrs<span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">+=</span> <span class="token number">1</span> <span class="token punctuation">{</span>
+        err <span class="token operator">:=</span> <span class="token operator">&lt;-</span>chErrors
+        <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> job<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> engine<span class="token punctuation">.</span>StatusOK
+<span class="token punctuation">}</span>
+</code></pre>
+<p>ServeApi&#x6267;&#x884C;&#x6D41;&#x7A0B;&#xFF1A;</p>
+<ol>
+<li>&#x68C0;&#x67E5;Job&#x53C2;&#x6570;&#xFF0C;&#x786E;&#x4FDD;&#x4F20;&#x5165;&#x53C2;&#x6570;&#x65E0;&#x8BEF;</li>
+<li>&#x5B9A;&#x4E49;Docker Server&#x7684;&#x76D1;&#x542C;&#x534F;&#x8BAE;&#x4E0E;&#x5730;&#x5740;&#xFF0C;&#x4EE5;&#x53CA;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x7BA1;&#x7406;channel</li>
+<li>&#x904D;&#x5386;&#x534F;&#x8BAE;&#x5730;&#x5740;&#xFF0C;&#x9488;&#x5BF9;&#x534F;&#x8BAE;&#x521B;&#x5EFA;&#x76F8;&#x5E94;&#x7684;&#x670D;&#x52A1;&#x7AEF;</li>
+<li>&#x901A;&#x8FC7;chErrors&#x5EFA;&#x7ACB;goroutine&#x4E0E;&#x4E3B;&#x8FDB;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x534F;&#x8C03;&#x5173;&#x7CFB;</li>
+</ol>
+<h2 id="21-&#x5224;&#x65AD;job&#x53C2;&#x6570;">2.1. &#x5224;&#x65AD;Job&#x53C2;&#x6570;</h2>
+<p>&#x5224;&#x65AD;Job&#x53C2;&#x6570;&#xFF0C;job.Args&#xFF0C;&#x5373;&#x6570;&#x7EC4;flHost&#xFF0C;&#x82E5;flHost&#x7684;&#x957F;&#x5EA6;&#x4E3A;0&#xFF0C;&#x5219;&#x8BF4;&#x660E;&#x6CA1;&#x6709;&#x76D1;&#x542C;&#x7684;&#x534F;&#x8BAE;&#x4E0E;&#x5730;&#x5740;&#xFF0C;&#x53C2;&#x6570;&#x6709;&#x8BEF;&#x3002;</p>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">ServeApi</span><span class="token punctuation">(</span>job <span class="token operator">*</span>engine<span class="token punctuation">.</span>Job<span class="token punctuation">)</span> engine<span class="token punctuation">.</span>Status <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>job<span class="token punctuation">.</span>Args<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> job<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;usage: %s PROTO://ADDR [PROTO://ADDR ...]&quot;</span><span class="token punctuation">,</span> job<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="22-&#x5B9A;&#x4E49;&#x76D1;&#x542C;&#x534F;&#x8BAE;&#x4E0E;&#x5730;&#x5740;&#x53CA;&#x9519;&#x8BEF;&#x4FE1;&#x606F;">2.2. &#x5B9A;&#x4E49;&#x76D1;&#x542C;&#x534F;&#x8BAE;&#x4E0E;&#x5730;&#x5740;&#x53CA;&#x9519;&#x8BEF;&#x4FE1;&#x606F;</h2>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">var</span> <span class="token punctuation">(</span>
+       protoAddrs <span class="token operator">=</span> job<span class="token punctuation">.</span>Args
+       chErrors   <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token builtin">error</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>protoAddrs<span class="token punctuation">)</span><span class="token punctuation">)</span>
+   <span class="token punctuation">)</span>
+   activationLock <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>&#x5B9A;&#x4E49;protoAddrs[flHosts&#x7684;&#x5185;&#x5BB9;]&#x3001;chErrors[&#x9519;&#x8BEF;&#x7C7B;&#x578B;&#x7BA1;&#x9053;]&#x4E0E;activationLock[&#x540C;&#x6B65;serveapi&#x548C;acceptconnections&#x4E24;&#x4E2A;job&#x6267;&#x884C;&#x7684;&#x7BA1;&#x9053;]&#x4E09;&#x4E2A;&#x53D8;&#x91CF;&#xFF0C;</p>
+<h2 id="23-&#x904D;&#x5386;&#x534F;&#x8BAE;&#x5730;&#x5740;">2.3. &#x904D;&#x5386;&#x534F;&#x8BAE;&#x5730;&#x5740;</h2>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> protoAddr <span class="token operator">:=</span> <span class="token keyword">range</span> protoAddrs <span class="token punctuation">{</span>
+    protoAddrParts <span class="token operator">:=</span> strings<span class="token punctuation">.</span><span class="token function">SplitN</span><span class="token punctuation">(</span>protoAddr<span class="token punctuation">,</span> <span class="token string">&quot;://&quot;</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>protoAddrParts<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">2</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> job<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;usage: %s PROTO://ADDR [PROTO://ADDR ...]&quot;</span><span class="token punctuation">,</span> job<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Listening for HTTP on %s (%s)&quot;</span><span class="token punctuation">,</span> protoAddrParts<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> protoAddrParts<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        chErrors <span class="token operator">&lt;-</span> <span class="token function">ListenAndServe</span><span class="token punctuation">(</span>protoAddrParts<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> protoAddrParts<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> job<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x904D;&#x5386;&#x534F;&#x8BAE;&#x5730;&#x5740;&#xFF0C;&#x9488;&#x5BF9;&#x534F;&#x8BAE;&#x521B;&#x5EFA;&#x76F8;&#x5E94;&#x7684;&#x670D;&#x52A1;&#x7AEF;&#x3002;&#x534F;&#x8BAE;&#x5730;&#x5740;</p>
+<h2 id="24-&#x534F;&#x8C03;cherrors&#x4E0E;&#x4E3B;&#x8FDB;&#x7A0B;&#x5173;&#x7CFB;">2.4. &#x534F;&#x8C03;chErrors&#x4E0E;&#x4E3B;&#x8FDB;&#x7A0B;&#x5173;&#x7CFB;</h2>
+<p>&#x6839;&#x636E;chErrors&#x7684;&#x503C;&#x8FD0;&#x884C;&#xFF0C;&#x5982;&#x679C;chErrors&#x8FD9;&#x4E2A;&#x7BA1;&#x9053;&#x4E2D;&#x6709;&#x9519;&#x8BEF;&#x5185;&#x5BB9;&#xFF0C;&#x5219;ServerApi&#x4E00;&#x6B21;&#x5FAA;&#x73AF;&#x7ED3;&#x675F;&#xFF0C;&#x82E5;&#x65E0;&#x9519;&#x8BEF;&#x5185;&#x5BB9;&#xFF0C;&#x5FAA;&#x73AF;&#x88AB;&#x963B;&#x585E;&#x3002;&#x5373;chErrors&#x786E;&#x4FDD;ListenAndServe&#x6240;&#x5BF9;&#x5E94;&#x7684;&#x534F;&#x7A0B;&#x80FD;&#x548C;&#x4E3B;&#x51FD;&#x6570;ServeApi&#x8FDB;&#x884C;&#x534F;&#x8C03;&#xFF0C;&#x5982;&#x679C;&#x534F;&#x7A0B;&#x51FA;&#x9519;&#xFF0C;&#x4E3B;&#x51FD;&#x6570;ServeApi&#x4ECD;&#x7136;&#x53EF;&#x4EE5;&#x6355;&#x83B7;&#x8FD9;&#x6837;&#x7684;&#x9519;&#x8BEF;&#xFF0C;&#x4ECE;&#x800C;&#x5BFC;&#x81F4;&#x7A0B;&#x5E8F;&#x9000;&#x51FA;&#x3002;</p>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token function">len</span><span class="token punctuation">(</span>protoAddrs<span class="token punctuation">)</span><span class="token punctuation">;</span> i <span class="token operator">+=</span> <span class="token number">1</span> <span class="token punctuation">{</span>
+    err <span class="token operator">:=</span> <span class="token operator">&lt;-</span>chErrors
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> job<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">return</span> engine<span class="token punctuation">.</span>StatusOK
+</code></pre>
+<h1 id="3-listenandserve&#x5B9E;&#x73B0;">3. ListenAndServe&#x5B9E;&#x73B0;</h1>
+<p>ListenAndServe&#x7684;&#x529F;&#x80FD;&#xFF1A;&#x4F7F;Docker Server&#x76D1;&#x542C;&#x67D0;&#x4E00;&#x6307;&#x5B9A;&#x5730;&#x5740;&#xFF0C;&#x5E76;&#x63A5;&#x6536;&#x8BE5;&#x5730;&#x5740;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x5BF9;&#x4EE5;&#x4E0A;&#x8BF7;&#x6C42;&#x8DEF;&#x7531;&#x8F6C;&#x53D1;&#x81F3;&#x76F8;&#x5E94;&#x7684;&#x5904;&#x7406;&#x65B9;&#x6CD5;&#x5904;&#x3002;
+ListenAndServe&#x6267;&#x884C;&#x6D41;&#x7A0B;&#xFF1A;</p>
+<ol>
+<li>&#x521B;&#x5EFA;route&#x8DEF;&#x7531;&#x5B9E;&#x4F8B;</li>
+<li>&#x521B;&#x5EFA;listener&#x76D1;&#x542C;&#x5B9E;&#x4F8B;</li>
+<li>&#x521B;&#x5EFA;http.Server</li>
+<li>&#x542F;&#x52A8;API&#x670D;&#x52A1;</li>
+</ol>
+<p>&#x6D41;&#x7A0B;&#x56FE;&#xFF1A;
+<img src="http://res.cloudinary.com/dqxtn0ick/image/upload/v1510578158/article/docker/dockerServer/DockerServerFlow.jpg" width="50%"></p>
+<h2 id="31-&#x521B;&#x5EFA;route&#x8DEF;&#x7531;&#x5B9E;&#x4F8B;">3.1. &#x521B;&#x5EFA;route&#x8DEF;&#x7531;&#x5B9E;&#x4F8B;</h2>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// ListenAndServe sets up the required http.Server and gets it listening for</span>
+<span class="token comment">// each addr passed in and does protocol specific checking.</span>
+<span class="token keyword">func</span> <span class="token function">ListenAndServe</span><span class="token punctuation">(</span>proto<span class="token punctuation">,</span> addr <span class="token builtin">string</span><span class="token punctuation">,</span> job <span class="token operator">*</span>engine<span class="token punctuation">.</span>Job<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> l net<span class="token punctuation">.</span>Listener
+    r<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">createRouter</span><span class="token punctuation">(</span>job<span class="token punctuation">.</span>Eng<span class="token punctuation">,</span> job<span class="token punctuation">.</span><span class="token function">GetenvBool</span><span class="token punctuation">(</span><span class="token string">&quot;Logging&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> job<span class="token punctuation">.</span><span class="token function">GetenvBool</span><span class="token punctuation">(</span><span class="token string">&quot;EnableCors&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span> job<span class="token punctuation">.</span><span class="token function">Getenv</span><span class="token punctuation">(</span><span class="token string">&quot;Version&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> err
+    <span class="token punctuation">}</span>
+    <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x8DEF;&#x7531;&#x5B9E;&#x4F8B;&#x7684;&#x4F5C;&#x7528;&#xFF1A;&#x8D1F;&#x8D23;Docker Server&#x5BF9;&#x5916;&#x90E8;&#x8BF7;&#x6C42;&#x7684;&#x8DEF;&#x7531;&#x53CA;&#x8F6C;&#x53D1;&#x3002;
+&#x5B9E;&#x73B0;&#x8FC7;&#x7A0B;&#xFF1A;</p>
+<ol>
+<li>&#x521B;&#x5EFA;&#x5168;&#x65B0;&#x7684;route&#x8DEF;&#x7531;&#x5B9E;&#x4F8B;</li>
+<li>&#x4E3A;route&#x5B9E;&#x4F8B;&#x6DFB;&#x52A0;&#x8DEF;&#x7531;&#x8BB0;&#x5F55;</li>
+</ol>
+<h3 id="311-&#x521B;&#x5EFA;&#x7A7A;&#x8DEF;&#x7531;&#x5B9E;&#x4F8B;">3.1.1. &#x521B;&#x5EFA;&#x7A7A;&#x8DEF;&#x7531;&#x5B9E;&#x4F8B;</h3>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">createRouter</span><span class="token punctuation">(</span>eng <span class="token operator">*</span>engine<span class="token punctuation">.</span>Engine<span class="token punctuation">,</span> logging<span class="token punctuation">,</span> enableCors <span class="token builtin">bool</span><span class="token punctuation">,</span> dockerVersion <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>mux<span class="token punctuation">.</span>Router<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     r <span class="token operator">:=</span> mux<span class="token punctuation">.</span><span class="token function">NewRouter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+     <span class="token operator">...</span>
+ <span class="token punctuation">}</span>
+</code></pre>
+<p><strong>/vendor/src/github.com/gorilla/mux/mux.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// NewRouter returns a new router instance.</span>
+<span class="token keyword">func</span> <span class="token function">NewRouter</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span>Router <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token operator">&amp;</span>Router<span class="token punctuation">{</span>namedRoutes<span class="token punctuation">:</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>Route<span class="token punctuation">)</span><span class="token punctuation">,</span> KeepContext<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// This will send all incoming requests to the router.</span>
+<span class="token keyword">type</span> Router <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Configurable Handler to be used when no route matches.</span>
+    NotFoundHandler http<span class="token punctuation">.</span>Handler
+    <span class="token comment">// Parent route, if this is a subrouter.</span>
+    parent parentRoute
+    <span class="token comment">// Routes to be matched, in order.</span>
+    routes <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>Route
+    <span class="token comment">// Routes by name for URL building.</span>
+    namedRoutes <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>Route
+    <span class="token comment">// See Router.StrictSlash(). This defines the flag for new routes.</span>
+    strictSlash <span class="token builtin">bool</span>
+    <span class="token comment">// If true, do not clear the request context after handling the request</span>
+    KeepContext <span class="token builtin">bool</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>NewRoute()&#x51FD;&#x6570;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;&#x5168;&#x65B0;&#x7684;route&#x5B9E;&#x4F8B;r&#xFF0C;&#x7C7B;&#x578B;&#x4E3A;mux.Router&#x3002;&#x5B9E;&#x4F8B;&#x521D;&#x59CB;&#x5316;nameRoutes&#x548C;KeepContext&#x3002;</p>
+<ul>
+<li>nameRoutes&#xFF1A;map&#x7C7B;&#x578B;&#xFF0C;key&#x4E3A;string&#x7C7B;&#x578B;&#xFF0C;value&#x4E3A;Route&#x8DEF;&#x7531;&#x8BB0;&#x5F55;&#x7C7B;&#x578B;</li>
+<li>KeepContext&#xFF1A;&#x5C5E;&#x6027;&#x4E3A;false&#xFF0C;&#x5219;&#x5904;&#x7406;&#x5B8C;&#x8BF7;&#x6C42;&#x540E;&#x6E05;&#x9664;&#x8BF7;&#x6C42;&#x5185;&#x5BB9;&#xFF0C;&#x4E0D;&#x5BF9;&#x8BF7;&#x6C42;&#x505A;&#x5B58;&#x50A8;&#x64CD;&#x4F5C;</li>
+</ul>
+<p>mux.Router&#x4F1A;&#x901A;&#x8FC7;&#x4E00;&#x7CFB;&#x5217;&#x5DF2;&#x7ECF;&#x6CE8;&#x518C;&#x8FC7;&#x7684;&#x8DEF;&#x7531;&#x8BB0;&#x5F55;&#xFF0C;&#x6765;&#x5339;&#x914D;&#x63A5;&#x6536;&#x7684;&#x8BF7;&#x6C42;&#x3002;&#x5148;&#x901A;&#x8FC7;&#x8BF7;&#x6C42;&#x7684;URL&#x6216;&#x8005;&#x5176;&#x4ED6;&#x6761;&#x4EF6;&#x627E;&#x5230;&#x76F8;&#x5E94;&#x7684;&#x8DEF;&#x7531;&#x8BB0;&#x5F55;&#xFF0C;&#x5E76;&#x8C03;&#x7528;&#x8FD9;&#x6761;&#x8BB0;&#x5F55;&#x4E2D;&#x7684;&#x6267;&#x884C;&#x5904;&#x7406;&#x65B9;&#x6CD5;&#x3002;
+mux.Router&#x7279;&#x6027;</p>
+<ul>
+<li>&#x8BF7;&#x6C42;&#x53EF;&#x4EE5;&#x57FA;&#x4E8E;URL&#x7684;&#x4E3B;&#x673A;&#x540D;&#x3001;&#x8DEF;&#x5F84;&#x3001;&#x8DEF;&#x5F84;&#x524D;&#x7F00;&#x3001;shemes&#x3001;&#x8BF7;&#x6C42;&#x5934;&#x548C;&#x8BF7;&#x6C42;&#x503C;&#x3001;HTTP&#x8BF7;&#x6C42;&#x65B9;&#x6CD5;&#x7C7B;&#x578B;&#x6216;&#x8005;&#x4F7F;&#x7528;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x5339;&#x914D;&#x89C4;&#x5219;</li>
+<li>URL&#x4E3B;&#x673A;&#x540D;&#x548C;&#x8DEF;&#x5F84;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x6765;&#x8868;&#x793A;</li>
+<li>&#x6CE8;&#x518C;&#x7684;URL&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x88AB;&#x8FD0;&#x7528;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x4FDD;&#x7559;&#x4ECE;&#x800C;&#x4FDD;&#x8BC1;&#x7EF4;&#x62A4;&#x8D44;&#x6E90;&#x7684;&#x4F7F;&#x7528;</li>
+<li>&#x8DEF;&#x7531;&#x8BB0;&#x5F55;&#x540C;&#x6837;&#x770B;&#x53EF;&#x4EE5;&#x4F5C;&#x7528;&#x4E8E;&#x5B50;&#x8DEF;&#x7531;&#x8BB0;&#x5F55;</li>
+</ul>
+<h3 id="312-&#x6DFB;&#x52A0;&#x8DEF;&#x7531;&#x8BB0;&#x5F55;">3.1.2. &#x6DFB;&#x52A0;&#x8DEF;&#x7531;&#x8BB0;&#x5F55;</h3>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">if</span> os<span class="token punctuation">.</span><span class="token function">Getenv</span><span class="token punctuation">(</span><span class="token string">&quot;DEBUG&quot;</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token string">&quot;&quot;</span> <span class="token punctuation">{</span>
+       <span class="token function">AttachProfiler</span><span class="token punctuation">(</span>r<span class="token punctuation">)</span>
+   <span class="token punctuation">}</span>
+
+   m <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span>HttpApiFunc<span class="token punctuation">{</span>
+       <span class="token string">&quot;GET&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+           <span class="token string">&quot;/_ping&quot;</span><span class="token punctuation">:</span>                          ping<span class="token punctuation">,</span>
+           <span class="token string">&quot;/events&quot;</span><span class="token punctuation">:</span>                         getEvents<span class="token punctuation">,</span>
+           <span class="token string">&quot;/info&quot;</span><span class="token punctuation">:</span>                           getInfo<span class="token punctuation">,</span>
+           <span class="token string">&quot;/version&quot;</span><span class="token punctuation">:</span>                        getVersion<span class="token punctuation">,</span>
+           <span class="token string">&quot;/images/json&quot;</span><span class="token punctuation">:</span>                    getImagesJSON<span class="token punctuation">,</span>
+           <span class="token string">&quot;/images/viz&quot;</span><span class="token punctuation">:</span>                     getImagesViz<span class="token punctuation">,</span>
+           <span class="token string">&quot;/images/search&quot;</span><span class="token punctuation">:</span>                  getImagesSearch<span class="token punctuation">,</span>
+           <span class="token string">&quot;/images/{name:.*}/get&quot;</span><span class="token punctuation">:</span>           getImagesGet<span class="token punctuation">,</span>
+           <span class="token string">&quot;/images/{name:.*}/history&quot;</span><span class="token punctuation">:</span>       getImagesHistory<span class="token punctuation">,</span>
+           <span class="token string">&quot;/images/{name:.*}/json&quot;</span><span class="token punctuation">:</span>          getImagesByName<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/ps&quot;</span><span class="token punctuation">:</span>                  getContainersJSON<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/json&quot;</span><span class="token punctuation">:</span>                getContainersJSON<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/export&quot;</span><span class="token punctuation">:</span>    getContainersExport<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/changes&quot;</span><span class="token punctuation">:</span>   getContainersChanges<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/json&quot;</span><span class="token punctuation">:</span>      getContainersByName<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/top&quot;</span><span class="token punctuation">:</span>       getContainersTop<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/logs&quot;</span><span class="token punctuation">:</span>      getContainersLogs<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/attach/ws&quot;</span><span class="token punctuation">:</span> wsContainersAttach<span class="token punctuation">,</span>
+       <span class="token punctuation">}</span><span class="token punctuation">,</span>
+       <span class="token string">&quot;POST&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+           <span class="token string">&quot;/auth&quot;</span><span class="token punctuation">:</span>                         postAuth<span class="token punctuation">,</span>
+           <span class="token string">&quot;/commit&quot;</span><span class="token punctuation">:</span>                       postCommit<span class="token punctuation">,</span>
+           <span class="token string">&quot;/build&quot;</span><span class="token punctuation">:</span>                        postBuild<span class="token punctuation">,</span>
+           <span class="token string">&quot;/images/create&quot;</span><span class="token punctuation">:</span>                postImagesCreate<span class="token punctuation">,</span>
+           <span class="token string">&quot;/images/load&quot;</span><span class="token punctuation">:</span>                  postImagesLoad<span class="token punctuation">,</span>
+           <span class="token string">&quot;/images/{name:.*}/push&quot;</span><span class="token punctuation">:</span>        postImagesPush<span class="token punctuation">,</span>
+           <span class="token string">&quot;/images/{name:.*}/tag&quot;</span><span class="token punctuation">:</span>         postImagesTag<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/create&quot;</span><span class="token punctuation">:</span>            postContainersCreate<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/kill&quot;</span><span class="token punctuation">:</span>    postContainersKill<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/pause&quot;</span><span class="token punctuation">:</span>   postContainersPause<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/unpause&quot;</span><span class="token punctuation">:</span> postContainersUnpause<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/restart&quot;</span><span class="token punctuation">:</span> postContainersRestart<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/start&quot;</span><span class="token punctuation">:</span>   postContainersStart<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/stop&quot;</span><span class="token punctuation">:</span>    postContainersStop<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/wait&quot;</span><span class="token punctuation">:</span>    postContainersWait<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/resize&quot;</span><span class="token punctuation">:</span>  postContainersResize<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/attach&quot;</span><span class="token punctuation">:</span>  postContainersAttach<span class="token punctuation">,</span>
+           <span class="token string">&quot;/containers/{name:.*}/copy&quot;</span><span class="token punctuation">:</span>    postContainersCopy<span class="token punctuation">,</span>
+       <span class="token punctuation">}</span><span class="token punctuation">,</span>
+       <span class="token string">&quot;DELETE&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+           <span class="token string">&quot;/containers/{name:.*}&quot;</span><span class="token punctuation">:</span> deleteContainers<span class="token punctuation">,</span>
+           <span class="token string">&quot;/images/{name:.*}&quot;</span><span class="token punctuation">:</span>     deleteImages<span class="token punctuation">,</span>
+       <span class="token punctuation">}</span><span class="token punctuation">,</span>
+       <span class="token string">&quot;OPTIONS&quot;</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+           <span class="token string">&quot;&quot;</span><span class="token punctuation">:</span> optionsHandler<span class="token punctuation">,</span>
+       <span class="token punctuation">}</span><span class="token punctuation">,</span>
+   <span class="token punctuation">}</span>
+</code></pre>
+<p>m&#x7684;&#x7C7B;&#x578B;&#x4E3A;&#x6620;&#x5C04;&#xFF0C;key&#x8868;&#x793A;HTTP&#x7684;&#x8BF7;&#x6C42;&#x7C7B;&#x578B;&#xFF0C;&#x5982;GET&#x3001;POST&#x3001;DELETE&#x7B49;&#xFF0C;value&#x4E3A;&#x6620;&#x5C04;&#x7C7B;&#x578B;&#xFF0C;&#x4EE3;&#x8868;URL&#x4E0E;&#x6267;&#x884C;&#x5904;&#x7406;&#x65B9;&#x6CD5;&#x7684;&#x6620;&#x5C04;&#x3002;</p>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">type</span> HttpApiFunc <span class="token keyword">func</span><span class="token punctuation">(</span>eng <span class="token operator">*</span>engine<span class="token punctuation">.</span>Engine<span class="token punctuation">,</span> version version<span class="token punctuation">.</span>Version<span class="token punctuation">,</span> w http<span class="token punctuation">.</span>ResponseWriter<span class="token punctuation">,</span> r <span class="token operator">*</span>http<span class="token punctuation">.</span>Request<span class="token punctuation">,</span> vars <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">error</span>
+</code></pre>
+<h2 id="32-&#x521B;&#x5EFA;listener&#x76D1;&#x542C;&#x5B9E;&#x4F8B;">3.2. &#x521B;&#x5EFA;listener&#x76D1;&#x542C;&#x5B9E;&#x4F8B;</h2>
+<p>&#x8DEF;&#x7531;&#x6A21;&#x5757;&#x5B8C;&#x6210;&#x8BF7;&#x6C42;&#x7684;&#x8DEF;&#x7531;&#x4E0E;&#x5206;&#x53D1;&#xFF0C;&#x76D1;&#x542C;&#x6A21;&#x5757;&#x5B8C;&#x6210;&#x8BF7;&#x6C42;&#x7684;&#x76D1;&#x542C;&#x529F;&#x80FD;&#x3002;Listener&#x662F;&#x4E00;&#x79CD;&#x9762;&#x5411;&#x6D41;&#x534F;&#x8BAE;&#x7684;&#x901A;&#x7528;&#x7F51;&#x7EDC;&#x76D1;&#x542C;&#x6A21;&#x5757;&#x3002;</p>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">var</span> l net<span class="token punctuation">.</span>Listener
+ <span class="token operator">...</span>
+ <span class="token keyword">if</span> job<span class="token punctuation">.</span><span class="token function">GetenvBool</span><span class="token punctuation">(</span><span class="token string">&quot;BufferRequests&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     l<span class="token punctuation">,</span> err <span class="token operator">=</span> listenbuffer<span class="token punctuation">.</span><span class="token function">NewListenBuffer</span><span class="token punctuation">(</span>proto<span class="token punctuation">,</span> addr<span class="token punctuation">,</span> activationLock<span class="token punctuation">)</span>
+ <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+     l<span class="token punctuation">,</span> err <span class="token operator">=</span> net<span class="token punctuation">.</span><span class="token function">Listen</span><span class="token punctuation">(</span>proto<span class="token punctuation">,</span> addr<span class="token punctuation">)</span>
+</code></pre>
+<p>Listenbuffer&#x7684;&#x4F5C;&#x7528;&#xFF1A;&#x8BA9;Docker Server&#x7ACB;&#x5373;&#x76D1;&#x542C;&#x6307;&#x5B9A;&#x534F;&#x8BAE;&#x5730;&#x5740;&#x4E0A;&#x7684;&#x8BF7;&#x6C42;&#xFF0C;&#x4F46;&#x5C06;&#x8FD9;&#x4E9B;&#x8BF7;&#x6C42;&#x6682;&#x65F6;&#x5148;&#x7F13;&#x5B58;&#x4E0B;&#x6765;&#xFF0C;&#x7B49;Docker Daemon&#x5168;&#x90E8;&#x542F;&#x52A8;&#x5B8C;&#x6BD5;&#x4E4B;&#x540E;&#x624D;&#x8BA9;Docker Server&#x5F00;&#x59CB;&#x63A5;&#x53D7;&#x8FD9;&#x4E9B;&#x8BF7;&#x6C42;&#x3002;</p>
+<p><strong>/pkg/listenbuffer/buffer.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// NewListenBuffer returns a listener listening on addr with the protocol.</span>
+<span class="token keyword">func</span> <span class="token function">NewListenBuffer</span><span class="token punctuation">(</span>proto<span class="token punctuation">,</span> addr <span class="token builtin">string</span><span class="token punctuation">,</span> activate <span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>net<span class="token punctuation">.</span>Listener<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    wrapped<span class="token punctuation">,</span> err <span class="token operator">:=</span> net<span class="token punctuation">.</span><span class="token function">Listen</span><span class="token punctuation">(</span>proto<span class="token punctuation">,</span> addr<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token operator">&amp;</span>defaultListener<span class="token punctuation">{</span>
+        wrapped<span class="token punctuation">:</span>  wrapped<span class="token punctuation">,</span>
+        activate<span class="token punctuation">:</span> activate<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x82E5;&#x534F;&#x8BAE;&#x7C7B;&#x578B;&#x4E3A;TCP&#xFF0C;Job&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x4E2D;Tls&#x6216;TlsVerity&#x6709;&#x4E00;&#x4E2A;&#x4E3A;true&#xFF0C;&#x5219;&#x8BF4;&#x660E;Docker Server&#x9700;&#x8981;&#x652F;&#x6301;HTTPS&#x670D;&#x52A1;&#x3002;&#x9700;&#x8981;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;tls.Config&#x7C7B;&#x578B;&#x5B9E;&#x4F8B;tlsConfig&#xFF0C;&#x5728;tlsConfig&#x4E2D;&#x52A0;&#x8F7D;&#x8BC1;&#x4E66;&#x3001;&#x8BA4;&#x8BC1;&#x4FE1;&#x606F;&#xFF0C;&#x901A;&#x8FC7;tls&#x5305;&#x4E2D;&#x7684;NewListener&#x51FD;&#x6570;&#x521B;&#x5EFA;HTTPS&#x534F;&#x8BAE;&#x8BF7;&#x6C42;&#x7684;Listener&#x5B9E;&#x4F8B;&#x3002;</p>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go">l <span class="token operator">=</span> tls<span class="token punctuation">.</span><span class="token function">NewListener</span><span class="token punctuation">(</span>l<span class="token punctuation">,</span> tlsConfig<span class="token punctuation">)</span>
+</code></pre>
+<h2 id="33-&#x521B;&#x5EFA;httpserver">3.3. &#x521B;&#x5EFA;http.Server</h2>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go">httpSrv <span class="token operator">:=</span> http<span class="token punctuation">.</span>Server<span class="token punctuation">{</span>Addr<span class="token punctuation">:</span> addr<span class="token punctuation">,</span> Handler<span class="token punctuation">:</span> r<span class="token punctuation">}</span>
+</code></pre>
+<p>Docker Server&#x9700;&#x8981;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;Server&#x5BF9;&#x8C61;&#x6765;&#x8FD0;&#x884C;HTTP/HTTPS&#x670D;&#x52A1;&#x7AEF;&#xFF0C;&#x521B;&#x5EFA;http.Server&#xFF0C;addr&#x4E3A;&#x9700;&#x8981;&#x76D1;&#x542C;&#x7684;&#x5730;&#x5740;&#xFF0C;r&#x4E3A;mux.Router&#x3002;</p>
+<h2 id="34-&#x542F;&#x52A8;api&#x670D;&#x52A1;">3.4. &#x542F;&#x52A8;API&#x670D;&#x52A1;</h2>
+<p>&#x521B;&#x5EFA;http.Server&#x5B9E;&#x4F8B;&#x540E;&#xFF0C;&#x5373;&#x542F;&#x52A8;API&#x670D;&#x52A1;&#xFF0C;&#x76D1;&#x542C;&#x8BF7;&#x6C42;&#xFF0C;&#x5E76;&#x5BF9;&#x6BCF;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x534F;&#x7A0B;&#x6765;&#x505A;&#x4E13;&#x5C5E;&#x670D;&#x52A1;&#x3002;&#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;&#x8BF7;&#x6C42;&#xFF0C;&#x534F;&#x7A0B;&#x4F1A;&#x8BFB;&#x53D6;&#x8BF7;&#x6C42;&#xFF0C;&#x67E5;&#x8BE2;&#x8DEF;&#x7531;&#x8868;&#x4E2D;&#x7684;&#x8DEF;&#x7531;&#x8BB0;&#x5F55;&#x9879;&#xFF0C;&#x627E;&#x5230;&#x5339;&#x914D;&#x7684;&#x8DEF;&#x7531;&#x8BB0;&#x5F55;&#xFF0C;&#x6700;&#x7EC8;&#x8C03;&#x7528;&#x8DEF;&#x7531;&#x8BB0;&#x5F55;&#x4E2D;&#x7684;&#x5904;&#x7406;&#x65B9;&#x6CD5;&#xFF0C;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x8FD4;&#x56DE;&#x54CD;&#x5E94;&#x4FE1;&#x606F;&#x3002;</p>
+<p><strong>/api/server/server.go</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">return</span> httpSrv<span class="token punctuation">.</span><span class="token function">Serve</span><span class="token punctuation">(</span>l<span class="token punctuation">)</span>
+</code></pre>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li>&#x300A;Docker&#x6E90;&#x7801;&#x5206;&#x6790;&#x300B;</li>
+</ul>
+<footer class="page-footer"><span class="copyright">Copyright &#xA9; www.huweihuang.com 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
+2018-08-25 14:22:41
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="code-analysis-of-docker-daemon.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Docker Daemon">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Docker Server","level":"1.9.5.3","depth":3,"next":{"title":"第三方应用","level":"1.10","depth":1,"ref":"","articles":[{"title":"Etcd","level":"1.10.1","depth":2,"ref":"","articles":[{"title":"Etcd介绍","level":"1.10.1.1","depth":3,"path":"third/etcd/etcd-introduction.md","ref":"third/etcd/etcd-introduction.md","articles":[]},{"title":"Etcd启动配置参数","level":"1.10.1.2","depth":3,"path":"third/etcd/etcd-setup-flags.md","ref":"third/etcd/etcd-setup-flags.md","articles":[]},{"title":"Etcd访问控制","level":"1.10.1.3","depth":3,"path":"third/etcd/etcd-auth-and-security.md","ref":"third/etcd/etcd-auth-and-security.md","articles":[]},{"title":"etcdctl命令工具-V2","level":"1.10.1.4","depth":3,"path":"third/etcd/etcdctl-v2.md","ref":"third/etcd/etcdctl-v2.md","articles":[]},{"title":"etcdctl命令工具-V3","level":"1.10.1.5","depth":3,"path":"third/etcd/etcdctl-v3.md","ref":"third/etcd/etcdctl-v3.md","articles":[]}]},{"title":"Flannel","level":"1.10.2","depth":2,"ref":"","articles":[{"title":"Flannel介绍","level":"1.10.2.1","depth":3,"path":"third/flannel/flannel-introduction.md","ref":"third/flannel/flannel-introduction.md","articles":[]}]}]},"previous":{"title":"Docker Daemon","level":"1.9.5.2","depth":3,"path":"docker/code-analysis/code-analysis-of-docker-daemon.md","ref":"docker/code-analysis/code-analysis-of-docker-daemon.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga","disqus"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"huweihuang"},"github":{"url":"https://github.com/huweihuang"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"favicon.ico","bookmark":"favicon.ico"},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.1","level":"1.3.2.2","list_caption":"Figure: pod","alt":"pod","nro":1,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"1.3.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.2","level":"1.3.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"1.3.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig1.3.2.2.3","level":"1.3.2.2","list_caption":"Figure: service","alt":"service","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"1.3.2.2.3"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.1","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":4,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.1"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.2","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.2"},{"backlink":"concepts/object/kubernetes-pod-introduction.html#fig1.3.2.3.3","level":"1.3.2.3","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":3,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.3.2.3.3"},{"backlink":"principle/kubernetes-core-principle-api-server.html#fig1.4.1.1","level":"1.4.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"1.4.1.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.1","level":"1.4.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"1.4.2.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.2","level":"1.4.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":9,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"1.4.2.2"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.3","level":"1.4.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"1.4.2.3"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig1.4.2.4","level":"1.4.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"1.4.2.4"},{"backlink":"principle/kubernetes-core-principle-scheduler.html#fig1.4.3.1","level":"1.4.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"1.4.3.1"},{"backlink":"principle/kubernetes-network.html#fig1.4.5.1","level":"1.4.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/network-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.4.5.1"},{"backlink":"principle/kubernetes-network.html#fig1.4.5.2","level":"1.4.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/container-network.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.4.5.2"},{"backlink":"principle/kubernetes-network.html#fig1.4.5.3","level":"1.4.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":15,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/bridge.png","index":3,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.4.5.3"},{"backlink":"principle/kubernetes-network.html#fig1.4.5.4","level":"1.4.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":16,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/pod-network.png","index":4,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"1.4.5.4"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig1.8.1.1","level":"1.8.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":17,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"1.8.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig1.8.2.1","level":"1.8.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":18,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"1.8.2.1"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.1","level":"1.9.3","list_caption":"Figure: 1","alt":"1","nro":19,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578327/article/docker/commands/1.png","index":1,"caption_template":"图片 - _CAPTION_","label":"1","attributes":{},"skip":false,"key":"1.9.3.1"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.2","level":"1.9.3","list_caption":"Figure: 2.1","alt":"2.1","nro":20,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578328/article/docker/commands/2.1.png","index":2,"caption_template":"图片 - _CAPTION_","label":"2.1","attributes":{},"skip":false,"key":"1.9.3.2"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.3","level":"1.9.3","list_caption":"Figure: 3.2","alt":"3.2","nro":21,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578328/article/docker/commands/3.2.png","index":3,"caption_template":"图片 - _CAPTION_","label":"3.2","attributes":{},"skip":false,"key":"1.9.3.3"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.4","level":"1.9.3","list_caption":"Figure: 4.1.1","alt":"4.1.1","nro":22,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.1.1.png","index":4,"caption_template":"图片 - _CAPTION_","label":"4.1.1","attributes":{},"skip":false,"key":"1.9.3.4"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.5","level":"1.9.3","list_caption":"Figure: 4.1.2","alt":"4.1.2","nro":23,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.1.2.png","index":5,"caption_template":"图片 - _CAPTION_","label":"4.1.2","attributes":{},"skip":false,"key":"1.9.3.5"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.6","level":"1.9.3","list_caption":"Figure: 4.1.3","alt":"4.1.3","nro":24,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.1.3.png","index":6,"caption_template":"图片 - _CAPTION_","label":"4.1.3","attributes":{},"skip":false,"key":"1.9.3.6"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.7","level":"1.9.3","list_caption":"Figure: 4.2.1.1","alt":"4.2.1.1","nro":25,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.1.png","index":7,"caption_template":"图片 - _CAPTION_","label":"4.2.1.1","attributes":{},"skip":false,"key":"1.9.3.7"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.8","level":"1.9.3","list_caption":"Figure: 4.2.1.2","alt":"4.2.1.2","nro":26,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.2.png","index":8,"caption_template":"图片 - _CAPTION_","label":"4.2.1.2","attributes":{},"skip":false,"key":"1.9.3.8"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.9","level":"1.9.3","list_caption":"Figure: 4.2.1.3","alt":"4.2.1.3","nro":27,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.3.png","index":9,"caption_template":"图片 - _CAPTION_","label":"4.2.1.3","attributes":{},"skip":false,"key":"1.9.3.9"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.10","level":"1.9.3","list_caption":"Figure: 4.2.1.3.1","alt":"4.2.1.3.1","nro":28,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.2.1.3.1.png","index":10,"caption_template":"图片 - _CAPTION_","label":"4.2.1.3.1","attributes":{},"skip":false,"key":"1.9.3.10"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.11","level":"1.9.3","list_caption":"Figure: 4.2.1.4","alt":"4.2.1.4","nro":29,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.4.png","index":11,"caption_template":"图片 - _CAPTION_","label":"4.2.1.4","attributes":{},"skip":false,"key":"1.9.3.11"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.12","level":"1.9.3","list_caption":"Figure: 4.2.1.5","alt":"4.2.1.5","nro":30,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.5.png","index":12,"caption_template":"图片 - _CAPTION_","label":"4.2.1.5","attributes":{},"skip":false,"key":"1.9.3.12"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.13","level":"1.9.3","list_caption":"Figure: 4.2.1.6","alt":"4.2.1.6","nro":31,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.6.png","index":13,"caption_template":"图片 - _CAPTION_","label":"4.2.1.6","attributes":{},"skip":false,"key":"1.9.3.13"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.14","level":"1.9.3","list_caption":"Figure: 4.2.1.7","alt":"4.2.1.7","nro":32,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.7.png","index":14,"caption_template":"图片 - _CAPTION_","label":"4.2.1.7","attributes":{},"skip":false,"key":"1.9.3.14"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.15","level":"1.9.3","list_caption":"Figure: 4.2.1.7.2","alt":"4.2.1.7.2","nro":33,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.7.2.png","index":15,"caption_template":"图片 - _CAPTION_","label":"4.2.1.7.2","attributes":{},"skip":false,"key":"1.9.3.15"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.16","level":"1.9.3","list_caption":"Figure: 4.2.1.8.1","alt":"4.2.1.8.1","nro":34,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.8.1.png","index":16,"caption_template":"图片 - _CAPTION_","label":"4.2.1.8.1","attributes":{},"skip":false,"key":"1.9.3.16"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.17","level":"1.9.3","list_caption":"Figure: 4.2.1.8.2","alt":"4.2.1.8.2","nro":35,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.8.2.png","index":17,"caption_template":"图片 - _CAPTION_","label":"4.2.1.8.2","attributes":{},"skip":false,"key":"1.9.3.17"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.18","level":"1.9.3","list_caption":"Figure: 4.2.2.1.1","alt":"4.2.2.1.1","nro":36,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.1.1.png","index":18,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.1","attributes":{},"skip":false,"key":"1.9.3.18"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.19","level":"1.9.3","list_caption":"Figure: 4.2.2.1.2","alt":"4.2.2.1.2","nro":37,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.1.2.png","index":19,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.2","attributes":{},"skip":false,"key":"1.9.3.19"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.20","level":"1.9.3","list_caption":"Figure: 4.2.2.1.3","alt":"4.2.2.1.3","nro":38,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.1.3.png","index":20,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.3","attributes":{},"skip":false,"key":"1.9.3.20"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.21","level":"1.9.3","list_caption":"Figure: 4.2.2.2.1","alt":"4.2.2.2.1","nro":39,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.2.1.png","index":21,"caption_template":"图片 - _CAPTION_","label":"4.2.2.2.1","attributes":{},"skip":false,"key":"1.9.3.21"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.22","level":"1.9.3","list_caption":"Figure: 4.2.2.2.2","alt":"4.2.2.2.2","nro":40,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.2.2.png","index":22,"caption_template":"图片 - _CAPTION_","label":"4.2.2.2.2","attributes":{},"skip":false,"key":"1.9.3.22"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.23","level":"1.9.3","list_caption":"Figure: 4.2.2.3.1","alt":"4.2.2.3.1","nro":41,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.3.1.png","index":23,"caption_template":"图片 - _CAPTION_","label":"4.2.2.3.1","attributes":{},"skip":false,"key":"1.9.3.23"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.24","level":"1.9.3","list_caption":"Figure: 4.2.3.1","alt":"4.2.3.1","nro":42,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.1.png","index":24,"caption_template":"图片 - _CAPTION_","label":"4.2.3.1","attributes":{},"skip":false,"key":"1.9.3.24"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.25","level":"1.9.3","list_caption":"Figure: 4.2.3.2","alt":"4.2.3.2","nro":43,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.2.png","index":25,"caption_template":"图片 - _CAPTION_","label":"4.2.3.2","attributes":{},"skip":false,"key":"1.9.3.25"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.26","level":"1.9.3","list_caption":"Figure: 4.2.3.3","alt":"4.2.3.3","nro":44,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.3.png","index":26,"caption_template":"图片 - _CAPTION_","label":"4.2.3.3","attributes":{},"skip":false,"key":"1.9.3.26"},{"backlink":"docker/docker-commands-principle.html#fig1.9.3.27","level":"1.9.3","list_caption":"Figure: 4.2.3.4","alt":"4.2.3.4","nro":45,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578333/article/docker/commands/4.2.3.4.png","index":27,"caption_template":"图片 - _CAPTION_","label":"4.2.3.4","attributes":{},"skip":false,"key":"1.9.3.27"},{"backlink":"third/etcd/etcd-introduction.html#fig1.10.1.1.1","level":"1.10.1.1","list_caption":"Figure: raft","alt":"raft","nro":46,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/raft.png","index":1,"caption_template":"图片 - _CAPTION_","label":"raft","attributes":{},"skip":false,"key":"1.10.1.1.1"},{"backlink":"third/etcd/etcd-introduction.html#fig1.10.1.1.2","level":"1.10.1.1","list_caption":"Figure: etcd的架构图","alt":"etcd的架构图","nro":47,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/etcd-architecture.jpg","index":2,"caption_template":"图片 - _CAPTION_","label":"etcd的架构图","attributes":{},"skip":false,"key":"1.10.1.1.2"},{"backlink":"third/flannel/flannel-introduction.html#fig1.10.2.1.1","level":"1.10.2.1","list_caption":"Figure: 动态路由","alt":"动态路由","nro":48,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/dynamic-route.png","index":1,"caption_template":"图片 - _CAPTION_","label":"动态路由","attributes":{},"skip":false,"key":"1.10.2.1.1"},{"backlink":"third/flannel/flannel-introduction.html#fig1.10.2.1.2","level":"1.10.2.1","list_caption":"Figure: flannel","alt":"flannel","nro":49,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/flannel.png","index":2,"caption_template":"图片 - _CAPTION_","label":"flannel","attributes":{},"skip":false,"key":"1.10.2.1.2"},{"backlink":"third/flannel/flannel-introduction.html#fig1.10.2.1.3","level":"1.10.2.1","list_caption":"Figure: UDP封装","alt":"UDP封装","nro":50,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578569/article/flannel/udp.png","index":3,"caption_template":"图片 - _CAPTION_","label":"UDP封装","attributes":{},"skip":false,"key":"1.10.2.1.3"},{"backlink":"third/flannel/flannel-introduction.html#fig1.10.2.1.4","level":"1.10.2.1","list_caption":"Figure: docker启动参数","alt":"docker启动参数","nro":51,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/docker-init-args.png","index":4,"caption_template":"图片 - _CAPTION_","label":"docker启动参数","attributes":{},"skip":false,"key":"1.10.2.1.4"},{"backlink":"third/flannel/flannel-introduction.html#fig1.10.2.1.5","level":"1.10.2.1","list_caption":"Figure: 数据发送节点路由表","alt":"数据发送节点路由表","nro":52,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataSendRouteTable.png","index":5,"caption_template":"图片 - _CAPTION_","label":"数据发送节点路由表","attributes":{},"skip":false,"key":"1.10.2.1.5"},{"backlink":"third/flannel/flannel-introduction.html#fig1.10.2.1.6","level":"1.10.2.1","list_caption":"Figure: 数据接收节点路由表","alt":"数据接收节点路由表","nro":53,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataReceiveRouteTable.png","index":6,"caption_template":"图片 - _CAPTION_","label":"数据接收节点路由表","attributes":{},"skip":false,"key":"1.10.2.1.6"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"胡伟煌的博客":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"docker/code-analysis/code-analysis-of-docker-server.md","mtime":"2018-08-25T06:22:41.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-08-25T06:53:14.087Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-page-toc-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-editlink/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-3-ba/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
