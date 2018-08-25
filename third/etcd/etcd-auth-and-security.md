@@ -2,9 +2,9 @@
 
 There are three types of resources in etcd
 
-permission resources: users and roles in the user store
-key-value resources: key-value pairs in the key-value store
-settings resources: security settings, auth settings, and dynamic etcd cluster settings (election/heartbeat)
+- `permission resources`: users and roles in the user store
+- `key-value resources`: key-value pairs in the key-value store
+- `settings resources`: security settings, auth settings, and dynamic etcd cluster settings (election/heartbeat)
 
 # 2. 权限资源
 
@@ -173,6 +173,6 @@ etcdctl --endpoints [http://172.16.22.36:2379](http://172.16.22.36:2379/) auth e
 
 更多参考
 
-[https://coreos.com/etcd/docs/latest/v2/auth_api.html](https://coreos.com/etcd/docs/latest/v2/auth_api.html)
+- https://coreos.com/etcd/docs/latest/v2/auth_api.html
 
-https://coreos.com/etcd/docs/latest/v2/authentication.html
+- https://coreos.com/etcd/docs/latest/v2/authentication.html
