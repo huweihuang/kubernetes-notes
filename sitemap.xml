@@ -20,6 +20,7 @@
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/operation/kubernetes-troubleshooting.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/operation/nodeselector-and-taint.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/develop/client-go.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/develop/nfs-client-provisioner.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/monitor/kubernetes-cluster-monitoring.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/monitor/cadvisor-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/monitor/heapster-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
