@@ -26,7 +26,7 @@ catagories:
 | 查询Pod运行状态 | kubectl get pods --namespace=`<NAMESPACE>` |                      |
 | 查询Pod详情   | kebectl describe pod `<POD_NAME>` --namespace=`<NAMESPACE>` | 该命令常用来排查问题，查看Event事件 |
 | 删除        | kubectl delete pod `<POD_NAME>` ;kubectl delete pod --all |                      |
-| 更新        | kubectl replace pod.yaml                 |                      |
+| 更新        | kubectl replace pod.yaml                 |      -                |
 
 # 2. Pod的定义文件
 
