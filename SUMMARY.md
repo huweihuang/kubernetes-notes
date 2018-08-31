@@ -1,6 +1,6 @@
 # Summary
 
-* [Introduction](README.md)
+* [前言](README.md)
 
 * [安装与配置]()
     * [使用kubespray安装kubernetes](setup/install-k8s-by-kubespray.md)
@@ -12,7 +12,9 @@
     * [kubernetes对象]()
         * [理解kubernetes对象](concepts/object/understanding-kubernetes-objects.md)
         * [kubernetes常用对象说明](concepts/object/kubernetes-basic-concepts.md)
-        * [Pod详解](concepts/object/kubernetes-pod-introduction.md)
+    * [Pod]()
+        * [Pod介绍](concepts/pod/pod.md)
+        * [Pod详解](concepts/pod/kubernetes-pod-introduction.md)
 * [核心原理]()
     * [Api Server](principle/kubernetes-core-principle-api-server.md)
     * [Controller Manager](principle/kubernetes-core-principle-controller-manager.md)
@@ -24,6 +26,7 @@
     * [Persistent Volume](storage/persistent-volume.md)
     * [Persistent Volume Claim](storage/persistent-volume-claim.md)   
     * [Storage Class](storage/storage-class.md)
+    * [Dynamic Volume Provisioning](storage/dynamic-provisioning.md)
 * [资源配额]()
     * [资源配额](resource/resource-quota.md)
     * [Pod限额](resource/limit-range.md)
