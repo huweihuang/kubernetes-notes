@@ -4,10 +4,13 @@
 > 
 > 更多的学习笔记请参考：
 > - [Golang 学习笔记](https://www.huweihuang.com/golang-notes/)
+>
+> 个人博客：[www.huweihuang.com](https://www.huweihuang.com/)
+
 
 # Summary
 
-* [Introduction](README.md)
+* [前言](README.md)
 
 * [安装与配置]()
     * [使用kubespray安装kubernetes](setup/install-k8s-by-kubespray.md)
@@ -21,6 +24,7 @@
         * [kubernetes常用对象说明](concepts/object/kubernetes-basic-concepts.md)
     * [Pod]()
         * [Pod介绍](concepts/pod/pod.md)
+        * [Pod生命周期](concepts/pod/pod-lifecycle.md)
         * [Pod详解](concepts/pod/kubernetes-pod-introduction.md)
 * [核心原理]()
     * [Api Server](principle/kubernetes-core-principle-api-server.md)

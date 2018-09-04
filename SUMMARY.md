@@ -14,6 +14,7 @@
         * [kubernetes常用对象说明](concepts/object/kubernetes-basic-concepts.md)
     * [Pod]()
         * [Pod介绍](concepts/pod/pod.md)
+        * [Pod生命周期](concepts/pod/pod-lifecycle.md)
         * [Pod详解](concepts/pod/kubernetes-pod-introduction.md)
 * [核心原理]()
     * [Api Server](principle/kubernetes-core-principle-api-server.md)
