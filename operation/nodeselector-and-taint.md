@@ -32,6 +32,9 @@ kubectl label nodes node-1 disktype=ssd
 
 # 查看Node的Label
 kubectl get nodes --show-labels
+
+# 删除Node的label
+kubectl label node <node-name> <label-key>-
 ```
 
 ## 1.2.2. 给Pod设置NodeSelector

@@ -65,7 +65,6 @@ kubectl patch pv <pv_name> -p ‘{“spec”:{“persistentVolumeReclaimPolicy�
 
 - GCEPersistentDisk
 - AWSElasticBlockStore
-
 - NFS
 - RBD (Ceph Block Device)
 - CephFS
