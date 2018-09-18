@@ -8,7 +8,7 @@
 # 查看节点
 kubectl get nodes
 
-# 设置节点为不可diaodu
+# 设置节点为不可调度
 kubectl cordon <NodeName>
 
 # 设置节点为可调度
@@ -50,7 +50,11 @@ systemctl status kubelet
 kubectl delete pod <PodName> --namespace=<Namespace> --force --grace-period=0
 ```
 
-# 2. TroubleShooting
+# 2. kubectl drain 流程图
+
+<img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1537259779/article/kubernetes/operation/kubectl-drain.svg" width="100%">
+
+# 3. TroubleShooting
 
 1、存在不是通过`ReplicationController`, `ReplicaSet`, `Job`, `DaemonSet` 或者` StatefulSet`创建的Pod（即静态pod，通过文件方式创建的），所以需要设置强制执行的参数`--force`。
 
@@ -76,7 +80,7 @@ There are pending nodes to be drained:
 error: DaemonSet-managed pods (use --ignore-daemonsets to ignore): calicoopsmonitor-mfpqs, arachnia-agent-j56n8
 ```
 
-# 3. kubectl drain
+# 4. kubectl drain
 
 ```bash
 $ kubectl drain --help
@@ -128,3 +132,4 @@ Use "kubectl options" for a list of global command-line options (applies to all 
 
 - https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/
 - https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+- https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#drain
