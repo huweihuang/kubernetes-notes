@@ -44,7 +44,7 @@ kubectl drain操作会将相应节点上的旧Pod删除，并在可调度节点�
 
 ```bash
 # 重启发生`Terminating`节点的kubelet
-systemctl status kubelet
+systemctl restart kubelet
 
 # 强制删除`Terminating`状态的Pod
 kubectl delete pod <PodName> --namespace=<Namespace> --force --grace-period=0
