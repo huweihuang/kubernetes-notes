@@ -56,6 +56,7 @@
 * [开发指南]()
     * [client-go的使用及源码分析](develop/client-go.md)
     * [nfs-client-provisioner源码分析](develop/nfs-client-provisioner.md)
+    * [csi-provisioner源码分析](develop/csi-provisioner.md)
 * [监控体系]()
     * [监控体系介绍](monitor/kubernetes-cluster-monitoring.md)
     * [cAdvisor介绍](monitor/cadvisor-introduction.md)
