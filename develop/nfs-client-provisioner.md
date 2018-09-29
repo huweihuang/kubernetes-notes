@@ -70,7 +70,7 @@ type VolumeOptions struct {
 ## 1.4. 开发provisioner的步骤
 
 1. 写一个`provisioner`实现`Provisioner`接口（包含`Provision`和`Delete`的方法）。
-2. 通过该`provisioner`构建``ProvisionController`。
+2. 通过该`provisioner`构建`ProvisionController`。
 3. 执行`ProvisionController`的`Run`方法。
 
 # 2. NFS Client Provisioner
