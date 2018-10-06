@@ -53,7 +53,7 @@ kubelet监听etcd，执行对Pod的操作，对容器的操作则是通过Docker
 
 # 4. 容器健康检查
 
-Pod通过探针的方式来检查容器的健康状态，具体可参考[Pod详解#Pod健康检查](http://wiki.haplat.net/pages/viewpage.action?pageId=18233849#Pod详解-Pod健康检查)。
+Pod通过探针的方式来检查容器的健康状态，具体可参考[Pod详解#Pod健康检查](https://www.huweihuang.com/kubernetes-notes/concepts/pod/pod-probe.html)。
 
 # 5. cAdvisor资源监控
 

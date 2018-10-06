@@ -197,11 +197,11 @@ kubernetes API Server作为集群的核心，负责集群各功能模块之间�
 
 每个Node节点上的kubelet定期就会调用API Server的REST接口报告自身状态，API Server接收这些信息后，将节点状态信息更新到etcd中。kubelet也通过API Server的Watch接口监听Pod信息，从而对Node机器上的POD进行管理。
 
-| 监听信息             | kubelet动作          | 备注   |
-| ---------------- | ------------------ | ---- |
-| 新的POD副本被调度绑定到本节点 | 执行POD对应的容器的创建和启动逻辑 |  -    |
-| POD对象被删除         | 删除本节点上相应的POD容器     |  -    |
-| 修改POD信息          | 修改本节点的POD容器        |   -   |
+| 监听信息             | kubelet动作          | 
+| ---------------- | ------------------ | 
+| 新的POD副本被调度绑定到本节点 | 执行POD对应的容器的创建和启动逻辑 |  
+| POD对象被删除         | 删除本节点上相应的POD容器     |  
+| 修改POD信息          | 修改本节点的POD容器        |  
 
 ## 4.2. kube-controller-manager与API Server交互
 
