@@ -506,9 +506,38 @@ if err := RunKubelet(s, kubeDeps, s.RunOnce); err != nil {
 //   3 Standalone 'kubernetes' binary
 // Eventually, #2 will be replaced with instances of #3
 func RunKubelet(kubeServer *options.KubeletServer, kubeDeps *kubelet.Dependencies, runOnce bool) error {
-    ...
-}    
+	...
+	k, err := CreateAndInitKubelet(&kubeServer.KubeletConfiguration,
+		...
+		kubeServer.NodeStatusMaxImages)
+	if err != nil {
+		return fmt.Errorf("failed to create kubelet: %v", err)
+	}
+
+	// NewMainKubelet should have set up a pod source config if one didn't exist
+	// when the builder was run. This is just a precaution.
+	if kubeDeps.PodConfig == nil {
+		return fmt.Errorf("failed to create kubelet, pod source config was nil")
+	}
+	podCfg := kubeDeps.PodConfig
+
+	rlimit.RlimitNumFiles(uint64(kubeServer.MaxOpenFiles))
+
+	// process pods and exit.
+	if runOnce {
+		if _, err := k.RunOnce(podCfg.Updates()); err != nil {
+			return fmt.Errorf("runonce failed: %v", err)
+		}
+		glog.Infof("Started kubelet as runonce")
+	} else {
+		startKubelet(k, podCfg, &kubeServer.KubeletConfiguration, kubeDeps, kubeServer.EnableServer)
+		glog.Infof("Started kubelet")
+	}
+	return nil
+}  
 ```
+
+`RunKubelet`函数核心代码为执行了`CreateAndInitKubelet`和`startKubelet`两个函数的操作，以下对这两个函数进行分析。
 
 ## 4.1. CreateAndInitKubelet
 
