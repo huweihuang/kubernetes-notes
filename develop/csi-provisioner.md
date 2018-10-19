@@ -459,7 +459,7 @@ func NewCSIProvisioner(client kubernetes.Interface,
 }
 ```
 
-**NewControllerClient**
+**[NewControllerClient](https://github.com/container-storage-interface/spec/blob/master/lib/go/csi/v0/csi.pb.go#L4353)**
 
 ```go
 csiClient := csi.NewControllerClient(grpcClient)
@@ -524,6 +524,8 @@ req.ControllerCreateSecrets = provisionerCredentials
 
 > 其中`csiClient`是个接口类型
 
+具体代码参考[controllerClient.CreateVolume](https://github.com/container-storage-interface/spec/blob/master/lib/go/csi/v0/csi.pb.go#L4357)
+
 ```go
 func (c *controllerClient) CreateVolume(ctx context.Context, in *CreateVolumeRequest, opts ...grpc.CallOption) (*CreateVolumeResponse, error) {
 	out := new(CreateVolumeResponse)
@@ -571,6 +573,8 @@ req.ControllerDeleteSecrets = credentials
 
 **具体的`Delete`实现方法如下：**
 
+具体代码参考：[controllerClient.DeleteVolume](https://github.com/container-storage-interface/spec/blob/master/lib/go/csi/v0/csi.pb.go#L4366)
+
 ```go
 func (c *controllerClient) DeleteVolume(ctx context.Context, in *DeleteVolumeRequest, opts ...grpc.CallOption) (*DeleteVolumeResponse, error) {
 	out := new(DeleteVolumeResponse)
@@ -582,13 +586,19 @@ func (c *controllerClient) DeleteVolume(ctx context.Context, in *DeleteVolumeReq
 }
 ```
 
-# 4. ProvisionController.Run
+# 4. [ProvisionController.Run](https://github.com/kubernetes-incubator/external-storage/blob/master/lib/controller/controller.go#L565)
 
 自定义的`provisioner`实现了`Provisoner接口`的`Provision`和`Delete`方法，这两个方法主要对后端存储做创建和删除操作，并没有对PV对象进行创建和删除操作。
 
 PV对象的相关操作具体由`ProvisionController`中的`provisionClaimOperation`和`deleteVolumeOperation`具体执行，同时调用了具体`provisioner`的`Provision`和`Delete`两个方法来对存储数据做处理。
 
-这块代码逻辑可参考：https://www.huweihuang.com/kubernetes-notes/develop/nfs-client-provisioner.html#3-provisioncontroller
+```go
+func main() {
+	provisionController.Run(wait.NeverStop)
+}
+```
+
+这块代码逻辑可参考：[nfs-client-provisioner 源码分析](https://www.huweihuang.com/kubernetes-notes/develop/nfs-client-provisioner.html#3-provisioncontroller)
 
 
 

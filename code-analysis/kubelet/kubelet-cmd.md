@@ -1,10 +1,12 @@
 > 以下代码分析基于 `kubernetes v1.12.0` 版本。
 >
-> 本文主要分析https://github.com/kubernetes/kubernetes/tree/v1.12.0/cmd/kubelet 部分的代码。
+> 本文主要分析 https://github.com/kubernetes/kubernetes/tree/v1.12.0/cmd/kubelet 部分的代码。
 
-# 1. Main 函数
+本文主要分析 `kubernetes/cmd/kubelet`部分，该部分主要涉及`kubelet`的参数解析，及初始化和构造相关的依赖组件（主要在`kubeDeps`结构体中），并没有`kubelet`运行的详细逻辑，该部分位于`kubernetes/pkg/kubelet`模块，待后续文章分析。
 
-具体代码参考：https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kubelet/kubelet.go
+# 1. [Main 函数](https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kubelet/kubelet.go#L36)
+
+`kubelet`的入口函数` Main` 函数，具体代码参考：https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kubelet/kubelet.go。 
 
 ```go
 func main() {
@@ -30,7 +32,7 @@ command := app.NewKubeletCommand(server.SetupSignalHandler())
 err := command.Execute()
 ```
 
-# 2. NewKubeletCommand
+# 2. [NewKubeletCommand](https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kubelet/app/server.go#L108)
 
 `NewKubeletCommand`基于参数创建了一个`*cobra.Command`对象。其中核心部分代码为参数解析部分和`Run`函数。
 
@@ -94,7 +96,7 @@ if len(cmds) > 0 {
 }
 ```
 
-遇到help和version参数则打印相关内容并退出。
+遇到`help`和`version`参数则打印相关内容并退出。
 
 ```go
 // short-circuit on help
@@ -251,8 +253,8 @@ cmd.SetHelpFunc(func(cmd *cobra.Command, args []string) {
 
 其中：
 
-- `AddFlags`代码可参考：https://github.com/kubernetes/kubernetes/blob/0ed33881dc4355495f623c6f22e7dd0b7632b7c0/cmd/kubelet/app/options/options.go#L323
-- `AddKubeletConfigFlags`代码可参考：https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kubelet/app/options/options.go#L424
+- `AddFlags`代码可参考：[kubernetes/cmd/kubelet/app/options/options.go#L323](https://github.com/kubernetes/kubernetes/blob/0ed33881dc4355495f623c6f22e7dd0b7632b7c0/cmd/kubelet/app/options/options.go#L323)
+- `AddKubeletConfigFlags`代码可参考：[kubernetes/cmd/kubelet/app/options/options.go#L424](https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kubelet/app/options/options.go#L424)
 
 ## 2.4. 运行kubelet
 
@@ -266,7 +268,7 @@ if err := Run(kubeletServer, kubeletDeps, stopCh); err != nil {
 }
 ```
 
-# 3. Run
+# 3. [Run](https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kubelet/app/server.go#L406)
 
 ```go
 // Run runs the specified KubeletServer with the given Dependencies. This should never exit.
@@ -497,7 +499,7 @@ if err := RunKubelet(s, kubeDeps, s.RunOnce); err != nil {
 }
 ```
 
-# 4. RunKubelet
+# 4. [RunKubelet](https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kubelet/app/server.go#L914)
 
 ```go
 // RunKubelet is responsible for setting up and running a kubelet.  It is used in three different applications:
@@ -541,7 +543,7 @@ func RunKubelet(kubeServer *options.KubeletServer, kubeDeps *kubelet.Dependencie
 
 ## 4.1. CreateAndInitKubelet
 
-通过传入`kubeDeps`初始化Kubelet。
+通过传入`kubeDeps`调用`CreateAndInitKubelet`初始化Kubelet。
 
 ```go
 k, err := CreateAndInitKubelet(&kubeServer.KubeletConfiguration,
@@ -581,6 +583,8 @@ if err != nil {
 ```
 
 ### 4.1.1. NewMainKubelet
+
+`CreateAndInitKubelet`方法中执行的核心函数是`NewMainKubelet`，`NewMainKubelet`实例化一个`kubelet`对象，该部分的具体代码在`kubernetes/pkg/kubelet`中，具体参考：[kubernetes/pkg/kubelet/kubelet.go#L325](https://github.com/kubernetes/kubernetes/blob/0ed33881dc4355495f623c6f22e7dd0b7632b7c0/pkg/kubelet/kubelet.go#L325)。
 
 ```go
 func CreateAndInitKubelet(kubeCfg *kubeletconfiginternal.KubeletConfiguration,
@@ -631,8 +635,6 @@ func CreateAndInitKubelet(kubeCfg *kubeletconfiginternal.KubeletConfiguration,
 	return k, nil
 }
 ```
-
-`NewMainKubelet`实例化一个`kubelet`对象，该部分的具体代码在`kubernetes/pkg/kubelet`中，具体参考：https://github.com/kubernetes/kubernetes/blob/0ed33881dc4355495f623c6f22e7dd0b7632b7c0/pkg/kubelet/kubelet.go#L325。
 
 ### 4.1.2. PodConfig
 
@@ -692,7 +694,7 @@ go wait.Until(func() {
 }, 0, wait.NeverStop)
 ```
 
-通过长驻进程的方式运行`k.Run`，不退出，将kubelet的运行逻辑引入[kubernetes/pkg/kubelet/kubelet.go](https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/kubelet/kubelet.go#L1382)部分。
+通过长驻进程的方式运行`k.Run`，不退出，将kubelet的运行逻辑引入[kubernetes/pkg/kubelet/kubelet.go](https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/kubelet/kubelet.go#L1382)部分，`kubernetes/pkg/kubelet`部分的运行逻辑待后续文章分析。
 
 # 5. 总结
 

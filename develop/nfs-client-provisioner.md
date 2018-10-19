@@ -326,7 +326,7 @@ return os.Rename(oldPath, archivePath)
 
 如果`storageClass`对象中没有指定`archiveOnDelete`参数或者值为`true`，表明需要删除时存档，即将`oldPath`重命名，命名格式为`oldPath`前面增加`archived-`的前缀。
 
-# 3. ProvisionController 
+# 3. [ProvisionController](https://github.com/kubernetes-incubator/external-storage/blob/master/lib/controller/controller.go#L82) 
 
 ## 3.1. ProvisionController结构体
 
@@ -443,9 +443,9 @@ hasRun     bool
 hasRunLock *sync.Mutex
 ```
 
-## 3.2. NewProvisionController方法
+## 3.2. [NewProvisionController](https://github.com/kubernetes-incubator/external-storage/blob/master/lib/controller/controller.go#L418)方法
 
-> 源码地址：https://github.com/kubernetes-incubator/external-storage/blob/master/lib/controller/controller.go#L383
+> 源码地址：https://github.com/kubernetes-incubator/external-storage/blob/master/lib/controller/controller.go#L418
 
 `NewProvisionController`方法主要用来构造`ProvisionController`。
 
@@ -694,7 +694,7 @@ if controller.classInformer != nil {
 
 通过以上各个部分的构造，最后返回一个具体的`ProvisionController`对象。
 
-## 3.3. ProvisionController.Run方法
+## 3.3. [ProvisionController.Run](https://github.com/kubernetes-incubator/external-storage/blob/master/lib/controller/controller.go#L565)方法
 
 `ProvisionController`的`Run`方法是以常驻进程的方式运行，函数内部再运行其他的controller。
 
@@ -776,7 +776,7 @@ runVolumeWorker→processNextVolumeWorkItem→syncVolumeHandler→syncVolume→d
 
 ## 3.4. Operation
 
-### 3.4.1. provisionClaimOperation
+### 3.4.1. [provisionClaimOperation](https://github.com/kubernetes-incubator/external-storage/blob/master/lib/controller/controller.go#L923)
 
 1、`provisionClaimOperation`入参是PVC，通过PVC获得PV对象，并判断PV对象是否存在，如果存在则退出后续操作。
 
@@ -916,7 +916,7 @@ if err != nil {
 
 如果创建成功，则打印成功的日志，并返回`nil`。
 
-### 3.4.2. deleteVolumeOperation
+### 3.4.2. [deleteVolumeOperation](https://github.com/kubernetes-incubator/external-storage/blob/master/lib/controller/controller.go#L1096)
 
 1、`deleteVolumeOperation`入参是PV，先获得PV对象，并判断是否需要删除。
 

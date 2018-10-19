@@ -1,6 +1,6 @@
 > 以下代码分析基于 `kubernetes v1.12.0` 版本。
 >
-> 本文主要分析<https://github.com/kubernetes/kubernetes/tree/v1.12.0/pkg/kubelet> 部分的代码。
+> 本文主要分析 https://github.com/kubernetes/kubernetes/tree/v1.12.0/pkg/kubelet 部分的代码。
 
 本文主要分析`NewMainKubelet`和`kubelet.Run`的主要部分，对于kubelet所包含的各种manager的执行逻辑和pod的生命周期管理逻辑待后续文章分析。
 
@@ -690,7 +690,7 @@ func (kl *Kubelet) syncLoop(updates <-chan kubetypes.PodUpdate, handler SyncHand
 
 其中调用了`syncLoopIteration`的函数来执行更具体的监控pod变化的循环。
 
-# 3. syncLoopIteration
+# 3. [syncLoopIteration](https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/kubelet/kubelet.go#L1870)
 
 `syncLoopIteration`主要通过几种`channel`来对不同类型的事件进行监听并处理。其中包括：`configCh`、`plegCh`、`syncCh`、`houseKeepingCh`、`livenessManager.Updates()`。
 
