@@ -38,6 +38,7 @@
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/develop/csi-provisioner.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kubelet/kubelet-cmd.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kubelet/kubelet-run.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kubelet/create-pod-by-kubelet.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/monitor/kubernetes-cluster-monitoring.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/monitor/cadvisor-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/monitor/heapster-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
