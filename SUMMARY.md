@@ -52,6 +52,8 @@
         * [kubelet源码分析（一）之 NewKubeletCommand](code-analysis/kubelet/kubelet-cmd.md)
         * [kubelet源码分析（二）之 kubelet的运行](code-analysis/kubelet/kubelet-run.md)
         * [kubelet源码分析（三）之 Pod的创建](code-analysis/kubelet/create-pod-by-kubelet.md)
+    * [kube-controller-manager]()
+        * [kube-controller-manager源码分析（一）之 NewControllerManagerCommand](code-analysis/kube-controller-manager/kube-controller-manager-cmd.md)
 * [监控体系]()
     * [监控体系介绍](monitor/kubernetes-cluster-monitoring.md)
     * [cAdvisor介绍](monitor/cadvisor-introduction.md)
