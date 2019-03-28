@@ -9,7 +9,7 @@
 | 172.16.94.140 | kube-master-0 | k8s master | Centos 4.17.14 | 内存：3G |
 | 172.16.94.141 | kube-node-41  | k8s node   | Centos 4.17.14 | 内存：3G |
 | 172.16.94.142 | kube-node-42  | k8s node   | Centos 4.17.14 | 内存：3G |
-| 172.16.94.135 |               | 部署管理机 |                |          |
+| 172.16.94.135 |               | 部署管理机 |                |   -       |
 
 ## 1.2. 配置管理机
 
@@ -146,7 +146,7 @@ Swap:             0           0           0
 | gcr.io/google_containers/k8s-dns-kube-dns-amd64              | 1.14.8  | 50.5 MB | 80cc5ea4b547 | dns       |
 | gcr.io/google_containers/cluster-proportional-autoscaler-amd64 | 1.1.2   | 50.5 MB | 78cf3f492e6b |           |
 | gcr.io/google_containers/kubernetes-dashboard-amd64          | v1.8.3  | 102 MB  | 0c60bcf89900 | dashboard |
-| nginx                                                        | 1.13    | 109 MB  | ae513a47849c |           |
+| nginx                                                        | 1.13    | 109 MB  | ae513a47849c |  -         |
 
 **3、说明**
 
@@ -215,6 +215,8 @@ kube-master
 
 ## 2.3. 执行部署操作
 
+涉及文件为`cluster.yml`。
+
 ```bash
 # 进入主目录
 cd kubespray
@@ -225,6 +227,8 @@ ansible-playbook -i inventory/k8s/hosts.ini cluster.yml -b -vvv
 > -vvv 参数表示输出运行日志
 
 如果需要`重置`可以执行以下命令：
+
+涉及文件为`reset.yml`。
 
 ```bash
 ansible-playbook -i inventory/k8s/hosts.ini reset.yml -b -vvv
@@ -363,11 +367,162 @@ controller-manager   Healthy   ok
 etcd-0               Healthy   {"health": "true"}
 ```
 
-# 4. troubles shooting
+# 4. k8s集群扩容节点
+
+## 4.1. 修改hosts.ini文件
+
+如果需要扩容`Node`节点，则修改`hosts.ini`文件，增加新增的机器信息。例如，要增加节点机器kube-node-43（IP为172.16.94.143），修改后的文件内容如下：
+
+```bash
+# Configure 'ip' variable to bind kubernetes services on a
+# different ip than the default iface
+# 主机名             ssh登陆IP                        ssh用户名               ssh登陆密码                 机器IP          子网掩码
+kube-master-0     ansible_ssh_host=172.16.94.140   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.140   mask=/24
+kube-node-41      ansible_ssh_host=172.16.94.141   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.141   mask=/24
+kube-node-42      ansible_ssh_host=172.16.94.142   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.142   mask=/24
+kube-node-43      ansible_ssh_host=172.16.94.143   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.143   mask=/24
+
+# configure a bastion host if your nodes are not directly reachable
+# bastion ansible_ssh_host=x.x.x.x
+
+[kube-master]
+kube-master-0
+
+[etcd]
+kube-master-0
+
+[kube-node]
+kube-node-41
+kube-node-42
+kube-node-43
+
+[k8s-cluster:children]
+kube-node
+kube-master
+
+[calico-rr]
+```
+
+## 4.2. 执行扩容命令
+
+涉及文件为`scale.yml`。
+
+```sh
+# 进入主目录
+cd kubespray
+# 执行部署命令
+ansible-playbook -i inventory/k8s/hosts.ini scale.yml -b -vvv
+```
+
+## 4.3. 检查扩容结果
+
+**1、ansible的执行结果**
+
+```bash
+PLAY RECAP ***************************************
+kube-node-41               : ok=228  changed=11   unreachable=0    failed=0
+kube-node-42               : ok=197  changed=6    unreachable=0    failed=0
+kube-node-43               : ok=227  changed=69   unreachable=0    failed=0 # 新增Node节点
+localhost                  : ok=2    changed=0    unreachable=0    failed=0
+```
+
+**2、k8s的节点信息**
+
+```bash
+# kubectl get nodes
+NAME            STATUS    ROLES     AGE       VERSION
+kube-master-0   Ready     master    1d        v1.9.5
+kube-node-41    Ready     node      1d        v1.9.5
+kube-node-42    Ready     node      1d        v1.9.5
+kube-node-43    Ready     node      1m        v1.9.5   #该节点为新增Node节点
+```
+
+可以看到新增的`kube-node-43`节点已经扩容完成。
+
+**3、k8s组件信息**
+
+```bash
+# kubectl get po --namespace=kube-system -o wide
+NAME                                    READY     STATUS    RESTARTS   AGE       IP               NODE
+calico-node-22vsg                       1/1       Running   0          10h       172.16.94.140    kube-master-0
+calico-node-8fz9x                       1/1       Running   2          27m       172.16.94.143    kube-node-43
+calico-node-t7zgw                       1/1       Running   0          10h       172.16.94.142    kube-node-42
+calico-node-zqnx8                       1/1       Running   0          10h       172.16.94.141    kube-node-41
+kube-apiserver-kube-master-0            1/1       Running   0          1d        172.16.94.140    kube-master-0
+kube-controller-manager-kube-master-0   1/1       Running   0          10h       172.16.94.140    kube-master-0
+kube-dns-79d99cdcd5-f2t6t               3/3       Running   0          10h       10.233.100.194   kube-node-41
+kube-dns-79d99cdcd5-gw944               3/3       Running   0          10h       10.233.107.1     kube-node-42
+kube-proxy-kube-master-0                1/1       Running   2          1d        172.16.94.140    kube-master-0
+kube-proxy-kube-node-41                 1/1       Running   3          1d        172.16.94.141    kube-node-41
+kube-proxy-kube-node-42                 1/1       Running   3          1d        172.16.94.142    kube-node-42
+kube-proxy-kube-node-43                 1/1       Running   0          26m       172.16.94.143    kube-node-43
+kube-scheduler-kube-master-0            1/1       Running   0          10h       172.16.94.140    kube-master-0
+kubedns-autoscaler-5564b5585f-lt9bb     1/1       Running   0          10h       10.233.100.193   kube-node-41
+kubernetes-dashboard-69cb58d748-wmb9x   1/1       Running   0          10h       10.233.107.2     kube-node-42
+nginx-proxy-kube-node-41                1/1       Running   3          1d        172.16.94.141    kube-node-41
+nginx-proxy-kube-node-42                1/1       Running   3          1d        172.16.94.142    kube-node-42
+nginx-proxy-kube-node-43                1/1       Running   0          26m       172.16.94.143    kube-node-43
+```
+
+# 5. 部署高可用集群
+
+将`hosts.ini`文件中的master和etcd的机器增加到多台，执行部署命令。
+
+```bash
+ansible-playbook -i inventory/k8s/hosts.ini cluster.yml -b -vvv
+```
+
+例如：
+
+```bash
+# Configure 'ip' variable to bind kubernetes services on a
+# different ip than the default iface
+# 主机名             ssh登陆IP                        ssh用户名               ssh登陆密码                 机器IP          子网掩码
+kube-master-0     ansible_ssh_host=172.16.94.140   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.140   mask=/24
+kube-master-1     ansible_ssh_host=172.16.94.144   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.144   mask=/24
+kube-master-2     ansible_ssh_host=172.16.94.145   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.145   mask=/24
+kube-node-41      ansible_ssh_host=172.16.94.141   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.141   mask=/24
+kube-node-42      ansible_ssh_host=172.16.94.142   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.142   mask=/24
+kube-node-43      ansible_ssh_host=172.16.94.143   ansible_ssh_user=root   ansible_ssh_pass=123  ip=172.16.94.143   mask=/24
+
+# configure a bastion host if your nodes are not directly reachable
+# bastion ansible_ssh_host=x.x.x.x
+
+[kube-master]
+kube-master-0
+kube-master-1
+kube-master-2
+
+[etcd]
+kube-master-0
+kube-master-1
+kube-master-2
+
+[kube-node]
+kube-node-41
+kube-node-42
+kube-node-43
+
+[k8s-cluster:children]
+kube-node
+kube-master
+
+[calico-rr]
+```
+
+# 6. 升级k8s集群
+
+选择对应的k8s版本信息，执行升级命令。涉及文件为`upgrade-cluster.yml`。
+
+```bash
+ansible-playbook upgrade-cluster.yml -b -i inventory/k8s/hosts.ini -e kube_version=v1.10.4 -vvv
+```
+
+# 7. troubles shooting
 
 在使用kubespary部署k8s集群时，主要遇到以下报错。
 
-## 4.1. python-netaddr未安装
+## 7.1. python-netaddr未安装
 
 - 报错内容：
 
@@ -379,7 +534,7 @@ fatal: [node1]: FAILED! => {"failed": true, "msg": "The ipaddr filter requires p
 
 需要安装 python-netaddr，具体参考上述[环境准备]内容。
 
-## 4.2. swap未关闭
+## 7.2. swap未关闭
 
 - 报错内容：
 
@@ -405,7 +560,7 @@ fatal: [kube-node-42]: FAILED! => {
 
 所有部署机器执行`swapoff -a`关闭swap，具体参考上述[环境准备]内容。
 
-## 4.3. 部署机器内存过小
+## 7.3. 部署机器内存过小
 
 - 报错内容：
 
@@ -439,7 +594,7 @@ fatal: [kube-node-42]: FAILED! => {
 
 调大所有部署机器的内存，本示例中调整为3G或以上。
 
-## 4.4. kube-scheduler组件运行失败
+## 7.4. kube-scheduler组件运行失败
 
 kube-scheduler组件运行失败，导致http://localhost:10251/healthz调用失败。
 
@@ -455,7 +610,7 @@ fatal: [node1]: FAILED! => {"attempts": 60, "changed": false, "content": "", "fa
 
 可能是内存不足导致，本示例中调大了部署机器的内存。
 
-## 4.5. docker安装包冲突
+## 7.5. docker安装包冲突
 
 - 报错内容：
 
@@ -497,3 +652,4 @@ sudo yum remove -y docker \
 参考文章：
 
 - https://github.com/kubernetes-incubator/kubespray
+- https://github.com/kubernetes-incubator/kubespray/blob/master/docs/upgrades.md
