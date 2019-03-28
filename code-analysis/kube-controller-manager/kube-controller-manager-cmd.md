@@ -473,6 +473,93 @@ controllers["deployment"] = startDeploymentController
 controllers["statefulset"] = startStatefulSetController
 ```
 
+## 3.4. InformerFactory.Start
+
+`InformerFactory`实际上是`SharedInformerFactory`，具体的实现逻辑在`client-go`中的informer的实现机制。
+
+```go
+ctx.InformerFactory.Start(ctx.Stop)
+close(ctx.InformersStarted)
+```
+
+### 3.4.1. SharedInformerFactory
+
+SharedInformerFactory是一个informer工厂的接口定义。
+
+```go
+// SharedInformerFactory a small interface to allow for adding an informer without an import cycle
+type SharedInformerFactory interface {
+	Start(stopCh <-chan struct{})
+	InformerFor(obj runtime.Object, newFunc NewInformerFunc) cache.SharedIndexInformer
+}
+```
+
+### 3.4.2. sharedInformerFactory.Start
+
+Start方法初始化各种类型的informer
+
+```go
+// Start initializes all requested informers.
+func (f *sharedInformerFactory) Start(stopCh <-chan struct{}) {
+	f.lock.Lock()
+	defer f.lock.Unlock()
+
+	for informerType, informer := range f.informers {
+		if !f.startedInformers[informerType] {
+			go informer.Run(stopCh)
+			f.startedInformers[informerType] = true
+		}
+	}
+}
+```
+
+### 3.4.3. sharedIndexInformer.Run
+
+sharedIndexInformer.Run具体运行了sharedIndexInformer的实现逻辑，该部分待后续对informer机制做专题分析。
+
+```go
+func (s *sharedIndexInformer) Run(stopCh <-chan struct{}) {
+	defer utilruntime.HandleCrash()
+
+	fifo := NewDeltaFIFO(MetaNamespaceKeyFunc, nil, s.indexer)
+
+	cfg := &Config{
+		Queue:            fifo,
+		ListerWatcher:    s.listerWatcher,
+		ObjectType:       s.objectType,
+		FullResyncPeriod: s.resyncCheckPeriod,
+		RetryOnError:     false,
+		ShouldResync:     s.processor.shouldResync,
+
+		Process: s.HandleDeltas,
+	}
+
+	func() {
+		s.startedLock.Lock()
+		defer s.startedLock.Unlock()
+
+		s.controller = New(cfg)
+		s.controller.(*controller).clock = s.clock
+		s.started = true
+	}()
+
+	// Separate stop channel because Processor should be stopped strictly after controller
+	processorStopCh := make(chan struct{})
+	var wg wait.Group
+	defer wg.Wait()              // Wait for Processor to stop
+	defer close(processorStopCh) // Tell Processor to stop
+	wg.StartWithChannel(processorStopCh, s.cacheMutationDetector.Run)
+	wg.StartWithChannel(processorStopCh, s.processor.run)
+
+	defer func() {
+		s.startedLock.Lock()
+		defer s.startedLock.Unlock()
+		s.stopped = true // Don't want any new listeners
+	}()
+	s.controller.Run(stopCh)
+}
+```
+
 # 4. initFn(ctx)
 
 `initFn`实际调用的就是各种类型的controller，代码位于`kubernetes/cmd/kube-controller-manager/app/apps.go`，本文以`startStatefulSetController`和`startDeploymentController`为例，controller中实际调用的函数逻辑位于`kubernetes/pkg/controller`中，待后续分析。
