@@ -1,14 +1,17 @@
-# 学习笔记
+# Kubernetes 学习笔记
 
 > 本系列是 [Kubernetes 学习笔记](https://www.huweihuang.com/kubernetes-notes/)
 > 
 > 更多的学习笔记请参考：
+> - [Kubernetes 学习笔记](https://www.huweihuang.com/kubernetes-notes/)
 > - [Golang 学习笔记](https://www.huweihuang.com/golang-notes/)
+> - [Linux 学习笔记](https://www.huweihuang.com/linux-notes/)
+> - [数据结构学习笔记](https://www.huweihuang.com/data-structure-notes/)
 >
 > 个人博客：[www.huweihuang.com](https://www.huweihuang.com/)
 
 
-# Summary
+# 目录
 
 * [前言](README.md)
 
@@ -43,6 +46,9 @@
     * [Persistent Volume Claim](storage/persistent-volume-claim.md)   
     * [Storage Class](storage/storage-class.md)
     * [Dynamic Volume Provisioning](storage/dynamic-provisioning.md)
+* [CSI]()
+    * [csi-cephfs-plugin](csi/ceph/csi-cephfs-plugin.md)
+    * [部署csi-cephfs](csi/ceph/deploy-csi-cephfs.md)
 * [资源配额]()
     * [资源配额](resource/resource-quota.md)
     * [Pod限额](resource/limit-range.md)
@@ -64,6 +70,8 @@
         * [kubelet源码分析（三）之 Pod的创建](code-analysis/kubelet/create-pod-by-kubelet.md)
     * [kube-controller-manager]()
         * [kube-controller-manager源码分析（一）之 NewControllerManagerCommand](code-analysis/kube-controller-manager/kube-controller-manager-cmd.md)
+        * [kube-controller-manager源码分析（二）之 DeploymentController](code-analysis/kube-controller-manager/deployment-controller.md)
+        * [kube-controller-manager源码分析（三）之 Informer机制](code-analysis/kube-controller-manager/sharedIndexInformer.md)
 * [监控体系]()
     * [监控体系介绍](monitor/kubernetes-cluster-monitoring.md)
     * [cAdvisor介绍](monitor/cadvisor-introduction.md)
@@ -92,4 +100,4 @@
 
 > 如果觉得文章有帮助的话，可以打赏一下，谢谢！
 
-<img src="http://ozilwgpje.bkt.clouddn.com/donate/donate.jpg" width="70%"/>
+<img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599963/blog/donate.jpg" width="70%"/>
