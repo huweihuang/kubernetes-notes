@@ -169,7 +169,13 @@ etcdctl --endpoints=$ENDPOINTS put web3 value3
 etcdctl --endpoints=$ENDPOINTS get web --prefix
 ```
 
-**3、删**
+列出所有的key
+
+```bash
+etcdctl --endpoints=$ENDPOINTS get / --prefix --keys-only
+```
+
+3、删**
 
 ```bash
 etcdctl --endpoints=$ENDPOINTS put key myvalue
@@ -221,6 +227,43 @@ etcdctl --endpoints=http://172.16.5.4:12379 member list -w table
 +-----------------+---------+-------+------------------------+-----------------------------------------------+
 ```
 
+# 4. etcdctl get
+
+使用`etcdctl {command} --help`可以查看具体命令的帮助信息。
+
+```bash
+# etcdctl get --help
+NAME:
+	get - Gets the key or a range of keys
+
+USAGE:
+	etcdctl get [options] <key> [range_end]
+
+OPTIONS:
+      --consistency="l"			Linearizable(l) or Serializable(s)
+      --from-key[=false]		Get keys that are greater than or equal to the given key using byte compare
+      --keys-only[=false]		Get only the keys
+      --limit=0				Maximum number of results
+      --order=""			Order of results; ASCEND or DESCEND (ASCEND by default)
+      --prefix[=false]			Get keys with matching prefix
+      --print-value-only[=false]	Only write values when using the "simple" output format
+      --rev=0				Specify the kv revision
+      --sort-by=""			Sort target; CREATE, KEY, MODIFY, VALUE, or VERSION
+
+GLOBAL OPTIONS:
+      --cacert=""				verify certificates of TLS-enabled secure servers using this CA bundle
+      --cert=""					identify secure client using this TLS certificate file
+      --command-timeout=5s			timeout for short running command (excluding dial timeout)
+      --debug[=false]				enable client-side debug logging
+      --dial-timeout=2s				dial timeout for client connections
+      --endpoints=[127.0.0.1:2379]		gRPC endpoints
+      --hex[=false]				print byte strings as hex encoded strings
+      --insecure-skip-tls-verify[=false]	skip server certificate verification
+      --insecure-transport[=true]		disable transport security for client connections
+      --key=""					identify secure client using this TLS key file
+      --user=""					username[:password] for authentication (prompt if password is not supplied)
+  -w, --write-out="simple"			set the output format (fields, json, protobuf, simple, table)
+```
 
 
 文章参考：
