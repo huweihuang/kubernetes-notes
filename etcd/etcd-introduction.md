@@ -1,7 +1,5 @@
 # 1. Etcd是什么（what）
 
-## 1.1. 概述
-
 etcd is a distributed, consistent key-value store for shared configuration and service discovery, with a focus on being:
 
 - Secure: automatic TLS with optional client cert authentication[可选的SSL客户端证书认证：支持https访问 ]
@@ -9,40 +7,6 @@ etcd is a distributed, consistent key-value store for shared configuration and s
 - Reliable: properly distributed using Raft[使用Raft保证一致性]
 
 etcd是一个分布式、一致性的键值存储系统，主要用于配置共享和服务发现。[以上内容来自etcd官网]
-
-## 1.2. Raft协议[分布式一致性算法]
-
-![raft](https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/raft.png)
-
-raft算法中涉及三种角色，分别是：
-
-- `follower`: 跟随者
-- `candidate`: 候选者，选择过程中的中间状态角色
-- `leader`: 领导者
-
-### 1.2.1. 选举
-
-有两个timeout来控制选举，第一个是`election timeout`，该时间是节点从follower到成为candidate的时间，该时间是150到300毫秒之间的随机值。另一个是`heartbeat timeout`。
-
-- 当某个节点经历完`election timeout`成为candidate后，开启新的一个选举周期，他向其他节点发起投票请求（Request Vote），如果接收到消息的节点在该周期内还没投过票则给这个candidate投票，然后节点重置他的election timeout。
-- 当该candidate获得大部分的选票，则可以当选为leader。
-- leader就开始发送`append entries`给其他follower节点，这个消息会在内部指定的`heartbeat timeout`时间内发出，follower收到该信息则响应给leader。
-- 这个选举周期会继续，直到某个follower没有收到心跳，并成为candidate。
-- 如果某个选举周期内，有两个candidate同时获得相同多的选票，则会等待一个新的周期重新选举。
-
-### 1.2.2. 同步
-
-当选举过程结束，选出了leader，则leader需要把所有的变更同步的系统中的其他节点，该同步也是通过发送`Append Entries`的消息的方式。
-
-- 首先一个客户端发送一个更新给leader，这个更新会添加到leader的日志中。
-- 然后leader会在给follower的下次心跳探测中发送该更新。
-- 一旦大多数follower收到这个更新并返回给leader，leader提交这个更新，然后返回给客户端。 
-
-### 1.2.3. 网络分区
-
-- 当发生网络分区的时候，在不同分区的节点接收不到leader的心跳，则会开启一轮选举，形成不同leader的多个分区集群。
-- 当客户端给不同leader的发送更新消息时，不同分区集群中的节点个数小于原先集群的一半时，更新不会被提交，而节点个数大于集群数一半时，更新会被提交。
-- 当网络分区恢复后，被提交的更新会同步到其他的节点上，其他节点未提交的日志会被回滚并匹配新leader的日志，保证全局的数据是一致的。
 
 
 # 2. 为什么使用Etcd（why）
@@ -102,7 +66,3 @@ Write Ahead Log（预写式日志），是etcd的数据存储方式，用于系�
 
 用于处理etcd支持的各类功能的事务，包括数据索引、节点状态变更、监控与反馈、事件处理与执行等等，是etcd对用户提供的大多数API功能的具体实现。
 
-
-参考：
-
-- http://thesecretlivesofdata.com/raft/

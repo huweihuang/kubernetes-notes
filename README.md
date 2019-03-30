@@ -14,7 +14,8 @@
 # 目录
 
 * [前言](README.md)
-
+* [PaaS]()
+    * [12-Factor](paas/12-factor.md)
 * [安装与配置]()
     * [使用kubespray安装kubernetes](setup/install-k8s-by-kubespray.md)
     * [使用minikube安装kubernetes](setup/install-k8s-by-minikube.md)
@@ -40,6 +41,11 @@
     * [Scheduler](principle/kubernetes-core-principle-scheduler.md)
     * [Kubelet](principle/kubernetes-core-principle-kubelet.md)
     * [网络原理](principle/kubernetes-network.md)
+* [网络]()
+    * [Docker网络](network/docker-network.md)
+    * [k8s网络](network/kubernetes-network.md)
+    * [Flannel]()
+        * [Flannel介绍](network/flannel/flannel-introduction.md)
 * [存储]()
     * [Volume](storage/volume.md)
     * [Persistent Volume](storage/persistent-volume.md)
@@ -86,15 +92,13 @@
         * [Docker Client](docker/code-analysis/code-analysis-of-docker-client.md) 
         * [Docker Daemon](docker/code-analysis/code-analysis-of-docker-daemon.md) 
         * [Docker Server](docker/code-analysis/code-analysis-of-docker-server.md) 
-* [第三方应用]() 
-    * [Etcd]()
-        * [Etcd介绍](third/etcd/etcd-introduction.md)
-        * [Etcd启动配置参数](third/etcd/etcd-setup-flags.md)
-        * [Etcd访问控制](third/etcd/etcd-auth-and-security.md)
-        * [etcdctl命令工具-V2](third/etcd/etcdctl-v2.md)
-        * [etcdctl命令工具-V3](third/etcd/etcdctl-v3.md)
-    * [Flannel]()
-        * [Flannel介绍](third/flannel/flannel-introduction.md)
+* [Etcd]()
+    * [Etcd介绍](etcd/etcd-introduction.md)
+    * [Raft算法](etcd/raft.md)
+    * [Etcd启动配置参数](etcd/etcd-setup-flags.md)
+    * [Etcd访问控制](etcd/etcd-auth-and-security.md)
+    * [etcdctl命令工具-V2](etcd/etcdctl-v2.md)
+    * [etcdctl命令工具-V3](etcd/etcdctl-v3.md)
   
 # 赞赏
 
