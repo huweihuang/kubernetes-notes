@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/paas/12-factor.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/setup/install-k8s-by-kubespray.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/setup/install-k8s-by-minikube.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/concepts/architecture/kubernetes-architecture.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
@@ -19,7 +20,9 @@
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/principle/kubernetes-core-principle-controller-manager.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/principle/kubernetes-core-principle-scheduler.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/principle/kubernetes-core-principle-kubelet.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/principle/kubernetes-network.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/network/docker-network.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/network/kubernetes-network.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/network/flannel/flannel-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/storage/volume.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/storage/persistent-volume.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/storage/persistent-volume-claim.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
@@ -55,10 +58,10 @@
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/docker/code-analysis/code-analysis-of-docker-client.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/docker/code-analysis/code-analysis-of-docker-daemon.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/docker/code-analysis/code-analysis-of-docker-server.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/third/etcd/etcd-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/third/etcd/etcd-setup-flags.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/third/etcd/etcd-auth-and-security.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/third/etcd/etcdctl-v2.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/third/etcd/etcdctl-v3.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/third/flannel/flannel-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/etcd-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/raft.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/etcd-setup-flags.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/etcd-auth-and-security.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/etcdctl-v2.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/etcdctl-v3.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 </urlset>
