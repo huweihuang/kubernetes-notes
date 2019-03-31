@@ -46,9 +46,9 @@ k8s网络场景
 
 Pod作为kubernetes的最小调度单元，Pod是容器的集合，是一个逻辑概念，Pod包含的容器都运行在同一个宿主机上，这些容器将拥有同样的网络空间，容器之间能够互相通信，它们能够在本地访问其它容器的端口。 实际上Pod都包含一个网络容器，它不做任何事情，只是用来接管Pod的网络，业务容器通过加入网络容器的网络从而实现网络共享。Pod网络本质上还是容器网络，所以Pod-IP就是网络容器的Container-IP。
 
-一般将容器云平台的网络模型打造成一个扁平化网络平面，在这个网络平面内，Pod作为一个网络单元同Kubernetes Node的网络处于同一层级
+一般将容器云平台的网络模型打造成一个扁平化网络平面，在这个网络平面内，Pod作为一个网络单元同Kubernetes Node的网络处于同一层级。
 
-## 2.2. 容器之间的通信
+## 2.2. Pod内部容器之间的通信
 
 同一个Pod之间的不同容器因为共享同一个网络命名空间，所以可以直接通过localhost直接通信。
 
@@ -58,6 +58,16 @@ Pod作为kubernetes的最小调度单元，Pod是容器的集合，是一个逻�
 
 同一个Node内，不同的Pod都有一个全局IP，可以直接通过Pod的IP进行通信。Pod地址和docker0在同一个网段。
 
+在pause容器启动之前，会创建一个虚拟以太网接口对（veth pair），该接口对一端连着容器内部的eth0 ，一端连着容器外部的vethxxx，vethxxx会绑定到容器运行时配置使用的网桥bridge0上，从该网络的IP段中分配IP给容器的eth0。
+
+当同节点上的Pod-A发包给Pod-B时，包传送路线如下：
+
+```
+pod-a的eth0—>pod-a的vethxxx—>bridge0—>pod-b的vethxxx—>pod-b的eth0
+```
+
+因为相同节点的bridge0是相通的，因此可以通过bridge0来完成不同pod直接的通信，但是不同节点的bridge0是不通的，因此不同节点的pod之间的通信需要将不同节点的bridge0给连接起来。
+
 ### 2.3.2. 不同Node的Pod之间的通信
 
 不同的Node之间，Node的IP相当于外网IP，可以直接访问，而Node内的docker0和Pod的IP则是内网IP，无法直接跨Node访问。需要通过Node的网卡进行转发。
@@ -66,6 +76,16 @@ Pod作为kubernetes的最小调度单元，Pod是容器的集合，是一个逻�
 
 1. 对整个集群中的Pod-IP分配进行规划，不能有冲突（可以通过第三方开源工具来管理，例如flannel）。
 2. 将Node-IP与该Node上的Pod-IP关联起来，通过Node-IP再转发到Pod-IP。
+
+不同节点的Pod之间的通信需要将不同节点的bridge0给连接起来。连接不同节点的bridge0的方式有好几种，主要有overlay和underlay，或常规的三层路由。
+
+不同节点的bridge0需要不同的IP段，保证Pod IP分配不会冲突，节点的物理网卡eth0也要和该节点的网桥bridge0连接。因此，节点a上的pod-a发包给节点b上的pod-b，路线如下：
+
+```
+节点a上的pod-a的eth0—>pod-a的vethxxx—>节点a的bridge0—>节点a的eth0—>
+
+节点b的eth0—>节点b的bridge0—>pod-b的vethxxx—>pod-b的eth0
+```
 
 ![这里写图片描述](https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/pod-network.png)
 
@@ -80,6 +100,8 @@ Pod作为kubernetes的最小调度单元，Pod是容器的集合，是一个逻�
    例如：Node1和Pod1/ Pod2(同主机)，Pod3(跨主机)能够通信
 
    实现：在容器集群中创建一个覆盖网络(Overlay Network)，联通各个节点，目前可以通过第三方网络插件来创建覆盖网络，比如Flannel和Open vSwitch等。
+
+不同节点间的Pod访问也可以通过calico形成的Pod IP的路由表来解决。
 
 ## 2.4. Service网络
 
