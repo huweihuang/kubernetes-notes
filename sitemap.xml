@@ -42,7 +42,8 @@
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/develop/nfs-client-provisioner.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/develop/csi-provisioner.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kubelet/NewKubeletCommand.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kubelet/kubelet-run.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kubelet/NewMainKubelet.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kubelet/RunKubelet.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kubelet/create-pod-by-kubelet.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kube-controller-manager/NewControllerManagerCommand.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kube-controller-manager/deployment-controller.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
