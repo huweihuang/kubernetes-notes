@@ -240,7 +240,9 @@ cmd.SetHelpFunc(func(cmd *cobra.Command, args []string) {
 })
 ```
 
-# 3. [Run](https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/cloud-controller-manager/app/controllermanager.go#L104)
+# 3. [Run](https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kube-controller-manager/app/controllermanager.go#L141)
+
+> 此部分的代码位于cmd/kube-controller-manager/app/controllermanager.go
 
 基于`KubeControllerManagerOptions`运行controllerManager，不退出。
 
