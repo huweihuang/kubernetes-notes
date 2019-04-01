@@ -82,7 +82,8 @@
 
 * [kubelet]()
     * [NewKubeletCommand](code-analysis/kubelet/NewKubeletCommand.md)
-    * [kubelet的运行](code-analysis/kubelet/kubelet-run.md)
+    * [NewMainKubelet](code-analysis/kubelet/NewMainKubelet.md)
+    * [RunKubelet](code-analysis/kubelet/RunKubelet.md)
     * [Pod的创建](code-analysis/kubelet/create-pod-by-kubelet.md)
 * [kube-controller-manager]()
     * [NewControllerManagerCommand](code-analysis/kube-controller-manager/NewControllerManagerCommand.md)
