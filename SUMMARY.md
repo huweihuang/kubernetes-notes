@@ -91,6 +91,8 @@
     * [Informer机制](code-analysis/kube-controller-manager/sharedIndexInformer.md)
 * [kube-scheduler]()
     * [NewSchedulerCommand](code-analysis/kube-scheduler/NewSchedulerCommand.md)
+    * [registerAlgorithmProvider](code-analysis/kube-scheduler/registerAlgorithmProvider.md)
+    * [scheduleOne](code-analysis/kube-scheduler/scheduleOne.md)
 
 ## 监控体系
 
