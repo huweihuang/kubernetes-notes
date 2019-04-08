@@ -1,5 +1,29 @@
 > 以下代码分析基于 `kubernetes v1.12.0` 版本。
 
+scheduler的`cmd`代码目录结构如下：
+
+```bash
+kube-scheduler
+├── BUILD
+├── OWNERS
+├── app            # app的目录下主要为运行scheduler相关的对象
+│   ├── BUILD
+│   ├── config      
+│   │   ├── BUILD
+│   │   └── config.go    # Scheduler的配置对象config
+│   ├── options      # options主要记录 Scheduler 使用到的参数
+│   │   ├── BUILD
+│   │   ├── configfile.go
+│   │   ├── deprecated.go
+│   │   ├── deprecated_test.go
+│   │   ├── insecure_serving.go
+│   │   ├── insecure_serving_test.go
+│   │   ├── options.go    # 主要包括Options、NewOptions、AddFlags、Config等函数
+│   │   └── options_test.go
+│   └── server.go    # 主要包括 NewSchedulerCommand、NewSchedulerConfig、Run等函数
+└── scheduler.go     # main入口函数
+```
+
 # 1. [Main](https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kube-scheduler/scheduler.go#L34)函数
 
 > 此部分的代码为/cmd/kube-scheduler/scheduler.go
@@ -108,6 +132,8 @@ through the API as necessary.`,
 ```go
 // 构造option
 opts, err := options.NewOptions()
+// 初始化config对象
+c, err := opts.Config()
 // 执行run函数
 err := Run(c.Complete(), stopCh)
 // 添加参数
@@ -162,7 +188,63 @@ func NewOptions() (*Options, error) {
 }
 ```
 
-## 2.2. AddFlags
+## 2.2. Options.Config
+
+Config初始化调度器的配置对象。
+
+```go
+c, err := opts.Config()
+```
+
+Config函数主要执行以下操作：
+
+- 构建scheduler client、leaderElectionClient、eventClient。
+- 创建event recorder
+- 设置leader选举
+- 创建informer对象，主要函数有`NewSharedInformerFactory`和`NewPodInformer`。
+
+Config具体代码如下：
+
+```go
+// Config return a scheduler config object
+func (o *Options) Config() (*schedulerappconfig.Config, error) {
+	c := &schedulerappconfig.Config{}
+	if err := o.ApplyTo(c); err != nil {
+		return nil, err
+	}
+
+	// prepare kube clients.
+	client, leaderElectionClient, eventClient, err := createClients(c.ComponentConfig.ClientConnection, o.Master, c.ComponentConfig.LeaderElection.RenewDeadline.Duration)
+	if err != nil {
+		return nil, err
+	}
+
+	// Prepare event clients.
+	eventBroadcaster := record.NewBroadcaster()
+	recorder := eventBroadcaster.NewRecorder(legacyscheme.Scheme, corev1.EventSource{Component: c.ComponentConfig.SchedulerName})
+
+	// Set up leader election if enabled.
+	var leaderElectionConfig *leaderelection.LeaderElectionConfig
+	if c.ComponentConfig.LeaderElection.LeaderElect {
+		leaderElectionConfig, err = makeLeaderElectionConfig(c.ComponentConfig.LeaderElection, leaderElectionClient, recorder)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	c.Client = client
+	c.InformerFactory = informers.NewSharedInformerFactory(client, 0)
+	c.PodInformer = factory.NewPodInformer(client, 0)
+	c.EventClient = eventClient
+	c.Recorder = recorder
+	c.Broadcaster = eventBroadcaster
+	c.LeaderElection = leaderElectionConfig
+
+	return c, nil
+}
+```
+
+## 2.3. AddFlags
 
 `AddFlags`为SchedulerServer添加指定的参数。
 
@@ -210,7 +292,9 @@ Run函数的主要内容如下：
 
 以下对重点代码分开分析：
 
-## 3.1. scheduler.NewFromConfig
+## 3.1. NewSchedulerConfig
+
+> NewSchedulerConfig初始化SchedulerConfig（此部分具体逻辑待后续专门分析），最后初始化生成scheduler结构体。
 
 ```go
 // Build a scheduler config from the provided algorithm source.
