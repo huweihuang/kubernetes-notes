@@ -4,6 +4,45 @@
 
 本文主要分析 `kubernetes/cmd/kube-controller-manager`部分，该部分主要涉及各种类型的`controller`的参数解析，及初始化，例如 `deployment controller` 和`statefulset controller`。并没有具体`controller`运行的详细逻辑，该部分位于`kubernetes/pkg/controller`模块，待后续文章分析。
 
+`kube-controller-manager`的`cmd`部分代码目录结构如下：
+
+```bash
+kube-controller-manager
+├── app
+│   ├── apps.go   # 包含:startDeploymentController、startReplicaSetController、startStatefulSetController、startDaemonSetController
+│   ├── autoscaling.go # startHPAController
+│   ├── batch.go  # startJobController、startCronJobController
+│   ├── bootstrap.go
+│   ├── certificates.go
+│   ├── cloudproviders.go
+│   ├── config
+│   │   └── config.go   # config: controller manager执行的上下文
+│   ├── controllermanager.go   # 包含:NewControllerManagerCommand、Run、NewControllerInitializers、StartControllers等
+│   ├── core.go   # startServiceController、startNodeIpamController、startPersistentVolumeBinderController、startNamespaceController等
+│   ├── options    # 包含不同controller的option参数
+│   │   ├── attachdetachcontroller.go
+│   │   ├── csrsigningcontroller.go
+│   │   ├── daemonsetcontroller.go   # DaemonSetControllerOptions
+│   │   ├── deploymentcontroller.go  # DeploymentControllerOptions
+│   │   ├── deprecatedcontroller.go
+│   │   ├── endpointcontroller.go
+│   │   ├── garbagecollectorcontroller.go
+│   │   ├── hpacontroller.go
+│   │   ├── jobcontroller.go
+│   │   ├── namespacecontroller.go   # NamespaceControllerOptions
+│   │   ├── nodeipamcontroller.go
+│   │   ├── nodelifecyclecontroller.go
+│   │   ├── options.go  # KubeControllerManagerOptions、NewKubeControllerManagerOptions
+│   │   ├── persistentvolumebindercontroller.go
+│   │   ├── podgccontroller.go
+│   │   ├── replicasetcontroller.go   # ReplicaSetControllerOptions
+│   │   ├── replicationcontroller.go
+│   │   ├── resourcequotacontroller.go
+│   │   ├── serviceaccountcontroller.go
+│   │   └── ttlafterfinishedcontroller.go
+└── controller-manager.go  # main入口函数
+```
+
 # 1. [Main函数](https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kube-controller-manager/controller-manager.go#L41)
 
 `kube-controller-manager`的入口函数`Main`函数，仍然是采用统一的代码风格，使用[Cobra](https://github.com/spf13/cobra)命令行框架。
@@ -480,8 +519,8 @@ controllers["statefulset"] = startStatefulSetController
 `InformerFactory`实际上是`SharedInformerFactory`，具体的实现逻辑在`client-go`中的informer的实现机制。
 
 ```go
-ctx.InformerFactory.Start(ctx.Stop)
-close(ctx.InformersStarted)
+controllerContext.InformerFactory.Start(controllerContext.Stop)
+close(controllerContext.InformersStarted)
 ```
 
 ### 3.4.1. SharedInformerFactory
@@ -613,9 +652,19 @@ func startDeploymentController(ctx ControllerContext) (http.Handler, bool, error
 
 # 5. 总结
 
-1. Kube-controller-manager的代码风格仍然是[Cobra](https://github.com/spf13/cobra)命令行框架。通过构造`ControllerManagerCommand`，然后执行`command.Execute()`函数。
+1. Kube-controller-manager的代码风格仍然是[Cobra](https://github.com/spf13/cobra)命令行框架。通过构造`ControllerManagerCommand`，然后执行`command.Execute()`函数。基本的流程就是构造option，添加Flags，执行Run函数。
 2. cmd部分的调用流程如下：`Main-->NewControllerManagerCommand--> Run(c.Complete(), wait.NeverStop)-->StartControllers-->initFn(ctx)-->startDeploymentController/startStatefulSetController-->sts.NewStatefulSetController.Run/dc.NewDeploymentController.Run-->pkg/controller`。
 3. 其中`CreateControllerContext`函数用来创建各类型controller所需要使用的context，`NewControllerInitializers`初始化了各种类型的controller，其中就包括`DeploymentController`和`StatefulSetController`等。
+
+
+
+基本流程如下：
+
+1. 构造controller manager option，并转化为Config对象，执行Run函数。
+2. 基于Config对象创建ControllerContext，其中包含InformerFactory。
+3. 基于ControllerContext运行各种controller，各种controller的定义在`NewControllerInitializers`中。
+4. 执行InformerFactory.Start。
+5. 每种controller都会构造自身的结构体并执行对应的Run函数。
 
 
 
