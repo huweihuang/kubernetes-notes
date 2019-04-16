@@ -4,6 +4,29 @@
 
 本文主要分析 `kubernetes/cmd/kubelet`部分，该部分主要涉及`kubelet`的参数解析，及初始化和构造相关的依赖组件（主要在`kubeDeps`结构体中），并没有`kubelet`运行的详细逻辑，该部分位于`kubernetes/pkg/kubelet`模块，待后续文章分析。
 
+`kubelet`的`cmd`代码目录结构如下：
+
+```bash
+kubelet
+├── app
+│   ├── auth.go
+│   ├── init_others.go
+│   ├── init_windows.go
+│   ├── options              # 包括kubelet使用到的option
+│   │   ├── container_runtime.go
+│   │   ├── globalflags.go
+│   │   ├── globalflags_linux.go
+│   │   ├── globalflags_other.go
+│   │   ├── options.go     # 包括KubeletFlags、AddFlags、AddKubeletConfigFlags等
+│   │   ├── osflags_others.go
+│   │   └── osflags_windows.go
+│   ├── plugins.go
+│   ├── server.go # 包括NewKubeletCommand、Run、RunKubelet、CreateAndInitKubelet、startKubelet等
+│   ├── server_linux.go
+│   └── server_unsupported.go
+└── kubelet.go              # kubelet的main入口函数
+```
+
 # 1. [Main 函数](https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kubelet/kubelet.go#L36)
 
 `kubelet`的入口函数` Main` 函数，具体代码参考：https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kubelet/kubelet.go。 
