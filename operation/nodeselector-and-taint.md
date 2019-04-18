@@ -19,7 +19,7 @@ catagories:
 
 ## 1.2. 使用方式
 
-## 1.2.1. 给Node打标签
+### 1.2.1. 给Node打标签
 
 ```bash
 # get node的name
@@ -37,7 +37,7 @@ kubectl get nodes --show-labels
 kubectl label node <node-name> <label-key>-
 ```
 
-## 1.2.2. 给Pod设置NodeSelector
+### 1.2.2. 给Pod设置NodeSelector
 
 ```yaml
 apiVersion: v1
@@ -67,7 +67,7 @@ spec:
 
 ## 2.2. 使用方式
 
-## 2.2.1. kubectl taint
+### 2.2.1. kubectl taint
 
 ```bash
 # 给节点增加一个taint，它的key是<key>，value是<value>，effect是NoSchedule。
@@ -93,7 +93,7 @@ tolerations:
   effect: "NoSchedule"
 ```
 
-## 2.2.2. 匹配规则：
+### 2.2.2. 匹配规则：
 
 一个 toleration 和一个 taint 相“匹配”是指它们有一样的 key 和 effect ，并且：
 
@@ -142,7 +142,7 @@ tolerations:
 
 ## 2.3. 使用场景
 
-## 2.3.1. 专用节点
+### 2.3.1. 专用节点
 
 ```bash
 kubectl taint nodes <nodename> dedicated=<groupName>:NoSchedule
@@ -152,7 +152,7 @@ kubectl taint nodes <nodename> dedicated=<groupName>:NoSchedule
 
 如果想**让Pod只调度某些节点且某些节点只接受对应的Pod**，则需要在Node上添加`Label`（例如：`dedicated=groupName`），同时给Pod的`nodeSelector`添加对应的`Label`。
 
-## 2.3.2. 特殊硬件节点
+### 2.3.2. 特殊硬件节点
 
 如果某些节点配置了特殊硬件（例如CPU），希望不使用这些特殊硬件的Pod不被调度该Node，以便保留必要资源。即可给Node设置`taint`和`label`，同时给Pod设置`toleration`和`label`来使得这些Node专门被指定Pod使用。
 
@@ -163,7 +163,7 @@ kubectl taint nodes nodename special=true:NoSchedule
 kubectl taint nodes nodename special=true:PreferNoSchedule
 ```
 
-## 2.3.3. 基于taint驱逐
+### 2.3.3. 基于taint驱逐
 
 effect 值 `NoExecute` ，它会影响已经在节点上运行的 pod，即根据策略对Pod进行驱逐。
 

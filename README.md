@@ -40,7 +40,6 @@
     * [Controller Manager](principle/kubernetes-core-principle-controller-manager.md)
     * [Scheduler](principle/kubernetes-core-principle-scheduler.md)
     * [Kubelet](principle/kubernetes-core-principle-kubelet.md)
-    * [网络原理](principle/kubernetes-network.md)
 * [网络]()
     * [Docker网络](network/docker-network.md)
     * [k8s网络](network/kubernetes-network.md)
