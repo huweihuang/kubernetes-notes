@@ -1,0 +1,2359 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>findNodesThatFit · Kubernetes 学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="胡伟煌">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-toc-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-donate/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../../monitor/kubernetes-cluster-monitoring.html" />
+    
+    
+    <link rel="prev" href="scheduleOne.html" />
+    
+
+    
+        <link rel="shortcut icon" href='../../images/favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../../images/favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="apple-touch-icon" href='../../images/favicon.ico'>
+    
+    
+        
+        <link rel="apple-touch-icon" sizes="120x120" href="../../images/favicon.ico">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="../../images/favicon.ico">
+        
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com" target="_blank" class="custom-link">胡伟煌的博客</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        <li class="header">前言</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                        <b>1.1.</b>
+                    
+                    序言
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">PaaS</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../../paas/12-factor.html">
+            
+                <a href="../../paas/12-factor.html">
+            
+                    
+                        <b>2.1.</b>
+                    
+                    12-Factor
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">安装与配置</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../../setup/install-k8s-by-kubespray.html">
+            
+                <a href="../../setup/install-k8s-by-kubespray.html">
+            
+                    
+                        <b>3.1.</b>
+                    
+                    使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../../setup/install-k8s-by-minikube.html">
+            
+                <a href="../../setup/install-k8s-by-minikube.html">
+            
+                    
+                        <b>3.2.</b>
+                    
+                    使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">基本概念</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" >
+            
+                <span>
+            
+                    
+                        <b>4.1.</b>
+                    
+                    kubernetes架构
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="../../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                        <b>4.1.1.</b>
+                    
+                    Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="../../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                        <b>4.1.2.</b>
+                    
+                    基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" >
+            
+                <span>
+            
+                    
+                        <b>4.2.</b>
+                    
+                    kubernetes对象
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="../../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                        <b>4.2.1.</b>
+                    
+                    理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="../../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                        <b>4.2.2.</b>
+                    
+                    kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" >
+            
+                <span>
+            
+                    
+                        <b>4.3.</b>
+                    
+                    Pod
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.3.1" data-path="../../concepts/pod/pod.html">
+            
+                <a href="../../concepts/pod/pod.html">
+            
+                    
+                        <b>4.3.1.</b>
+                    
+                    Pod介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.2" data-path="../../concepts/pod/pod-definition.html">
+            
+                <a href="../../concepts/pod/pod-definition.html">
+            
+                    
+                        <b>4.3.2.</b>
+                    
+                    Pod定义文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.3" data-path="../../concepts/pod/pod-lifecycle.html">
+            
+                <a href="../../concepts/pod/pod-lifecycle.html">
+            
+                    
+                        <b>4.3.3.</b>
+                    
+                    Pod生命周期
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.4" data-path="../../concepts/pod/pod-probe.html">
+            
+                <a href="../../concepts/pod/pod-probe.html">
+            
+                    
+                        <b>4.3.4.</b>
+                    
+                    Pod健康检查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.5" data-path="../../concepts/pod/pod-volume.html">
+            
+                <a href="../../concepts/pod/pod-volume.html">
+            
+                    
+                        <b>4.3.5.</b>
+                    
+                    Pod存储卷
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.6" data-path="../../concepts/pod/pod-configmap.html">
+            
+                <a href="../../concepts/pod/pod-configmap.html">
+            
+                    
+                        <b>4.3.6.</b>
+                    
+                    Pod配置管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.7" data-path="../../concepts/pod/pod-scheduler.html">
+            
+                <a href="../../concepts/pod/pod-scheduler.html">
+            
+                    
+                        <b>4.3.7.</b>
+                    
+                    Pod调度
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.8" data-path="../../concepts/pod/pod-operation.html">
+            
+                <a href="../../concepts/pod/pod-operation.html">
+            
+                    
+                        <b>4.3.8.</b>
+                    
+                    Pod操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">核心原理</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../../principle/kubernetes-core-principle-api-server.html">
+            
+                <a href="../../principle/kubernetes-core-principle-api-server.html">
+            
+                    
+                        <b>5.1.</b>
+                    
+                    Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../../principle/kubernetes-core-principle-controller-manager.html">
+            
+                <a href="../../principle/kubernetes-core-principle-controller-manager.html">
+            
+                    
+                        <b>5.2.</b>
+                    
+                    Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="../../principle/kubernetes-core-principle-scheduler.html">
+            
+                <a href="../../principle/kubernetes-core-principle-scheduler.html">
+            
+                    
+                        <b>5.3.</b>
+                    
+                    Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="../../principle/kubernetes-core-principle-kubelet.html">
+            
+                <a href="../../principle/kubernetes-core-principle-kubelet.html">
+            
+                    
+                        <b>5.4.</b>
+                    
+                    Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">网络</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../../network/docker-network.html">
+            
+                <a href="../../network/docker-network.html">
+            
+                    
+                        <b>6.1.</b>
+                    
+                    Docker网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="../../network/kubernetes-network.html">
+            
+                <a href="../../network/kubernetes-network.html">
+            
+                    
+                        <b>6.2.</b>
+                    
+                    k8s网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" >
+            
+                <span>
+            
+                    
+                        <b>6.3.</b>
+                    
+                    Flannel
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.3.1" data-path="../../network/flannel/flannel-introduction.html">
+            
+                <a href="../../network/flannel/flannel-introduction.html">
+            
+                    
+                        <b>6.3.1.</b>
+                    
+                    Flannel介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">存储</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../../storage/volume.html">
+            
+                <a href="../../storage/volume.html">
+            
+                    
+                        <b>7.1.</b>
+                    
+                    Volume
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="../../storage/persistent-volume.html">
+            
+                <a href="../../storage/persistent-volume.html">
+            
+                    
+                        <b>7.2.</b>
+                    
+                    Persistent Volume
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="../../storage/persistent-volume-claim.html">
+            
+                <a href="../../storage/persistent-volume-claim.html">
+            
+                    
+                        <b>7.3.</b>
+                    
+                    Persistent Volume Claim
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="../../storage/storage-class.html">
+            
+                <a href="../../storage/storage-class.html">
+            
+                    
+                        <b>7.4.</b>
+                    
+                    Storage Class
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="../../storage/dynamic-provisioning.html">
+            
+                <a href="../../storage/dynamic-provisioning.html">
+            
+                    
+                        <b>7.5.</b>
+                    
+                    Dynamic Volume Provisioning
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">CSI</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../../csi/ceph/csi-cephfs-plugin.html">
+            
+                <a href="../../csi/ceph/csi-cephfs-plugin.html">
+            
+                    
+                        <b>8.1.</b>
+                    
+                    csi-cephfs-plugin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../../csi/ceph/deploy-csi-cephfs.html">
+            
+                <a href="../../csi/ceph/deploy-csi-cephfs.html">
+            
+                    
+                        <b>8.2.</b>
+                    
+                    部署csi-cephfs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">资源配额</li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" data-path="../../resource/resource-quota.html">
+            
+                <a href="../../resource/resource-quota.html">
+            
+                    
+                        <b>9.1.</b>
+                    
+                    资源配额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="../../resource/limit-range.html">
+            
+                <a href="../../resource/limit-range.html">
+            
+                    
+                        <b>9.2.</b>
+                    
+                    Pod限额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="../../resource/quality-of-service.html">
+            
+                <a href="../../resource/quality-of-service.html">
+            
+                    
+                        <b>9.3.</b>
+                    
+                    资源服务质量
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">运维指南</li>
+        
+        
+    
+        <li class="chapter " data-level="10.1" data-path="../../operation/install-kubectl.html">
+            
+                <a href="../../operation/install-kubectl.html">
+            
+                    
+                        <b>10.1.</b>
+                    
+                    kubectl安装与配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.2" data-path="../../operation/kubectl-commands.html">
+            
+                <a href="../../operation/kubectl-commands.html">
+            
+                    
+                        <b>10.2.</b>
+                    
+                    kubectl命令说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.3" data-path="../../operation/safely-drain-node.html">
+            
+                <a href="../../operation/safely-drain-node.html">
+            
+                    
+                        <b>10.3.</b>
+                    
+                    安全迁移节点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.4" data-path="../../operation/kubernetes-troubleshooting.html">
+            
+                <a href="../../operation/kubernetes-troubleshooting.html">
+            
+                    
+                        <b>10.4.</b>
+                    
+                    kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.5" data-path="../../operation/nodeselector-and-taint.html">
+            
+                <a href="../../operation/nodeselector-and-taint.html">
+            
+                    
+                        <b>10.5.</b>
+                    
+                    指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">开发指南</li>
+        
+        
+    
+        <li class="chapter " data-level="11.1" data-path="../../develop/client-go.html">
+            
+                <a href="../../develop/client-go.html">
+            
+                    
+                        <b>11.1.</b>
+                    
+                    client-go的使用及源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="11.2" data-path="../../develop/nfs-client-provisioner.html">
+            
+                <a href="../../develop/nfs-client-provisioner.html">
+            
+                    
+                        <b>11.2.</b>
+                    
+                    nfs-client-provisioner源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="11.3" data-path="../../develop/csi-provisioner.html">
+            
+                <a href="../../develop/csi-provisioner.html">
+            
+                    
+                        <b>11.3.</b>
+                    
+                    csi-provisioner源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">源码分析</li>
+        
+        
+    
+        <li class="chapter " data-level="12.1" >
+            
+                <span>
+            
+                    
+                        <b>12.1.</b>
+                    
+                    kubelet
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.1.1" data-path="../kubelet/NewKubeletCommand.html">
+            
+                <a href="../kubelet/NewKubeletCommand.html">
+            
+                    
+                        <b>12.1.1.</b>
+                    
+                    NewKubeletCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.1.2" data-path="../kubelet/NewMainKubelet.html">
+            
+                <a href="../kubelet/NewMainKubelet.html">
+            
+                    
+                        <b>12.1.2.</b>
+                    
+                    NewMainKubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.1.3" data-path="../kubelet/RunKubelet.html">
+            
+                <a href="../kubelet/RunKubelet.html">
+            
+                    
+                        <b>12.1.3.</b>
+                    
+                    RunKubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.1.4" data-path="../kubelet/create-pod-by-kubelet.html">
+            
+                <a href="../kubelet/create-pod-by-kubelet.html">
+            
+                    
+                        <b>12.1.4.</b>
+                    
+                    Pod的创建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2" >
+            
+                <span>
+            
+                    
+                        <b>12.2.</b>
+                    
+                    kube-controller-manager
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.2.1" data-path="../kube-controller-manager/NewControllerManagerCommand.html">
+            
+                <a href="../kube-controller-manager/NewControllerManagerCommand.html">
+            
+                    
+                        <b>12.2.1.</b>
+                    
+                    NewControllerManagerCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.2" data-path="../kube-controller-manager/deployment-controller.html">
+            
+                <a href="../kube-controller-manager/deployment-controller.html">
+            
+                    
+                        <b>12.2.2.</b>
+                    
+                    DeploymentController
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.3" data-path="../kube-controller-manager/sharedIndexInformer.html">
+            
+                <a href="../kube-controller-manager/sharedIndexInformer.html">
+            
+                    
+                        <b>12.2.3.</b>
+                    
+                    Informer机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3" >
+            
+                <span>
+            
+                    
+                        <b>12.3.</b>
+                    
+                    kube-scheduler
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.3.1" data-path="NewSchedulerCommand.html">
+            
+                <a href="NewSchedulerCommand.html">
+            
+                    
+                        <b>12.3.1.</b>
+                    
+                    NewSchedulerCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.2" data-path="registerAlgorithmProvider.html">
+            
+                <a href="registerAlgorithmProvider.html">
+            
+                    
+                        <b>12.3.2.</b>
+                    
+                    registerAlgorithmProvider
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.3" data-path="scheduleOne.html">
+            
+                <a href="scheduleOne.html">
+            
+                    
+                        <b>12.3.3.</b>
+                    
+                    scheduleOne
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="12.3.4" data-path="findNodesThatFit.html">
+            
+                <a href="findNodesThatFit.html">
+            
+                    
+                        <b>12.3.4.</b>
+                    
+                    findNodesThatFit
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">监控体系</li>
+        
+        
+    
+        <li class="chapter " data-level="13.1" data-path="../../monitor/kubernetes-cluster-monitoring.html">
+            
+                <a href="../../monitor/kubernetes-cluster-monitoring.html">
+            
+                    
+                        <b>13.1.</b>
+                    
+                    监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="13.2" data-path="../../monitor/cadvisor-introduction.html">
+            
+                <a href="../../monitor/cadvisor-introduction.html">
+            
+                    
+                        <b>13.2.</b>
+                    
+                    cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="13.3" data-path="../../monitor/heapster-introduction.html">
+            
+                <a href="../../monitor/heapster-introduction.html">
+            
+                    
+                        <b>13.3.</b>
+                    
+                    Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="13.4" data-path="../../monitor/influxdb-introduction.html">
+            
+                <a href="../../monitor/influxdb-introduction.html">
+            
+                    
+                        <b>13.4.</b>
+                    
+                    Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Docker</li>
+        
+        
+    
+        <li class="chapter " data-level="14.1" data-path="../../docker/install-docker.html">
+            
+                <a href="../../docker/install-docker.html">
+            
+                    
+                        <b>14.1.</b>
+                    
+                    安装Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.2" data-path="../../docker/docker-architecture.html">
+            
+                <a href="../../docker/docker-architecture.html">
+            
+                    
+                        <b>14.2.</b>
+                    
+                    Docker架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.3" data-path="../../docker/docker-commands-principle.html">
+            
+                <a href="../../docker/docker-commands-principle.html">
+            
+                    
+                        <b>14.3.</b>
+                    
+                    Docker常用命令原理图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.4" data-path="../../docker/dockerfile-usage.html">
+            
+                <a href="../../docker/dockerfile-usage.html">
+            
+                    
+                        <b>14.4.</b>
+                    
+                    Dockerfile使用说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5" >
+            
+                <span>
+            
+                    
+                        <b>14.5.</b>
+                    
+                    Docker源码分析
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="14.5.1" data-path="../../docker/code-analysis/code-analysis-of-docker-client.html">
+            
+                <a href="../../docker/code-analysis/code-analysis-of-docker-client.html">
+            
+                    
+                        <b>14.5.1.</b>
+                    
+                    Docker Client
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5.2" data-path="../../docker/code-analysis/code-analysis-of-docker-daemon.html">
+            
+                <a href="../../docker/code-analysis/code-analysis-of-docker-daemon.html">
+            
+                    
+                        <b>14.5.2.</b>
+                    
+                    Docker Daemon
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5.3" data-path="../../docker/code-analysis/code-analysis-of-docker-server.html">
+            
+                <a href="../../docker/code-analysis/code-analysis-of-docker-server.html">
+            
+                    
+                        <b>14.5.3.</b>
+                    
+                    Docker Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Etcd</li>
+        
+        
+    
+        <li class="chapter " data-level="15.1" data-path="../../etcd/etcd-introduction.html">
+            
+                <a href="../../etcd/etcd-introduction.html">
+            
+                    
+                        <b>15.1.</b>
+                    
+                    Etcd介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.2" data-path="../../etcd/raft.html">
+            
+                <a href="../../etcd/raft.html">
+            
+                    
+                        <b>15.2.</b>
+                    
+                    Raft算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.3" data-path="../../etcd/etcd-setup-flags.html">
+            
+                <a href="../../etcd/etcd-setup-flags.html">
+            
+                    
+                        <b>15.3.</b>
+                    
+                    Etcd启动配置参数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.4" data-path="../../etcd/etcd-auth-and-security.html">
+            
+                <a href="../../etcd/etcd-auth-and-security.html">
+            
+                    
+                        <b>15.4.</b>
+                    
+                    Etcd访问控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.5" data-path="../../etcd/etcdctl-v2.html">
+            
+                <a href="../../etcd/etcdctl-v2.html">
+            
+                    
+                        <b>15.5.</b>
+                    
+                    etcdctl命令工具-V2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.6" data-path="../../etcd/etcdctl-v3.html">
+            
+                <a href="../../etcd/etcdctl-v3.html">
+            
+                    
+                        <b>15.6.</b>
+                    
+                    etcdctl命令工具-V3
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >findNodesThatFit</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="kube-scheduler&#x6E90;&#x7801;&#x5206;&#x6790;&#xFF08;&#x56DB;&#xFF09;&#x4E4B;-findnodesthatfit">kube-scheduler&#x6E90;&#x7801;&#x5206;&#x6790;&#xFF08;&#x56DB;&#xFF09;&#x4E4B; findNodesThatFit</h1>
+<blockquote>
+<p>&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#x5206;&#x6790;&#x57FA;&#x4E8E; <code>kubernetes v1.12.0</code> &#x7248;&#x672C;&#x3002;</p>
+</blockquote>
+<p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x5206;&#x6790;&#x8C03;&#x5EA6;&#x903B;&#x8F91;&#x4E2D;&#x7684;&#x9884;&#x9009;&#x7B56;&#x7565;&#xFF0C;&#x5373;&#x7B2C;&#x4E00;&#x6B65;&#x7B5B;&#x9009;&#x51FA;&#x7B26;&#x5408;pod&#x8C03;&#x5EA6;&#x6761;&#x4EF6;&#x7684;&#x8282;&#x70B9;&#x3002;</p>
+<h1 id="1-&#x8C03;&#x7528;&#x5165;&#x53E3;">1. <a href="https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/scheduler/core/generic_scheduler.go#L117" target="_blank">&#x8C03;&#x7528;&#x5165;&#x53E3;</a></h1>
+<p>&#x9884;&#x9009;&#xFF0C;&#x901A;&#x8FC7;&#x9884;&#x9009;&#x51FD;&#x6570;&#x6765;&#x5224;&#x65AD;&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x662F;&#x5426;&#x9002;&#x5408;&#x88AB;&#x8BE5;Pod&#x8C03;&#x5EA6;&#x3002;</p>
+<p><code>genericScheduler.Schedule</code>&#x4E2D;&#x5BF9;<code>findNodesThatFit</code>&#x7684;&#x8C03;&#x7528;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;pkg/scheduler/core/generic_scheduler.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>g <span class="token operator">*</span>genericScheduler<span class="token punctuation">)</span> <span class="token function">Schedule</span><span class="token punctuation">(</span>pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> nodeLister algorithm<span class="token punctuation">.</span>NodeLister<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+  <span class="token comment">// &#x5217;&#x51FA;&#x6240;&#x6709;&#x7684;&#x8282;&#x70B9;</span>
+    nodes<span class="token punctuation">,</span> err <span class="token operator">:=</span> nodeLister<span class="token punctuation">.</span><span class="token function">List</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>nodes<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> ErrNoNodesAvailable
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// Used for all fit and priority funcs.</span>
+    err <span class="token operator">=</span> g<span class="token punctuation">.</span>cache<span class="token punctuation">.</span><span class="token function">UpdateNodeNameToInfoMap</span><span class="token punctuation">(</span>g<span class="token punctuation">.</span>cachedNodeInfoMap<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    trace<span class="token punctuation">.</span><span class="token function">Step</span><span class="token punctuation">(</span><span class="token string">&quot;Computing predicates&quot;</span><span class="token punctuation">)</span>
+    startPredicateEvalTime <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token comment">// &#x8C03;&#x7528;findNodesThatFit&#x8FC7;&#x6EE4;&#x51FA;&#x9884;&#x9009;&#x8282;&#x70B9;</span>
+    filteredNodes<span class="token punctuation">,</span> failedPredicateMap<span class="token punctuation">,</span> err <span class="token operator">:=</span> g<span class="token punctuation">.</span><span class="token function">findNodesThatFit</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> nodes<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>filteredNodes<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span>FitError<span class="token punctuation">{</span>
+            Pod<span class="token punctuation">:</span>              pod<span class="token punctuation">,</span>
+            NumAllNodes<span class="token punctuation">:</span>      <span class="token function">len</span><span class="token punctuation">(</span>nodes<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            FailedPredicates<span class="token punctuation">:</span> failedPredicateMap<span class="token punctuation">,</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token comment">// metrics</span>
+  metrics<span class="token punctuation">.</span>SchedulingAlgorithmPredicateEvaluationDuration<span class="token punctuation">.</span><span class="token function">Observe</span><span class="token punctuation">(</span>metrics<span class="token punctuation">.</span><span class="token function">SinceInMicroseconds</span><span class="token punctuation">(</span>startPredicateEvalTime<span class="token punctuation">)</span><span class="token punctuation">)</span>
+              metrics<span class="token punctuation">.</span>SchedulingLatency<span class="token punctuation">.</span><span class="token function">WithLabelValues</span><span class="token punctuation">(</span>metrics<span class="token punctuation">.</span>PredicateEvaluation<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Observe</span><span class="token punctuation">(</span>metrics<span class="token punctuation">.</span><span class="token function">SinceInSeconds</span><span class="token punctuation">(</span>startPredicateEvalTime<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6838;&#x5FC3;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// &#x8C03;&#x7528;findNodesThatFit&#x8FC7;&#x6EE4;&#x51FA;&#x9884;&#x9009;&#x8282;&#x70B9;</span>
+filteredNodes<span class="token punctuation">,</span> failedPredicateMap<span class="token punctuation">,</span> err <span class="token operator">:=</span> g<span class="token punctuation">.</span><span class="token function">findNodesThatFit</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> nodes<span class="token punctuation">)</span>
+</code></pre>
+<h1 id="2-findnodesthatfit">2. <a href="https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/scheduler/core/generic_scheduler.go#L365" target="_blank">findNodesThatFit</a></h1>
+<p><code>findNodesThatFit</code>&#x57FA;&#x4E8E;&#x7ED9;&#x5B9A;&#x7684;&#x9884;&#x9009;&#x51FD;&#x6570;&#x8FC7;&#x6EE4;node&#xFF0C;&#x6BCF;&#x4E2A;node&#x4F20;&#x5165;&#x5230;&#x9884;&#x9009;&#x51FD;&#x6570;&#x4E2D;&#x6765;&#x786E;&#x5B9E;&#x8BE5;&#x8282;&#x70B9;&#x662F;&#x5426;&#x7B26;&#x5408;&#x8981;&#x6C42;&#x3002;</p>
+<p><code>findNodesThatFit</code>&#x7684;&#x5165;&#x53C2;&#x662F;&#x88AB;&#x8C03;&#x5EA6;&#x7684;pod&#x548C;&#x5F53;&#x524D;&#x7684;&#x8282;&#x70B9;&#x5217;&#x8868;&#xFF0C;&#x8FD4;&#x56DE;&#x9884;&#x9009;&#x8282;&#x70B9;&#x5217;&#x8868;&#x548C;&#x9519;&#x8BEF;&#x3002;</p>
+<p><code>findNodesThatFit</code>&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>&#x8BBE;&#x7F6E;&#x53EF;&#x884C;&#x8282;&#x70B9;&#x7684;&#x603B;&#x6570;&#xFF0C;&#x4F5C;&#x4E3A;&#x9884;&#x9009;&#x8282;&#x70B9;&#x6570;&#x7EC4;&#x7684;&#x5BB9;&#x91CF;&#xFF0C;&#x907F;&#x514D;&#x603B;&#x8282;&#x70B9;&#x8FC7;&#x591A;&#x9700;&#x8981;&#x7B5B;&#x9009;&#x7684;&#x8282;&#x70B9;&#x8FC7;&#x591A;&#x3002;</li>
+<li>&#x901A;&#x8FC7;<code>NodeTree</code>&#x4E0D;&#x65AD;&#x83B7;&#x53D6;&#x4E0B;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x6765;&#x5224;&#x65AD;&#x8BE5;&#x8282;&#x70B9;&#x662F;&#x5426;&#x6EE1;&#x8DB3;pod&#x7684;&#x8C03;&#x5EA6;&#x6761;&#x4EF6;&#x3002;</li>
+<li>&#x901A;&#x8FC7;&#x4E4B;&#x524D;&#x6CE8;&#x518C;&#x7684;&#x5404;&#x79CD;&#x9884;&#x9009;&#x51FD;&#x6570;&#x6765;&#x5224;&#x65AD;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x662F;&#x5426;&#x7B26;&#x5408;pod&#x7684;&#x8C03;&#x5EA6;&#x6761;&#x4EF6;&#x3002;</li>
+<li>&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x6EE1;&#x8DB3;&#x8C03;&#x5EA6;&#x6761;&#x4EF6;&#x7684;node&#x5217;&#x8868;&#xFF0C;&#x4F9B;&#x4E0B;&#x4E00;&#x6B65;&#x7684;&#x4F18;&#x9009;&#x64CD;&#x4F5C;&#x3002;</li>
+</ol>
+<p><code>findNodesThatFit</code>&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;pkg/scheduler/core/generic_scheduler.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Filters the nodes to find the ones that fit based on the given predicate functions</span>
+<span class="token comment">// Each node is passed through the predicate functions to determine if it is a fit</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>g <span class="token operator">*</span>genericScheduler<span class="token punctuation">)</span> <span class="token function">findNodesThatFit</span><span class="token punctuation">(</span>pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> nodes <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">,</span> FailedPredicateMap<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token keyword">var</span> filtered <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node
+   failedPredicateMap <span class="token operator">:=</span> FailedPredicateMap<span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+   <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>g<span class="token punctuation">.</span>predicates<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+      filtered <span class="token operator">=</span> nodes
+   <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      allNodes <span class="token operator">:=</span> <span class="token function">int32</span><span class="token punctuation">(</span>g<span class="token punctuation">.</span>cache<span class="token punctuation">.</span><span class="token function">NodeTree</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>NumNodes<span class="token punctuation">)</span>
+      numNodesToFind <span class="token operator">:=</span> g<span class="token punctuation">.</span><span class="token function">numFeasibleNodesToFind</span><span class="token punctuation">(</span>allNodes<span class="token punctuation">)</span>
+
+      <span class="token comment">// Create filtered list with enough space to avoid growing it</span>
+      <span class="token comment">// and allow assigning.</span>
+      filtered <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">,</span> numNodesToFind<span class="token punctuation">)</span>
+      errs <span class="token operator">:=</span> errors<span class="token punctuation">.</span>MessageCountMap<span class="token punctuation">{</span><span class="token punctuation">}</span>
+      <span class="token keyword">var</span> <span class="token punctuation">(</span>
+         predicateResultLock sync<span class="token punctuation">.</span>Mutex
+         filteredLen         <span class="token builtin">int32</span>
+         equivClass          <span class="token operator">*</span>equivalence<span class="token punctuation">.</span>Class
+      <span class="token punctuation">)</span>
+
+      ctx<span class="token punctuation">,</span> cancel <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">WithCancel</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+      <span class="token comment">// We can use the same metadata producer for all nodes.</span>
+      meta <span class="token operator">:=</span> g<span class="token punctuation">.</span><span class="token function">predicateMetaProducer</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> g<span class="token punctuation">.</span>cachedNodeInfoMap<span class="token punctuation">)</span>
+
+      <span class="token keyword">if</span> g<span class="token punctuation">.</span>equivalenceCache <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+         <span class="token comment">// getEquivalenceClassInfo will return immediately if no equivalence pod found</span>
+         equivClass <span class="token operator">=</span> equivalence<span class="token punctuation">.</span><span class="token function">NewClass</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+
+      checkNode <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>i <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token keyword">var</span> nodeCache <span class="token operator">*</span>equivalence<span class="token punctuation">.</span>NodeCache
+         nodeName <span class="token operator">:=</span> g<span class="token punctuation">.</span>cache<span class="token punctuation">.</span><span class="token function">NodeTree</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Next</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+         <span class="token keyword">if</span> g<span class="token punctuation">.</span>equivalenceCache <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            nodeCache<span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">=</span> g<span class="token punctuation">.</span>equivalenceCache<span class="token punctuation">.</span><span class="token function">GetNodeCache</span><span class="token punctuation">(</span>nodeName<span class="token punctuation">)</span>
+         <span class="token punctuation">}</span>
+         fits<span class="token punctuation">,</span> failedPredicates<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">podFitsOnNode</span><span class="token punctuation">(</span>
+            pod<span class="token punctuation">,</span>
+            meta<span class="token punctuation">,</span>
+            g<span class="token punctuation">.</span>cachedNodeInfoMap<span class="token punctuation">[</span>nodeName<span class="token punctuation">]</span><span class="token punctuation">,</span>
+            g<span class="token punctuation">.</span>predicates<span class="token punctuation">,</span>
+            g<span class="token punctuation">.</span>cache<span class="token punctuation">,</span>
+            nodeCache<span class="token punctuation">,</span>
+            g<span class="token punctuation">.</span>schedulingQueue<span class="token punctuation">,</span>
+            g<span class="token punctuation">.</span>alwaysCheckAllPredicates<span class="token punctuation">,</span>
+            equivClass<span class="token punctuation">,</span>
+         <span class="token punctuation">)</span>
+         <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            predicateResultLock<span class="token punctuation">.</span><span class="token function">Lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            errs<span class="token punctuation">[</span>err<span class="token punctuation">.</span><span class="token function">Error</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token operator">++</span>
+            predicateResultLock<span class="token punctuation">.</span><span class="token function">Unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span>
+         <span class="token punctuation">}</span>
+         <span class="token keyword">if</span> fits <span class="token punctuation">{</span>
+            length <span class="token operator">:=</span> atomic<span class="token punctuation">.</span><span class="token function">AddInt32</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>filteredLen<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> length <span class="token operator">&gt;</span> numNodesToFind <span class="token punctuation">{</span>
+               <span class="token function">cancel</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+               atomic<span class="token punctuation">.</span><span class="token function">AddInt32</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>filteredLen<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+               filtered<span class="token punctuation">[</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> g<span class="token punctuation">.</span>cachedNodeInfoMap<span class="token punctuation">[</span>nodeName<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">Node</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+         <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            predicateResultLock<span class="token punctuation">.</span><span class="token function">Lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            failedPredicateMap<span class="token punctuation">[</span>nodeName<span class="token punctuation">]</span> <span class="token operator">=</span> failedPredicates
+            predicateResultLock<span class="token punctuation">.</span><span class="token function">Unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+         <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// Stops searching for more nodes once the configured number of feasible nodes</span>
+      <span class="token comment">// are found.</span>
+      workqueue<span class="token punctuation">.</span><span class="token function">ParallelizeUntil</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">,</span> <span class="token function">int</span><span class="token punctuation">(</span>allNodes<span class="token punctuation">)</span><span class="token punctuation">,</span> checkNode<span class="token punctuation">)</span>
+
+      filtered <span class="token operator">=</span> filtered<span class="token punctuation">[</span><span class="token punctuation">:</span>filteredLen<span class="token punctuation">]</span>
+      <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>errs<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+         <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> FailedPredicateMap<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> errors<span class="token punctuation">.</span><span class="token function">CreateAggregateFromMessageCountMap</span><span class="token punctuation">(</span>errs<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+   <span class="token punctuation">}</span>
+
+   <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>filtered<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> <span class="token function">len</span><span class="token punctuation">(</span>g<span class="token punctuation">.</span>extenders<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+      <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> extender <span class="token operator">:=</span> <span class="token keyword">range</span> g<span class="token punctuation">.</span>extenders <span class="token punctuation">{</span>
+         <span class="token keyword">if</span> <span class="token operator">!</span>extender<span class="token punctuation">.</span><span class="token function">IsInterested</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">continue</span>
+         <span class="token punctuation">}</span>
+         filteredList<span class="token punctuation">,</span> failedMap<span class="token punctuation">,</span> err <span class="token operator">:=</span> extender<span class="token punctuation">.</span><span class="token function">Filter</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> filtered<span class="token punctuation">,</span> g<span class="token punctuation">.</span>cachedNodeInfoMap<span class="token punctuation">)</span>
+         <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> extender<span class="token punctuation">.</span><span class="token function">IsIgnorable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+               glog<span class="token punctuation">.</span><span class="token function">Warningf</span><span class="token punctuation">(</span><span class="token string">&quot;Skipping extender %v as it returned error %v and has ignorable flag set&quot;</span><span class="token punctuation">,</span>
+                  extender<span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+               <span class="token keyword">continue</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+               <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> FailedPredicateMap<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> err
+            <span class="token punctuation">}</span>
+         <span class="token punctuation">}</span>
+
+         <span class="token keyword">for</span> failedNodeName<span class="token punctuation">,</span> failedMsg <span class="token operator">:=</span> <span class="token keyword">range</span> failedMap <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token boolean">_</span><span class="token punctuation">,</span> found <span class="token operator">:=</span> failedPredicateMap<span class="token punctuation">[</span>failedNodeName<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token operator">!</span>found <span class="token punctuation">{</span>
+               failedPredicateMap<span class="token punctuation">[</span>failedNodeName<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>algorithm<span class="token punctuation">.</span>PredicateFailureReason<span class="token punctuation">{</span><span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            failedPredicateMap<span class="token punctuation">[</span>failedNodeName<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>failedPredicateMap<span class="token punctuation">[</span>failedNodeName<span class="token punctuation">]</span><span class="token punctuation">,</span> predicates<span class="token punctuation">.</span><span class="token function">NewFailureReason</span><span class="token punctuation">(</span>failedMsg<span class="token punctuation">)</span><span class="token punctuation">)</span>
+         <span class="token punctuation">}</span>
+         filtered <span class="token operator">=</span> filteredList
+         <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>filtered<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+            <span class="token keyword">break</span>
+         <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+   <span class="token punctuation">}</span>
+   <span class="token keyword">return</span> filtered<span class="token punctuation">,</span> failedPredicateMap<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4EE5;&#x4E0B;&#x5BF9;<code>findNodesThatFit</code>&#x5206;&#x6BB5;&#x5206;&#x6790;&#x3002;</p>
+<h1 id="3-numfeasiblenodestofind">3. numFeasibleNodesToFind</h1>
+<p><code>findNodesThatFit</code>&#x5148;&#x57FA;&#x4E8E;&#x6240;&#x6709;&#x7684;&#x8282;&#x70B9;&#x627E;&#x51FA;&#x53EF;&#x884C;&#x7684;&#x8282;&#x70B9;&#x662F;&#x603B;&#x6570;&#x3002;<code>numFeasibleNodesToFind</code>&#x7684;&#x4F5C;&#x7528;&#x4E3B;&#x8981;&#x662F;&#x907F;&#x514D;&#x5F53;&#x8282;&#x70B9;&#x8FC7;&#x591A;&#xFF08;&#x8D85;&#x8FC7;100&#xFF09;&#x5F71;&#x54CD;&#x8C03;&#x5EA6;&#x7684;&#x6548;&#x7387;&#x3002;</p>
+<pre class="language-"><code class="lang-go">allNodes <span class="token operator">:=</span> <span class="token function">int32</span><span class="token punctuation">(</span>g<span class="token punctuation">.</span>cache<span class="token punctuation">.</span><span class="token function">NodeTree</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>NumNodes<span class="token punctuation">)</span>
+numNodesToFind <span class="token operator">:=</span> g<span class="token punctuation">.</span><span class="token function">numFeasibleNodesToFind</span><span class="token punctuation">(</span>allNodes<span class="token punctuation">)</span>
+
+<span class="token comment">// Create filtered list with enough space to avoid growing it</span>
+<span class="token comment">// and allow assigning.</span>
+filtered <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">,</span> numNodesToFind<span class="token punctuation">)</span>
+</code></pre>
+<p><code>numFeasibleNodesToFind</code>&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li>&#x5982;&#x679C;&#x6240;&#x6709;&#x7684;node&#x8282;&#x70B9;&#x5C0F;&#x4E8E;<code>minFeasibleNodesToFind</code>(&#x5F53;&#x524D;&#x9ED8;&#x8BA4;&#x4E3A;100)&#x5219;&#x8FD4;&#x56DE;&#x8282;&#x70B9;&#x6570;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x8282;&#x70B9;&#x6570;&#x8D85;100&#xFF0C;&#x5219;&#x53D6;&#x6307;&#x5B9A;&#x8BA1;&#x5206;&#x7684;&#x767E;&#x5206;&#x6BD4;&#x7684;&#x8282;&#x70B9;&#x6570;&#xFF0C;&#x5F53;&#x8BE5;&#x767E;&#x5206;&#x6BD4;&#x540E;&#x7684;&#x6570;&#x76EE;&#x4ECD;&#x5C0F;&#x4E8E;<code>minFeasibleNodesToFind</code>&#xFF0C;&#x5219;&#x8FD4;&#x56DE;<code>minFeasibleNodesToFind</code>&#x3002;</li>
+<li>&#x5982;&#x679C;&#x767E;&#x5206;&#x6BD4;&#x540E;&#x7684;&#x6570;&#x76EE;&#x5927;&#x4E8E;<code>minFeasibleNodesToFind</code>&#xFF0C;&#x5219;&#x8FD4;&#x56DE;&#x8BE5;&#x767E;&#x5206;&#x6BD4;&#x3002;</li>
+</ul>
+<pre class="language-"><code class="lang-go"><span class="token comment">// numFeasibleNodesToFind returns the number of feasible nodes that once found, the scheduler stops</span>
+<span class="token comment">// its search for more feasible nodes.</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>g <span class="token operator">*</span>genericScheduler<span class="token punctuation">)</span> <span class="token function">numFeasibleNodesToFind</span><span class="token punctuation">(</span>numAllNodes <span class="token builtin">int32</span><span class="token punctuation">)</span> <span class="token builtin">int32</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> numAllNodes <span class="token operator">&lt;</span> minFeasibleNodesToFind <span class="token operator">||</span> g<span class="token punctuation">.</span>percentageOfNodesToScore <span class="token operator">&lt;=</span> <span class="token number">0</span> <span class="token operator">||</span>
+        g<span class="token punctuation">.</span>percentageOfNodesToScore <span class="token operator">&gt;=</span> <span class="token number">100</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> numAllNodes
+    <span class="token punctuation">}</span>
+    numNodes <span class="token operator">:=</span> numAllNodes <span class="token operator">*</span> g<span class="token punctuation">.</span>percentageOfNodesToScore <span class="token operator">/</span> <span class="token number">100</span>
+    <span class="token keyword">if</span> numNodes <span class="token operator">&lt;</span> minFeasibleNodesToFind <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> minFeasibleNodesToFind
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> numNodes
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="4-checknode">4. checkNode</h1>
+<p><code>checkNode</code>&#x662F;&#x4E00;&#x4E2A;&#x6821;&#x9A8C;node&#x662F;&#x5426;&#x7B26;&#x5408;&#x8981;&#x6C42;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5176;&#x4E2D;&#x5B9E;&#x9645;&#x8C03;&#x7528;&#x5230;&#x7684;&#x6838;&#x5FC3;&#x51FD;&#x6570;&#x662F;<code>podFitsOnNode</code>&#x3002;&#x518D;&#x901A;&#x8FC7;<code>workqueue</code>&#x5E76;&#x53D1;&#x6267;&#x884C;<code>checkNode</code>&#x64CD;&#x4F5C;&#x3002;</p>
+<p><strong><code>checkNode</code>&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<ol>
+<li>&#x901A;&#x8FC7;cache&#x4E2D;&#x7684;nodeTree&#x4E0D;&#x65AD;&#x83B7;&#x53D6;&#x4E0B;&#x4E00;&#x4E2A;node&#x3002;</li>
+<li>&#x5C06;&#x5F53;&#x524D;node&#x548C;pod&#x4F20;&#x5165;<code>podFitsOnNode</code>&#x5224;&#x65AD;&#x5F53;&#x524D;node&#x662F;&#x5426;&#x7B26;&#x5408;&#x8981;&#x6C42;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x5F53;&#x524D;node&#x7B26;&#x5408;&#x8981;&#x6C42;&#x5C31;&#x5C06;&#x5F53;&#x524D;node&#x52A0;&#x5165;&#x9884;&#x9009;&#x8282;&#x70B9;&#x7684;&#x6570;&#x7EC4;&#x4E2D;<code>filtered</code>&#x3002;</li>
+<li>&#x5982;&#x679C;&#x5F53;&#x524D;node&#x4E0D;&#x6EE1;&#x8DB3;&#x8981;&#x6C42;&#xFF0C;&#x5219;&#x52A0;&#x5165;&#x5230;&#x5931;&#x8D25;&#x7684;&#x6570;&#x7EC4;&#x4E2D;&#xFF0C;&#x5E76;&#x8BB0;&#x5F55;&#x539F;&#x56E0;&#x3002;</li>
+<li>&#x901A;&#x8FC7;<code>workqueue.ParallelizeUntil</code>&#x5E76;&#x53D1;&#x6267;&#x884C;<code>checkNode</code>&#x51FD;&#x6570;&#xFF0C;&#x4E00;&#x65E6;&#x627E;&#x5230;&#x914D;&#x7F6E;&#x7684;&#x53EF;&#x884C;&#x8282;&#x70B9;&#x6570;&#xFF0C;&#x5C31;&#x505C;&#x6B62;&#x641C;&#x7D22;&#x66F4;&#x591A;&#x8282;&#x70B9;&#x3002;</li>
+</ol>
+<pre class="language-"><code class="lang-GO">checkNode := func(i int) {
+    var nodeCache *equivalence.NodeCache
+    nodeName := g.cache.NodeTree().Next()
+    if g.equivalenceCache != nil {
+        nodeCache, _ = g.equivalenceCache.GetNodeCache(nodeName)
+    }
+    fits, failedPredicates, err := podFitsOnNode(
+        pod,
+        meta,
+        g.cachedNodeInfoMap[nodeName],
+        g.predicates,
+        g.cache,
+        nodeCache,
+        g.schedulingQueue,
+        g.alwaysCheckAllPredicates,
+        equivClass,
+    )
+    if err != nil {
+        predicateResultLock.Lock()
+        errs[err.Error()]++
+        predicateResultLock.Unlock()
+        return
+    }
+    if fits {
+        length := atomic.AddInt32(&amp;filteredLen, 1)
+        if length &gt; numNodesToFind {
+            cancel()
+            atomic.AddInt32(&amp;filteredLen, -1)
+        } else {
+            filtered[length-1] = g.cachedNodeInfoMap[nodeName].Node()
+        }
+    } else {
+        predicateResultLock.Lock()
+        failedPredicateMap[nodeName] = failedPredicates
+        predicateResultLock.Unlock()
+    }
+}
+</code></pre>
+<p>workqueue&#x7684;&#x5E76;&#x53D1;&#x64CD;&#x4F5C;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Stops searching for more nodes once the configured number of feasible nodes</span>
+<span class="token comment">// are found.</span>
+workqueue<span class="token punctuation">.</span><span class="token function">ParallelizeUntil</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token number">16</span><span class="token punctuation">,</span> <span class="token function">int</span><span class="token punctuation">(</span>allNodes<span class="token punctuation">)</span><span class="token punctuation">,</span> checkNode<span class="token punctuation">)</span>
+</code></pre>
+<p><code>ParallelizeUntil</code>&#x5177;&#x4F53;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// ParallelizeUntil is a framework that allows for parallelizing N</span>
+<span class="token comment">// independent pieces of work until done or the context is canceled.</span>
+<span class="token keyword">func</span> <span class="token function">ParallelizeUntil</span><span class="token punctuation">(</span>ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> workers<span class="token punctuation">,</span> pieces <span class="token builtin">int</span><span class="token punctuation">,</span> doWorkPiece DoWorkPieceFunc<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> stop <span class="token operator">&lt;-</span><span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">if</span> ctx <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        stop <span class="token operator">=</span> ctx<span class="token punctuation">.</span><span class="token function">Done</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    toProcess <span class="token operator">:=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">chan</span> <span class="token builtin">int</span><span class="token punctuation">,</span> pieces<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> pieces<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        toProcess <span class="token operator">&lt;-</span> i
+    <span class="token punctuation">}</span>
+    <span class="token function">close</span><span class="token punctuation">(</span>toProcess<span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> pieces <span class="token operator">&lt;</span> workers <span class="token punctuation">{</span>
+        workers <span class="token operator">=</span> pieces
+    <span class="token punctuation">}</span>
+
+    wg <span class="token operator">:=</span> sync<span class="token punctuation">.</span>WaitGroup<span class="token punctuation">{</span><span class="token punctuation">}</span>
+    wg<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>workers<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> workers<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        <span class="token keyword">go</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">defer</span> utilruntime<span class="token punctuation">.</span><span class="token function">HandleCrash</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">defer</span> wg<span class="token punctuation">.</span><span class="token function">Done</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">for</span> piece <span class="token operator">:=</span> <span class="token keyword">range</span> toProcess <span class="token punctuation">{</span>
+                <span class="token keyword">select</span> <span class="token punctuation">{</span>
+                <span class="token keyword">case</span> <span class="token operator">&lt;-</span>stop<span class="token punctuation">:</span>
+                    <span class="token keyword">return</span>
+                <span class="token keyword">default</span><span class="token punctuation">:</span>
+                    <span class="token function">doWorkPiece</span><span class="token punctuation">(</span>piece<span class="token punctuation">)</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    wg<span class="token punctuation">.</span><span class="token function">Wait</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="5-podfitsonnode">5. podFitsOnNode</h1>
+<p><code>podFitsOnNode</code>&#x4E3B;&#x8981;&#x5185;&#x5BB9;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li><p><code>podFitsOnNode</code>&#x4F1A;&#x68C0;&#x67E5;&#x7ED9;&#x5B9A;&#x7684;&#x67D0;&#x4E2A;Node&#x662F;&#x5426;&#x6EE1;&#x8DB3;&#x9884;&#x9009;&#x7684;&#x51FD;&#x6570;&#x3002;</p>
+</li>
+<li><p>&#x5BF9;&#x4E8E;&#x7ED9;&#x5B9A;&#x7684;pod&#xFF0C;<code>podFitsOnNode</code>&#x4F1A;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x6709;&#x76F8;&#x540C;&#x7684;pod&#x5B58;&#x5728;&#xFF0C;&#x5C3D;&#x91CF;&#x590D;&#x7528;&#x7F13;&#x5B58;&#x8FC7;&#x7684;&#x9884;&#x9009;&#x7ED3;&#x679C;&#x3002;</p>
+</li>
+</ul>
+<p><code>podFitsOnNode</code>&#x4E3B;&#x8981;&#x5728;<code>Schedule</code>&#xFF08;&#x8C03;&#x5EA6;&#xFF09;&#x548C;<code>Preempt</code>&#xFF08;&#x62A2;&#x5360;&#xFF09;&#x7684;&#x65F6;&#x5019;&#x88AB;&#x8C03;&#x7528;&#x3002;</p>
+<p>&#x5F53;&#x5728;<code>Schedule</code>&#x4E2D;&#x88AB;&#x8C03;&#x7528;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E3B;&#x8981;&#x5224;&#x65AD;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x88AB;&#x8C03;&#x5EA6;&#x5230;&#x5F53;&#x524D;&#x8282;&#x70B9;&#xFF0C;&#x4F9D;&#x636E;&#x4E3A;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E0A;&#x6240;&#x6709;&#x5DF2;&#x5B58;&#x5728;&#x7684;pod&#x53CA;&#x88AB;&#x63D0;&#x540D;&#x8981;&#x8FD0;&#x884C;&#x5230;&#x8BE5;&#x8282;&#x70B9;&#x7684;&#x5177;&#x6709;&#x76F8;&#x7B49;&#x6216;&#x66F4;&#x9AD8;&#x4F18;&#x5148;&#x7EA7;&#x7684;pod&#x3002;</p>
+<p>&#x5F53;&#x5728;<code>Preempt</code>&#x4E2D;&#x88AB;&#x8C03;&#x7528;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5373;&#x53D1;&#x751F;&#x62A2;&#x5360;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x901A;&#x8FC7;<code>SelectVictimsOnNode</code>&#x51FD;&#x6570;&#x9009;&#x51FA;&#x9700;&#x8981;&#x88AB;&#x79FB;&#x9664;&#x7684;pod&#xFF0C;&#x79FB;&#x9664;&#x540E;&#x7136;&#x540E;&#x5C06;&#x9884;&#x8C03;&#x5EA6;&#x7684;pod&#x8C03;&#x5EA6;&#x5230;&#x8BE5;&#x8282;&#x70B9;&#x4E0A;&#x3002;</p>
+<p><strong>podFitsOnNode&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<ol>
+<li>&#x904D;&#x5386;&#x4E4B;&#x524D;&#x6CE8;&#x518C;&#x597D;&#x7684;&#x9884;&#x9009;&#x7B56;&#x7565;<code>predicates.Ordering</code>&#xFF0C;&#x5E76;&#x83B7;&#x53D6;&#x9884;&#x9009;&#x7B56;&#x7565;&#x7684;&#x6267;&#x884C;&#x51FD;&#x6570;&#x3002;</li>
+<li>&#x904D;&#x5386;&#x6267;&#x884C;&#x6BCF;&#x4E2A;&#x9884;&#x9009;&#x51FD;&#x6570;&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x662F;&#x5426;&#x5408;&#x9002;&#xFF0C;&#x9884;&#x9009;&#x5931;&#x8D25;&#x7684;&#x539F;&#x56E0;&#x548C;&#x9519;&#x8BEF;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x9884;&#x9009;&#x51FD;&#x6570;&#x6267;&#x884C;&#x7684;&#x7ED3;&#x679C;&#x4E0D;&#x5408;&#x9002;&#xFF0C;&#x5219;&#x52A0;&#x5165;&#x9884;&#x9009;&#x5931;&#x8D25;&#x7684;&#x6570;&#x7EC4;&#x4E2D;&#x3002;</li>
+<li>&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x9884;&#x9009;&#x5931;&#x8D25;&#x7684;&#x4E2A;&#x6570;&#x662F;&#x5426;&#x4E3A;0&#xFF0C;&#x548C;&#x9884;&#x9009;&#x5931;&#x8D25;&#x7684;&#x539F;&#x56E0;&#x3002;</li>
+</ol>
+<p><strong>&#x5165;&#x53C2;&#xFF1A;</strong></p>
+<ul>
+<li>pod</li>
+<li>PredicateMetadata</li>
+<li>NodeInfo</li>
+<li>predicateFuncs</li>
+<li>schedulercache.Cache</li>
+<li>nodeCache</li>
+<li>SchedulingQueue</li>
+<li>alwaysCheckAllPredicates</li>
+<li>equivClass</li>
+</ul>
+<p><strong>&#x51FA;&#x53C2;&#xFF1A;</strong></p>
+<ul>
+<li>fit</li>
+<li>PredicateFailureReason</li>
+</ul>
+<p>&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;pkg/scheduler/core/generic_scheduler.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// podFitsOnNode checks whether a node given by NodeInfo satisfies the given predicate functions.</span>
+<span class="token comment">// For given pod, podFitsOnNode will check if any equivalent pod exists and try to reuse its cached</span>
+<span class="token comment">// predicate results as possible.</span>
+<span class="token comment">// This function is called from two different places: Schedule and Preempt.</span>
+<span class="token comment">// When it is called from Schedule, we want to test whether the pod is schedulable</span>
+<span class="token comment">// on the node with all the existing pods on the node plus higher and equal priority</span>
+<span class="token comment">// pods nominated to run on the node.</span>
+<span class="token comment">// When it is called from Preempt, we should remove the victims of preemption and</span>
+<span class="token comment">// add the nominated pods. Removal of the victims is done by SelectVictimsOnNode().</span>
+<span class="token comment">// It removes victims from meta and NodeInfo before calling this function.</span>
+<span class="token keyword">func</span> <span class="token function">podFitsOnNode</span><span class="token punctuation">(</span>
+    pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span>
+    meta algorithm<span class="token punctuation">.</span>PredicateMetadata<span class="token punctuation">,</span>
+    info <span class="token operator">*</span>schedulercache<span class="token punctuation">.</span>NodeInfo<span class="token punctuation">,</span>
+    predicateFuncs <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span>algorithm<span class="token punctuation">.</span>FitPredicate<span class="token punctuation">,</span>
+    cache schedulercache<span class="token punctuation">.</span>Cache<span class="token punctuation">,</span>
+    nodeCache <span class="token operator">*</span>equivalence<span class="token punctuation">.</span>NodeCache<span class="token punctuation">,</span>
+    queue SchedulingQueue<span class="token punctuation">,</span>
+    alwaysCheckAllPredicates <span class="token builtin">bool</span><span class="token punctuation">,</span>
+    equivClass <span class="token operator">*</span>equivalence<span class="token punctuation">.</span>Class<span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">bool</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>algorithm<span class="token punctuation">.</span>PredicateFailureReason<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> <span class="token punctuation">(</span>
+        eCacheAvailable  <span class="token builtin">bool</span>
+        failedPredicates <span class="token punctuation">[</span><span class="token punctuation">]</span>algorithm<span class="token punctuation">.</span>PredicateFailureReason
+    <span class="token punctuation">)</span>
+
+    podsAdded <span class="token operator">:=</span> <span class="token boolean">false</span>
+    <span class="token comment">// We run predicates twice in some cases. If the node has greater or equal priority</span>
+    <span class="token comment">// nominated pods, we run them when those pods are added to meta and nodeInfo.</span>
+    <span class="token comment">// If all predicates succeed in this pass, we run them again when these</span>
+    <span class="token comment">// nominated pods are not added. This second pass is necessary because some</span>
+    <span class="token comment">// predicates such as inter-pod affinity may not pass without the nominated pods.</span>
+    <span class="token comment">// If there are no nominated pods for the node or if the first run of the</span>
+    <span class="token comment">// predicates fail, we don&apos;t run the second pass.</span>
+    <span class="token comment">// We consider only equal or higher priority pods in the first pass, because</span>
+    <span class="token comment">// those are the current &quot;pod&quot; must yield to them and not take a space opened</span>
+    <span class="token comment">// for running them. It is ok if the current &quot;pod&quot; take resources freed for</span>
+    <span class="token comment">// lower priority pods.</span>
+    <span class="token comment">// Requiring that the new pod is schedulable in both circumstances ensures that</span>
+    <span class="token comment">// we are making a conservative decision: predicates like resources and inter-pod</span>
+    <span class="token comment">// anti-affinity are more likely to fail when the nominated pods are treated</span>
+    <span class="token comment">// as running, while predicates like pod affinity are more likely to fail when</span>
+    <span class="token comment">// the nominated pods are treated as not running. We can&apos;t just assume the</span>
+    <span class="token comment">// nominated pods are running because they are not running right now and in fact,</span>
+    <span class="token comment">// they may end up getting scheduled to a different node.</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        metaToUse <span class="token operator">:=</span> meta
+        nodeInfoToUse <span class="token operator">:=</span> info
+        <span class="token keyword">if</span> i <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+            podsAdded<span class="token punctuation">,</span> metaToUse<span class="token punctuation">,</span> nodeInfoToUse <span class="token operator">=</span> <span class="token function">addNominatedPods</span><span class="token punctuation">(</span>util<span class="token punctuation">.</span><span class="token function">GetPodPriority</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span><span class="token punctuation">,</span> meta<span class="token punctuation">,</span> info<span class="token punctuation">,</span> queue<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token operator">!</span>podsAdded <span class="token operator">||</span> <span class="token function">len</span><span class="token punctuation">(</span>failedPredicates<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+            <span class="token keyword">break</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment">// Bypass eCache if node has any nominated pods.</span>
+        <span class="token comment">// TODO(bsalamat): consider using eCache and adding proper eCache invalidations</span>
+        <span class="token comment">// when pods are nominated or their nominations change.</span>
+        eCacheAvailable <span class="token operator">=</span> equivClass <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token operator">&amp;&amp;</span> nodeCache <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>podsAdded
+        <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> predicateKey <span class="token operator">:=</span> <span class="token keyword">range</span> predicates<span class="token punctuation">.</span><span class="token function">Ordering</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">var</span> <span class="token punctuation">(</span>
+                fit     <span class="token builtin">bool</span>
+                reasons <span class="token punctuation">[</span><span class="token punctuation">]</span>algorithm<span class="token punctuation">.</span>PredicateFailureReason
+                err     <span class="token builtin">error</span>
+            <span class="token punctuation">)</span>
+            <span class="token comment">//TODO (yastij) : compute average predicate restrictiveness to export it as Prometheus metric</span>
+            <span class="token keyword">if</span> predicate<span class="token punctuation">,</span> exist <span class="token operator">:=</span> predicateFuncs<span class="token punctuation">[</span>predicateKey<span class="token punctuation">]</span><span class="token punctuation">;</span> exist <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> eCacheAvailable <span class="token punctuation">{</span>
+                    fit<span class="token punctuation">,</span> reasons<span class="token punctuation">,</span> err <span class="token operator">=</span> nodeCache<span class="token punctuation">.</span><span class="token function">RunPredicate</span><span class="token punctuation">(</span>predicate<span class="token punctuation">,</span> predicateKey<span class="token punctuation">,</span> pod<span class="token punctuation">,</span> metaToUse<span class="token punctuation">,</span> nodeInfoToUse<span class="token punctuation">,</span> equivClass<span class="token punctuation">,</span> cache<span class="token punctuation">)</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    fit<span class="token punctuation">,</span> reasons<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">predicate</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> metaToUse<span class="token punctuation">,</span> nodeInfoToUse<span class="token punctuation">)</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>algorithm<span class="token punctuation">.</span>PredicateFailureReason<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span> err
+                <span class="token punctuation">}</span>
+
+                <span class="token keyword">if</span> <span class="token operator">!</span>fit <span class="token punctuation">{</span>
+                    <span class="token comment">// eCache is available and valid, and predicates result is unfit, record the fail reasons</span>
+                    failedPredicates <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>failedPredicates<span class="token punctuation">,</span> reasons<span class="token operator">...</span><span class="token punctuation">)</span>
+                    <span class="token comment">// if alwaysCheckAllPredicates is false, short circuit all predicates when one predicate fails.</span>
+                    <span class="token keyword">if</span> <span class="token operator">!</span>alwaysCheckAllPredicates <span class="token punctuation">{</span>
+                        glog<span class="token punctuation">.</span><span class="token function">V</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Infoln</span><span class="token punctuation">(</span><span class="token string">&quot;since alwaysCheckAllPredicates has not been set, the predicate &quot;</span> <span class="token operator">+</span>
+                            <span class="token string">&quot;evaluation is short circuited and there are chances &quot;</span> <span class="token operator">+</span>
+                            <span class="token string">&quot;of other predicates failing as well.&quot;</span><span class="token punctuation">)</span>
+                        <span class="token keyword">break</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token function">len</span><span class="token punctuation">(</span>failedPredicates<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">,</span> failedPredicates<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="51-predicatefuncs">5.1. predicateFuncs</h2>
+<p>&#x6839;&#x636E;&#x4E4B;&#x524D;&#x521D;&#x6CE8;&#x518C;&#x597D;&#x7684;&#x9884;&#x9009;&#x7B56;&#x7565;&#x51FD;&#x6570;&#x6765;&#x6267;&#x884C;&#x9884;&#x9009;&#xFF0C;&#x5224;&#x65AD;&#x8282;&#x70B9;&#x662F;&#x5426;&#x7B26;&#x5408;&#x8C03;&#x5EA6;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> predicateKey <span class="token operator">:=</span> <span class="token keyword">range</span> predicates<span class="token punctuation">.</span><span class="token function">Ordering</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> predicate<span class="token punctuation">,</span> exist <span class="token operator">:=</span> predicateFuncs<span class="token punctuation">[</span>predicateKey<span class="token punctuation">]</span><span class="token punctuation">;</span> exist <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> eCacheAvailable <span class="token punctuation">{</span>
+            fit<span class="token punctuation">,</span> reasons<span class="token punctuation">,</span> err <span class="token operator">=</span> nodeCache<span class="token punctuation">.</span><span class="token function">RunPredicate</span><span class="token punctuation">(</span>predicate<span class="token punctuation">,</span> predicateKey<span class="token punctuation">,</span> pod<span class="token punctuation">,</span> metaToUse<span class="token punctuation">,</span> nodeInfoToUse<span class="token punctuation">,</span> equivClass<span class="token punctuation">,</span> cache<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            fit<span class="token punctuation">,</span> reasons<span class="token punctuation">,</span> err <span class="token operator">=</span> <span class="token function">predicate</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> metaToUse<span class="token punctuation">,</span> nodeInfoToUse<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+</code></pre>
+<p>&#x9884;&#x9009;&#x7B56;&#x7565;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">var</span> <span class="token punctuation">(</span>
+    predicatesOrdering <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span>CheckNodeConditionPred<span class="token punctuation">,</span> CheckNodeUnschedulablePred<span class="token punctuation">,</span>
+        GeneralPred<span class="token punctuation">,</span> HostNamePred<span class="token punctuation">,</span> PodFitsHostPortsPred<span class="token punctuation">,</span>
+        MatchNodeSelectorPred<span class="token punctuation">,</span> PodFitsResourcesPred<span class="token punctuation">,</span> NoDiskConflictPred<span class="token punctuation">,</span>
+        PodToleratesNodeTaintsPred<span class="token punctuation">,</span> PodToleratesNodeNoExecuteTaintsPred<span class="token punctuation">,</span> CheckNodeLabelPresencePred<span class="token punctuation">,</span>
+        CheckServiceAffinityPred<span class="token punctuation">,</span> MaxEBSVolumeCountPred<span class="token punctuation">,</span> MaxGCEPDVolumeCountPred<span class="token punctuation">,</span> MaxCSIVolumeCountPred<span class="token punctuation">,</span>
+        MaxAzureDiskVolumeCountPred<span class="token punctuation">,</span> CheckVolumeBindingPred<span class="token punctuation">,</span> NoVolumeZoneConflictPred<span class="token punctuation">,</span>
+        CheckNodeMemoryPressurePred<span class="token punctuation">,</span> CheckNodePIDPressurePred<span class="token punctuation">,</span> CheckNodeDiskPressurePred<span class="token punctuation">,</span> MatchInterPodAffinityPred<span class="token punctuation">}</span>
+<span class="token punctuation">)</span>
+</code></pre>
+<h1 id="6-podfitsresources">6. PodFitsResources</h1>
+<p>&#x4EE5;&#x4E0B;&#x4EE5;<code>PodFitsResources</code>&#x8FD9;&#x4E2A;&#x9884;&#x9009;&#x51FD;&#x6570;&#x4E3A;&#x4F8B;&#x505A;&#x5206;&#x6790;&#xFF0C;&#x5176;&#x4ED6;&#x91CD;&#x8981;&#x7684;&#x9884;&#x9009;&#x51FD;&#x6570;&#x5F85;&#x540E;&#x7EED;&#x5355;&#x72EC;&#x5206;&#x6790;&#x3002;</p>
+<p><code>PodFitsResources</code>&#x7528;&#x6765;&#x68C0;&#x67E5;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x662F;&#x5426;&#x6709;&#x8DB3;&#x591F;&#x7684;&#x8D44;&#x6E90;&#x6765;&#x8FD0;&#x884C;&#x5F53;&#x524D;&#x7684;pod&#xFF0C;&#x5305;&#x62EC;CPU&#x3001;&#x5185;&#x5B58;&#x3001;GPU&#x7B49;&#x3002;</p>
+<p><strong>PodFitsResources&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<ol>
+<li>&#x5224;&#x65AD;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E0A;pod&#x603B;&#x6570;&#x52A0;&#x4E0A;&#x9884;&#x8C03;&#x5EA6;pod&#x4E2A;&#x6570;&#x662F;&#x5426;&#x5927;&#x4E8E;node&#x7684;&#x53EF;&#x5206;&#x914D;pod&#x603B;&#x6570;&#xFF0C;&#x82E5;&#x662F;&#x5219;&#x4E0D;&#x5141;&#x8BB8;&#x8C03;&#x5EA6;&#x3002;</li>
+<li>&#x5224;&#x65AD;pod&#x7684;request&#x503C;&#x662F;&#x5426;&#x90FD;&#x4E3A;0&#xFF0C;&#x82E5;&#x662F;&#x5219;&#x5141;&#x8BB8;&#x8C03;&#x5EA6;&#x3002;</li>
+<li>&#x5224;&#x65AD;pod&#x7684;request&#x503C;&#x52A0;&#x4E0A;&#x5F53;&#x524D;node&#x4E0A;&#x6240;&#x6709;pod&#x7684;request&#x503C;&#x603B;&#x548C;&#x662F;&#x5426;&#x5927;&#x4E8E;node&#x7684;&#x53EF;&#x5206;&#x914D;&#x8D44;&#x6E90;&#xFF0C;&#x82E5;&#x662F;&#x5219;&#x4E0D;&#x5141;&#x8BB8;&#x8C03;&#x5EA6;&#x3002;</li>
+<li>&#x5224;&#x65AD;pod&#x7684;&#x62D3;&#x5C55;&#x8D44;&#x6E90;request&#x503C;&#x52A0;&#x4E0A;&#x5F53;&#x524D;node&#x4E0A;&#x6240;&#x6709;pod&#x5BF9;&#x5E94;&#x7684;request&#x503C;&#x603B;&#x548C;&#x662F;&#x5426;&#x5927;&#x4E8E;node&#x5BF9;&#x5E94;&#x7684;&#x53EF;&#x5206;&#x914D;&#x8D44;&#x6E90;&#xFF0C;&#x82E5;&#x662F;&#x5219;&#x4E0D;&#x5141;&#x8BB8;&#x8C03;&#x5EA6;&#x3002;</li>
+</ol>
+<p><code>PodFitsResources</code>&#x7684;&#x6CE8;&#x518C;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go">factory<span class="token punctuation">.</span><span class="token function">RegisterFitPredicate</span><span class="token punctuation">(</span>predicates<span class="token punctuation">.</span>PodFitsResourcesPred<span class="token punctuation">,</span> predicates<span class="token punctuation">.</span>PodFitsResources<span class="token punctuation">)</span>
+</code></pre>
+<p><strong>PodFitsResources&#x5165;&#x53C2;&#xFF1A;</strong></p>
+<ul>
+<li><p>pod</p>
+</li>
+<li><p>nodeInfo</p>
+</li>
+<li>PredicateMetadata</li>
+</ul>
+<p><strong>PodFitsResources&#x51FA;&#x53C2;&#xFF1A;</strong></p>
+<ul>
+<li>fit</li>
+<li>PredicateFailureReason</li>
+</ul>
+<p>PodFitsResources&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#xFF1A;</p>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x7684;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;pkg/scheduler/algorithm/predicates/predicates.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// PodFitsResources checks if a node has sufficient resources, such as cpu, memory, gpu, opaque int resources etc to run a pod.</span>
+<span class="token comment">// First return value indicates whether a node has sufficient resources to run a pod while the second return value indicates the</span>
+<span class="token comment">// predicate failure reasons if the node has insufficient resources to run the pod.</span>
+<span class="token keyword">func</span> <span class="token function">PodFitsResources</span><span class="token punctuation">(</span>pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> meta algorithm<span class="token punctuation">.</span>PredicateMetadata<span class="token punctuation">,</span> nodeInfo <span class="token operator">*</span>schedulercache<span class="token punctuation">.</span>NodeInfo<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">bool</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>algorithm<span class="token punctuation">.</span>PredicateFailureReason<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    node <span class="token operator">:=</span> nodeInfo<span class="token punctuation">.</span><span class="token function">Node</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> node <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;node not found&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">var</span> predicateFails <span class="token punctuation">[</span><span class="token punctuation">]</span>algorithm<span class="token punctuation">.</span>PredicateFailureReason
+    allowedPodNumber <span class="token operator">:=</span> nodeInfo<span class="token punctuation">.</span><span class="token function">AllowedPodNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>nodeInfo<span class="token punctuation">.</span><span class="token function">Pods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token number">1</span> <span class="token operator">&gt;</span> allowedPodNumber <span class="token punctuation">{</span>
+        predicateFails <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">,</span> <span class="token function">NewInsufficientResourceError</span><span class="token punctuation">(</span>v1<span class="token punctuation">.</span>ResourcePods<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token function">int64</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>nodeInfo<span class="token punctuation">.</span><span class="token function">Pods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">int64</span><span class="token punctuation">(</span>allowedPodNumber<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// No extended resources should be ignored by default.</span>
+    ignoredExtendedResources <span class="token operator">:=</span> sets<span class="token punctuation">.</span><span class="token function">NewString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">var</span> podRequest <span class="token operator">*</span>schedulercache<span class="token punctuation">.</span>Resource
+    <span class="token keyword">if</span> predicateMeta<span class="token punctuation">,</span> ok <span class="token operator">:=</span> meta<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">*</span>predicateMetadata<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        podRequest <span class="token operator">=</span> predicateMeta<span class="token punctuation">.</span>podRequest
+        <span class="token keyword">if</span> predicateMeta<span class="token punctuation">.</span>ignoredExtendedResources <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            ignoredExtendedResources <span class="token operator">=</span> predicateMeta<span class="token punctuation">.</span>ignoredExtendedResources
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token comment">// We couldn&apos;t parse metadata - fallback to computing it.</span>
+        podRequest <span class="token operator">=</span> <span class="token function">GetResourceRequest</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> podRequest<span class="token punctuation">.</span>MilliCPU <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span>
+        podRequest<span class="token punctuation">.</span>Memory <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span>
+        podRequest<span class="token punctuation">.</span>EphemeralStorage <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span>
+        <span class="token function">len</span><span class="token punctuation">(</span>podRequest<span class="token punctuation">.</span>ScalarResources<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">len</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">,</span> predicateFails<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+    <span class="token punctuation">}</span>
+
+    allocatable <span class="token operator">:=</span> nodeInfo<span class="token punctuation">.</span><span class="token function">AllocatableResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> allocatable<span class="token punctuation">.</span>MilliCPU <span class="token operator">&lt;</span> podRequest<span class="token punctuation">.</span>MilliCPU<span class="token operator">+</span>nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>MilliCPU <span class="token punctuation">{</span>
+        predicateFails <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">,</span> <span class="token function">NewInsufficientResourceError</span><span class="token punctuation">(</span>v1<span class="token punctuation">.</span>ResourceCPU<span class="token punctuation">,</span> podRequest<span class="token punctuation">.</span>MilliCPU<span class="token punctuation">,</span> nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>MilliCPU<span class="token punctuation">,</span> allocatable<span class="token punctuation">.</span>MilliCPU<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> allocatable<span class="token punctuation">.</span>Memory <span class="token operator">&lt;</span> podRequest<span class="token punctuation">.</span>Memory<span class="token operator">+</span>nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Memory <span class="token punctuation">{</span>
+        predicateFails <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">,</span> <span class="token function">NewInsufficientResourceError</span><span class="token punctuation">(</span>v1<span class="token punctuation">.</span>ResourceMemory<span class="token punctuation">,</span> podRequest<span class="token punctuation">.</span>Memory<span class="token punctuation">,</span> nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Memory<span class="token punctuation">,</span> allocatable<span class="token punctuation">.</span>Memory<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> allocatable<span class="token punctuation">.</span>EphemeralStorage <span class="token operator">&lt;</span> podRequest<span class="token punctuation">.</span>EphemeralStorage<span class="token operator">+</span>nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>EphemeralStorage <span class="token punctuation">{</span>
+        predicateFails <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">,</span> <span class="token function">NewInsufficientResourceError</span><span class="token punctuation">(</span>v1<span class="token punctuation">.</span>ResourceEphemeralStorage<span class="token punctuation">,</span> podRequest<span class="token punctuation">.</span>EphemeralStorage<span class="token punctuation">,</span> nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>EphemeralStorage<span class="token punctuation">,</span> allocatable<span class="token punctuation">.</span>EphemeralStorage<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">for</span> rName<span class="token punctuation">,</span> rQuant <span class="token operator">:=</span> <span class="token keyword">range</span> podRequest<span class="token punctuation">.</span>ScalarResources <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> v1helper<span class="token punctuation">.</span><span class="token function">IsExtendedResourceName</span><span class="token punctuation">(</span>rName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment">// If this resource is one of the extended resources that should be</span>
+            <span class="token comment">// ignored, we will skip checking it.</span>
+            <span class="token keyword">if</span> ignoredExtendedResources<span class="token punctuation">.</span><span class="token function">Has</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>rName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">continue</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> allocatable<span class="token punctuation">.</span>ScalarResources<span class="token punctuation">[</span>rName<span class="token punctuation">]</span> <span class="token operator">&lt;</span> rQuant<span class="token operator">+</span>nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>ScalarResources<span class="token punctuation">[</span>rName<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+            predicateFails <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">,</span> <span class="token function">NewInsufficientResourceError</span><span class="token punctuation">(</span>rName<span class="token punctuation">,</span> podRequest<span class="token punctuation">.</span>ScalarResources<span class="token punctuation">[</span>rName<span class="token punctuation">]</span><span class="token punctuation">,</span> nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>ScalarResources<span class="token punctuation">[</span>rName<span class="token punctuation">]</span><span class="token punctuation">,</span> allocatable<span class="token punctuation">.</span>ScalarResources<span class="token punctuation">[</span>rName<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> glog<span class="token punctuation">.</span><span class="token function">V</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+            <span class="token comment">// We explicitly don&apos;t do glog.V(10).Infof() to avoid computing all the parameters if this is</span>
+            <span class="token comment">// not logged. There is visible performance gain from it.</span>
+            glog<span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Schedule Pod %+v on Node %+v is allowed, Node is running only %v out of %v Pods.&quot;</span><span class="token punctuation">,</span>
+                <span class="token function">podName</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span><span class="token punctuation">,</span> node<span class="token punctuation">.</span>Name<span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>nodeInfo<span class="token punctuation">.</span><span class="token function">Pods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> allowedPodNumber<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token function">len</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">,</span> predicateFails<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="61-nodeinfo">6.1. NodeInfo</h2>
+<p><code>NodeInfo</code>&#x662F;node&#x7684;&#x805A;&#x5408;&#x4FE1;&#x606F;&#xFF0C;&#x4E3B;&#x8981;&#x5305;&#x62EC;&#xFF1A;</p>
+<ul>
+<li>node&#xFF1A;k8s node&#x7684;&#x7ED3;&#x6784;&#x4F53;</li>
+<li>pods&#xFF1A;&#x5F53;&#x524D;node&#x4E0A;pod&#x7684;&#x6570;&#x91CF;</li>
+<li>requestedResource&#xFF1A;&#x5F53;&#x524D;node&#x4E0A;&#x6240;&#x6709;pod&#x7684;request&#x603B;&#x548C;</li>
+<li>allocatableResource&#xFF1A;node&#x7684;&#x5B9E;&#x9645;&#x6240;&#x6709;&#x7684;&#x53EF;&#x5206;&#x914D;&#x8D44;&#x6E90;(&#x5BF9;&#x5E94;&#x4E8E;Node.Status.Allocatable.*)&#xFF0C;&#x53EF;&#x7406;&#x89E3;&#x4E3A;node&#x7684;&#x8D44;&#x6E90;&#x603B;&#x91CF;&#x3002;</li>
+</ul>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;pkg/scheduler/cache/node_info.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// NodeInfo is node level aggregated information.</span>
+<span class="token keyword">type</span> NodeInfo <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Overall node information.</span>
+    node <span class="token operator">*</span>v1<span class="token punctuation">.</span>Node
+
+    pods             <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod
+    podsWithAffinity <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod
+    usedPorts        util<span class="token punctuation">.</span>HostPortInfo
+
+    <span class="token comment">// Total requested resource of all pods on this node.</span>
+    <span class="token comment">// It includes assumed pods which scheduler sends binding to apiserver but</span>
+    <span class="token comment">// didn&apos;t get it as scheduled yet.</span>
+    requestedResource <span class="token operator">*</span>Resource
+    nonzeroRequest    <span class="token operator">*</span>Resource
+    <span class="token comment">// We store allocatedResources (which is Node.Status.Allocatable.*) explicitly</span>
+    <span class="token comment">// as int64, to avoid conversions and accessing map.</span>
+    allocatableResource <span class="token operator">*</span>Resource
+
+    <span class="token comment">// Cached taints of the node for faster lookup.</span>
+    taints    <span class="token punctuation">[</span><span class="token punctuation">]</span>v1<span class="token punctuation">.</span>Taint
+    taintsErr <span class="token builtin">error</span>
+
+    <span class="token comment">// imageStates holds the entry of an image if and only if this image is on the node. The entry can be used for</span>
+    <span class="token comment">// checking an image&apos;s existence and advanced usage (e.g., image locality scheduling policy) based on the image</span>
+    <span class="token comment">// state information.</span>
+    imageStates <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>ImageStateSummary
+
+    <span class="token comment">// TransientInfo holds the information pertaining to a scheduling cycle. This will be destructed at the end of</span>
+    <span class="token comment">// scheduling cycle.</span>
+    <span class="token comment">// TODO: @ravig. Remove this once we have a clear approach for message passing across predicates and priorities.</span>
+    TransientInfo <span class="token operator">*</span>transientSchedulerInfo
+
+    <span class="token comment">// Cached conditions of node for faster lookup.</span>
+    memoryPressureCondition v1<span class="token punctuation">.</span>ConditionStatus
+    diskPressureCondition   v1<span class="token punctuation">.</span>ConditionStatus
+    pidPressureCondition    v1<span class="token punctuation">.</span>ConditionStatus
+
+    <span class="token comment">// Whenever NodeInfo changes, generation is bumped.</span>
+    <span class="token comment">// This is used to avoid cloning it if the object didn&apos;t change.</span>
+    generation <span class="token builtin">int64</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="62-resource">6.2. Resource</h2>
+<p><code>Resource</code>&#x662F;&#x53EF;&#x8BA1;&#x7B97;&#x8D44;&#x6E90;&#x7684;&#x96C6;&#x5408;&#x4F53;&#x3002;&#x4E3B;&#x8981;&#x5305;&#x62EC;&#xFF1A;</p>
+<ul>
+<li>MilliCPU</li>
+<li>Memory</li>
+<li>EphemeralStorage</li>
+<li>AllowedPodNumber&#xFF1A;&#x5141;&#x8BB8;&#x7684;pod&#x603B;&#x6570;(&#x5BF9;&#x5E94;&#x4E8E;Node.Status.Allocatable.Pods().Value())&#xFF0C;&#x4E00;&#x822C;&#x4E3A;110&#x3002;</li>
+<li>ScalarResources</li>
+</ul>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Resource is a collection of compute resource.</span>
+<span class="token keyword">type</span> Resource <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    MilliCPU         <span class="token builtin">int64</span>
+    Memory           <span class="token builtin">int64</span>
+    EphemeralStorage <span class="token builtin">int64</span>
+    <span class="token comment">// We store allowedPodNumber (which is Node.Status.Allocatable.Pods().Value())</span>
+    <span class="token comment">// explicitly as int, to avoid conversions and improve performance.</span>
+    AllowedPodNumber <span class="token builtin">int</span>
+    <span class="token comment">// ScalarResources</span>
+    ScalarResources <span class="token keyword">map</span><span class="token punctuation">[</span>v1<span class="token punctuation">.</span>ResourceName<span class="token punctuation">]</span><span class="token builtin">int64</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<hr>
+<p>&#x4EE5;&#x4E0B;&#x5206;&#x6790;podFitsOnNode&#x7684;&#x5177;&#x4F53;&#x6D41;&#x7A0B;&#x3002;</p>
+<h2 id="63-allowedpodnumber">6.3. allowedPodNumber</h2>
+<p>&#x9996;&#x5148;&#x83B7;&#x53D6;&#x8282;&#x70B9;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x5148;&#x5224;&#x65AD;&#x5982;&#x679C;&#x8BE5;&#x8282;&#x70B9;&#x5F53;&#x524D;&#x6240;&#x6709;&#x7684;pod&#x7684;&#x4E2A;&#x6570;&#x52A0;&#x4E0A;&#x5F53;&#x524D;&#x9884;&#x8C03;&#x5EA6;&#x7684;pod&#x662F;&#x5426;&#x4F1A;&#x5927;&#x4E8E;&#x8BE5;&#x8282;&#x70B9;&#x5141;&#x8BB8;&#x7684;pod&#x7684;&#x603B;&#x6570;&#xFF0C;&#x4E00;&#x822C;&#x4E3A;110&#x4E2A;&#x3002;&#x5982;&#x679C;&#x8D85;&#x8FC7;&#xFF0C;&#x5219;<code>predicateFails</code>&#x6570;&#x7EC4;&#x589E;&#x52A0;1&#xFF0C;&#x5373;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E0D;&#x9002;&#x5408;&#x8BE5;pod&#x3002;</p>
+<pre class="language-"><code class="lang-go">node <span class="token operator">:=</span> nodeInfo<span class="token punctuation">.</span><span class="token function">Node</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> node <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;node not found&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> predicateFails <span class="token punctuation">[</span><span class="token punctuation">]</span>algorithm<span class="token punctuation">.</span>PredicateFailureReason
+allowedPodNumber <span class="token operator">:=</span> nodeInfo<span class="token punctuation">.</span><span class="token function">AllowedPodNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>nodeInfo<span class="token punctuation">.</span><span class="token function">Pods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token number">1</span> <span class="token operator">&gt;</span> allowedPodNumber <span class="token punctuation">{</span>
+    predicateFails <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">,</span> <span class="token function">NewInsufficientResourceError</span><span class="token punctuation">(</span>v1<span class="token punctuation">.</span>ResourcePods<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token function">int64</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>nodeInfo<span class="token punctuation">.</span><span class="token function">Pods</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">int64</span><span class="token punctuation">(</span>allowedPodNumber<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<h2 id="64-podrequest">6.4. podRequest</h2>
+<p>&#x5982;&#x679C;podRequest&#x90FD;&#x4E3A;0&#xFF0C;&#x5219;&#x5141;&#x8BB8;&#x8C03;&#x5EA6;&#x5230;&#x8BE5;&#x8282;&#x70B9;&#xFF0C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">if</span> podRequest<span class="token punctuation">.</span>MilliCPU <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span>
+    podRequest<span class="token punctuation">.</span>Memory <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span>
+    podRequest<span class="token punctuation">.</span>EphemeralStorage <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span>
+    <span class="token function">len</span><span class="token punctuation">(</span>podRequest<span class="token punctuation">.</span>ScalarResources<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token function">len</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">,</span> predicateFails<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="65-allocatableresource">6.5. AllocatableResource</h2>
+<p>&#x5982;&#x679C;&#x5F53;&#x524D;&#x9884;&#x8C03;&#x5EA6;&#x7684;pod&#x7684;request&#x8D44;&#x6E90;&#x52A0;&#x4E0A;&#x5F53;&#x524D;node&#x4E0A;&#x6240;&#x6709;pod&#x7684;request&#x603B;&#x548C;&#x5927;&#x4E8E;&#x8BE5;node&#x7684;&#x53EF;&#x5206;&#x914D;&#x8D44;&#x6E90;&#x603B;&#x91CF;&#xFF0C;&#x5219;&#x4E0D;&#x5141;&#x8BB8;&#x8C03;&#x5EA6;&#x5230;&#x8BE5;&#x8282;&#x70B9;&#xFF0C;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x3002;&#x5176;&#x4E2D;request&#x8D44;&#x6E90;&#x5305;&#x62EC;CPU&#x3001;&#x5185;&#x5B58;&#x3001;storage&#x3002;</p>
+<pre class="language-"><code class="lang-go">allocatable <span class="token operator">:=</span> nodeInfo<span class="token punctuation">.</span><span class="token function">AllocatableResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> allocatable<span class="token punctuation">.</span>MilliCPU <span class="token operator">&lt;</span> podRequest<span class="token punctuation">.</span>MilliCPU<span class="token operator">+</span>nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>MilliCPU <span class="token punctuation">{</span>
+    predicateFails <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">,</span> <span class="token function">NewInsufficientResourceError</span><span class="token punctuation">(</span>v1<span class="token punctuation">.</span>ResourceCPU<span class="token punctuation">,</span> podRequest<span class="token punctuation">.</span>MilliCPU<span class="token punctuation">,</span> nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>MilliCPU<span class="token punctuation">,</span> allocatable<span class="token punctuation">.</span>MilliCPU<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">if</span> allocatable<span class="token punctuation">.</span>Memory <span class="token operator">&lt;</span> podRequest<span class="token punctuation">.</span>Memory<span class="token operator">+</span>nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Memory <span class="token punctuation">{</span>
+    predicateFails <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">,</span> <span class="token function">NewInsufficientResourceError</span><span class="token punctuation">(</span>v1<span class="token punctuation">.</span>ResourceMemory<span class="token punctuation">,</span> podRequest<span class="token punctuation">.</span>Memory<span class="token punctuation">,</span> nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Memory<span class="token punctuation">,</span> allocatable<span class="token punctuation">.</span>Memory<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">if</span> allocatable<span class="token punctuation">.</span>EphemeralStorage <span class="token operator">&lt;</span> podRequest<span class="token punctuation">.</span>EphemeralStorage<span class="token operator">+</span>nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>EphemeralStorage <span class="token punctuation">{</span>
+    predicateFails <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">,</span> <span class="token function">NewInsufficientResourceError</span><span class="token punctuation">(</span>v1<span class="token punctuation">.</span>ResourceEphemeralStorage<span class="token punctuation">,</span> podRequest<span class="token punctuation">.</span>EphemeralStorage<span class="token punctuation">,</span> nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>EphemeralStorage<span class="token punctuation">,</span> allocatable<span class="token punctuation">.</span>EphemeralStorage<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<h2 id="66-scalarresources">6.6. ScalarResources</h2>
+<p>&#x5224;&#x65AD;&#x5176;&#x4ED6;&#x62D3;&#x5C55;&#x7684;&#x6807;&#x91CF;&#x8D44;&#x6E90;&#xFF0C;&#x662F;&#x5426;&#x8BE5;pod&#x7684;request&#x503C;&#x52A0;&#x4E0A;&#x5F53;&#x524D;node&#x4E0A;&#x6240;&#x6709;pod&#x7684;&#x5BF9;&#x5E94;&#x8D44;&#x6E90;&#x7684;request&#x603B;&#x548C;&#x5927;&#x4E8E;&#x8BE5;node&#x4E0A;&#x5BF9;&#x5E94;&#x8D44;&#x6E90;&#x7684;&#x53EF;&#x5206;&#x914D;&#x603B;&#x91CF;&#xFF0C;&#x5982;&#x679C;&#x662F;&#xFF0C;&#x5219;&#x4E0D;&#x5141;&#x8BB8;&#x8C03;&#x5EA6;&#x5230;&#x8BE5;&#x8282;&#x70B9;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">for</span> rName<span class="token punctuation">,</span> rQuant <span class="token operator">:=</span> <span class="token keyword">range</span> podRequest<span class="token punctuation">.</span>ScalarResources <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> v1helper<span class="token punctuation">.</span><span class="token function">IsExtendedResourceName</span><span class="token punctuation">(</span>rName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// If this resource is one of the extended resources that should be</span>
+        <span class="token comment">// ignored, we will skip checking it.</span>
+        <span class="token keyword">if</span> ignoredExtendedResources<span class="token punctuation">.</span><span class="token function">Has</span><span class="token punctuation">(</span><span class="token function">string</span><span class="token punctuation">(</span>rName<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">continue</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> allocatable<span class="token punctuation">.</span>ScalarResources<span class="token punctuation">[</span>rName<span class="token punctuation">]</span> <span class="token operator">&lt;</span> rQuant<span class="token operator">+</span>nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>ScalarResources<span class="token punctuation">[</span>rName<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+        predicateFails <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>predicateFails<span class="token punctuation">,</span> <span class="token function">NewInsufficientResourceError</span><span class="token punctuation">(</span>rName<span class="token punctuation">,</span> podRequest<span class="token punctuation">.</span>ScalarResources<span class="token punctuation">[</span>rName<span class="token punctuation">]</span><span class="token punctuation">,</span> nodeInfo<span class="token punctuation">.</span><span class="token function">RequestedResource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>ScalarResources<span class="token punctuation">[</span>rName<span class="token punctuation">]</span><span class="token punctuation">,</span> allocatable<span class="token punctuation">.</span>ScalarResources<span class="token punctuation">[</span>rName<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="7-&#x603B;&#x7ED3;">7. &#x603B;&#x7ED3;</h1>
+<p><code>findNodesThatFit</code>&#x57FA;&#x4E8E;&#x7ED9;&#x5B9A;&#x7684;&#x9884;&#x9009;&#x51FD;&#x6570;&#x8FC7;&#x6EE4;node&#xFF0C;&#x6BCF;&#x4E2A;node&#x4F20;&#x5165;&#x5230;&#x9884;&#x9009;&#x51FD;&#x6570;&#x4E2D;&#x6765;&#x786E;&#x5B9E;&#x8BE5;&#x8282;&#x70B9;&#x662F;&#x5426;&#x7B26;&#x5408;&#x8981;&#x6C42;&#x3002;</p>
+<p><code>findNodesThatFit</code>&#x7684;&#x5165;&#x53C2;&#x662F;&#x88AB;&#x8C03;&#x5EA6;&#x7684;pod&#x548C;&#x5F53;&#x524D;&#x7684;&#x8282;&#x70B9;&#x5217;&#x8868;&#xFF0C;&#x8FD4;&#x56DE;&#x9884;&#x9009;&#x8282;&#x70B9;&#x5217;&#x8868;&#x548C;&#x9519;&#x8BEF;&#x3002;</p>
+<p><code>findNodesThatFit</code>&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>&#x8BBE;&#x7F6E;&#x53EF;&#x884C;&#x8282;&#x70B9;&#x7684;&#x603B;&#x6570;&#xFF0C;&#x4F5C;&#x4E3A;&#x9884;&#x9009;&#x8282;&#x70B9;&#x6570;&#x7EC4;&#x7684;&#x5BB9;&#x91CF;&#xFF0C;&#x907F;&#x514D;&#x603B;&#x8282;&#x70B9;&#x8FC7;&#x591A;&#x9700;&#x8981;&#x7B5B;&#x9009;&#x7684;&#x8282;&#x70B9;&#x8FC7;&#x591A;&#x3002;</li>
+<li>&#x901A;&#x8FC7;<code>NodeTree</code>&#x4E0D;&#x65AD;&#x83B7;&#x53D6;&#x4E0B;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x6765;&#x5224;&#x65AD;&#x8BE5;&#x8282;&#x70B9;&#x662F;&#x5426;&#x6EE1;&#x8DB3;pod&#x7684;&#x8C03;&#x5EA6;&#x6761;&#x4EF6;&#x3002;</li>
+<li>&#x901A;&#x8FC7;&#x4E4B;&#x524D;&#x6CE8;&#x518C;&#x7684;&#x5404;&#x79CD;&#x9884;&#x9009;&#x51FD;&#x6570;&#x6765;&#x5224;&#x65AD;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x662F;&#x5426;&#x7B26;&#x5408;pod&#x7684;&#x8C03;&#x5EA6;&#x6761;&#x4EF6;&#x3002;</li>
+<li>&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x6EE1;&#x8DB3;&#x8C03;&#x5EA6;&#x6761;&#x4EF6;&#x7684;node&#x5217;&#x8868;&#xFF0C;&#x4F9B;&#x4E0B;&#x4E00;&#x6B65;&#x7684;&#x4F18;&#x9009;&#x64CD;&#x4F5C;&#x3002;</li>
+</ol>
+<h2 id="71-checknode">7.1. checkNode</h2>
+<p><code>checkNode</code>&#x662F;&#x4E00;&#x4E2A;&#x6821;&#x9A8C;node&#x662F;&#x5426;&#x7B26;&#x5408;&#x8981;&#x6C42;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x5176;&#x4E2D;&#x5B9E;&#x9645;&#x8C03;&#x7528;&#x5230;&#x7684;&#x6838;&#x5FC3;&#x51FD;&#x6570;&#x662F;<code>podFitsOnNode</code>&#x3002;&#x518D;&#x901A;&#x8FC7;<code>workqueue</code>&#x5E76;&#x53D1;&#x6267;&#x884C;<code>checkNode</code>&#x64CD;&#x4F5C;&#x3002;</p>
+<p><code>checkNode</code>&#x4E3B;&#x8981;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>&#x901A;&#x8FC7;cache&#x4E2D;&#x7684;nodeTree&#x4E0D;&#x65AD;&#x83B7;&#x53D6;&#x4E0B;&#x4E00;&#x4E2A;node&#x3002;</li>
+<li>&#x5C06;&#x5F53;&#x524D;node&#x548C;pod&#x4F20;&#x5165;<code>podFitsOnNode</code>&#x5224;&#x65AD;&#x5F53;&#x524D;node&#x662F;&#x5426;&#x7B26;&#x5408;&#x8981;&#x6C42;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x5F53;&#x524D;node&#x7B26;&#x5408;&#x8981;&#x6C42;&#x5C31;&#x5C06;&#x5F53;&#x524D;node&#x52A0;&#x5165;&#x9884;&#x9009;&#x8282;&#x70B9;&#x7684;&#x6570;&#x7EC4;&#x4E2D;<code>filtered</code>&#x3002;</li>
+<li>&#x5982;&#x679C;&#x5F53;&#x524D;node&#x4E0D;&#x6EE1;&#x8DB3;&#x8981;&#x6C42;&#xFF0C;&#x5219;&#x52A0;&#x5165;&#x5230;&#x5931;&#x8D25;&#x7684;&#x6570;&#x7EC4;&#x4E2D;&#xFF0C;&#x5E76;&#x8BB0;&#x5F55;&#x539F;&#x56E0;&#x3002;</li>
+<li>&#x901A;&#x8FC7;<code>workqueue.ParallelizeUntil</code>&#x5E76;&#x53D1;&#x6267;&#x884C;<code>checkNode</code>&#x51FD;&#x6570;&#xFF0C;&#x4E00;&#x65E6;&#x627E;&#x5230;&#x914D;&#x7F6E;&#x7684;&#x53EF;&#x884C;&#x8282;&#x70B9;&#x6570;&#xFF0C;&#x5C31;&#x505C;&#x6B62;&#x641C;&#x7D22;&#x66F4;&#x591A;&#x8282;&#x70B9;&#x3002;</li>
+</ol>
+<h2 id="72-podfitsonnode">7.2. podFitsOnNode</h2>
+<p>&#x5176;&#x4E2D;&#x4F1A;&#x8C03;&#x7528;&#x5230;&#x6838;&#x5FC3;&#x51FD;&#x6570;podFitsOnNode&#x3002;</p>
+<p><code>podFitsOnNode</code>&#x4E3B;&#x8981;&#x5185;&#x5BB9;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li><p><code>podFitsOnNode</code>&#x4F1A;&#x68C0;&#x67E5;&#x7ED9;&#x5B9A;&#x7684;&#x67D0;&#x4E2A;Node&#x662F;&#x5426;&#x6EE1;&#x8DB3;&#x9884;&#x9009;&#x7684;&#x51FD;&#x6570;&#x3002;</p>
+</li>
+<li><p>&#x5BF9;&#x4E8E;&#x7ED9;&#x5B9A;&#x7684;pod&#xFF0C;<code>podFitsOnNode</code>&#x4F1A;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x6709;&#x76F8;&#x540C;&#x7684;pod&#x5B58;&#x5728;&#xFF0C;&#x5C3D;&#x91CF;&#x590D;&#x7528;&#x7F13;&#x5B58;&#x8FC7;&#x7684;&#x9884;&#x9009;&#x7ED3;&#x679C;&#x3002;</p>
+</li>
+</ul>
+<p><code>podFitsOnNode</code>&#x4E3B;&#x8981;&#x5728;<code>Schedule</code>&#xFF08;&#x8C03;&#x5EA6;&#xFF09;&#x548C;<code>Preempt</code>&#xFF08;&#x62A2;&#x5360;&#xFF09;&#x7684;&#x65F6;&#x5019;&#x88AB;&#x8C03;&#x7528;&#x3002;</p>
+<p>&#x5F53;&#x5728;<code>Schedule</code>&#x4E2D;&#x88AB;&#x8C03;&#x7528;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E3B;&#x8981;&#x5224;&#x65AD;&#x662F;&#x5426;&#x53EF;&#x4EE5;&#x88AB;&#x8C03;&#x5EA6;&#x5230;&#x5F53;&#x524D;&#x8282;&#x70B9;&#xFF0C;&#x4F9D;&#x636E;&#x4E3A;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E0A;&#x6240;&#x6709;&#x5DF2;&#x5B58;&#x5728;&#x7684;pod&#x53CA;&#x88AB;&#x63D0;&#x540D;&#x8981;&#x8FD0;&#x884C;&#x5230;&#x8BE5;&#x8282;&#x70B9;&#x7684;&#x5177;&#x6709;&#x76F8;&#x7B49;&#x6216;&#x66F4;&#x9AD8;&#x4F18;&#x5148;&#x7EA7;&#x7684;pod&#x3002;</p>
+<p>&#x5F53;&#x5728;<code>Preempt</code>&#x4E2D;&#x88AB;&#x8C03;&#x7528;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5373;&#x53D1;&#x751F;&#x62A2;&#x5360;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x901A;&#x8FC7;<code>SelectVictimsOnNode</code>&#x51FD;&#x6570;&#x9009;&#x51FA;&#x9700;&#x8981;&#x88AB;&#x79FB;&#x9664;&#x7684;pod&#xFF0C;&#x79FB;&#x9664;&#x540E;&#x7136;&#x540E;&#x5C06;&#x9884;&#x8C03;&#x5EA6;&#x7684;pod&#x8C03;&#x5EA6;&#x5230;&#x8BE5;&#x8282;&#x70B9;&#x4E0A;&#x3002;</p>
+<p><strong>podFitsOnNode&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<ol>
+<li>&#x904D;&#x5386;&#x4E4B;&#x524D;&#x6CE8;&#x518C;&#x597D;&#x7684;&#x9884;&#x9009;&#x7B56;&#x7565;<code>predicates.Ordering</code>&#xFF0C;&#x5E76;&#x83B7;&#x53D6;&#x9884;&#x9009;&#x7B56;&#x7565;&#x7684;&#x6267;&#x884C;&#x51FD;&#x6570;&#x3002;</li>
+<li>&#x904D;&#x5386;&#x6267;&#x884C;&#x6BCF;&#x4E2A;<code>&#x9884;&#x9009;&#x51FD;&#x6570;</code>&#xFF0C;&#x5E76;&#x8FD4;&#x56DE;&#x662F;&#x5426;&#x5408;&#x9002;&#xFF0C;&#x9884;&#x9009;&#x5931;&#x8D25;&#x7684;&#x539F;&#x56E0;&#x548C;&#x9519;&#x8BEF;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x9884;&#x9009;&#x51FD;&#x6570;&#x6267;&#x884C;&#x7684;&#x7ED3;&#x679C;&#x4E0D;&#x5408;&#x9002;&#xFF0C;&#x5219;&#x52A0;&#x5165;&#x9884;&#x9009;&#x5931;&#x8D25;&#x7684;&#x6570;&#x7EC4;&#x4E2D;&#x3002;</li>
+<li>&#x6700;&#x540E;&#x8FD4;&#x56DE;&#x9884;&#x9009;&#x5931;&#x8D25;&#x7684;&#x4E2A;&#x6570;&#x662F;&#x5426;&#x4E3A;0&#xFF0C;&#x548C;&#x9884;&#x9009;&#x5931;&#x8D25;&#x7684;&#x539F;&#x56E0;&#x3002;</li>
+</ol>
+<blockquote>
+<p>&#x672C;&#x6587;&#x53EA;&#x793A;&#x4F8B;&#x5206;&#x6790;&#x4E86;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x91CD;&#x8981;&#x7684;&#x9884;&#x9009;&#x51FD;&#x6570;&#xFF1A;PodFitsResources</p>
+</blockquote>
+<h2 id="73-podfitsresources">7.3. PodFitsResources</h2>
+<p><code>PodFitsResources</code>&#x7528;&#x6765;&#x68C0;&#x67E5;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x662F;&#x5426;&#x6709;&#x8DB3;&#x591F;&#x7684;&#x8D44;&#x6E90;&#x6765;&#x8FD0;&#x884C;&#x5F53;&#x524D;&#x7684;pod&#xFF0C;&#x5305;&#x62EC;CPU&#x3001;&#x5185;&#x5B58;&#x3001;GPU&#x7B49;&#x3002;</p>
+<p><strong>PodFitsResources&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<ol>
+<li>&#x5224;&#x65AD;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E0A;pod&#x603B;&#x6570;&#x52A0;&#x4E0A;&#x9884;&#x8C03;&#x5EA6;pod&#x4E2A;&#x6570;&#x662F;&#x5426;&#x5927;&#x4E8E;node&#x7684;&#x53EF;&#x5206;&#x914D;pod&#x603B;&#x6570;&#xFF0C;&#x82E5;&#x662F;&#x5219;&#x4E0D;&#x5141;&#x8BB8;&#x8C03;&#x5EA6;&#x3002;</li>
+<li>&#x5224;&#x65AD;pod&#x7684;request&#x503C;&#x662F;&#x5426;&#x90FD;&#x4E3A;0&#xFF0C;&#x82E5;&#x662F;&#x5219;&#x5141;&#x8BB8;&#x8C03;&#x5EA6;&#x3002;</li>
+<li>&#x5224;&#x65AD;pod&#x7684;request&#x503C;&#x52A0;&#x4E0A;&#x5F53;&#x524D;node&#x4E0A;&#x6240;&#x6709;pod&#x7684;request&#x503C;&#x603B;&#x548C;&#x662F;&#x5426;&#x5927;&#x4E8E;node&#x7684;&#x53EF;&#x5206;&#x914D;&#x8D44;&#x6E90;&#xFF0C;&#x82E5;&#x662F;&#x5219;&#x4E0D;&#x5141;&#x8BB8;&#x8C03;&#x5EA6;&#x3002;</li>
+<li>&#x5224;&#x65AD;pod&#x7684;&#x62D3;&#x5C55;&#x8D44;&#x6E90;request&#x503C;&#x52A0;&#x4E0A;&#x5F53;&#x524D;node&#x4E0A;&#x6240;&#x6709;pod&#x5BF9;&#x5E94;&#x7684;request&#x503C;&#x603B;&#x548C;&#x662F;&#x5426;&#x5927;&#x4E8E;node&#x5BF9;&#x5E94;&#x7684;&#x53EF;&#x5206;&#x914D;&#x8D44;&#x6E90;&#xFF0C;&#x82E5;&#x662F;&#x5219;&#x4E0D;&#x5141;&#x8BB8;&#x8C03;&#x5EA6;&#x3002;</li>
+</ol>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><p><a href="https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/scheduler/core/generic_scheduler.go" target="_blank">https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/scheduler/core/generic_scheduler.go</a></p>
+</li>
+<li><p><a href="https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/scheduler/algorithm/predicates/predicates.go" target="_blank">https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/scheduler/algorithm/predicates/predicates.go</a> </p>
+</li>
+</ul>
+<footer class="page-footer"><span class="copyright">Copyright &#xA9; www.huweihuang.com 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
+2019-04-18 15:52:57
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="scheduleOne.html" class="navigation navigation-prev " aria-label="Previous page: scheduleOne">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../../monitor/kubernetes-cluster-monitoring.html" class="navigation navigation-next " aria-label="Next page: 监控体系介绍">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"findNodesThatFit","level":"12.3.4","depth":2,"next":{"title":"监控体系介绍","level":"13.1","depth":1,"path":"monitor/kubernetes-cluster-monitoring.md","ref":"monitor/kubernetes-cluster-monitoring.md","articles":[]},"previous":{"title":"scheduleOne","level":"12.3.3","depth":2,"path":"code-analysis/kube-scheduler/scheduleOne.md","ref":"code-analysis/kube-scheduler/scheduleOne.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga","disqus","donate"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"huweihuang"},"github":{"url":"https://github.com/huweihuang"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"donate":{"alipay":"http://ozilwgpje.bkt.clouddn.com/donate/alipay.jpg","alipayText":"支付宝打赏","button":"赏","title":"","wechat":"http://ozilwgpje.bkt.clouddn.com/donate/wechatpay.jpg","wechatText":"微信打赏"},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"images/favicon.ico","bookmark":"images/favicon.ico","appleTouch":"images/favicon.ico","appleTouchMore":{"120x120":"images/favicon.ico","180x180":"images/favicon.ico"}},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.1","level":"4.2.2","list_caption":"Figure: pod","alt":"pod","nro":1,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"4.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.2","level":"4.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"4.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.3","level":"4.2.2","list_caption":"Figure: service","alt":"service","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"4.2.2.3"},{"backlink":"concepts/pod/pod-volume.html#fig4.3.5.1","level":"4.3.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":4,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.5.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.7.1","level":"4.3.7","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.7.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.7.2","level":"4.3.7","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.7.2"},{"backlink":"principle/kubernetes-core-principle-api-server.html#fig5.1.1","level":"5.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"5.1.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.2.1","level":"5.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"5.2.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.2.2","level":"5.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":9,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"5.2.2"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.2.3","level":"5.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"5.2.3"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.2.4","level":"5.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"5.2.4"},{"backlink":"principle/kubernetes-core-principle-scheduler.html#fig5.3.1","level":"5.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"5.3.1"},{"backlink":"network/docker-network.html#fig6.1.1","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/container-network.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.1"},{"backlink":"network/docker-network.html#fig6.1.2","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/bridge.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.2"},{"backlink":"network/kubernetes-network.html#fig6.2.1","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":15,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/network-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.1"},{"backlink":"network/kubernetes-network.html#fig6.2.2","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":16,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/pod-network.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.1","level":"6.3.1","list_caption":"Figure: 动态路由","alt":"动态路由","nro":17,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/dynamic-route.png","index":1,"caption_template":"图片 - _CAPTION_","label":"动态路由","attributes":{},"skip":false,"key":"6.3.1.1"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.2","level":"6.3.1","list_caption":"Figure: flannel","alt":"flannel","nro":18,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/flannel.png","index":2,"caption_template":"图片 - _CAPTION_","label":"flannel","attributes":{},"skip":false,"key":"6.3.1.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.3","level":"6.3.1","list_caption":"Figure: UDP封装","alt":"UDP封装","nro":19,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578569/article/flannel/udp.png","index":3,"caption_template":"图片 - _CAPTION_","label":"UDP封装","attributes":{},"skip":false,"key":"6.3.1.3"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.4","level":"6.3.1","list_caption":"Figure: docker启动参数","alt":"docker启动参数","nro":20,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/docker-init-args.png","index":4,"caption_template":"图片 - _CAPTION_","label":"docker启动参数","attributes":{},"skip":false,"key":"6.3.1.4"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.5","level":"6.3.1","list_caption":"Figure: 数据发送节点路由表","alt":"数据发送节点路由表","nro":21,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataSendRouteTable.png","index":5,"caption_template":"图片 - _CAPTION_","label":"数据发送节点路由表","attributes":{},"skip":false,"key":"6.3.1.5"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.6","level":"6.3.1","list_caption":"Figure: 数据接收节点路由表","alt":"数据接收节点路由表","nro":22,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataReceiveRouteTable.png","index":6,"caption_template":"图片 - _CAPTION_","label":"数据接收节点路由表","attributes":{},"skip":false,"key":"6.3.1.6"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig13.1.1","level":"13.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":23,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"13.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig13.2.1","level":"13.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":24,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"13.2.1"},{"backlink":"docker/docker-commands-principle.html#fig14.3.1","level":"14.3","list_caption":"Figure: 1","alt":"1","nro":25,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578327/article/docker/commands/1.png","index":1,"caption_template":"图片 - _CAPTION_","label":"1","attributes":{},"skip":false,"key":"14.3.1"},{"backlink":"docker/docker-commands-principle.html#fig14.3.2","level":"14.3","list_caption":"Figure: 2.1","alt":"2.1","nro":26,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578328/article/docker/commands/2.1.png","index":2,"caption_template":"图片 - _CAPTION_","label":"2.1","attributes":{},"skip":false,"key":"14.3.2"},{"backlink":"docker/docker-commands-principle.html#fig14.3.3","level":"14.3","list_caption":"Figure: 3.2","alt":"3.2","nro":27,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578328/article/docker/commands/3.2.png","index":3,"caption_template":"图片 - _CAPTION_","label":"3.2","attributes":{},"skip":false,"key":"14.3.3"},{"backlink":"docker/docker-commands-principle.html#fig14.3.4","level":"14.3","list_caption":"Figure: 4.1.1","alt":"4.1.1","nro":28,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.1.1.png","index":4,"caption_template":"图片 - _CAPTION_","label":"4.1.1","attributes":{},"skip":false,"key":"14.3.4"},{"backlink":"docker/docker-commands-principle.html#fig14.3.5","level":"14.3","list_caption":"Figure: 4.1.2","alt":"4.1.2","nro":29,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.1.2.png","index":5,"caption_template":"图片 - _CAPTION_","label":"4.1.2","attributes":{},"skip":false,"key":"14.3.5"},{"backlink":"docker/docker-commands-principle.html#fig14.3.6","level":"14.3","list_caption":"Figure: 4.1.3","alt":"4.1.3","nro":30,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.1.3.png","index":6,"caption_template":"图片 - _CAPTION_","label":"4.1.3","attributes":{},"skip":false,"key":"14.3.6"},{"backlink":"docker/docker-commands-principle.html#fig14.3.7","level":"14.3","list_caption":"Figure: 4.2.1.1","alt":"4.2.1.1","nro":31,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.1.png","index":7,"caption_template":"图片 - _CAPTION_","label":"4.2.1.1","attributes":{},"skip":false,"key":"14.3.7"},{"backlink":"docker/docker-commands-principle.html#fig14.3.8","level":"14.3","list_caption":"Figure: 4.2.1.2","alt":"4.2.1.2","nro":32,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.2.png","index":8,"caption_template":"图片 - _CAPTION_","label":"4.2.1.2","attributes":{},"skip":false,"key":"14.3.8"},{"backlink":"docker/docker-commands-principle.html#fig14.3.9","level":"14.3","list_caption":"Figure: 4.2.1.3","alt":"4.2.1.3","nro":33,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.3.png","index":9,"caption_template":"图片 - _CAPTION_","label":"4.2.1.3","attributes":{},"skip":false,"key":"14.3.9"},{"backlink":"docker/docker-commands-principle.html#fig14.3.10","level":"14.3","list_caption":"Figure: 4.2.1.3.1","alt":"4.2.1.3.1","nro":34,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.2.1.3.1.png","index":10,"caption_template":"图片 - _CAPTION_","label":"4.2.1.3.1","attributes":{},"skip":false,"key":"14.3.10"},{"backlink":"docker/docker-commands-principle.html#fig14.3.11","level":"14.3","list_caption":"Figure: 4.2.1.4","alt":"4.2.1.4","nro":35,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.4.png","index":11,"caption_template":"图片 - _CAPTION_","label":"4.2.1.4","attributes":{},"skip":false,"key":"14.3.11"},{"backlink":"docker/docker-commands-principle.html#fig14.3.12","level":"14.3","list_caption":"Figure: 4.2.1.5","alt":"4.2.1.5","nro":36,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.5.png","index":12,"caption_template":"图片 - _CAPTION_","label":"4.2.1.5","attributes":{},"skip":false,"key":"14.3.12"},{"backlink":"docker/docker-commands-principle.html#fig14.3.13","level":"14.3","list_caption":"Figure: 4.2.1.6","alt":"4.2.1.6","nro":37,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.6.png","index":13,"caption_template":"图片 - _CAPTION_","label":"4.2.1.6","attributes":{},"skip":false,"key":"14.3.13"},{"backlink":"docker/docker-commands-principle.html#fig14.3.14","level":"14.3","list_caption":"Figure: 4.2.1.7","alt":"4.2.1.7","nro":38,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.7.png","index":14,"caption_template":"图片 - _CAPTION_","label":"4.2.1.7","attributes":{},"skip":false,"key":"14.3.14"},{"backlink":"docker/docker-commands-principle.html#fig14.3.15","level":"14.3","list_caption":"Figure: 4.2.1.7.2","alt":"4.2.1.7.2","nro":39,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.7.2.png","index":15,"caption_template":"图片 - _CAPTION_","label":"4.2.1.7.2","attributes":{},"skip":false,"key":"14.3.15"},{"backlink":"docker/docker-commands-principle.html#fig14.3.16","level":"14.3","list_caption":"Figure: 4.2.1.8.1","alt":"4.2.1.8.1","nro":40,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.8.1.png","index":16,"caption_template":"图片 - _CAPTION_","label":"4.2.1.8.1","attributes":{},"skip":false,"key":"14.3.16"},{"backlink":"docker/docker-commands-principle.html#fig14.3.17","level":"14.3","list_caption":"Figure: 4.2.1.8.2","alt":"4.2.1.8.2","nro":41,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.8.2.png","index":17,"caption_template":"图片 - _CAPTION_","label":"4.2.1.8.2","attributes":{},"skip":false,"key":"14.3.17"},{"backlink":"docker/docker-commands-principle.html#fig14.3.18","level":"14.3","list_caption":"Figure: 4.2.2.1.1","alt":"4.2.2.1.1","nro":42,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.1.1.png","index":18,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.1","attributes":{},"skip":false,"key":"14.3.18"},{"backlink":"docker/docker-commands-principle.html#fig14.3.19","level":"14.3","list_caption":"Figure: 4.2.2.1.2","alt":"4.2.2.1.2","nro":43,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.1.2.png","index":19,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.2","attributes":{},"skip":false,"key":"14.3.19"},{"backlink":"docker/docker-commands-principle.html#fig14.3.20","level":"14.3","list_caption":"Figure: 4.2.2.1.3","alt":"4.2.2.1.3","nro":44,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.1.3.png","index":20,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.3","attributes":{},"skip":false,"key":"14.3.20"},{"backlink":"docker/docker-commands-principle.html#fig14.3.21","level":"14.3","list_caption":"Figure: 4.2.2.2.1","alt":"4.2.2.2.1","nro":45,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.2.1.png","index":21,"caption_template":"图片 - _CAPTION_","label":"4.2.2.2.1","attributes":{},"skip":false,"key":"14.3.21"},{"backlink":"docker/docker-commands-principle.html#fig14.3.22","level":"14.3","list_caption":"Figure: 4.2.2.2.2","alt":"4.2.2.2.2","nro":46,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.2.2.png","index":22,"caption_template":"图片 - _CAPTION_","label":"4.2.2.2.2","attributes":{},"skip":false,"key":"14.3.22"},{"backlink":"docker/docker-commands-principle.html#fig14.3.23","level":"14.3","list_caption":"Figure: 4.2.2.3.1","alt":"4.2.2.3.1","nro":47,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.3.1.png","index":23,"caption_template":"图片 - _CAPTION_","label":"4.2.2.3.1","attributes":{},"skip":false,"key":"14.3.23"},{"backlink":"docker/docker-commands-principle.html#fig14.3.24","level":"14.3","list_caption":"Figure: 4.2.3.1","alt":"4.2.3.1","nro":48,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.1.png","index":24,"caption_template":"图片 - _CAPTION_","label":"4.2.3.1","attributes":{},"skip":false,"key":"14.3.24"},{"backlink":"docker/docker-commands-principle.html#fig14.3.25","level":"14.3","list_caption":"Figure: 4.2.3.2","alt":"4.2.3.2","nro":49,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.2.png","index":25,"caption_template":"图片 - _CAPTION_","label":"4.2.3.2","attributes":{},"skip":false,"key":"14.3.25"},{"backlink":"docker/docker-commands-principle.html#fig14.3.26","level":"14.3","list_caption":"Figure: 4.2.3.3","alt":"4.2.3.3","nro":50,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.3.png","index":26,"caption_template":"图片 - _CAPTION_","label":"4.2.3.3","attributes":{},"skip":false,"key":"14.3.26"},{"backlink":"docker/docker-commands-principle.html#fig14.3.27","level":"14.3","list_caption":"Figure: 4.2.3.4","alt":"4.2.3.4","nro":51,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578333/article/docker/commands/4.2.3.4.png","index":27,"caption_template":"图片 - _CAPTION_","label":"4.2.3.4","attributes":{},"skip":false,"key":"14.3.27"},{"backlink":"etcd/etcd-introduction.html#fig15.1.1","level":"15.1","list_caption":"Figure: etcd的架构图","alt":"etcd的架构图","nro":52,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/etcd-architecture.jpg","index":1,"caption_template":"图片 - _CAPTION_","label":"etcd的架构图","attributes":{},"skip":false,"key":"15.1.1"},{"backlink":"etcd/raft.html#fig15.2.1","level":"15.2","list_caption":"Figure: raft","alt":"raft","nro":53,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/raft.png","index":1,"caption_template":"图片 - _CAPTION_","label":"raft","attributes":{},"skip":false,"key":"15.2.1"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"胡伟煌的博客":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"code-analysis/kube-scheduler/findNodesThatFit.md","mtime":"2019-04-18T07:52:57.502Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-04-18T07:54:04.544Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-page-toc-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-editlink/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-3-ba/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-donate/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
