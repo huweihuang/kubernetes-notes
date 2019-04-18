@@ -1,3 +1,5 @@
+# kube-scheduler源码分析（二）之 registerAlgorithmProvider
+
 > 以下代码分析基于 `kubernetes v1.12.0` 版本。
 
 此部分主要介绍调度中使用的各种调度算法，包括调度算法的注册部分。注册部分的代码主要在`/pkg/scheduler/algorithmprovider`中，具体的预选策略和优选策略的算法实现在`/pkg/scheduler/algorithm`中。

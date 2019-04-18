@@ -1,3 +1,5 @@
+# kube-controller-manager源码分析（三）之 Informer机制
+
 > 以下代码分析基于 `kubernetes v1.12.0` 版本。
 
 本文主要分析k8s中各个核心组件经常使用到的`Informer`机制(即List-Watch)。该部分的代码主要位于`client-go`这个第三方包中。

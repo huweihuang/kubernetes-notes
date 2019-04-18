@@ -1,5 +1,6 @@
+# kube-controller-manager源码分析（二）之 DeploymentController
+
 > 以下代码分析基于 `kubernetes v1.12.0` 版本。
->
 
 本文主要以`deployment controller`为例，分析该类controller的运行逻辑。此部分代码主要为位于`pkg/controller/deployment`。`pkg/controller`部分的代码包括了各种类型的controller的具体实现。
 
