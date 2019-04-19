@@ -83,6 +83,7 @@
         * [kube-scheduler源码分析（二）之 registerAlgorithmProvider](code-analysis/kube-scheduler/registerAlgorithmProvider.md)
         * [kube-scheduler源码分析（三）之 scheduleOne](code-analysis/kube-scheduler/scheduleOne.md)
         * [kube-scheduler源码分析（四）之 findNodesThatFit](code-analysis/kube-scheduler/findNodesThatFit.md)
+        * [kube-scheduler源码分析（五）之 PrioritizeNodes](code-analysis/kube-scheduler/PrioritizeNodes.md)
 * [监控体系]()
     * [监控体系介绍](monitor/kubernetes-cluster-monitoring.md)
     * [cAdvisor介绍](monitor/cadvisor-introduction.md)
