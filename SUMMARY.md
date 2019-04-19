@@ -93,6 +93,8 @@
     * [NewSchedulerCommand](code-analysis/kube-scheduler/NewSchedulerCommand.md)
     * [registerAlgorithmProvider](code-analysis/kube-scheduler/registerAlgorithmProvider.md)
     * [scheduleOne](code-analysis/kube-scheduler/scheduleOne.md)
+    * [findNodesThatFit](code-analysis/kube-scheduler/findNodesThatFit.md)
+    * [PrioritizeNodes](code-analysis/kube-scheduler/PrioritizeNodes.md)
 
 ## 监控体系
 
