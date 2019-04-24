@@ -1,0 +1,2301 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>NewAPIServerCommand · Kubernetes 学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="胡伟煌">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-toc-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-donate/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../../monitor/kubernetes-cluster-monitoring.html" />
+    
+    
+
+    
+        <link rel="shortcut icon" href='../../images/favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../../images/favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="apple-touch-icon" href='../../images/favicon.ico'>
+    
+    
+        
+        <link rel="apple-touch-icon" sizes="120x120" href="../../images/favicon.ico">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="../../images/favicon.ico">
+        
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com" target="_blank" class="custom-link">胡伟煌的博客</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        <li class="header">前言</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                        <b>1.1.</b>
+                    
+                    序言
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">PaaS</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../../paas/12-factor.html">
+            
+                <a href="../../paas/12-factor.html">
+            
+                    
+                        <b>2.1.</b>
+                    
+                    12-Factor
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">安装与配置</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../../setup/install-k8s-by-kubespray.html">
+            
+                <a href="../../setup/install-k8s-by-kubespray.html">
+            
+                    
+                        <b>3.1.</b>
+                    
+                    使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../../setup/install-k8s-by-minikube.html">
+            
+                <a href="../../setup/install-k8s-by-minikube.html">
+            
+                    
+                        <b>3.2.</b>
+                    
+                    使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">基本概念</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" >
+            
+                <span>
+            
+                    
+                        <b>4.1.</b>
+                    
+                    kubernetes架构
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="../../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                        <b>4.1.1.</b>
+                    
+                    Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="../../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                        <b>4.1.2.</b>
+                    
+                    基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" >
+            
+                <span>
+            
+                    
+                        <b>4.2.</b>
+                    
+                    kubernetes对象
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="../../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                        <b>4.2.1.</b>
+                    
+                    理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="../../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                        <b>4.2.2.</b>
+                    
+                    kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" >
+            
+                <span>
+            
+                    
+                        <b>4.3.</b>
+                    
+                    Pod
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.3.1" data-path="../../concepts/pod/pod.html">
+            
+                <a href="../../concepts/pod/pod.html">
+            
+                    
+                        <b>4.3.1.</b>
+                    
+                    Pod介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.2" data-path="../../concepts/pod/pod-definition.html">
+            
+                <a href="../../concepts/pod/pod-definition.html">
+            
+                    
+                        <b>4.3.2.</b>
+                    
+                    Pod定义文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.3" data-path="../../concepts/pod/pod-lifecycle.html">
+            
+                <a href="../../concepts/pod/pod-lifecycle.html">
+            
+                    
+                        <b>4.3.3.</b>
+                    
+                    Pod生命周期
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.4" data-path="../../concepts/pod/pod-probe.html">
+            
+                <a href="../../concepts/pod/pod-probe.html">
+            
+                    
+                        <b>4.3.4.</b>
+                    
+                    Pod健康检查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.5" data-path="../../concepts/pod/pod-volume.html">
+            
+                <a href="../../concepts/pod/pod-volume.html">
+            
+                    
+                        <b>4.3.5.</b>
+                    
+                    Pod存储卷
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.6" data-path="../../concepts/pod/pod-configmap.html">
+            
+                <a href="../../concepts/pod/pod-configmap.html">
+            
+                    
+                        <b>4.3.6.</b>
+                    
+                    Pod配置管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.7" data-path="../../concepts/pod/pod-scheduler.html">
+            
+                <a href="../../concepts/pod/pod-scheduler.html">
+            
+                    
+                        <b>4.3.7.</b>
+                    
+                    Pod调度
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.8" data-path="../../concepts/pod/pod-operation.html">
+            
+                <a href="../../concepts/pod/pod-operation.html">
+            
+                    
+                        <b>4.3.8.</b>
+                    
+                    Pod操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">核心原理</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../../principle/kubernetes-core-principle-api-server.html">
+            
+                <a href="../../principle/kubernetes-core-principle-api-server.html">
+            
+                    
+                        <b>5.1.</b>
+                    
+                    Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../../principle/kubernetes-core-principle-controller-manager.html">
+            
+                <a href="../../principle/kubernetes-core-principle-controller-manager.html">
+            
+                    
+                        <b>5.2.</b>
+                    
+                    Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="../../principle/kubernetes-core-principle-scheduler.html">
+            
+                <a href="../../principle/kubernetes-core-principle-scheduler.html">
+            
+                    
+                        <b>5.3.</b>
+                    
+                    Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="../../principle/kubernetes-core-principle-kubelet.html">
+            
+                <a href="../../principle/kubernetes-core-principle-kubelet.html">
+            
+                    
+                        <b>5.4.</b>
+                    
+                    Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">网络</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../../network/docker-network.html">
+            
+                <a href="../../network/docker-network.html">
+            
+                    
+                        <b>6.1.</b>
+                    
+                    Docker网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="../../network/kubernetes-network.html">
+            
+                <a href="../../network/kubernetes-network.html">
+            
+                    
+                        <b>6.2.</b>
+                    
+                    k8s网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" >
+            
+                <span>
+            
+                    
+                        <b>6.3.</b>
+                    
+                    Flannel
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.3.1" data-path="../../network/flannel/flannel-introduction.html">
+            
+                <a href="../../network/flannel/flannel-introduction.html">
+            
+                    
+                        <b>6.3.1.</b>
+                    
+                    Flannel介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">存储</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../../storage/volume.html">
+            
+                <a href="../../storage/volume.html">
+            
+                    
+                        <b>7.1.</b>
+                    
+                    Volume
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="../../storage/persistent-volume.html">
+            
+                <a href="../../storage/persistent-volume.html">
+            
+                    
+                        <b>7.2.</b>
+                    
+                    Persistent Volume
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="../../storage/persistent-volume-claim.html">
+            
+                <a href="../../storage/persistent-volume-claim.html">
+            
+                    
+                        <b>7.3.</b>
+                    
+                    Persistent Volume Claim
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="../../storage/storage-class.html">
+            
+                <a href="../../storage/storage-class.html">
+            
+                    
+                        <b>7.4.</b>
+                    
+                    Storage Class
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="../../storage/dynamic-provisioning.html">
+            
+                <a href="../../storage/dynamic-provisioning.html">
+            
+                    
+                        <b>7.5.</b>
+                    
+                    Dynamic Volume Provisioning
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">CSI</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../../csi/ceph/csi-cephfs-plugin.html">
+            
+                <a href="../../csi/ceph/csi-cephfs-plugin.html">
+            
+                    
+                        <b>8.1.</b>
+                    
+                    csi-cephfs-plugin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../../csi/ceph/deploy-csi-cephfs.html">
+            
+                <a href="../../csi/ceph/deploy-csi-cephfs.html">
+            
+                    
+                        <b>8.2.</b>
+                    
+                    部署csi-cephfs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">资源配额</li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" data-path="../../resource/resource-quota.html">
+            
+                <a href="../../resource/resource-quota.html">
+            
+                    
+                        <b>9.1.</b>
+                    
+                    资源配额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="../../resource/limit-range.html">
+            
+                <a href="../../resource/limit-range.html">
+            
+                    
+                        <b>9.2.</b>
+                    
+                    Pod限额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="../../resource/quality-of-service.html">
+            
+                <a href="../../resource/quality-of-service.html">
+            
+                    
+                        <b>9.3.</b>
+                    
+                    资源服务质量
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">运维指南</li>
+        
+        
+    
+        <li class="chapter " data-level="10.1" data-path="../../operation/install-kubectl.html">
+            
+                <a href="../../operation/install-kubectl.html">
+            
+                    
+                        <b>10.1.</b>
+                    
+                    kubectl安装与配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.2" data-path="../../operation/kubectl-commands.html">
+            
+                <a href="../../operation/kubectl-commands.html">
+            
+                    
+                        <b>10.2.</b>
+                    
+                    kubectl命令说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.3" data-path="../../operation/safely-drain-node.html">
+            
+                <a href="../../operation/safely-drain-node.html">
+            
+                    
+                        <b>10.3.</b>
+                    
+                    安全迁移节点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.4" data-path="../../operation/kubernetes-troubleshooting.html">
+            
+                <a href="../../operation/kubernetes-troubleshooting.html">
+            
+                    
+                        <b>10.4.</b>
+                    
+                    kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.5" data-path="../../operation/nodeselector-and-taint.html">
+            
+                <a href="../../operation/nodeselector-and-taint.html">
+            
+                    
+                        <b>10.5.</b>
+                    
+                    指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">开发指南</li>
+        
+        
+    
+        <li class="chapter " data-level="11.1" data-path="../../develop/client-go.html">
+            
+                <a href="../../develop/client-go.html">
+            
+                    
+                        <b>11.1.</b>
+                    
+                    client-go的使用及源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="11.2" data-path="../../develop/nfs-client-provisioner.html">
+            
+                <a href="../../develop/nfs-client-provisioner.html">
+            
+                    
+                        <b>11.2.</b>
+                    
+                    nfs-client-provisioner源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="11.3" data-path="../../develop/csi-provisioner.html">
+            
+                <a href="../../develop/csi-provisioner.html">
+            
+                    
+                        <b>11.3.</b>
+                    
+                    csi-provisioner源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">源码分析</li>
+        
+        
+    
+        <li class="chapter " data-level="12.1" >
+            
+                <span>
+            
+                    
+                        <b>12.1.</b>
+                    
+                    kubelet
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.1.1" data-path="../kubelet/NewKubeletCommand.html">
+            
+                <a href="../kubelet/NewKubeletCommand.html">
+            
+                    
+                        <b>12.1.1.</b>
+                    
+                    NewKubeletCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.1.2" data-path="../kubelet/NewMainKubelet.html">
+            
+                <a href="../kubelet/NewMainKubelet.html">
+            
+                    
+                        <b>12.1.2.</b>
+                    
+                    NewMainKubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.1.3" data-path="../kubelet/RunKubelet.html">
+            
+                <a href="../kubelet/RunKubelet.html">
+            
+                    
+                        <b>12.1.3.</b>
+                    
+                    RunKubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.1.4" data-path="../kubelet/create-pod-by-kubelet.html">
+            
+                <a href="../kubelet/create-pod-by-kubelet.html">
+            
+                    
+                        <b>12.1.4.</b>
+                    
+                    Pod的创建
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2" >
+            
+                <span>
+            
+                    
+                        <b>12.2.</b>
+                    
+                    kube-controller-manager
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.2.1" data-path="../kube-controller-manager/NewControllerManagerCommand.html">
+            
+                <a href="../kube-controller-manager/NewControllerManagerCommand.html">
+            
+                    
+                        <b>12.2.1.</b>
+                    
+                    NewControllerManagerCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.2" data-path="../kube-controller-manager/deployment-controller.html">
+            
+                <a href="../kube-controller-manager/deployment-controller.html">
+            
+                    
+                        <b>12.2.2.</b>
+                    
+                    DeploymentController
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.3" data-path="../kube-controller-manager/sharedIndexInformer.html">
+            
+                <a href="../kube-controller-manager/sharedIndexInformer.html">
+            
+                    
+                        <b>12.2.3.</b>
+                    
+                    Informer机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3" >
+            
+                <span>
+            
+                    
+                        <b>12.3.</b>
+                    
+                    kube-scheduler
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.3.1" data-path="../kube-scheduler/NewSchedulerCommand.html">
+            
+                <a href="../kube-scheduler/NewSchedulerCommand.html">
+            
+                    
+                        <b>12.3.1.</b>
+                    
+                    NewSchedulerCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.2" data-path="../kube-scheduler/registerAlgorithmProvider.html">
+            
+                <a href="../kube-scheduler/registerAlgorithmProvider.html">
+            
+                    
+                        <b>12.3.2.</b>
+                    
+                    registerAlgorithmProvider
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.3" data-path="../kube-scheduler/scheduleOne.html">
+            
+                <a href="../kube-scheduler/scheduleOne.html">
+            
+                    
+                        <b>12.3.3.</b>
+                    
+                    scheduleOne
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.4" data-path="../kube-scheduler/findNodesThatFit.html">
+            
+                <a href="../kube-scheduler/findNodesThatFit.html">
+            
+                    
+                        <b>12.3.4.</b>
+                    
+                    findNodesThatFit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.5" data-path="../kube-scheduler/PrioritizeNodes.html">
+            
+                <a href="../kube-scheduler/PrioritizeNodes.html">
+            
+                    
+                        <b>12.3.5.</b>
+                    
+                    PrioritizeNodes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4" >
+            
+                <span>
+            
+                    
+                        <b>12.4.</b>
+                    
+                    kube-apiserver
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter active" data-level="12.4.1" data-path="NewAPIServerCommand.html">
+            
+                <a href="NewAPIServerCommand.html">
+            
+                    
+                        <b>12.4.1.</b>
+                    
+                    NewAPIServerCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">监控体系</li>
+        
+        
+    
+        <li class="chapter " data-level="13.1" data-path="../../monitor/kubernetes-cluster-monitoring.html">
+            
+                <a href="../../monitor/kubernetes-cluster-monitoring.html">
+            
+                    
+                        <b>13.1.</b>
+                    
+                    监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="13.2" data-path="../../monitor/cadvisor-introduction.html">
+            
+                <a href="../../monitor/cadvisor-introduction.html">
+            
+                    
+                        <b>13.2.</b>
+                    
+                    cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="13.3" data-path="../../monitor/heapster-introduction.html">
+            
+                <a href="../../monitor/heapster-introduction.html">
+            
+                    
+                        <b>13.3.</b>
+                    
+                    Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="13.4" data-path="../../monitor/influxdb-introduction.html">
+            
+                <a href="../../monitor/influxdb-introduction.html">
+            
+                    
+                        <b>13.4.</b>
+                    
+                    Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Docker</li>
+        
+        
+    
+        <li class="chapter " data-level="14.1" data-path="../../docker/install-docker.html">
+            
+                <a href="../../docker/install-docker.html">
+            
+                    
+                        <b>14.1.</b>
+                    
+                    安装Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.2" data-path="../../docker/docker-architecture.html">
+            
+                <a href="../../docker/docker-architecture.html">
+            
+                    
+                        <b>14.2.</b>
+                    
+                    Docker架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.3" data-path="../../docker/docker-commands-principle.html">
+            
+                <a href="../../docker/docker-commands-principle.html">
+            
+                    
+                        <b>14.3.</b>
+                    
+                    Docker常用命令原理图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.4" data-path="../../docker/dockerfile-usage.html">
+            
+                <a href="../../docker/dockerfile-usage.html">
+            
+                    
+                        <b>14.4.</b>
+                    
+                    Dockerfile使用说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5" >
+            
+                <span>
+            
+                    
+                        <b>14.5.</b>
+                    
+                    Docker源码分析
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="14.5.1" data-path="../../docker/code-analysis/code-analysis-of-docker-client.html">
+            
+                <a href="../../docker/code-analysis/code-analysis-of-docker-client.html">
+            
+                    
+                        <b>14.5.1.</b>
+                    
+                    Docker Client
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5.2" data-path="../../docker/code-analysis/code-analysis-of-docker-daemon.html">
+            
+                <a href="../../docker/code-analysis/code-analysis-of-docker-daemon.html">
+            
+                    
+                        <b>14.5.2.</b>
+                    
+                    Docker Daemon
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5.3" data-path="../../docker/code-analysis/code-analysis-of-docker-server.html">
+            
+                <a href="../../docker/code-analysis/code-analysis-of-docker-server.html">
+            
+                    
+                        <b>14.5.3.</b>
+                    
+                    Docker Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Etcd</li>
+        
+        
+    
+        <li class="chapter " data-level="15.1" data-path="../../etcd/etcd-introduction.html">
+            
+                <a href="../../etcd/etcd-introduction.html">
+            
+                    
+                        <b>15.1.</b>
+                    
+                    Etcd介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.2" data-path="../../etcd/raft.html">
+            
+                <a href="../../etcd/raft.html">
+            
+                    
+                        <b>15.2.</b>
+                    
+                    Raft算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.3" data-path="../../etcd/etcd-setup-flags.html">
+            
+                <a href="../../etcd/etcd-setup-flags.html">
+            
+                    
+                        <b>15.3.</b>
+                    
+                    Etcd启动配置参数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.4" data-path="../../etcd/etcd-auth-and-security.html">
+            
+                <a href="../../etcd/etcd-auth-and-security.html">
+            
+                    
+                        <b>15.4.</b>
+                    
+                    Etcd访问控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.5" data-path="../../etcd/etcdctl-v2.html">
+            
+                <a href="../../etcd/etcdctl-v2.html">
+            
+                    
+                        <b>15.5.</b>
+                    
+                    etcdctl命令工具-V2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.6" data-path="../../etcd/etcdctl-v3.html">
+            
+                <a href="../../etcd/etcdctl-v3.html">
+            
+                    
+                        <b>15.6.</b>
+                    
+                    etcdctl命令工具-V3
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >NewAPIServerCommand</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="kube-apiserver&#x6E90;&#x7801;&#x5206;&#x6790;&#xFF08;&#x4E00;&#xFF09;&#x4E4B;-newapiservercommand">kube-apiserver&#x6E90;&#x7801;&#x5206;&#x6790;&#xFF08;&#x4E00;&#xFF09;&#x4E4B; NewAPIServerCommand</h1>
+<blockquote>
+<p>&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#x5206;&#x6790;&#x57FA;&#x4E8E; <code>kubernetes v1.12.0</code> &#x7248;&#x672C;&#x3002;</p>
+</blockquote>
+<p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x5206;&#x6790;<code>kube-apiserver</code>&#x4E2D;<code>cmd</code>&#x90E8;&#x5206;&#x7684;&#x4EE3;&#x7801;&#xFF0C;&#x5373;<code>NewAPIServerCommand</code>&#x76F8;&#x5173;&#x7684;&#x4EE3;&#x7801;&#x3002;&#x66F4;&#x591A;&#x5177;&#x4F53;&#x7684;&#x903B;&#x8F91;&#x5F85;&#x540E;&#x7EED;&#x6587;&#x7AE0;&#x5206;&#x6790;&#x3002;</p>
+<p><code>kube-apiserver</code>&#x7684;<code>cmd</code>&#x90E8;&#x5206;&#x76EE;&#x5F55;&#x4EE3;&#x7801;&#x7ED3;&#x6784;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-bash">kube-apiserver
+&#x251C;&#x2500;&#x2500; apiserver.go   <span class="token comment"># kube-apiserver&#x7684;main&#x5165;&#x53E3;</span>
+&#x2514;&#x2500;&#x2500; app
+    &#x251C;&#x2500;&#x2500; aggregator.go
+    &#x251C;&#x2500;&#x2500; apiextensions.go
+    &#x251C;&#x2500;&#x2500; options  <span class="token comment"># &#x521D;&#x59CB;&#x5316;kube-apiserver&#x4F7F;&#x7528;&#x5230;&#x7684;option</span>
+    &#x2502;   &#x251C;&#x2500;&#x2500; options.go     <span class="token comment"># &#x5305;&#x62EC;&#xFF1A;NewServerRunOptions&#x3001;Flags&#x7B49;</span>
+    &#x2502;   &#x251C;&#x2500;&#x2500; options_test.go
+    &#x2502;   &#x2514;&#x2500;&#x2500; validation.go
+    &#x251C;&#x2500;&#x2500; server.go   <span class="token comment"># &#x5305;&#x62EC;&#xFF1A;NewAPIServerCommand&#x3001;Run&#x3001;CreateServerChain&#x3001;Complete&#x7B49;</span>
+</code></pre>
+<h1 id="1-main">1. Main</h1>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;cmd/kube-apiserver/apiserver.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    rand<span class="token punctuation">.</span><span class="token function">Seed</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">UTC</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">UnixNano</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    command <span class="token operator">:=</span> app<span class="token punctuation">.</span><span class="token function">NewAPIServerCommand</span><span class="token punctuation">(</span>server<span class="token punctuation">.</span><span class="token function">SetupSignalHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// TODO: once we switch everything over to Cobra commands, we can go back to calling</span>
+    <span class="token comment">// utilflag.InitFlags() (by removing its pflag.Parse() call). For now, we have to set the</span>
+    <span class="token comment">// normalize func and add the go flag set by hand.</span>
+    pflag<span class="token punctuation">.</span>CommandLine<span class="token punctuation">.</span><span class="token function">SetNormalizeFunc</span><span class="token punctuation">(</span>utilflag<span class="token punctuation">.</span>WordSepNormalizeFunc<span class="token punctuation">)</span>
+    pflag<span class="token punctuation">.</span>CommandLine<span class="token punctuation">.</span><span class="token function">AddGoFlagSet</span><span class="token punctuation">(</span>goflag<span class="token punctuation">.</span>CommandLine<span class="token punctuation">)</span>
+    <span class="token comment">// utilflag.InitFlags()</span>
+    logs<span class="token punctuation">.</span><span class="token function">InitLogs</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">defer</span> logs<span class="token punctuation">.</span><span class="token function">FlushLogs</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> command<span class="token punctuation">.</span><span class="token function">Execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Stderr<span class="token punctuation">,</span> <span class="token string">&quot;error: %v\n&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+        os<span class="token punctuation">.</span><span class="token function">Exit</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6838;&#x5FC3;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// &#x521D;&#x59CB;&#x5316;APIServerCommand</span>
+command <span class="token operator">:=</span> app<span class="token punctuation">.</span><span class="token function">NewAPIServerCommand</span><span class="token punctuation">(</span>server<span class="token punctuation">.</span><span class="token function">SetupSignalHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment">// &#x6267;&#x884C;Execute</span>
+err <span class="token operator">:=</span> command<span class="token punctuation">.</span><span class="token function">Execute</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<h1 id="2-newapiservercommand">2. NewAPIServerCommand</h1>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x7684;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;/cmd/kube-apiserver/app/server.go</p>
+</blockquote>
+<p><code>NewAPIServerCommand</code>&#x5373;<a href="https://github.com/spf13/cobra" target="_blank">Cobra</a>&#x547D;&#x4EE4;&#x884C;&#x6846;&#x67B6;&#x7684;&#x6784;&#x9020;&#x51FD;&#x6570;&#xFF0C;&#x4E3B;&#x8981;&#x5305;&#x62EC;&#x4E09;&#x90E8;&#x5206;&#xFF1A;</p>
+<ul>
+<li>&#x6784;&#x9020;option</li>
+<li>&#x6DFB;&#x52A0;Flags</li>
+<li>&#x6267;&#x884C;Run&#x51FD;&#x6570;</li>
+</ul>
+<p>&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;cmd/kube-apiserver/app/server.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// NewAPIServerCommand creates a *cobra.Command object with default parameters</span>
+<span class="token keyword">func</span> <span class="token function">NewAPIServerCommand</span><span class="token punctuation">(</span>stopCh <span class="token operator">&lt;-</span><span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">*</span>cobra<span class="token punctuation">.</span>Command <span class="token punctuation">{</span>
+    s <span class="token operator">:=</span> options<span class="token punctuation">.</span><span class="token function">NewServerRunOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    cmd <span class="token operator">:=</span> <span class="token operator">&amp;</span>cobra<span class="token punctuation">.</span>Command<span class="token punctuation">{</span>
+        Use<span class="token punctuation">:</span> <span class="token string">&quot;kube-apiserver&quot;</span><span class="token punctuation">,</span>
+        Long<span class="token punctuation">:</span> <span class="token string">`The Kubernetes API server validates and configures data
+for the api objects which include pods, services, replicationcontrollers, and
+others. The API Server services REST operations and provides the frontend to the
+cluster&apos;s shared state through which all other components interact.`</span><span class="token punctuation">,</span>
+        RunE<span class="token punctuation">:</span> <span class="token keyword">func</span><span class="token punctuation">(</span>cmd <span class="token operator">*</span>cobra<span class="token punctuation">.</span>Command<span class="token punctuation">,</span> args <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+            verflag<span class="token punctuation">.</span><span class="token function">PrintAndExitIfRequested</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            utilflag<span class="token punctuation">.</span><span class="token function">PrintFlags</span><span class="token punctuation">(</span>cmd<span class="token punctuation">.</span><span class="token function">Flags</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+            <span class="token comment">// set default options</span>
+            completedOptions<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">Complete</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> err
+            <span class="token punctuation">}</span>
+
+            <span class="token comment">// validate options</span>
+            <span class="token keyword">if</span> errs <span class="token operator">:=</span> completedOptions<span class="token punctuation">.</span><span class="token function">Validate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token function">len</span><span class="token punctuation">(</span>errs<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> utilerrors<span class="token punctuation">.</span><span class="token function">NewAggregate</span><span class="token punctuation">(</span>errs<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+
+            <span class="token keyword">return</span> <span class="token function">Run</span><span class="token punctuation">(</span>completedOptions<span class="token punctuation">,</span> stopCh<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+
+    fs <span class="token operator">:=</span> cmd<span class="token punctuation">.</span><span class="token function">Flags</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    namedFlagSets <span class="token operator">:=</span> s<span class="token punctuation">.</span><span class="token function">Flags</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> f <span class="token operator">:=</span> <span class="token keyword">range</span> namedFlagSets<span class="token punctuation">.</span>FlagSets <span class="token punctuation">{</span>
+        fs<span class="token punctuation">.</span><span class="token function">AddFlagSet</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    usageFmt <span class="token operator">:=</span> <span class="token string">&quot;Usage:\n  %s\n&quot;</span>
+    cols<span class="token punctuation">,</span> <span class="token boolean">_</span><span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> apiserverflag<span class="token punctuation">.</span><span class="token function">TerminalSize</span><span class="token punctuation">(</span>cmd<span class="token punctuation">.</span><span class="token function">OutOrStdout</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    cmd<span class="token punctuation">.</span><span class="token function">SetUsageFunc</span><span class="token punctuation">(</span><span class="token keyword">func</span><span class="token punctuation">(</span>cmd <span class="token operator">*</span>cobra<span class="token punctuation">.</span>Command<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>cmd<span class="token punctuation">.</span><span class="token function">OutOrStderr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> usageFmt<span class="token punctuation">,</span> cmd<span class="token punctuation">.</span><span class="token function">UseLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        apiserverflag<span class="token punctuation">.</span><span class="token function">PrintSections</span><span class="token punctuation">(</span>cmd<span class="token punctuation">.</span><span class="token function">OutOrStderr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> namedFlagSets<span class="token punctuation">,</span> cols<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    cmd<span class="token punctuation">.</span><span class="token function">SetHelpFunc</span><span class="token punctuation">(</span><span class="token keyword">func</span><span class="token punctuation">(</span>cmd <span class="token operator">*</span>cobra<span class="token punctuation">.</span>Command<span class="token punctuation">,</span> args <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Fprintf</span><span class="token punctuation">(</span>cmd<span class="token punctuation">.</span><span class="token function">OutOrStdout</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;%s\n\n&quot;</span><span class="token operator">+</span>usageFmt<span class="token punctuation">,</span> cmd<span class="token punctuation">.</span>Long<span class="token punctuation">,</span> cmd<span class="token punctuation">.</span><span class="token function">UseLine</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+        apiserverflag<span class="token punctuation">.</span><span class="token function">PrintSections</span><span class="token punctuation">(</span>cmd<span class="token punctuation">.</span><span class="token function">OutOrStdout</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> namedFlagSets<span class="token punctuation">,</span> cols<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> cmd
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6838;&#x5FC3;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// &#x6784;&#x9020;option</span>
+s <span class="token operator">:=</span> options<span class="token punctuation">.</span><span class="token function">NewServerRunOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">// &#x6DFB;&#x52A0;flags</span>
+fs <span class="token operator">:=</span> cmd<span class="token punctuation">.</span><span class="token function">Flags</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+namedFlagSets <span class="token operator">:=</span> s<span class="token punctuation">.</span><span class="token function">Flags</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> f <span class="token operator">:=</span> <span class="token keyword">range</span> namedFlagSets<span class="token punctuation">.</span>FlagSets <span class="token punctuation">{</span>
+    fs<span class="token punctuation">.</span><span class="token function">AddFlagSet</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// set default options</span>
+completedOptions<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">Complete</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span>
+<span class="token comment">// Run</span>
+<span class="token function">Run</span><span class="token punctuation">(</span>completedOptions<span class="token punctuation">,</span> stopCh<span class="token punctuation">)</span>
+</code></pre>
+<h1 id="3-newserverrunoptions">3. NewServerRunOptions</h1>
+<p><code>NewServerRunOptions</code>&#x57FA;&#x4E8E;&#x9ED8;&#x8BA4;&#x7684;&#x53C2;&#x6570;&#x6784;&#x9020;<code>ServerRunOptions</code>&#x7ED3;&#x6784;&#x4F53;&#x3002;<code>ServerRunOptions</code>&#x662F;apiserver&#x8FD0;&#x884C;&#x7684;&#x914D;&#x7F6E;&#x4FE1;&#x606F;&#x3002;&#x5177;&#x4F53;&#x7ED3;&#x6784;&#x4F53;&#x5B9A;&#x4E49;&#x5982;&#x4E0B;&#x3002;</p>
+<h2 id="31-serverrunoptions">3.1. ServerRunOptions</h2>
+<p>&#x5176;&#x4E2D;&#x4E3B;&#x8981;&#x7684;&#x914D;&#x7F6E;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li>GenericServerRunOptions</li>
+<li>Etcd</li>
+<li>SecureServing</li>
+<li>KubeletConfig</li>
+<li>...</li>
+</ul>
+<pre class="language-"><code class="lang-go"><span class="token comment">// ServerRunOptions runs a kubernetes api server.</span>
+<span class="token keyword">type</span> ServerRunOptions <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    GenericServerRunOptions <span class="token operator">*</span>genericoptions<span class="token punctuation">.</span>ServerRunOptions
+    Etcd                    <span class="token operator">*</span>genericoptions<span class="token punctuation">.</span>EtcdOptions
+    SecureServing           <span class="token operator">*</span>genericoptions<span class="token punctuation">.</span>SecureServingOptionsWithLoopback
+    InsecureServing         <span class="token operator">*</span>genericoptions<span class="token punctuation">.</span>DeprecatedInsecureServingOptionsWithLoopback
+    Audit                   <span class="token operator">*</span>genericoptions<span class="token punctuation">.</span>AuditOptions
+    Features                <span class="token operator">*</span>genericoptions<span class="token punctuation">.</span>FeatureOptions
+    Admission               <span class="token operator">*</span>kubeoptions<span class="token punctuation">.</span>AdmissionOptions
+    Authentication          <span class="token operator">*</span>kubeoptions<span class="token punctuation">.</span>BuiltInAuthenticationOptions
+    Authorization           <span class="token operator">*</span>kubeoptions<span class="token punctuation">.</span>BuiltInAuthorizationOptions
+    CloudProvider           <span class="token operator">*</span>kubeoptions<span class="token punctuation">.</span>CloudProviderOptions
+    StorageSerialization    <span class="token operator">*</span>kubeoptions<span class="token punctuation">.</span>StorageSerializationOptions
+    APIEnablement           <span class="token operator">*</span>genericoptions<span class="token punctuation">.</span>APIEnablementOptions
+
+    AllowPrivileged           <span class="token builtin">bool</span>
+    EnableLogsHandler         <span class="token builtin">bool</span>
+    EventTTL                  time<span class="token punctuation">.</span>Duration
+    KubeletConfig             kubeletclient<span class="token punctuation">.</span>KubeletClientConfig
+    KubernetesServiceNodePort <span class="token builtin">int</span>
+    MaxConnectionBytesPerSec  <span class="token builtin">int64</span>
+    ServiceClusterIPRange     net<span class="token punctuation">.</span>IPNet <span class="token comment">// TODO: make this a list</span>
+    ServiceNodePortRange      utilnet<span class="token punctuation">.</span>PortRange
+    SSHKeyfile                <span class="token builtin">string</span>
+    SSHUser                   <span class="token builtin">string</span>
+
+    ProxyClientCertFile <span class="token builtin">string</span>
+    ProxyClientKeyFile  <span class="token builtin">string</span>
+
+    EnableAggregatorRouting <span class="token builtin">bool</span>
+
+    MasterCount            <span class="token builtin">int</span>
+    EndpointReconcilerType <span class="token builtin">string</span>
+
+    ServiceAccountSigningKeyFile <span class="token builtin">string</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="32-newserverrunoptions">3.2. NewServerRunOptions</h2>
+<p><code>NewServerRunOptions</code>&#x521D;&#x59CB;&#x5316;&#x914D;&#x7F6E;&#x7ED3;&#x6784;&#x4F53;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// NewServerRunOptions creates a new ServerRunOptions object with default parameters</span>
+<span class="token keyword">func</span> <span class="token function">NewServerRunOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span>ServerRunOptions <span class="token punctuation">{</span>
+    s <span class="token operator">:=</span> ServerRunOptions<span class="token punctuation">{</span>
+        GenericServerRunOptions<span class="token punctuation">:</span> genericoptions<span class="token punctuation">.</span><span class="token function">NewServerRunOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        Etcd<span class="token punctuation">:</span>                 genericoptions<span class="token punctuation">.</span><span class="token function">NewEtcdOptions</span><span class="token punctuation">(</span>storagebackend<span class="token punctuation">.</span><span class="token function">NewDefaultConfig</span><span class="token punctuation">(</span>kubeoptions<span class="token punctuation">.</span>DefaultEtcdPathPrefix<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        SecureServing<span class="token punctuation">:</span>        kubeoptions<span class="token punctuation">.</span><span class="token function">NewSecureServingOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        InsecureServing<span class="token punctuation">:</span>      kubeoptions<span class="token punctuation">.</span><span class="token function">NewInsecureServingOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        Audit<span class="token punctuation">:</span>                genericoptions<span class="token punctuation">.</span><span class="token function">NewAuditOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        Features<span class="token punctuation">:</span>             genericoptions<span class="token punctuation">.</span><span class="token function">NewFeatureOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        Admission<span class="token punctuation">:</span>            kubeoptions<span class="token punctuation">.</span><span class="token function">NewAdmissionOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        Authentication<span class="token punctuation">:</span>       kubeoptions<span class="token punctuation">.</span><span class="token function">NewBuiltInAuthenticationOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">WithAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        Authorization<span class="token punctuation">:</span>        kubeoptions<span class="token punctuation">.</span><span class="token function">NewBuiltInAuthorizationOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        CloudProvider<span class="token punctuation">:</span>        kubeoptions<span class="token punctuation">.</span><span class="token function">NewCloudProviderOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        StorageSerialization<span class="token punctuation">:</span> kubeoptions<span class="token punctuation">.</span><span class="token function">NewStorageSerializationOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        APIEnablement<span class="token punctuation">:</span>        genericoptions<span class="token punctuation">.</span><span class="token function">NewAPIEnablementOptions</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+        EnableLogsHandler<span class="token punctuation">:</span>      <span class="token boolean">true</span><span class="token punctuation">,</span>
+        EventTTL<span class="token punctuation">:</span>               <span class="token number">1</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Hour<span class="token punctuation">,</span>
+        MasterCount<span class="token punctuation">:</span>            <span class="token number">1</span><span class="token punctuation">,</span>
+        EndpointReconcilerType<span class="token punctuation">:</span> <span class="token function">string</span><span class="token punctuation">(</span>reconcilers<span class="token punctuation">.</span>LeaseEndpointReconcilerType<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        KubeletConfig<span class="token punctuation">:</span> kubeletclient<span class="token punctuation">.</span>KubeletClientConfig<span class="token punctuation">{</span>
+            Port<span class="token punctuation">:</span>         ports<span class="token punctuation">.</span>KubeletPort<span class="token punctuation">,</span>
+            ReadOnlyPort<span class="token punctuation">:</span> ports<span class="token punctuation">.</span>KubeletReadOnlyPort<span class="token punctuation">,</span>
+            PreferredAddressTypes<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span>
+                <span class="token comment">// --override-hostname</span>
+                <span class="token function">string</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span>NodeHostName<span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+                <span class="token comment">// internal, preferring DNS if reported</span>
+                <span class="token function">string</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span>NodeInternalDNS<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token function">string</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span>NodeInternalIP<span class="token punctuation">)</span><span class="token punctuation">,</span>
+
+                <span class="token comment">// external, preferring DNS if reported</span>
+                <span class="token function">string</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span>NodeExternalDNS<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                <span class="token function">string</span><span class="token punctuation">(</span>api<span class="token punctuation">.</span>NodeExternalIP<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+            EnableHttps<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+            HTTPTimeout<span class="token punctuation">:</span> time<span class="token punctuation">.</span><span class="token function">Duration</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Second<span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        ServiceNodePortRange<span class="token punctuation">:</span> kubeoptions<span class="token punctuation">.</span>DefaultServiceNodePortRange<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    s<span class="token punctuation">.</span>ServiceClusterIPRange <span class="token operator">=</span> kubeoptions<span class="token punctuation">.</span>DefaultServiceIPCIDR
+
+    <span class="token comment">// Overwrite the default for storage data format.</span>
+    s<span class="token punctuation">.</span>Etcd<span class="token punctuation">.</span>DefaultStorageMediaType <span class="token operator">=</span> <span class="token string">&quot;application/vnd.kubernetes.protobuf&quot;</span>
+
+    <span class="token keyword">return</span> <span class="token operator">&amp;</span>s
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="33-complete">3.3. Complete</h2>
+<p>&#x5F53;kube-apiserver&#x7684;flags&#x88AB;&#x89E3;&#x6790;&#x540E;&#xFF0C;&#x8C03;&#x7528;<code>Complete</code>&#x5B8C;&#x6210;&#x9ED8;&#x8BA4;&#x914D;&#x7F6E;&#x3002;</p>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;cmd/kube-apiserver/app/server.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Should be called after kube-apiserver flags parsed.</span>
+<span class="token keyword">func</span> <span class="token function">Complete</span><span class="token punctuation">(</span>s <span class="token operator">*</span>options<span class="token punctuation">.</span>ServerRunOptions<span class="token punctuation">)</span> <span class="token punctuation">(</span>completedServerRunOptions<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> options completedServerRunOptions
+    <span class="token comment">// set defaults</span>
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">.</span><span class="token function">DefaultAdvertiseAddress</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>SecureServing<span class="token punctuation">.</span>SecureServingOptions<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> options<span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> kubeoptions<span class="token punctuation">.</span><span class="token function">DefaultAdvertiseAddress</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">,</span> s<span class="token punctuation">.</span>InsecureServing<span class="token punctuation">.</span>DeprecatedInsecureServingOptions<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> options<span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    serviceIPRange<span class="token punctuation">,</span> apiServerServiceIP<span class="token punctuation">,</span> err <span class="token operator">:=</span> master<span class="token punctuation">.</span><span class="token function">DefaultServiceIPRange</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>ServiceClusterIPRange<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> options<span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;error determining service IP ranges: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    s<span class="token punctuation">.</span>ServiceClusterIPRange <span class="token operator">=</span> serviceIPRange
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> s<span class="token punctuation">.</span>SecureServing<span class="token punctuation">.</span><span class="token function">MaybeDefaultWithSelfSignedCerts</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">.</span>AdvertiseAddress<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span><span class="token string">&quot;kubernetes.default.svc&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;kubernetes.default&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;kubernetes&quot;</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>net<span class="token punctuation">.</span>IP<span class="token punctuation">{</span>apiServerServiceIP<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> options<span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;error creating self-signed certificates: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">.</span>ExternalHost<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">.</span>AdvertiseAddress<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+            s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">.</span>ExternalHost <span class="token operator">=</span> s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">.</span>AdvertiseAddress<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> hostname<span class="token punctuation">,</span> err <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">Hostname</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+                s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">.</span>ExternalHost <span class="token operator">=</span> hostname
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> options<span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;error finding host name: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        glog<span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;external host was not specified, using %v&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">.</span>ExternalHost<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    s<span class="token punctuation">.</span>Authentication<span class="token punctuation">.</span><span class="token function">ApplyAuthorization</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>Authorization<span class="token punctuation">)</span>
+
+    <span class="token comment">// Use (ServiceAccountSigningKeyFile != &quot;&quot;) as a proxy to the user enabling</span>
+    <span class="token comment">// TokenRequest functionality. This defaulting was convenient, but messed up</span>
+    <span class="token comment">// a lot of people when they rotated their serving cert with no idea it was</span>
+    <span class="token comment">// connected to their service account keys. We are taking this oppurtunity to</span>
+    <span class="token comment">// remove this problematic defaulting.</span>
+    <span class="token keyword">if</span> s<span class="token punctuation">.</span>ServiceAccountSigningKeyFile <span class="token operator">==</span> <span class="token string">&quot;&quot;</span> <span class="token punctuation">{</span>
+        <span class="token comment">// Default to the private server key for service account token signing</span>
+        <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>Authentication<span class="token punctuation">.</span>ServiceAccounts<span class="token punctuation">.</span>KeyFiles<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> s<span class="token punctuation">.</span>SecureServing<span class="token punctuation">.</span>ServerCert<span class="token punctuation">.</span>CertKey<span class="token punctuation">.</span>KeyFile <span class="token operator">!=</span> <span class="token string">&quot;&quot;</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> kubeauthenticator<span class="token punctuation">.</span><span class="token function">IsValidServiceAccountKeyFile</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>SecureServing<span class="token punctuation">.</span>ServerCert<span class="token punctuation">.</span>CertKey<span class="token punctuation">.</span>KeyFile<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                s<span class="token punctuation">.</span>Authentication<span class="token punctuation">.</span>ServiceAccounts<span class="token punctuation">.</span>KeyFiles <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span>s<span class="token punctuation">.</span>SecureServing<span class="token punctuation">.</span>ServerCert<span class="token punctuation">.</span>CertKey<span class="token punctuation">.</span>KeyFile<span class="token punctuation">}</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                glog<span class="token punctuation">.</span><span class="token function">Warning</span><span class="token punctuation">(</span><span class="token string">&quot;No TLS key provided, service account token authentication disabled&quot;</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> s<span class="token punctuation">.</span>Etcd<span class="token punctuation">.</span>StorageConfig<span class="token punctuation">.</span>DeserializationCacheSize <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token comment">// When size of cache is not explicitly set, estimate its size based on</span>
+        <span class="token comment">// target memory usage.</span>
+        glog<span class="token punctuation">.</span><span class="token function">V</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Initializing deserialization cache size based on %dMB limit&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">.</span>TargetRAMMB<span class="token punctuation">)</span>
+
+        <span class="token comment">// This is the heuristics that from memory capacity is trying to infer</span>
+        <span class="token comment">// the maximum number of nodes in the cluster and set cache sizes based</span>
+        <span class="token comment">// on that value.</span>
+        <span class="token comment">// From our documentation, we officially recommend 120GB machines for</span>
+        <span class="token comment">// 2000 nodes, and we scale from that point. Thus we assume ~60MB of</span>
+        <span class="token comment">// capacity per node.</span>
+        <span class="token comment">// TODO: We may consider deciding that some percentage of memory will</span>
+        <span class="token comment">// be used for the deserialization cache and divide it by the max object</span>
+        <span class="token comment">// size to compute its size. We may even go further and measure</span>
+        <span class="token comment">// collective sizes of the objects in the cache.</span>
+        clusterSize <span class="token operator">:=</span> s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">.</span>TargetRAMMB <span class="token operator">/</span> <span class="token number">60</span>
+        s<span class="token punctuation">.</span>Etcd<span class="token punctuation">.</span>StorageConfig<span class="token punctuation">.</span>DeserializationCacheSize <span class="token operator">=</span> <span class="token number">25</span> <span class="token operator">*</span> clusterSize
+        <span class="token keyword">if</span> s<span class="token punctuation">.</span>Etcd<span class="token punctuation">.</span>StorageConfig<span class="token punctuation">.</span>DeserializationCacheSize <span class="token operator">&lt;</span> <span class="token number">1000</span> <span class="token punctuation">{</span>
+            s<span class="token punctuation">.</span>Etcd<span class="token punctuation">.</span>StorageConfig<span class="token punctuation">.</span>DeserializationCacheSize <span class="token operator">=</span> <span class="token number">1000</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> s<span class="token punctuation">.</span>Etcd<span class="token punctuation">.</span>EnableWatchCache <span class="token punctuation">{</span>
+        glog<span class="token punctuation">.</span><span class="token function">V</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Initializing cache sizes based on %dMB limit&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">.</span>TargetRAMMB<span class="token punctuation">)</span>
+        sizes <span class="token operator">:=</span> cachesize<span class="token punctuation">.</span><span class="token function">NewHeuristicWatchCacheSizes</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">.</span>TargetRAMMB<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> userSpecified<span class="token punctuation">,</span> err <span class="token operator">:=</span> serveroptions<span class="token punctuation">.</span><span class="token function">ParseWatchCacheSizes</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>Etcd<span class="token punctuation">.</span>WatchCacheSizes<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            <span class="token keyword">for</span> resource<span class="token punctuation">,</span> size <span class="token operator">:=</span> <span class="token keyword">range</span> userSpecified <span class="token punctuation">{</span>
+                sizes<span class="token punctuation">[</span>resource<span class="token punctuation">]</span> <span class="token operator">=</span> size
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        s<span class="token punctuation">.</span>Etcd<span class="token punctuation">.</span>WatchCacheSizes<span class="token punctuation">,</span> err <span class="token operator">=</span> serveroptions<span class="token punctuation">.</span><span class="token function">WriteWatchCacheSizes</span><span class="token punctuation">(</span>sizes<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> options<span class="token punctuation">,</span> err
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// TODO: remove when we stop supporting the legacy group version.</span>
+    <span class="token keyword">if</span> s<span class="token punctuation">.</span>APIEnablement<span class="token punctuation">.</span>RuntimeConfig <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> key<span class="token punctuation">,</span> value <span class="token operator">:=</span> <span class="token keyword">range</span> s<span class="token punctuation">.</span>APIEnablement<span class="token punctuation">.</span>RuntimeConfig <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> key <span class="token operator">==</span> <span class="token string">&quot;v1&quot;</span> <span class="token operator">||</span> strings<span class="token punctuation">.</span><span class="token function">HasPrefix</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token string">&quot;v1/&quot;</span><span class="token punctuation">)</span> <span class="token operator">||</span>
+                key <span class="token operator">==</span> <span class="token string">&quot;api/v1&quot;</span> <span class="token operator">||</span> strings<span class="token punctuation">.</span><span class="token function">HasPrefix</span><span class="token punctuation">(</span>key<span class="token punctuation">,</span> <span class="token string">&quot;api/v1/&quot;</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">delete</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>APIEnablement<span class="token punctuation">.</span>RuntimeConfig<span class="token punctuation">,</span> key<span class="token punctuation">)</span>
+                s<span class="token punctuation">.</span>APIEnablement<span class="token punctuation">.</span>RuntimeConfig<span class="token punctuation">[</span><span class="token string">&quot;/v1&quot;</span><span class="token punctuation">]</span> <span class="token operator">=</span> value
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> key <span class="token operator">==</span> <span class="token string">&quot;api/legacy&quot;</span> <span class="token punctuation">{</span>
+                <span class="token function">delete</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>APIEnablement<span class="token punctuation">.</span>RuntimeConfig<span class="token punctuation">,</span> key<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    options<span class="token punctuation">.</span>ServerRunOptions <span class="token operator">=</span> s
+    <span class="token keyword">return</span> options<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="3-addflagset">3. AddFlagSet</h1>
+<p><code>AddFlagSet</code>&#x4E3B;&#x8981;&#x7684;&#x4F5C;&#x7528;&#x662F;&#x901A;&#x8FC7;&#x5916;&#x90E8;&#x4F20;&#x5165;&#x7684;flag&#x7684;&#x5177;&#x4F53;&#x503C;&#xFF0C;&#x89E3;&#x6790;&#x7684;&#x65F6;&#x5019;&#x4F20;&#x9012;&#x7ED9;option&#x7684;&#x7ED3;&#x6784;&#x4F53;&#xFF0C;&#x6700;&#x7EC8;&#x7ED9;apiserver&#x4F7F;&#x7528;&#x3002;</p>
+<p>&#x5176;&#x4E2D;<code>NewAPIServerCommand</code>&#x5173;&#x4E8E;<code>AddFlagSet</code>&#x7684;&#x76F8;&#x5173;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go">fs <span class="token operator">:=</span> cmd<span class="token punctuation">.</span><span class="token function">Flags</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+namedFlagSets <span class="token operator">:=</span> s<span class="token punctuation">.</span><span class="token function">Flags</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> f <span class="token operator">:=</span> <span class="token keyword">range</span> namedFlagSets<span class="token punctuation">.</span>FlagSets <span class="token punctuation">{</span>
+    fs<span class="token punctuation">.</span><span class="token function">AddFlagSet</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="31-flags">3.1. Flags</h2>
+<p><code>Flags</code>&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;cmd/kube-apiserver/app/options/options.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Flags returns flags for a specific APIServer by section name</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>s <span class="token operator">*</span>ServerRunOptions<span class="token punctuation">)</span> <span class="token function">Flags</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>fss apiserverflag<span class="token punctuation">.</span>NamedFlagSets<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Add the generic flags.</span>
+    s<span class="token punctuation">.</span>GenericServerRunOptions<span class="token punctuation">.</span><span class="token function">AddUniversalFlags</span><span class="token punctuation">(</span>fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;generic&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span>Etcd<span class="token punctuation">.</span><span class="token function">AddFlags</span><span class="token punctuation">(</span>fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;etcd&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span>SecureServing<span class="token punctuation">.</span><span class="token function">AddFlags</span><span class="token punctuation">(</span>fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;secure serving&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span>InsecureServing<span class="token punctuation">.</span><span class="token function">AddFlags</span><span class="token punctuation">(</span>fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;insecure serving&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span>InsecureServing<span class="token punctuation">.</span><span class="token function">AddUnqualifiedFlags</span><span class="token punctuation">(</span>fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;insecure serving&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// TODO: remove it until kops stops using `--address`</span>
+    s<span class="token punctuation">.</span>Audit<span class="token punctuation">.</span><span class="token function">AddFlags</span><span class="token punctuation">(</span>fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;auditing&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span>Features<span class="token punctuation">.</span><span class="token function">AddFlags</span><span class="token punctuation">(</span>fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;features&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span>Authentication<span class="token punctuation">.</span><span class="token function">AddFlags</span><span class="token punctuation">(</span>fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;authentication&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span>Authorization<span class="token punctuation">.</span><span class="token function">AddFlags</span><span class="token punctuation">(</span>fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;authorization&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span>CloudProvider<span class="token punctuation">.</span><span class="token function">AddFlags</span><span class="token punctuation">(</span>fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;cloud provider&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span>StorageSerialization<span class="token punctuation">.</span><span class="token function">AddFlags</span><span class="token punctuation">(</span>fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;storage&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span>APIEnablement<span class="token punctuation">.</span><span class="token function">AddFlags</span><span class="token punctuation">(</span>fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;api enablement&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    s<span class="token punctuation">.</span>Admission<span class="token punctuation">.</span><span class="token function">AddFlags</span><span class="token punctuation">(</span>fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;admission&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// Note: the weird &quot;&quot;+ in below lines seems to be the only way to get gofmt to</span>
+    <span class="token comment">// arrange these text blocks sensibly. Grrr.</span>
+    fs <span class="token operator">:=</span> fss<span class="token punctuation">.</span><span class="token function">FlagSet</span><span class="token punctuation">(</span><span class="token string">&quot;misc&quot;</span><span class="token punctuation">)</span>
+    fs<span class="token punctuation">.</span><span class="token function">DurationVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>EventTTL<span class="token punctuation">,</span> <span class="token string">&quot;event-ttl&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>EventTTL<span class="token punctuation">,</span>
+        <span class="token string">&quot;Amount of time to retain events.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">BoolVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>AllowPrivileged<span class="token punctuation">,</span> <span class="token string">&quot;allow-privileged&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>AllowPrivileged<span class="token punctuation">,</span>
+        <span class="token string">&quot;If true, allow privileged containers. [default=false]&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">BoolVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>EnableLogsHandler<span class="token punctuation">,</span> <span class="token string">&quot;enable-logs-handler&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>EnableLogsHandler<span class="token punctuation">,</span>
+        <span class="token string">&quot;If true, install a /logs handler for the apiserver logs.&quot;</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// Deprecated in release 1.9</span>
+    fs<span class="token punctuation">.</span><span class="token function">StringVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>SSHUser<span class="token punctuation">,</span> <span class="token string">&quot;ssh-user&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>SSHUser<span class="token punctuation">,</span>
+        <span class="token string">&quot;If non-empty, use secure SSH proxy to the nodes, using this user name&quot;</span><span class="token punctuation">)</span>
+    fs<span class="token punctuation">.</span><span class="token function">MarkDeprecated</span><span class="token punctuation">(</span><span class="token string">&quot;ssh-user&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;This flag will be removed in a future version.&quot;</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// Deprecated in release 1.9</span>
+    fs<span class="token punctuation">.</span><span class="token function">StringVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>SSHKeyfile<span class="token punctuation">,</span> <span class="token string">&quot;ssh-keyfile&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>SSHKeyfile<span class="token punctuation">,</span>
+        <span class="token string">&quot;If non-empty, use secure SSH proxy to the nodes, using this user keyfile&quot;</span><span class="token punctuation">)</span>
+    fs<span class="token punctuation">.</span><span class="token function">MarkDeprecated</span><span class="token punctuation">(</span><span class="token string">&quot;ssh-keyfile&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;This flag will be removed in a future version.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">Int64Var</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>MaxConnectionBytesPerSec<span class="token punctuation">,</span> <span class="token string">&quot;max-connection-bytes-per-sec&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>MaxConnectionBytesPerSec<span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;If non-zero, throttle each user connection to this number of bytes/sec. &quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;Currently only applies to long-running requests.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">IntVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>MasterCount<span class="token punctuation">,</span> <span class="token string">&quot;apiserver-count&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>MasterCount<span class="token punctuation">,</span>
+        <span class="token string">&quot;The number of apiservers running in the cluster, must be a positive number. (In use when --endpoint-reconciler-type=master-count is enabled.)&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">StringVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>EndpointReconcilerType<span class="token punctuation">,</span> <span class="token string">&quot;endpoint-reconciler-type&quot;</span><span class="token punctuation">,</span> <span class="token function">string</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>EndpointReconcilerType<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token string">&quot;Use an endpoint reconciler (&quot;</span><span class="token operator">+</span>strings<span class="token punctuation">.</span><span class="token function">Join</span><span class="token punctuation">(</span>reconcilers<span class="token punctuation">.</span>AllTypes<span class="token punctuation">.</span><span class="token function">Names</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;, &quot;</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">&quot;)&quot;</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// See #14282 for details on how to test/try this option out.</span>
+    <span class="token comment">// TODO: remove this comment once this option is tested in CI.</span>
+    fs<span class="token punctuation">.</span><span class="token function">IntVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>KubernetesServiceNodePort<span class="token punctuation">,</span> <span class="token string">&quot;kubernetes-service-node-port&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>KubernetesServiceNodePort<span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;If non-zero, the Kubernetes master service (which apiserver creates/maintains) will be &quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;of type NodePort, using this as the value of the port. If zero, the Kubernetes master &quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;service will be of type ClusterIP.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">IPNetVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>ServiceClusterIPRange<span class="token punctuation">,</span> <span class="token string">&quot;service-cluster-ip-range&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>ServiceClusterIPRange<span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;A CIDR notation IP range from which to assign service cluster IPs. This must not &quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;overlap with any IP ranges assigned to nodes for pods.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">Var</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>ServiceNodePortRange<span class="token punctuation">,</span> <span class="token string">&quot;service-node-port-range&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;A port range to reserve for services with NodePort visibility. &quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;Example: &apos;30000-32767&apos;. Inclusive at both ends of the range.&quot;</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// Kubelet related flags:</span>
+    fs<span class="token punctuation">.</span><span class="token function">BoolVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>EnableHttps<span class="token punctuation">,</span> <span class="token string">&quot;kubelet-https&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>EnableHttps<span class="token punctuation">,</span>
+        <span class="token string">&quot;Use https for kubelet connections.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">StringSliceVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>PreferredAddressTypes<span class="token punctuation">,</span> <span class="token string">&quot;kubelet-preferred-address-types&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>PreferredAddressTypes<span class="token punctuation">,</span>
+        <span class="token string">&quot;List of the preferred NodeAddressTypes to use for kubelet connections.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">UintVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>Port<span class="token punctuation">,</span> <span class="token string">&quot;kubelet-port&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>Port<span class="token punctuation">,</span>
+        <span class="token string">&quot;DEPRECATED: kubelet port.&quot;</span><span class="token punctuation">)</span>
+    fs<span class="token punctuation">.</span><span class="token function">MarkDeprecated</span><span class="token punctuation">(</span><span class="token string">&quot;kubelet-port&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;kubelet-port is deprecated and will be removed.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">UintVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>ReadOnlyPort<span class="token punctuation">,</span> <span class="token string">&quot;kubelet-read-only-port&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>ReadOnlyPort<span class="token punctuation">,</span>
+        <span class="token string">&quot;DEPRECATED: kubelet port.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">DurationVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>HTTPTimeout<span class="token punctuation">,</span> <span class="token string">&quot;kubelet-timeout&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>HTTPTimeout<span class="token punctuation">,</span>
+        <span class="token string">&quot;Timeout for kubelet operations.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">StringVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>CertFile<span class="token punctuation">,</span> <span class="token string">&quot;kubelet-client-certificate&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>CertFile<span class="token punctuation">,</span>
+        <span class="token string">&quot;Path to a client cert file for TLS.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">StringVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>KeyFile<span class="token punctuation">,</span> <span class="token string">&quot;kubelet-client-key&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>KeyFile<span class="token punctuation">,</span>
+        <span class="token string">&quot;Path to a client key file for TLS.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">StringVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>CAFile<span class="token punctuation">,</span> <span class="token string">&quot;kubelet-certificate-authority&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>KubeletConfig<span class="token punctuation">.</span>CAFile<span class="token punctuation">,</span>
+        <span class="token string">&quot;Path to a cert file for the certificate authority.&quot;</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// TODO: delete this flag in 1.13</span>
+    repair <span class="token operator">:=</span> <span class="token boolean">false</span>
+    fs<span class="token punctuation">.</span><span class="token function">BoolVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>repair<span class="token punctuation">,</span> <span class="token string">&quot;repair-malformed-updates&quot;</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token string">&quot;deprecated&quot;</span><span class="token punctuation">)</span>
+    fs<span class="token punctuation">.</span><span class="token function">MarkDeprecated</span><span class="token punctuation">(</span><span class="token string">&quot;repair-malformed-updates&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;This flag will be removed in a future version&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">StringVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>ProxyClientCertFile<span class="token punctuation">,</span> <span class="token string">&quot;proxy-client-cert-file&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>ProxyClientCertFile<span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;Client certificate used to prove the identity of the aggregator or kube-apiserver &quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;when it must call out during a request. This includes proxying requests to a user &quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;api-server and calling out to webhook admission plugins. It is expected that this &quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;cert includes a signature from the CA in the --requestheader-client-ca-file flag. &quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;That CA is published in the &apos;extension-apiserver-authentication&apos; configmap in &quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;the kube-system namespace. Components receiving calls from kube-aggregator should &quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;use that CA to perform their half of the mutual TLS verification.&quot;</span><span class="token punctuation">)</span>
+    fs<span class="token punctuation">.</span><span class="token function">StringVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>ProxyClientKeyFile<span class="token punctuation">,</span> <span class="token string">&quot;proxy-client-key-file&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>ProxyClientKeyFile<span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;Private key for the client certificate used to prove the identity of the aggregator or kube-apiserver &quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;when it must call out during a request. This includes proxying requests to a user &quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;api-server and calling out to webhook admission plugins.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">BoolVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>EnableAggregatorRouting<span class="token punctuation">,</span> <span class="token string">&quot;enable-aggregator-routing&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>EnableAggregatorRouting<span class="token punctuation">,</span>
+        <span class="token string">&quot;Turns on aggregator routing requests to endpoints IP rather than cluster IP.&quot;</span><span class="token punctuation">)</span>
+
+    fs<span class="token punctuation">.</span><span class="token function">StringVar</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>s<span class="token punctuation">.</span>ServiceAccountSigningKeyFile<span class="token punctuation">,</span> <span class="token string">&quot;service-account-signing-key-file&quot;</span><span class="token punctuation">,</span> s<span class="token punctuation">.</span>ServiceAccountSigningKeyFile<span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token operator">+</span>
+        <span class="token string">&quot;Path to the file that contains the current private key of the service account token issuer. The issuer will sign issued ID tokens with this private key. (Requires the &apos;TokenRequest&apos; feature gate.)&quot;</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> fss
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="4-run">4. Run</h1>
+<p><code>Run</code>&#x4EE5;&#x5E38;&#x9A7B;&#x7684;&#x65B9;&#x5F0F;&#x8FD0;&#x884C;apiserver&#x3002;</p>
+<p><strong>&#x4E3B;&#x8981;&#x5185;&#x5BB9;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<ol>
+<li>&#x6784;&#x9020;&#x4E00;&#x4E2A;&#x805A;&#x5408;&#x7684;server&#x7ED3;&#x6784;&#x4F53;&#x3002;</li>
+<li>&#x6267;&#x884C;PrepareRun&#x3002;</li>
+<li>&#x6700;&#x7EC8;&#x6267;&#x884C;Run&#x3002;</li>
+</ol>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;cmd/kube-apiserver/app/server.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Run runs the specified APIServer.  This should never exit.</span>
+<span class="token keyword">func</span> <span class="token function">Run</span><span class="token punctuation">(</span>completeOptions completedServerRunOptions<span class="token punctuation">,</span> stopCh <span class="token operator">&lt;-</span><span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    <span class="token comment">// To help debugging, immediately log version</span>
+    glog<span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Version: %+v&quot;</span><span class="token punctuation">,</span> version<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+    server<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">CreateServerChain</span><span class="token punctuation">(</span>completeOptions<span class="token punctuation">,</span> stopCh<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> server<span class="token punctuation">.</span><span class="token function">PrepareRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span>stopCh<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="41-createserverchain">4.1. CreateServerChain</h2>
+<p>&#x6784;&#x9020;&#x805A;&#x5408;&#x7684;Server&#x3002;</p>
+<p><strong>&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<ol>
+<li>&#x9996;&#x5148;&#x751F;&#x6210;config&#x5BF9;&#x8C61;&#xFF0C;&#x5305;&#x62EC;<code>kubeAPIServerConfig</code>&#x3001;<code>apiExtensionsConfig</code>&#x3002;</li>
+<li>&#x518D;&#x901A;&#x8FC7;config&#x751F;&#x6210;server&#x5BF9;&#x8C61;&#xFF0C;&#x5305;&#x62EC;<code>apiExtensionsServer</code>&#x3001;<code>kubeAPIServer</code>&#x3002;</li>
+<li>&#x6267;&#x884C;<code>apiExtensionsServer</code>&#x3001;<code>kubeAPIServer</code>&#x7684;<code>PrepareRun</code>&#x90E8;&#x5206;&#x3002;</li>
+<li>&#x751F;&#x6210;&#x805A;&#x5408;&#x7684;config&#x5BF9;&#x8C61;<code>aggregatorConfig</code>&#x3002;</li>
+<li>&#x57FA;&#x4E8E;<code>aggregatorConfig</code>&#x3001;<code>kubeAPIServer</code>&#x3001;<code>apiExtensionsServer</code>&#x751F;&#x6210;&#x805A;&#x5408;&#x7684;server<code>aggregatorServer</code>&#x3002;</li>
+</ol>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;cmd/kube-apiserver/app/server.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// CreateServerChain creates the apiservers connected via delegation.</span>
+<span class="token keyword">func</span> <span class="token function">CreateServerChain</span><span class="token punctuation">(</span>completedOptions completedServerRunOptions<span class="token punctuation">,</span> stopCh <span class="token operator">&lt;-</span><span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>genericapiserver<span class="token punctuation">.</span>GenericAPIServer<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    nodeTunneler<span class="token punctuation">,</span> proxyTransport<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">CreateNodeDialer</span><span class="token punctuation">(</span>completedOptions<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    kubeAPIServerConfig<span class="token punctuation">,</span> insecureServingInfo<span class="token punctuation">,</span> serviceResolver<span class="token punctuation">,</span> pluginInitializer<span class="token punctuation">,</span> admissionPostStartHook<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">CreateKubeAPIServerConfig</span><span class="token punctuation">(</span>completedOptions<span class="token punctuation">,</span> nodeTunneler<span class="token punctuation">,</span> proxyTransport<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// If additional API servers are added, they should be gated.</span>
+    apiExtensionsConfig<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">createAPIExtensionsConfig</span><span class="token punctuation">(</span><span class="token operator">*</span>kubeAPIServerConfig<span class="token punctuation">.</span>GenericConfig<span class="token punctuation">,</span> kubeAPIServerConfig<span class="token punctuation">.</span>ExtraConfig<span class="token punctuation">.</span>VersionedInformers<span class="token punctuation">,</span> pluginInitializer<span class="token punctuation">,</span> completedOptions<span class="token punctuation">.</span>ServerRunOptions<span class="token punctuation">,</span> completedOptions<span class="token punctuation">.</span>MasterCount<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    apiExtensionsServer<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">createAPIExtensionsServer</span><span class="token punctuation">(</span>apiExtensionsConfig<span class="token punctuation">,</span> genericapiserver<span class="token punctuation">.</span><span class="token function">NewEmptyDelegate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    kubeAPIServer<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">CreateKubeAPIServer</span><span class="token punctuation">(</span>kubeAPIServerConfig<span class="token punctuation">,</span> apiExtensionsServer<span class="token punctuation">.</span>GenericAPIServer<span class="token punctuation">,</span> admissionPostStartHook<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// otherwise go down the normal path of standing the aggregator up in front of the API server</span>
+    <span class="token comment">// this wires up openapi</span>
+    kubeAPIServer<span class="token punctuation">.</span>GenericAPIServer<span class="token punctuation">.</span><span class="token function">PrepareRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// This will wire up openapi for extension api server</span>
+    apiExtensionsServer<span class="token punctuation">.</span>GenericAPIServer<span class="token punctuation">.</span><span class="token function">PrepareRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// aggregator comes last in the chain</span>
+    aggregatorConfig<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">createAggregatorConfig</span><span class="token punctuation">(</span><span class="token operator">*</span>kubeAPIServerConfig<span class="token punctuation">.</span>GenericConfig<span class="token punctuation">,</span> completedOptions<span class="token punctuation">.</span>ServerRunOptions<span class="token punctuation">,</span> kubeAPIServerConfig<span class="token punctuation">.</span>ExtraConfig<span class="token punctuation">.</span>VersionedInformers<span class="token punctuation">,</span> serviceResolver<span class="token punctuation">,</span> proxyTransport<span class="token punctuation">,</span> pluginInitializer<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    aggregatorServer<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">createAggregatorServer</span><span class="token punctuation">(</span>aggregatorConfig<span class="token punctuation">,</span> kubeAPIServer<span class="token punctuation">.</span>GenericAPIServer<span class="token punctuation">,</span> apiExtensionsServer<span class="token punctuation">.</span>Informers<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token comment">// we don&apos;t need special handling for innerStopCh because the aggregator server doesn&apos;t create any go routines</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> insecureServingInfo <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        insecureHandlerChain <span class="token operator">:=</span> kubeserver<span class="token punctuation">.</span><span class="token function">BuildInsecureHandlerChain</span><span class="token punctuation">(</span>aggregatorServer<span class="token punctuation">.</span>GenericAPIServer<span class="token punctuation">.</span><span class="token function">UnprotectedHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> kubeAPIServerConfig<span class="token punctuation">.</span>GenericConfig<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> err <span class="token operator">:=</span> insecureServingInfo<span class="token punctuation">.</span><span class="token function">Serve</span><span class="token punctuation">(</span>insecureHandlerChain<span class="token punctuation">,</span> kubeAPIServerConfig<span class="token punctuation">.</span>GenericConfig<span class="token punctuation">.</span>RequestTimeout<span class="token punctuation">,</span> stopCh<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> aggregatorServer<span class="token punctuation">.</span>GenericAPIServer<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="42-preparerun">4.2. PrepareRun</h2>
+<p><code>PrepareRun</code>&#x4E3B;&#x8981;&#x6267;&#x884C;&#x4E00;&#x4E9B;API&#x5B89;&#x88C5;&#x64CD;&#x4F5C;&#x3002;</p>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x7684;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;vendor/k8s.io/apiserver/pkg/server/genericapiserver.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// PrepareRun does post API installation setup steps.</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>s <span class="token operator">*</span>GenericAPIServer<span class="token punctuation">)</span> <span class="token function">PrepareRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span> preparedGenericAPIServer <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> s<span class="token punctuation">.</span>swaggerConfig <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        routes<span class="token punctuation">.</span>Swagger<span class="token punctuation">{</span>Config<span class="token punctuation">:</span> s<span class="token punctuation">.</span>swaggerConfig<span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token function">Install</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>Handler<span class="token punctuation">.</span>GoRestfulContainer<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> s<span class="token punctuation">.</span>openAPIConfig <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        routes<span class="token punctuation">.</span>OpenAPI<span class="token punctuation">{</span>
+            Config<span class="token punctuation">:</span> s<span class="token punctuation">.</span>openAPIConfig<span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">.</span><span class="token function">Install</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>Handler<span class="token punctuation">.</span>GoRestfulContainer<span class="token punctuation">,</span> s<span class="token punctuation">.</span>Handler<span class="token punctuation">.</span>NonGoRestfulMux<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    s<span class="token punctuation">.</span><span class="token function">installHealthz</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// Register audit backend preShutdownHook.</span>
+    <span class="token keyword">if</span> s<span class="token punctuation">.</span>AuditBackend <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        s<span class="token punctuation">.</span><span class="token function">AddPreShutdownHook</span><span class="token punctuation">(</span><span class="token string">&quot;audit-backend&quot;</span><span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+            s<span class="token punctuation">.</span>AuditBackend<span class="token punctuation">.</span><span class="token function">Shutdown</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">nil</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> preparedGenericAPIServer<span class="token punctuation">{</span>s<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="43-preparedgenericapiserverrun">4.3. preparedGenericAPIServer.Run</h2>
+<p><code>preparedGenericAPIServer.Run</code>&#x8FD0;&#x884C;&#x4E00;&#x4E2A;&#x5B89;&#x5168;&#x7684;http server&#x3002;&#x5177;&#x4F53;&#x7684;&#x5B9E;&#x73B0;&#x903B;&#x8F91;&#x5F85;&#x540E;&#x7EED;&#x6587;&#x7AE0;&#x5206;&#x6790;&#x3002;</p>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;vendor/k8s.io/apiserver/pkg/server/genericapiserver.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Run spawns the secure http server. It only returns if stopCh is closed</span>
+<span class="token comment">// or the secure port cannot be listened on initially.</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>s preparedGenericAPIServer<span class="token punctuation">)</span> <span class="token function">Run</span><span class="token punctuation">(</span>stopCh <span class="token operator">&lt;-</span><span class="token keyword">chan</span> <span class="token keyword">struct</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    err <span class="token operator">:=</span> s<span class="token punctuation">.</span><span class="token function">NonBlockingRun</span><span class="token punctuation">(</span>stopCh<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token operator">&lt;-</span>stopCh
+
+    err <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">RunPreShutdownHooks</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// Wait for all requests to finish, which are bounded by the RequestTimeout variable.</span>
+    s<span class="token punctuation">.</span>HandlerChainWaitGroup<span class="token punctuation">.</span><span class="token function">Wait</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x6838;&#x5FC3;&#x51FD;&#x6570;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go">err <span class="token operator">:=</span> s<span class="token punctuation">.</span><span class="token function">NonBlockingRun</span><span class="token punctuation">(</span>stopCh<span class="token punctuation">)</span>
+</code></pre>
+<p><code>preparedGenericAPIServer.Run</code>&#x4E3B;&#x8981;&#x662F;&#x8C03;&#x7528;<code>NonBlockingRun</code>&#x51FD;&#x6570;&#xFF0C;&#x6700;&#x7EC8;&#x8FD0;&#x884C;&#x4E00;&#x4E2A;http server&#x3002;&#x8BE5;&#x90E8;&#x5206;&#x903B;&#x8F91;&#x5F85;&#x540E;&#x7EED;&#x6587;&#x7AE0;&#x5206;&#x6790;&#x3002;</p>
+<h1 id="5-&#x603B;&#x7ED3;">5. &#x603B;&#x7ED3;</h1>
+<p><code>NewAPIServerCommand</code>&#x91C7;&#x7528;&#x4E86;<a href="https://github.com/spf13/cobra" target="_blank">Cobra</a>&#x547D;&#x4EE4;&#x884C;&#x6846;&#x67B6;&#xFF0C;&#x8BE5;&#x6846;&#x67B6;&#x4F7F;&#x7528;&#x4E3B;&#x8981;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x90E8;&#x5206;&#xFF1A;</p>
+<ul>
+<li>&#x6784;&#x9020;option&#x53C2;&#x6570;&#xFF0C;&#x63D0;&#x4F9B;&#x7ED9;&#x6267;&#x884C;&#x4E3B;&#x4F53;(&#x4F8B;&#x5982; &#x672C;&#x6587;&#x7684;server)&#x4F5C;&#x4E3A;&#x914D;&#x7F6E;&#x53C2;&#x6570;&#x4F7F;&#x7528;&#x3002;</li>
+<li>&#x6DFB;&#x52A0;Flags&#xFF0C;&#x4E3B;&#x8981;&#x7528;&#x6765;&#x901A;&#x8FC7;&#x4F20;&#x5165;&#x7684;flags&#x53C2;&#x6570;&#x6700;&#x7EC8;&#x89E3;&#x6790;&#x6210;option&#x4E2D;&#x4F7F;&#x7528;&#x7684;&#x7ED3;&#x6784;&#x4F53;&#x5C5E;&#x6027;&#x3002;</li>
+<li>&#x6267;&#x884C;Run&#x51FD;&#x6570;&#xFF0C;&#x6267;&#x884C;&#x4E3B;&#x4F53;&#x7684;&#x8FD0;&#x884C;&#x903B;&#x8F91;&#x90E8;&#x5206;&#xFF08;&#x6838;&#x5FC3;&#x90E8;&#x5206;&#xFF09;&#x3002;</li>
+</ul>
+<p>&#x5176;&#x4E2D;Run&#x51FD;&#x6570;&#x7684;&#x4E3B;&#x8981;&#x5185;&#x5BB9;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>&#x6784;&#x9020;&#x4E00;&#x4E2A;&#x805A;&#x5408;&#x7684;server&#x7ED3;&#x6784;&#x4F53;&#x3002;</li>
+<li>&#x6267;&#x884C;PrepareRun&#x3002;</li>
+<li>&#x6700;&#x7EC8;&#x6267;&#x884C;preparedGenericAPIServer.Run&#x3002;</li>
+</ol>
+<p><code>preparedGenericAPIServer.Run</code>&#x4E3B;&#x8981;&#x662F;&#x8C03;&#x7528;<code>NonBlockingRun</code>&#x51FD;&#x6570;&#xFF0C;&#x6700;&#x7EC8;&#x8FD0;&#x884C;&#x4E00;&#x4E2A;http server&#x3002;<code>NonBlockingRun</code>&#x7684;&#x5177;&#x4F53;&#x903B;&#x8F91;&#x5F85;&#x540E;&#x7EED;&#x6587;&#x7AE0;&#x518D;&#x5355;&#x72EC;&#x5206;&#x6790;&#x3002;</p>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><a href="https://github.com/kubernetes/kubernetes/tree/v1.12.0/cmd/kube-apiserver" target="_blank">https://github.com/kubernetes/kubernetes/tree/v1.12.0/cmd/kube-apiserver</a></li>
+<li><a href="https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kube-apiserver/app/server.go" target="_blank">https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kube-apiserver/app/server.go</a></li>
+<li><a href="https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kube-apiserver/app/aggregator.go" target="_blank">https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kube-apiserver/app/aggregator.go</a></li>
+<li><a href="https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kube-apiserver/app/options/options.go" target="_blank">https://github.com/kubernetes/kubernetes/blob/v1.12.0/cmd/kube-apiserver/app/options/options.go</a> </li>
+</ul>
+<footer class="page-footer"><span class="copyright">Copyright &#xA9; www.huweihuang.com 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
+2019-04-24 14:32:39
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                
+                <a href="../../monitor/kubernetes-cluster-monitoring.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 监控体系介绍">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"NewAPIServerCommand","level":"12.4.1","depth":2,"next":{"title":"监控体系介绍","level":"13.1","depth":1,"path":"monitor/kubernetes-cluster-monitoring.md","ref":"monitor/kubernetes-cluster-monitoring.md","articles":[]},"previous":{"title":"kube-apiserver","level":"12.4","depth":1,"ref":"","articles":[{"title":"NewAPIServerCommand","level":"12.4.1","depth":2,"path":"code-analysis/kube-apiserver/NewAPIServerCommand.md","ref":"code-analysis/kube-apiserver/NewAPIServerCommand.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga","disqus","donate"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"huweihuang"},"github":{"url":"https://github.com/huweihuang"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"donate":{"alipay":"http://ozilwgpje.bkt.clouddn.com/donate/alipay.jpg","alipayText":"支付宝打赏","button":"赏","title":"","wechat":"http://ozilwgpje.bkt.clouddn.com/donate/wechatpay.jpg","wechatText":"微信打赏"},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"images/favicon.ico","bookmark":"images/favicon.ico","appleTouch":"images/favicon.ico","appleTouchMore":{"120x120":"images/favicon.ico","180x180":"images/favicon.ico"}},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.1","level":"4.2.2","list_caption":"Figure: pod","alt":"pod","nro":1,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"4.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.2","level":"4.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"4.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.3","level":"4.2.2","list_caption":"Figure: service","alt":"service","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"4.2.2.3"},{"backlink":"concepts/pod/pod-volume.html#fig4.3.5.1","level":"4.3.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":4,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.5.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.7.1","level":"4.3.7","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.7.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.7.2","level":"4.3.7","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.7.2"},{"backlink":"principle/kubernetes-core-principle-api-server.html#fig5.1.1","level":"5.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"5.1.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.2.1","level":"5.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"5.2.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.2.2","level":"5.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":9,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"5.2.2"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.2.3","level":"5.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"5.2.3"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.2.4","level":"5.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"5.2.4"},{"backlink":"principle/kubernetes-core-principle-scheduler.html#fig5.3.1","level":"5.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"5.3.1"},{"backlink":"network/docker-network.html#fig6.1.1","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/container-network.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.1"},{"backlink":"network/docker-network.html#fig6.1.2","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/bridge.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.2"},{"backlink":"network/kubernetes-network.html#fig6.2.1","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":15,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/network-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.1"},{"backlink":"network/kubernetes-network.html#fig6.2.2","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":16,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/pod-network.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.1","level":"6.3.1","list_caption":"Figure: 动态路由","alt":"动态路由","nro":17,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/dynamic-route.png","index":1,"caption_template":"图片 - _CAPTION_","label":"动态路由","attributes":{},"skip":false,"key":"6.3.1.1"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.2","level":"6.3.1","list_caption":"Figure: flannel","alt":"flannel","nro":18,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/flannel.png","index":2,"caption_template":"图片 - _CAPTION_","label":"flannel","attributes":{},"skip":false,"key":"6.3.1.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.3","level":"6.3.1","list_caption":"Figure: UDP封装","alt":"UDP封装","nro":19,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578569/article/flannel/udp.png","index":3,"caption_template":"图片 - _CAPTION_","label":"UDP封装","attributes":{},"skip":false,"key":"6.3.1.3"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.4","level":"6.3.1","list_caption":"Figure: docker启动参数","alt":"docker启动参数","nro":20,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/docker-init-args.png","index":4,"caption_template":"图片 - _CAPTION_","label":"docker启动参数","attributes":{},"skip":false,"key":"6.3.1.4"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.5","level":"6.3.1","list_caption":"Figure: 数据发送节点路由表","alt":"数据发送节点路由表","nro":21,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataSendRouteTable.png","index":5,"caption_template":"图片 - _CAPTION_","label":"数据发送节点路由表","attributes":{},"skip":false,"key":"6.3.1.5"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.6","level":"6.3.1","list_caption":"Figure: 数据接收节点路由表","alt":"数据接收节点路由表","nro":22,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataReceiveRouteTable.png","index":6,"caption_template":"图片 - _CAPTION_","label":"数据接收节点路由表","attributes":{},"skip":false,"key":"6.3.1.6"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig13.1.1","level":"13.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":23,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"13.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig13.2.1","level":"13.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":24,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"13.2.1"},{"backlink":"docker/docker-commands-principle.html#fig14.3.1","level":"14.3","list_caption":"Figure: 1","alt":"1","nro":25,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578327/article/docker/commands/1.png","index":1,"caption_template":"图片 - _CAPTION_","label":"1","attributes":{},"skip":false,"key":"14.3.1"},{"backlink":"docker/docker-commands-principle.html#fig14.3.2","level":"14.3","list_caption":"Figure: 2.1","alt":"2.1","nro":26,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578328/article/docker/commands/2.1.png","index":2,"caption_template":"图片 - _CAPTION_","label":"2.1","attributes":{},"skip":false,"key":"14.3.2"},{"backlink":"docker/docker-commands-principle.html#fig14.3.3","level":"14.3","list_caption":"Figure: 3.2","alt":"3.2","nro":27,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578328/article/docker/commands/3.2.png","index":3,"caption_template":"图片 - _CAPTION_","label":"3.2","attributes":{},"skip":false,"key":"14.3.3"},{"backlink":"docker/docker-commands-principle.html#fig14.3.4","level":"14.3","list_caption":"Figure: 4.1.1","alt":"4.1.1","nro":28,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.1.1.png","index":4,"caption_template":"图片 - _CAPTION_","label":"4.1.1","attributes":{},"skip":false,"key":"14.3.4"},{"backlink":"docker/docker-commands-principle.html#fig14.3.5","level":"14.3","list_caption":"Figure: 4.1.2","alt":"4.1.2","nro":29,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.1.2.png","index":5,"caption_template":"图片 - _CAPTION_","label":"4.1.2","attributes":{},"skip":false,"key":"14.3.5"},{"backlink":"docker/docker-commands-principle.html#fig14.3.6","level":"14.3","list_caption":"Figure: 4.1.3","alt":"4.1.3","nro":30,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.1.3.png","index":6,"caption_template":"图片 - _CAPTION_","label":"4.1.3","attributes":{},"skip":false,"key":"14.3.6"},{"backlink":"docker/docker-commands-principle.html#fig14.3.7","level":"14.3","list_caption":"Figure: 4.2.1.1","alt":"4.2.1.1","nro":31,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.1.png","index":7,"caption_template":"图片 - _CAPTION_","label":"4.2.1.1","attributes":{},"skip":false,"key":"14.3.7"},{"backlink":"docker/docker-commands-principle.html#fig14.3.8","level":"14.3","list_caption":"Figure: 4.2.1.2","alt":"4.2.1.2","nro":32,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.2.png","index":8,"caption_template":"图片 - _CAPTION_","label":"4.2.1.2","attributes":{},"skip":false,"key":"14.3.8"},{"backlink":"docker/docker-commands-principle.html#fig14.3.9","level":"14.3","list_caption":"Figure: 4.2.1.3","alt":"4.2.1.3","nro":33,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.3.png","index":9,"caption_template":"图片 - _CAPTION_","label":"4.2.1.3","attributes":{},"skip":false,"key":"14.3.9"},{"backlink":"docker/docker-commands-principle.html#fig14.3.10","level":"14.3","list_caption":"Figure: 4.2.1.3.1","alt":"4.2.1.3.1","nro":34,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.2.1.3.1.png","index":10,"caption_template":"图片 - _CAPTION_","label":"4.2.1.3.1","attributes":{},"skip":false,"key":"14.3.10"},{"backlink":"docker/docker-commands-principle.html#fig14.3.11","level":"14.3","list_caption":"Figure: 4.2.1.4","alt":"4.2.1.4","nro":35,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.4.png","index":11,"caption_template":"图片 - _CAPTION_","label":"4.2.1.4","attributes":{},"skip":false,"key":"14.3.11"},{"backlink":"docker/docker-commands-principle.html#fig14.3.12","level":"14.3","list_caption":"Figure: 4.2.1.5","alt":"4.2.1.5","nro":36,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.5.png","index":12,"caption_template":"图片 - _CAPTION_","label":"4.2.1.5","attributes":{},"skip":false,"key":"14.3.12"},{"backlink":"docker/docker-commands-principle.html#fig14.3.13","level":"14.3","list_caption":"Figure: 4.2.1.6","alt":"4.2.1.6","nro":37,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.6.png","index":13,"caption_template":"图片 - _CAPTION_","label":"4.2.1.6","attributes":{},"skip":false,"key":"14.3.13"},{"backlink":"docker/docker-commands-principle.html#fig14.3.14","level":"14.3","list_caption":"Figure: 4.2.1.7","alt":"4.2.1.7","nro":38,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.7.png","index":14,"caption_template":"图片 - _CAPTION_","label":"4.2.1.7","attributes":{},"skip":false,"key":"14.3.14"},{"backlink":"docker/docker-commands-principle.html#fig14.3.15","level":"14.3","list_caption":"Figure: 4.2.1.7.2","alt":"4.2.1.7.2","nro":39,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.7.2.png","index":15,"caption_template":"图片 - _CAPTION_","label":"4.2.1.7.2","attributes":{},"skip":false,"key":"14.3.15"},{"backlink":"docker/docker-commands-principle.html#fig14.3.16","level":"14.3","list_caption":"Figure: 4.2.1.8.1","alt":"4.2.1.8.1","nro":40,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.8.1.png","index":16,"caption_template":"图片 - _CAPTION_","label":"4.2.1.8.1","attributes":{},"skip":false,"key":"14.3.16"},{"backlink":"docker/docker-commands-principle.html#fig14.3.17","level":"14.3","list_caption":"Figure: 4.2.1.8.2","alt":"4.2.1.8.2","nro":41,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.8.2.png","index":17,"caption_template":"图片 - _CAPTION_","label":"4.2.1.8.2","attributes":{},"skip":false,"key":"14.3.17"},{"backlink":"docker/docker-commands-principle.html#fig14.3.18","level":"14.3","list_caption":"Figure: 4.2.2.1.1","alt":"4.2.2.1.1","nro":42,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.1.1.png","index":18,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.1","attributes":{},"skip":false,"key":"14.3.18"},{"backlink":"docker/docker-commands-principle.html#fig14.3.19","level":"14.3","list_caption":"Figure: 4.2.2.1.2","alt":"4.2.2.1.2","nro":43,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.1.2.png","index":19,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.2","attributes":{},"skip":false,"key":"14.3.19"},{"backlink":"docker/docker-commands-principle.html#fig14.3.20","level":"14.3","list_caption":"Figure: 4.2.2.1.3","alt":"4.2.2.1.3","nro":44,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.1.3.png","index":20,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.3","attributes":{},"skip":false,"key":"14.3.20"},{"backlink":"docker/docker-commands-principle.html#fig14.3.21","level":"14.3","list_caption":"Figure: 4.2.2.2.1","alt":"4.2.2.2.1","nro":45,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.2.1.png","index":21,"caption_template":"图片 - _CAPTION_","label":"4.2.2.2.1","attributes":{},"skip":false,"key":"14.3.21"},{"backlink":"docker/docker-commands-principle.html#fig14.3.22","level":"14.3","list_caption":"Figure: 4.2.2.2.2","alt":"4.2.2.2.2","nro":46,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.2.2.png","index":22,"caption_template":"图片 - _CAPTION_","label":"4.2.2.2.2","attributes":{},"skip":false,"key":"14.3.22"},{"backlink":"docker/docker-commands-principle.html#fig14.3.23","level":"14.3","list_caption":"Figure: 4.2.2.3.1","alt":"4.2.2.3.1","nro":47,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.3.1.png","index":23,"caption_template":"图片 - _CAPTION_","label":"4.2.2.3.1","attributes":{},"skip":false,"key":"14.3.23"},{"backlink":"docker/docker-commands-principle.html#fig14.3.24","level":"14.3","list_caption":"Figure: 4.2.3.1","alt":"4.2.3.1","nro":48,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.1.png","index":24,"caption_template":"图片 - _CAPTION_","label":"4.2.3.1","attributes":{},"skip":false,"key":"14.3.24"},{"backlink":"docker/docker-commands-principle.html#fig14.3.25","level":"14.3","list_caption":"Figure: 4.2.3.2","alt":"4.2.3.2","nro":49,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.2.png","index":25,"caption_template":"图片 - _CAPTION_","label":"4.2.3.2","attributes":{},"skip":false,"key":"14.3.25"},{"backlink":"docker/docker-commands-principle.html#fig14.3.26","level":"14.3","list_caption":"Figure: 4.2.3.3","alt":"4.2.3.3","nro":50,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.3.png","index":26,"caption_template":"图片 - _CAPTION_","label":"4.2.3.3","attributes":{},"skip":false,"key":"14.3.26"},{"backlink":"docker/docker-commands-principle.html#fig14.3.27","level":"14.3","list_caption":"Figure: 4.2.3.4","alt":"4.2.3.4","nro":51,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578333/article/docker/commands/4.2.3.4.png","index":27,"caption_template":"图片 - _CAPTION_","label":"4.2.3.4","attributes":{},"skip":false,"key":"14.3.27"},{"backlink":"etcd/etcd-introduction.html#fig15.1.1","level":"15.1","list_caption":"Figure: etcd的架构图","alt":"etcd的架构图","nro":52,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/etcd-architecture.jpg","index":1,"caption_template":"图片 - _CAPTION_","label":"etcd的架构图","attributes":{},"skip":false,"key":"15.1.1"},{"backlink":"etcd/raft.html#fig15.2.1","level":"15.2","list_caption":"Figure: raft","alt":"raft","nro":53,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/raft.png","index":1,"caption_template":"图片 - _CAPTION_","label":"raft","attributes":{},"skip":false,"key":"15.2.1"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"胡伟煌的博客":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"code-analysis/kube-apiserver/NewAPIServerCommand.md","mtime":"2019-04-24T06:32:39.640Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-04-24T06:37:26.297Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-page-toc-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-editlink/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-3-ba/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-donate/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
