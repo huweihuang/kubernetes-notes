@@ -238,7 +238,7 @@ func (g *genericScheduler) numFeasibleNodesToFind(numAllNodes int32) int32 {
 4. 如果当前node不满足要求，则加入到失败的数组中，并记录原因。
 5. 通过`workqueue.ParallelizeUntil`并发执行`checkNode`函数，一旦找到配置的可行节点数，就停止搜索更多节点。
 
-```GO
+```go
 checkNode := func(i int) {
 	var nodeCache *equivalence.NodeCache
 	nodeName := g.cache.NodeTree().Next()

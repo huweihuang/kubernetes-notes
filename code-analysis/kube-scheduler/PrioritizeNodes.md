@@ -581,7 +581,7 @@ for _, nodePod := range nodeInfo.Pods() {
 
 ## 8.2. [CalculateSpreadPriorityReduce](<https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/scheduler/algorithm/priorities/selector_spreading.go#L117>)
 
-`CalculateSpreadPriorityReduce`根据节点上包含区域信息的节点上现有匹配pod的数量计算每个节点的十分制的分数，具有较少现有匹配pod的区域中的节点的分数越高，表示节点越可能被调度到。
+`CalculateSpreadPriorityReduce`根据节点上现有匹配pod的数量计算每个节点的十分制的分数，具有较少现有匹配pod的节点的分数越高，表示节点越可能被调度到。
 
 **基本流程如下：**
 
@@ -651,7 +651,7 @@ func (s *SelectorSpread) CalculateSpreadPriorityReduce(pod *v1.Pod, meta interfa
 }
 ```
 
-以下重点分段分析：
+以下分段分析：
 
 先获取所有节点中匹配到的pod最多的个数。
 

@@ -95,6 +95,8 @@
     * [scheduleOne](code-analysis/kube-scheduler/scheduleOne.md)
     * [findNodesThatFit](code-analysis/kube-scheduler/findNodesThatFit.md)
     * [PrioritizeNodes](code-analysis/kube-scheduler/PrioritizeNodes.md)
+* [kube-apiserver]()
+    * [NewAPIServerCommand](code-analysis/kube-apiserver/NewAPIServerCommand.md)
 
 ## 监控体系
 
