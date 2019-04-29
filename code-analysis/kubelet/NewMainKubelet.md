@@ -4,6 +4,8 @@
 >
 > 本文主要分析 https://github.com/kubernetes/kubernetes/tree/v1.12.0/pkg/kubelet 部分的代码。
 
+本文主要分析kubelet中的`NewMainKubelet`部分。
+
 # 1. [NewMainKubelet](https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/kubelet/kubelet.go#L327)
 
 `NewMainKubelet`主要用来初始化和构造一个`kubelet`结构体，kubelet结构体定义参考:https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/kubelet/kubelet.go#L888
