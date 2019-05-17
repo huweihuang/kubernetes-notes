@@ -85,6 +85,7 @@
         * [kube-scheduler源码分析（三）之 scheduleOne](code-analysis/kube-scheduler/scheduleOne.md)
         * [kube-scheduler源码分析（四）之 findNodesThatFit](code-analysis/kube-scheduler/findNodesThatFit.md)
         * [kube-scheduler源码分析（五）之 PrioritizeNodes](code-analysis/kube-scheduler/PrioritizeNodes.md)
+        * [kube-scheduler源码分析（六）之 preempt](code-analysis/kube-scheduler/preempt.md)
     * [kube-apiserver]()
         * [kube-apiserver源码分析（一）之 NewAPIServerCommand](code-analysis/kube-apiserver/NewAPIServerCommand.md)
 * [监控体系]()

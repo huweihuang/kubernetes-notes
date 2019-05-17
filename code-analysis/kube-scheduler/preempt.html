@@ -1,0 +1,2422 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>preempt · Kubernetes 学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="胡伟煌">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-toc-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-donate/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    
+    <link rel="prev" href="PrioritizeNodes.html" />
+    
+
+    
+        <link rel="shortcut icon" href='../../images/favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../../images/favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="apple-touch-icon" href='../../images/favicon.ico'>
+    
+    
+        
+        <link rel="apple-touch-icon" sizes="120x120" href="../../images/favicon.ico">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="../../images/favicon.ico">
+        
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com" target="_blank" class="custom-link">胡伟煌的博客</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        <li class="header">前言</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                        <b>1.1.</b>
+                    
+                    序言
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">PaaS</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../../paas/12-factor.html">
+            
+                <a href="../../paas/12-factor.html">
+            
+                    
+                        <b>2.1.</b>
+                    
+                    12-Factor
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">安装与配置</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../../setup/install-k8s-by-kubespray.html">
+            
+                <a href="../../setup/install-k8s-by-kubespray.html">
+            
+                    
+                        <b>3.1.</b>
+                    
+                    使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../../setup/install-k8s-by-minikube.html">
+            
+                <a href="../../setup/install-k8s-by-minikube.html">
+            
+                    
+                        <b>3.2.</b>
+                    
+                    使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">基本概念</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" >
+            
+                <span>
+            
+                    
+                        <b>4.1.</b>
+                    
+                    kubernetes架构
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="../../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                        <b>4.1.1.</b>
+                    
+                    Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="../../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                        <b>4.1.2.</b>
+                    
+                    基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" >
+            
+                <span>
+            
+                    
+                        <b>4.2.</b>
+                    
+                    kubernetes对象
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="../../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                        <b>4.2.1.</b>
+                    
+                    理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="../../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                        <b>4.2.2.</b>
+                    
+                    kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" >
+            
+                <span>
+            
+                    
+                        <b>4.3.</b>
+                    
+                    Pod
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.3.1" data-path="../../concepts/pod/pod.html">
+            
+                <a href="../../concepts/pod/pod.html">
+            
+                    
+                        <b>4.3.1.</b>
+                    
+                    Pod介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.2" data-path="../../concepts/pod/pod-definition.html">
+            
+                <a href="../../concepts/pod/pod-definition.html">
+            
+                    
+                        <b>4.3.2.</b>
+                    
+                    Pod定义文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.3" data-path="../../concepts/pod/pod-lifecycle.html">
+            
+                <a href="../../concepts/pod/pod-lifecycle.html">
+            
+                    
+                        <b>4.3.3.</b>
+                    
+                    Pod生命周期
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.4" data-path="../../concepts/pod/pod-probe.html">
+            
+                <a href="../../concepts/pod/pod-probe.html">
+            
+                    
+                        <b>4.3.4.</b>
+                    
+                    Pod健康检查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.5" data-path="../../concepts/pod/pod-volume.html">
+            
+                <a href="../../concepts/pod/pod-volume.html">
+            
+                    
+                        <b>4.3.5.</b>
+                    
+                    Pod存储卷
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.6" data-path="../../concepts/pod/pod-configmap.html">
+            
+                <a href="../../concepts/pod/pod-configmap.html">
+            
+                    
+                        <b>4.3.6.</b>
+                    
+                    Pod配置管理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.7" data-path="../../concepts/pod/pod-scheduler.html">
+            
+                <a href="../../concepts/pod/pod-scheduler.html">
+            
+                    
+                        <b>4.3.7.</b>
+                    
+                    Pod调度
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.8" data-path="../../concepts/pod/pod-operation.html">
+            
+                <a href="../../concepts/pod/pod-operation.html">
+            
+                    
+                        <b>4.3.8.</b>
+                    
+                    Pod操作
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">核心原理</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../../principle/kubernetes-core-principle-api-server.html">
+            
+                <a href="../../principle/kubernetes-core-principle-api-server.html">
+            
+                    
+                        <b>5.1.</b>
+                    
+                    Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../../principle/kubernetes-core-principle-controller-manager.html">
+            
+                <a href="../../principle/kubernetes-core-principle-controller-manager.html">
+            
+                    
+                        <b>5.2.</b>
+                    
+                    Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.3" data-path="../../principle/kubernetes-core-principle-scheduler.html">
+            
+                <a href="../../principle/kubernetes-core-principle-scheduler.html">
+            
+                    
+                        <b>5.3.</b>
+                    
+                    Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.4" data-path="../../principle/kubernetes-core-principle-kubelet.html">
+            
+                <a href="../../principle/kubernetes-core-principle-kubelet.html">
+            
+                    
+                        <b>5.4.</b>
+                    
+                    Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">网络</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../../network/docker-network.html">
+            
+                <a href="../../network/docker-network.html">
+            
+                    
+                        <b>6.1.</b>
+                    
+                    Docker网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="../../network/kubernetes-network.html">
+            
+                <a href="../../network/kubernetes-network.html">
+            
+                    
+                        <b>6.2.</b>
+                    
+                    k8s网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" >
+            
+                <span>
+            
+                    
+                        <b>6.3.</b>
+                    
+                    Flannel
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.3.1" data-path="../../network/flannel/flannel-introduction.html">
+            
+                <a href="../../network/flannel/flannel-introduction.html">
+            
+                    
+                        <b>6.3.1.</b>
+                    
+                    Flannel介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">存储</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../../storage/volume.html">
+            
+                <a href="../../storage/volume.html">
+            
+                    
+                        <b>7.1.</b>
+                    
+                    Volume
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="../../storage/persistent-volume.html">
+            
+                <a href="../../storage/persistent-volume.html">
+            
+                    
+                        <b>7.2.</b>
+                    
+                    Persistent Volume
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.3" data-path="../../storage/persistent-volume-claim.html">
+            
+                <a href="../../storage/persistent-volume-claim.html">
+            
+                    
+                        <b>7.3.</b>
+                    
+                    Persistent Volume Claim
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.4" data-path="../../storage/storage-class.html">
+            
+                <a href="../../storage/storage-class.html">
+            
+                    
+                        <b>7.4.</b>
+                    
+                    Storage Class
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.5" data-path="../../storage/dynamic-provisioning.html">
+            
+                <a href="../../storage/dynamic-provisioning.html">
+            
+                    
+                        <b>7.5.</b>
+                    
+                    Dynamic Volume Provisioning
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">CSI</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../../csi/ceph/csi-cephfs-plugin.html">
+            
+                <a href="../../csi/ceph/csi-cephfs-plugin.html">
+            
+                    
+                        <b>8.1.</b>
+                    
+                    csi-cephfs-plugin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../../csi/ceph/deploy-csi-cephfs.html">
+            
+                <a href="../../csi/ceph/deploy-csi-cephfs.html">
+            
+                    
+                        <b>8.2.</b>
+                    
+                    部署csi-cephfs
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">资源配额</li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" data-path="../../resource/resource-quota.html">
+            
+                <a href="../../resource/resource-quota.html">
+            
+                    
+                        <b>9.1.</b>
+                    
+                    资源配额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="../../resource/limit-range.html">
+            
+                <a href="../../resource/limit-range.html">
+            
+                    
+                        <b>9.2.</b>
+                    
+                    Pod限额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="../../resource/quality-of-service.html">
+            
+                <a href="../../resource/quality-of-service.html">
+            
+                    
+                        <b>9.3.</b>
+                    
+                    资源服务质量
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">运维指南</li>
+        
+        
+    
+        <li class="chapter " data-level="10.1" data-path="../../operation/install-kubectl.html">
+            
+                <a href="../../operation/install-kubectl.html">
+            
+                    
+                        <b>10.1.</b>
+                    
+                    kubectl安装与配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.2" data-path="../../operation/kubectl-commands.html">
+            
+                <a href="../../operation/kubectl-commands.html">
+            
+                    
+                        <b>10.2.</b>
+                    
+                    kubectl命令说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.3" data-path="../../operation/safely-drain-node.html">
+            
+                <a href="../../operation/safely-drain-node.html">
+            
+                    
+                        <b>10.3.</b>
+                    
+                    安全迁移节点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.4" data-path="../../operation/kubernetes-troubleshooting.html">
+            
+                <a href="../../operation/kubernetes-troubleshooting.html">
+            
+                    
+                        <b>10.4.</b>
+                    
+                    kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.5" data-path="../../operation/nodeselector-and-taint.html">
+            
+                <a href="../../operation/nodeselector-and-taint.html">
+            
+                    
+                        <b>10.5.</b>
+                    
+                    指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">开发指南</li>
+        
+        
+    
+        <li class="chapter " data-level="11.1" data-path="../../develop/client-go.html">
+            
+                <a href="../../develop/client-go.html">
+            
+                    
+                        <b>11.1.</b>
+                    
+                    client-go的使用及源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="11.2" data-path="../../develop/nfs-client-provisioner.html">
+            
+                <a href="../../develop/nfs-client-provisioner.html">
+            
+                    
+                        <b>11.2.</b>
+                    
+                    nfs-client-provisioner源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="11.3" data-path="../../develop/csi-provisioner.html">
+            
+                <a href="../../develop/csi-provisioner.html">
+            
+                    
+                        <b>11.3.</b>
+                    
+                    csi-provisioner源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">源码分析</li>
+        
+        
+    
+        <li class="chapter " data-level="12.1" >
+            
+                <span>
+            
+                    
+                        <b>12.1.</b>
+                    
+                    kubelet
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.1.1" data-path="../kubelet/NewKubeletCommand.html">
+            
+                <a href="../kubelet/NewKubeletCommand.html">
+            
+                    
+                        <b>12.1.1.</b>
+                    
+                    NewKubeletCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.1.2" data-path="../kubelet/NewMainKubelet.html">
+            
+                <a href="../kubelet/NewMainKubelet.html">
+            
+                    
+                        <b>12.1.2.</b>
+                    
+                    NewMainKubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.1.3" data-path="../kubelet/startKubelet.html">
+            
+                <a href="../kubelet/startKubelet.html">
+            
+                    
+                        <b>12.1.3.</b>
+                    
+                    startKubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.1.4" data-path="../kubelet/syncLoopIteration.html">
+            
+                <a href="../kubelet/syncLoopIteration.html">
+            
+                    
+                        <b>12.1.4.</b>
+                    
+                    syncLoopIteration
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.1.5" data-path="../kubelet/syncPod.html">
+            
+                <a href="../kubelet/syncPod.html">
+            
+                    
+                        <b>12.1.5.</b>
+                    
+                    syncPod
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2" >
+            
+                <span>
+            
+                    
+                        <b>12.2.</b>
+                    
+                    kube-controller-manager
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.2.1" data-path="../kube-controller-manager/NewControllerManagerCommand.html">
+            
+                <a href="../kube-controller-manager/NewControllerManagerCommand.html">
+            
+                    
+                        <b>12.2.1.</b>
+                    
+                    NewControllerManagerCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.2" data-path="../kube-controller-manager/deployment-controller.html">
+            
+                <a href="../kube-controller-manager/deployment-controller.html">
+            
+                    
+                        <b>12.2.2.</b>
+                    
+                    DeploymentController
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.3" data-path="../kube-controller-manager/sharedIndexInformer.html">
+            
+                <a href="../kube-controller-manager/sharedIndexInformer.html">
+            
+                    
+                        <b>12.2.3.</b>
+                    
+                    Informer机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3" >
+            
+                <span>
+            
+                    
+                        <b>12.3.</b>
+                    
+                    kube-scheduler
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.3.1" data-path="NewSchedulerCommand.html">
+            
+                <a href="NewSchedulerCommand.html">
+            
+                    
+                        <b>12.3.1.</b>
+                    
+                    NewSchedulerCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.2" data-path="registerAlgorithmProvider.html">
+            
+                <a href="registerAlgorithmProvider.html">
+            
+                    
+                        <b>12.3.2.</b>
+                    
+                    registerAlgorithmProvider
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.3" data-path="scheduleOne.html">
+            
+                <a href="scheduleOne.html">
+            
+                    
+                        <b>12.3.3.</b>
+                    
+                    scheduleOne
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.4" data-path="findNodesThatFit.html">
+            
+                <a href="findNodesThatFit.html">
+            
+                    
+                        <b>12.3.4.</b>
+                    
+                    findNodesThatFit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.5" data-path="PrioritizeNodes.html">
+            
+                <a href="PrioritizeNodes.html">
+            
+                    
+                        <b>12.3.5.</b>
+                    
+                    PrioritizeNodes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="12.3.6" data-path="preempt.html">
+            
+                <a href="preempt.html">
+            
+                    
+                        <b>12.3.6.</b>
+                    
+                    preempt
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4" >
+            
+                <span>
+            
+                    
+                        <b>12.4.</b>
+                    
+                    kube-apiserver
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.4.1" data-path="../kube-apiserver/NewAPIServerCommand.html">
+            
+                <a href="../kube-apiserver/NewAPIServerCommand.html">
+            
+                    
+                        <b>12.4.1.</b>
+                    
+                    NewAPIServerCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">监控体系</li>
+        
+        
+    
+        <li class="chapter " data-level="13.1" data-path="../../monitor/kubernetes-cluster-monitoring.html">
+            
+                <a href="../../monitor/kubernetes-cluster-monitoring.html">
+            
+                    
+                        <b>13.1.</b>
+                    
+                    监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="13.2" data-path="../../monitor/cadvisor-introduction.html">
+            
+                <a href="../../monitor/cadvisor-introduction.html">
+            
+                    
+                        <b>13.2.</b>
+                    
+                    cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="13.3" data-path="../../monitor/heapster-introduction.html">
+            
+                <a href="../../monitor/heapster-introduction.html">
+            
+                    
+                        <b>13.3.</b>
+                    
+                    Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="13.4" data-path="../../monitor/influxdb-introduction.html">
+            
+                <a href="../../monitor/influxdb-introduction.html">
+            
+                    
+                        <b>13.4.</b>
+                    
+                    Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Docker</li>
+        
+        
+    
+        <li class="chapter " data-level="14.1" data-path="../../docker/install-docker.html">
+            
+                <a href="../../docker/install-docker.html">
+            
+                    
+                        <b>14.1.</b>
+                    
+                    安装Docker
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.2" data-path="../../docker/docker-architecture.html">
+            
+                <a href="../../docker/docker-architecture.html">
+            
+                    
+                        <b>14.2.</b>
+                    
+                    Docker架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.3" data-path="../../docker/docker-commands-principle.html">
+            
+                <a href="../../docker/docker-commands-principle.html">
+            
+                    
+                        <b>14.3.</b>
+                    
+                    Docker常用命令原理图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.4" data-path="../../docker/dockerfile-usage.html">
+            
+                <a href="../../docker/dockerfile-usage.html">
+            
+                    
+                        <b>14.4.</b>
+                    
+                    Dockerfile使用说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5" >
+            
+                <span>
+            
+                    
+                        <b>14.5.</b>
+                    
+                    Docker源码分析
+            
+                </span>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="14.5.1" data-path="../../docker/code-analysis/code-analysis-of-docker-client.html">
+            
+                <a href="../../docker/code-analysis/code-analysis-of-docker-client.html">
+            
+                    
+                        <b>14.5.1.</b>
+                    
+                    Docker Client
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5.2" data-path="../../docker/code-analysis/code-analysis-of-docker-daemon.html">
+            
+                <a href="../../docker/code-analysis/code-analysis-of-docker-daemon.html">
+            
+                    
+                        <b>14.5.2.</b>
+                    
+                    Docker Daemon
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5.3" data-path="../../docker/code-analysis/code-analysis-of-docker-server.html">
+            
+                <a href="../../docker/code-analysis/code-analysis-of-docker-server.html">
+            
+                    
+                        <b>14.5.3.</b>
+                    
+                    Docker Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Etcd</li>
+        
+        
+    
+        <li class="chapter " data-level="15.1" data-path="../../etcd/etcd-introduction.html">
+            
+                <a href="../../etcd/etcd-introduction.html">
+            
+                    
+                        <b>15.1.</b>
+                    
+                    Etcd介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.2" data-path="../../etcd/raft.html">
+            
+                <a href="../../etcd/raft.html">
+            
+                    
+                        <b>15.2.</b>
+                    
+                    Raft算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.3" data-path="../../etcd/etcd-setup-flags.html">
+            
+                <a href="../../etcd/etcd-setup-flags.html">
+            
+                    
+                        <b>15.3.</b>
+                    
+                    Etcd启动配置参数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.4" data-path="../../etcd/etcd-auth-and-security.html">
+            
+                <a href="../../etcd/etcd-auth-and-security.html">
+            
+                    
+                        <b>15.4.</b>
+                    
+                    Etcd访问控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.5" data-path="../../etcd/etcdctl-v2.html">
+            
+                <a href="../../etcd/etcdctl-v2.html">
+            
+                    
+                        <b>15.5.</b>
+                    
+                    etcdctl命令工具-V2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.6" data-path="../../etcd/etcdctl-v3.html">
+            
+                <a href="../../etcd/etcdctl-v3.html">
+            
+                    
+                        <b>15.6.</b>
+                    
+                    etcdctl命令工具-V3
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >preempt</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="kube-scheduler&#x6E90;&#x7801;&#x5206;&#x6790;&#xFF08;&#x516D;&#xFF09;&#x4E4B;-preempt">kube-scheduler&#x6E90;&#x7801;&#x5206;&#x6790;&#xFF08;&#x516D;&#xFF09;&#x4E4B; preempt</h1>
+<blockquote>
+<p>&#x4EE5;&#x4E0B;&#x4EE3;&#x7801;&#x5206;&#x6790;&#x57FA;&#x4E8E; <code>kubernetes v1.12.0</code> &#x7248;&#x672C;&#x3002;</p>
+</blockquote>
+<p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x5206;&#x6790;&#x8C03;&#x5EA6;&#x4E2D;&#x7684;&#x62A2;&#x5360;&#x903B;&#x8F91;&#xFF0C;&#x5F53;pod&#x4E0D;&#x9002;&#x5408;&#x4EFB;&#x4F55;&#x8282;&#x70B9;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EF;&#x80FD;pod&#x4F1A;&#x8C03;&#x5EA6;&#x5931;&#x8D25;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x53EF;&#x80FD;&#x4F1A;&#x53D1;&#x751F;&#x62A2;&#x5360;&#x3002;&#x62A2;&#x5360;&#x903B;&#x8F91;&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x51FD;&#x6570;&#x4E3A;<code>Scheduler.preempt</code>&#x3002;</p>
+<h1 id="1-&#x8C03;&#x7528;&#x5165;&#x53E3;">1. &#x8C03;&#x7528;&#x5165;&#x53E3;</h1>
+<p>&#x5F53;pod&#x4E0D;&#x9002;&#x5408;&#x4EFB;&#x4F55;&#x8282;&#x70B9;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x53EF;&#x80FD;pod&#x4F1A;&#x8C03;&#x5EA6;&#x5931;&#x8D25;&#x3002;&#x8FD9;&#x65F6;&#x5019;&#x53EF;&#x80FD;&#x4F1A;&#x53D1;&#x751F;&#x62A2;&#x5360;&#x3002;</p>
+<p><code>scheduleOne</code>&#x51FD;&#x6570;&#x4E2D;&#x5173;&#x4E8E;&#x62A2;&#x5360;&#x8C03;&#x7528;&#x7684;&#x903B;&#x8F91;&#x5982;&#x4E0B;&#xFF1A;</p>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x7684;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;/pkg/scheduler/scheduler.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// scheduleOne does the entire scheduling workflow for a single pod.  It is serialized on the scheduling algorithm&apos;s host fitting.</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>sched <span class="token operator">*</span>Scheduler<span class="token punctuation">)</span> <span class="token function">scheduleOne</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    suggestedHost<span class="token punctuation">,</span> err <span class="token operator">:=</span> sched<span class="token punctuation">.</span><span class="token function">schedule</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token comment">// schedule() may have failed because the pod would not fit on any host, so we try to</span>
+        <span class="token comment">// preempt, with the expectation that the next time the pod is tried for scheduling it</span>
+        <span class="token comment">// will fit due to the preemption. It is also possible that a different pod will schedule</span>
+        <span class="token comment">// into the resources that were preempted, but this is harmless.</span>
+        <span class="token keyword">if</span> fitError<span class="token punctuation">,</span> ok <span class="token operator">:=</span> err<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">*</span>core<span class="token punctuation">.</span>FitError<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+            preemptionStartTime <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token comment">// &#x6267;&#x884C;&#x62A2;&#x5360;&#x903B;&#x8F91;</span>
+            sched<span class="token punctuation">.</span><span class="token function">preempt</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> fitError<span class="token punctuation">)</span>
+            metrics<span class="token punctuation">.</span>PreemptionAttempts<span class="token punctuation">.</span><span class="token function">Inc</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            metrics<span class="token punctuation">.</span>SchedulingAlgorithmPremptionEvaluationDuration<span class="token punctuation">.</span><span class="token function">Observe</span><span class="token punctuation">(</span>metrics<span class="token punctuation">.</span><span class="token function">SinceInMicroseconds</span><span class="token punctuation">(</span>preemptionStartTime<span class="token punctuation">)</span><span class="token punctuation">)</span>
+            metrics<span class="token punctuation">.</span>SchedulingLatency<span class="token punctuation">.</span><span class="token function">WithLabelValues</span><span class="token punctuation">(</span>metrics<span class="token punctuation">.</span>PreemptionEvaluation<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Observe</span><span class="token punctuation">(</span>metrics<span class="token punctuation">.</span><span class="token function">SinceInSeconds</span><span class="token punctuation">(</span>preemptionStartTime<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span>
+    <span class="token punctuation">}</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x5176;&#x4E2D;&#x6838;&#x5FC3;&#x4EE3;&#x7801;&#x4E3A;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// &#x57FA;&#x4E8E;sched.schedule(pod)&#x8FD4;&#x56DE;&#x7684;err&#x548C;&#x5F53;&#x524D;&#x5F85;&#x8C03;&#x5EA6;&#x7684;pod&#x6267;&#x884C;&#x62A2;&#x5360;&#x7B56;&#x7565;</span>
+sched<span class="token punctuation">.</span><span class="token function">preempt</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> fitError<span class="token punctuation">)</span>
+</code></pre>
+<h1 id="2-schedulerpreempt">2. Scheduler.preempt</h1>
+<p>&#x5F53;pod&#x8C03;&#x5EA6;&#x5931;&#x8D25;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x62A2;&#x5360;&#x4F4E;&#x4F18;&#x5148;&#x7EA7;pod&#x7684;&#x7A7A;&#x95F4;&#x6765;&#x7ED9;&#x9AD8;&#x4F18;&#x5148;&#x7EA7;&#x7684;pod&#x3002;&#x5176;&#x4E2D;&#x5165;&#x53C2;&#x4E3A;&#x8C03;&#x5EA6;&#x5931;&#x8D25;&#x7684;pod&#x5BF9;&#x8C61;&#x548C;&#x8C03;&#x5EA6;&#x5931;&#x8D25;&#x7684;err&#x3002;</p>
+<p><strong>&#x62A2;&#x5360;&#x7684;&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<ol>
+<li>&#x5224;&#x65AD;&#x662F;&#x5426;&#x6709;&#x5173;&#x95ED;&#x62A2;&#x5360;&#x673A;&#x5236;&#xFF0C;&#x5982;&#x679C;&#x5173;&#x95ED;&#x62A2;&#x5360;&#x673A;&#x5236;&#x5219;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x3002;</li>
+<li>&#x83B7;&#x53D6;&#x8C03;&#x5EA6;&#x5931;&#x8D25;pod&#x7684;&#x6700;&#x65B0;&#x5BF9;&#x8C61;&#x6570;&#x636E;&#x3002;</li>
+<li>&#x6267;&#x884C;&#x62A2;&#x5360;&#x7B97;&#x6CD5;<code>Algorithm.Preempt</code>&#xFF0C;&#x8FD4;&#x56DE;&#x9884;&#x8C03;&#x5EA6;&#x8282;&#x70B9;&#x548C;&#x9700;&#x8981;&#x88AB;&#x5254;&#x9664;&#x7684;pod&#x5217;&#x8868;&#x3002;</li>
+<li>&#x5C06;&#x62A2;&#x5360;&#x7B97;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;node&#x6DFB;&#x52A0;&#x5230;pod&#x7684;<code>Status.NominatedNodeName</code>&#x4E2D;&#xFF0C;&#x5E76;&#x5220;&#x9664;&#x9700;&#x8981;&#x88AB;&#x5254;&#x9664;&#x7684;pod&#x3002;</li>
+<li>&#x5F53;&#x62A2;&#x5360;&#x7B97;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;node&#x662F;nil&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6E05;&#x9664;pod&#x7684;<code>Status.NominatedNodeName</code>&#x4FE1;&#x606F;&#x3002;</li>
+</ol>
+<p>&#x6574;&#x4E2A;&#x62A2;&#x5360;&#x6D41;&#x7A0B;&#x7684;&#x6700;&#x7EC8;&#x7ED3;&#x679C;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x66F4;&#x65B0;<code>Pod.Status.NominatedNodeName</code>&#x5C5E;&#x6027;&#x7684;&#x4FE1;&#x606F;&#x3002;&#x5982;&#x679C;&#x62A2;&#x5360;&#x7B97;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x8282;&#x70B9;&#x4E0D;&#x4E3A;&#x7A7A;&#xFF0C;&#x5219;&#x5C06;&#x8BE5;node&#x66F4;&#x65B0;&#x5230;<code>Pod.Status.NominatedNodeName</code>&#x4E2D;&#xFF0C;&#x5426;&#x5219;&#x5C31;&#x5C06;<code>Pod.Status.NominatedNodeName</code>&#x8BBE;&#x7F6E;&#x4E3A;&#x7A7A;&#x3002;</p>
+<h2 id="21-preempt">2.1. preempt</h2>
+<p>preempt&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x51FD;&#x6570;&#xFF1A;</p>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x7684;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;/pkg/scheduler/scheduler.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// preempt tries to create room for a pod that has failed to schedule, by preempting lower priority pods if possible.</span>
+<span class="token comment">// If it succeeds, it adds the name of the node where preemption has happened to the pod annotations.</span>
+<span class="token comment">// It returns the node name and an error if any.</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>sched <span class="token operator">*</span>Scheduler<span class="token punctuation">)</span> <span class="token function">preempt</span><span class="token punctuation">(</span>preemptor <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> scheduleErr <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token operator">!</span>util<span class="token punctuation">.</span><span class="token function">PodPriorityEnabled</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">||</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>DisablePreemption <span class="token punctuation">{</span>
+        glog<span class="token punctuation">.</span><span class="token function">V</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Pod priority feature is not enabled or preemption is disabled by scheduler configuration.&quot;</span> <span class="token operator">+</span>
+            <span class="token string">&quot; No preemption is performed.&quot;</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+    <span class="token punctuation">}</span>
+    preemptor<span class="token punctuation">,</span> err <span class="token operator">:=</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>PodPreemptor<span class="token punctuation">.</span><span class="token function">GetUpdatedPod</span><span class="token punctuation">(</span>preemptor<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        glog<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Error getting the updated preemptor pod object: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    node<span class="token punctuation">,</span> victims<span class="token punctuation">,</span> nominatedPodsToClear<span class="token punctuation">,</span> err <span class="token operator">:=</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>Algorithm<span class="token punctuation">.</span><span class="token function">Preempt</span><span class="token punctuation">(</span>preemptor<span class="token punctuation">,</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>NodeLister<span class="token punctuation">,</span> scheduleErr<span class="token punctuation">)</span>
+    metrics<span class="token punctuation">.</span>PreemptionVictims<span class="token punctuation">.</span><span class="token function">Set</span><span class="token punctuation">(</span><span class="token function">float64</span><span class="token punctuation">(</span><span class="token function">len</span><span class="token punctuation">(</span>victims<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        glog<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Error preempting victims to make room for %v/%v.&quot;</span><span class="token punctuation">,</span> preemptor<span class="token punctuation">.</span>Namespace<span class="token punctuation">,</span> preemptor<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    <span class="token keyword">var</span> nodeName <span class="token operator">=</span> <span class="token string">&quot;&quot;</span>
+    <span class="token keyword">if</span> node <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        nodeName <span class="token operator">=</span> node<span class="token punctuation">.</span>Name
+        err <span class="token operator">=</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>PodPreemptor<span class="token punctuation">.</span><span class="token function">SetNominatedNodeName</span><span class="token punctuation">(</span>preemptor<span class="token punctuation">,</span> nodeName<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            glog<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Error in preemption process. Cannot update pod %v/%v annotations: %v&quot;</span><span class="token punctuation">,</span> preemptor<span class="token punctuation">.</span>Namespace<span class="token punctuation">,</span> preemptor<span class="token punctuation">.</span>Name<span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> err
+        <span class="token punctuation">}</span>
+        <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> victim <span class="token operator">:=</span> <span class="token keyword">range</span> victims <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> err <span class="token operator">:=</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>PodPreemptor<span class="token punctuation">.</span><span class="token function">DeletePod</span><span class="token punctuation">(</span>victim<span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+                glog<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Error preempting pod %v/%v: %v&quot;</span><span class="token punctuation">,</span> victim<span class="token punctuation">.</span>Namespace<span class="token punctuation">,</span> victim<span class="token punctuation">.</span>Name<span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+                <span class="token keyword">return</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> err
+            <span class="token punctuation">}</span>
+            sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>Recorder<span class="token punctuation">.</span><span class="token function">Eventf</span><span class="token punctuation">(</span>victim<span class="token punctuation">,</span> v1<span class="token punctuation">.</span>EventTypeNormal<span class="token punctuation">,</span> <span class="token string">&quot;Preempted&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;by %v/%v on node %v&quot;</span><span class="token punctuation">,</span> preemptor<span class="token punctuation">.</span>Namespace<span class="token punctuation">,</span> preemptor<span class="token punctuation">.</span>Name<span class="token punctuation">,</span> nodeName<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// Clearing nominated pods should happen outside of &quot;if node != nil&quot;. Node could</span>
+    <span class="token comment">// be nil when a pod with nominated node name is eligible to preempt again,</span>
+    <span class="token comment">// but preemption logic does not find any node for it. In that case Preempt()</span>
+    <span class="token comment">// function of generic_scheduler.go returns the pod itself for removal of the annotation.</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> p <span class="token operator">:=</span> <span class="token keyword">range</span> nominatedPodsToClear <span class="token punctuation">{</span>
+        rErr <span class="token operator">:=</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>PodPreemptor<span class="token punctuation">.</span><span class="token function">RemoveNominatedNodeName</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> rErr <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            glog<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Cannot remove nominated node annotation of pod: %v&quot;</span><span class="token punctuation">,</span> rErr<span class="token punctuation">)</span>
+            <span class="token comment">// We do not return as this error is not critical.</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> nodeName<span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x4EE5;&#x4E0B;&#x5BF9;<code>preempt</code>&#x7684;&#x5B9E;&#x73B0;&#x5206;&#x6BB5;&#x5206;&#x6790;&#x3002;</p>
+<p>&#x5982;&#x679C;&#x8BBE;&#x7F6E;&#x5173;&#x95ED;&#x62A2;&#x5360;&#x673A;&#x5236;&#xFF0C;&#x5219;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">if</span> <span class="token operator">!</span>util<span class="token punctuation">.</span><span class="token function">PodPriorityEnabled</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">||</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>DisablePreemption <span class="token punctuation">{</span>
+    glog<span class="token punctuation">.</span><span class="token function">V</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Pod priority feature is not enabled or preemption is disabled by scheduler configuration.&quot;</span> <span class="token operator">+</span>
+        <span class="token string">&quot; No preemption is performed.&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x83B7;&#x53D6;&#x5F53;&#x524D;pod&#x7684;&#x6700;&#x65B0;&#x72B6;&#x6001;&#x3002;</p>
+<pre class="language-"><code class="lang-go">preemptor<span class="token punctuation">,</span> err <span class="token operator">:=</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>PodPreemptor<span class="token punctuation">.</span><span class="token function">GetUpdatedPod</span><span class="token punctuation">(</span>preemptor<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    glog<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Error getting the updated preemptor pod object: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>GetUpdatedPod</code>&#x7684;&#x5B9E;&#x73B0;&#x5C31;&#x662F;&#x53BB;&#x62FF;pod&#x7684;&#x5BF9;&#x8C61;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>p <span class="token operator">*</span>podPreemptor<span class="token punctuation">)</span> <span class="token function">GetUpdatedPod</span><span class="token punctuation">(</span>pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> p<span class="token punctuation">.</span>Client<span class="token punctuation">.</span><span class="token function">CoreV1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Pods</span><span class="token punctuation">(</span>pod<span class="token punctuation">.</span>Namespace<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span>pod<span class="token punctuation">.</span>Name<span class="token punctuation">,</span> metav1<span class="token punctuation">.</span>GetOptions<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x63A5;&#x7740;&#x6267;&#x884C;&#x62A2;&#x5360;&#x7684;&#x7B97;&#x6CD5;&#x3002;&#x62A2;&#x5360;&#x7684;&#x7B97;&#x6CD5;&#x8FD4;&#x56DE;&#x9884;&#x8C03;&#x5EA6;&#x8282;&#x70B9;&#x7684;&#x4FE1;&#x606F;&#x548C;&#x56E0;&#x62A2;&#x5360;&#x88AB;&#x5254;&#x9664;&#x7684;pod&#x7684;&#x4FE1;&#x606F;&#x3002;&#x5177;&#x4F53;&#x7684;&#x62A2;&#x5360;&#x7B97;&#x6CD5;&#x903B;&#x8F91;&#x4E0B;&#x6587;&#x5206;&#x6790;&#x3002;</p>
+<pre class="language-"><code class="lang-go">node<span class="token punctuation">,</span> victims<span class="token punctuation">,</span> nominatedPodsToClear<span class="token punctuation">,</span> err <span class="token operator">:=</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>Algorithm<span class="token punctuation">.</span><span class="token function">Preempt</span><span class="token punctuation">(</span>preemptor<span class="token punctuation">,</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>NodeLister<span class="token punctuation">,</span> scheduleErr<span class="token punctuation">)</span>
+</code></pre>
+<p>&#x5C06;&#x9884;&#x8C03;&#x5EA6;&#x8282;&#x70B9;&#x7684;&#x4FE1;&#x606F;&#x66F4;&#x65B0;&#x5230;pod&#x7684;<code>Status.NominatedNodeName</code>&#x5C5E;&#x6027;&#x4E2D;&#x3002;</p>
+<pre class="language-"><code class="lang-go">err <span class="token operator">=</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>PodPreemptor<span class="token punctuation">.</span><span class="token function">SetNominatedNodeName</span><span class="token punctuation">(</span>preemptor<span class="token punctuation">,</span> nodeName<span class="token punctuation">)</span>
+</code></pre>
+<p><code>SetNominatedNodeName</code>&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x4E3A;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>p <span class="token operator">*</span>podPreemptor<span class="token punctuation">)</span> <span class="token function">SetNominatedNodeName</span><span class="token punctuation">(</span>pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> nominatedNodeName <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    podCopy <span class="token operator">:=</span> pod<span class="token punctuation">.</span><span class="token function">DeepCopy</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    podCopy<span class="token punctuation">.</span>Status<span class="token punctuation">.</span>NominatedNodeName <span class="token operator">=</span> nominatedNodeName
+    <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> p<span class="token punctuation">.</span>Client<span class="token punctuation">.</span><span class="token function">CoreV1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Pods</span><span class="token punctuation">(</span>pod<span class="token punctuation">.</span>Namespace<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">UpdateStatus</span><span class="token punctuation">(</span>podCopy<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> err
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x63A5;&#x7740;&#x5220;&#x9664;&#x56E0;&#x62A2;&#x5360;&#x800C;&#x9700;&#x8981;&#x88AB;&#x5254;&#x9664;&#x7684;pod&#x3002;</p>
+<pre class="language-"><code class="lang-go">err <span class="token operator">:=</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>PodPreemptor<span class="token punctuation">.</span><span class="token function">DeletePod</span><span class="token punctuation">(</span>victim<span class="token punctuation">)</span>
+</code></pre>
+<p><code>PodPreemptor.DeletePod</code>&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x5C31;&#x662F;&#x5220;&#x9664;&#x5177;&#x4F53;&#x7684;pod&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>p <span class="token operator">*</span>podPreemptor<span class="token punctuation">)</span> <span class="token function">DeletePod</span><span class="token punctuation">(</span>pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> p<span class="token punctuation">.</span>Client<span class="token punctuation">.</span><span class="token function">CoreV1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Pods</span><span class="token punctuation">(</span>pod<span class="token punctuation">.</span>Namespace<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Delete</span><span class="token punctuation">(</span>pod<span class="token punctuation">.</span>Name<span class="token punctuation">,</span> <span class="token operator">&amp;</span>metav1<span class="token punctuation">.</span>DeleteOptions<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x5982;&#x679C;&#x62A2;&#x5360;&#x7B97;&#x6CD5;&#x5F97;&#x51FA;&#x7684;node&#x5BF9;&#x8C61;&#x4E3A;nil&#xFF0C;&#x5219;&#x5C06;pod&#x7684;<code>Status.NominatedNodeName</code>&#x5C5E;&#x6027;&#x8BBE;&#x7F6E;&#x4E3A;&#x7A7A;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Clearing nominated pods should happen outside of &quot;if node != nil&quot;. Node could</span>
+<span class="token comment">// be nil when a pod with nominated node name is eligible to preempt again,</span>
+<span class="token comment">// but preemption logic does not find any node for it. In that case Preempt()</span>
+<span class="token comment">// function of generic_scheduler.go returns the pod itself for removal of the annotation.</span>
+<span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> p <span class="token operator">:=</span> <span class="token keyword">range</span> nominatedPodsToClear <span class="token punctuation">{</span>
+    rErr <span class="token operator">:=</span> sched<span class="token punctuation">.</span>config<span class="token punctuation">.</span>PodPreemptor<span class="token punctuation">.</span><span class="token function">RemoveNominatedNodeName</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> rErr <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        glog<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Cannot remove nominated node annotation of pod: %v&quot;</span><span class="token punctuation">,</span> rErr<span class="token punctuation">)</span>
+        <span class="token comment">// We do not return as this error is not critical.</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>RemoveNominatedNodeName</code>&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>p <span class="token operator">*</span>podPreemptor<span class="token punctuation">)</span> <span class="token function">RemoveNominatedNodeName</span><span class="token punctuation">(</span>pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>pod<span class="token punctuation">.</span>Status<span class="token punctuation">.</span>NominatedNodeName<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> p<span class="token punctuation">.</span><span class="token function">SetNominatedNodeName</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="22-nominatednodename">2.2. NominatedNodeName</h2>
+<p><code>Pod.Status.NominatedNodeName</code>&#x7684;&#x8BF4;&#x660E;&#xFF1A;</p>
+<p><code>nominatedNodeName</code>&#x662F;&#x8C03;&#x5EA6;&#x5931;&#x8D25;&#x7684;pod&#x62A2;&#x5360;&#x522B;&#x7684;pod&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x88AB;&#x62A2;&#x5360;pod&#x7684;&#x8FD0;&#x884C;&#x8282;&#x70B9;&#x3002;&#x4F46;&#x5728;&#x5254;&#x9664;&#x88AB;&#x62A2;&#x5360;pod&#x4E4B;&#x524D;&#x8BE5;&#x8C03;&#x5EA6;&#x5931;&#x8D25;&#x7684;pod&#x4E0D;&#x4F1A;&#x88AB;&#x8C03;&#x5EA6;&#x3002;&#x540C;&#x65F6;&#x4E5F;&#x4E0D;&#x4FDD;&#x8BC1;&#x6700;&#x7EC8;&#x8BE5;pod&#x4E00;&#x5B9A;&#x4F1A;&#x8C03;&#x5EA6;&#x5230;<code>nominatedNodeName</code>&#x7684;&#x673A;&#x5668;&#x4E0A;&#xFF0C;&#x4E5F;&#x53EF;&#x80FD;&#x56E0;&#x4E3A;&#x4E4B;&#x540E;&#x8D44;&#x6E90;&#x5145;&#x8DB3;&#x7B49;&#x539F;&#x56E0;&#x8C03;&#x5EA6;&#x5230;&#x5176;&#x4ED6;&#x8282;&#x70B9;&#x4E0A;&#x3002;&#x6700;&#x7EC8;&#x8BE5;pod&#x4F1A;&#x88AB;&#x52A0;&#x5230;&#x8C03;&#x5EA6;&#x7684;&#x961F;&#x5217;&#x4E2D;&#x3002;</p>
+<p>&#x5176;&#x4E2D;&#x52A0;&#x5165;&#x5230;&#x8C03;&#x5EA6;&#x961F;&#x5217;&#x7684;&#x5177;&#x4F53;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">NewConfigFactory</span><span class="token punctuation">(</span>args <span class="token operator">*</span>ConfigFactoryArgs<span class="token punctuation">)</span> scheduler<span class="token punctuation">.</span>Configurator <span class="token punctuation">{</span>
+  <span class="token operator">...</span>
+      <span class="token comment">// unscheduled pod queue</span>
+    args<span class="token punctuation">.</span>PodInformer<span class="token punctuation">.</span><span class="token function">Informer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">AddEventHandler</span><span class="token punctuation">(</span>
+            <span class="token operator">...</span>
+            Handler<span class="token punctuation">:</span> cache<span class="token punctuation">.</span>ResourceEventHandlerFuncs<span class="token punctuation">{</span>
+                AddFunc<span class="token punctuation">:</span>    c<span class="token punctuation">.</span>addPodToSchedulingQueue<span class="token punctuation">,</span>
+                UpdateFunc<span class="token punctuation">:</span> c<span class="token punctuation">.</span>updatePodInSchedulingQueue<span class="token punctuation">,</span>
+                DeleteFunc<span class="token punctuation">:</span> c<span class="token punctuation">.</span>deletePodFromSchedulingQueue<span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>addPodToSchedulingQueue:</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>c <span class="token operator">*</span>configFactory<span class="token punctuation">)</span> <span class="token function">addPodToSchedulingQueue</span><span class="token punctuation">(</span>obj <span class="token keyword">interface</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> err <span class="token operator">:=</span> c<span class="token punctuation">.</span>podQueue<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>obj<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        runtime<span class="token punctuation">.</span><span class="token function">HandleError</span><span class="token punctuation">(</span>fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;unable to queue %T: %v&quot;</span><span class="token punctuation">,</span> obj<span class="token punctuation">,</span> err<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>PriorityQueue.Add:</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Add adds a pod to the active queue. It should be called only when a new pod</span>
+<span class="token comment">// is added so there is no chance the pod is already in either queue.</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>p <span class="token operator">*</span>PriorityQueue<span class="token punctuation">)</span> <span class="token function">Add</span><span class="token punctuation">(</span>pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    p<span class="token punctuation">.</span>lock<span class="token punctuation">.</span><span class="token function">Lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">defer</span> p<span class="token punctuation">.</span>lock<span class="token punctuation">.</span><span class="token function">Unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    err <span class="token operator">:=</span> p<span class="token punctuation">.</span>activeQ<span class="token punctuation">.</span><span class="token function">Add</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        glog<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Error adding pod %v/%v to the scheduling queue: %v&quot;</span><span class="token punctuation">,</span> pod<span class="token punctuation">.</span>Namespace<span class="token punctuation">,</span> pod<span class="token punctuation">.</span>Name<span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> p<span class="token punctuation">.</span>unschedulableQ<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            glog<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Error: pod %v/%v is already in the unschedulable queue.&quot;</span><span class="token punctuation">,</span> pod<span class="token punctuation">.</span>Namespace<span class="token punctuation">,</span> pod<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+            p<span class="token punctuation">.</span><span class="token function">deleteNominatedPodIfExists</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span>
+            p<span class="token punctuation">.</span>unschedulableQ<span class="token punctuation">.</span><span class="token function">delete</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        p<span class="token punctuation">.</span><span class="token function">addNominatedPodIfNeeded</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span>
+        p<span class="token punctuation">.</span>cond<span class="token punctuation">.</span><span class="token function">Broadcast</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> err
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>addNominatedPodIfNeeded:</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// addNominatedPodIfNeeded adds a pod to nominatedPods if it has a NominatedNodeName and it does not</span>
+<span class="token comment">// already exist in the map. Adding an existing pod is not going to update the pod.</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>p <span class="token operator">*</span>PriorityQueue<span class="token punctuation">)</span> <span class="token function">addNominatedPodIfNeeded</span><span class="token punctuation">(</span>pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    nnn <span class="token operator">:=</span> <span class="token function">NominatedNodeName</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>nnn<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> np <span class="token operator">:=</span> <span class="token keyword">range</span> p<span class="token punctuation">.</span>nominatedPods<span class="token punctuation">[</span>nnn<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> np<span class="token punctuation">.</span>UID <span class="token operator">==</span> pod<span class="token punctuation">.</span>UID <span class="token punctuation">{</span>
+                glog<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Pod %v/%v already exists in the nominated map!&quot;</span><span class="token punctuation">,</span> pod<span class="token punctuation">.</span>Namespace<span class="token punctuation">,</span> pod<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+                <span class="token keyword">return</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        p<span class="token punctuation">.</span>nominatedPods<span class="token punctuation">[</span>nnn<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>nominatedPods<span class="token punctuation">[</span>nnn<span class="token punctuation">]</span><span class="token punctuation">,</span> pod<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>NominatedNodeName:</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// NominatedNodeName returns nominated node name of a Pod.</span>
+<span class="token keyword">func</span> <span class="token function">NominatedNodeName</span><span class="token punctuation">(</span>pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">)</span> <span class="token builtin">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> pod<span class="token punctuation">.</span>Status<span class="token punctuation">.</span>NominatedNodeName
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="3-genericschedulerpreempt">3. genericScheduler.Preempt</h1>
+<p>&#x62A2;&#x5360;&#x7B97;&#x6CD5;&#x4F9D;&#x7136;&#x662F;&#x5728;<code>ScheduleAlgorithm</code>&#x63A5;&#x53E3;&#x4E2D;&#x5B9A;&#x4E49;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// ScheduleAlgorithm is an interface implemented by things that know how to schedule pods</span>
+<span class="token comment">// onto machines.</span>
+<span class="token keyword">type</span> ScheduleAlgorithm <span class="token keyword">interface</span> <span class="token punctuation">{</span>
+    <span class="token function">Schedule</span><span class="token punctuation">(</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> NodeLister<span class="token punctuation">)</span> <span class="token punctuation">(</span>selectedMachine <span class="token builtin">string</span><span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span>
+    <span class="token comment">// Preempt receives scheduling errors for a pod and tries to create room for</span>
+    <span class="token comment">// the pod by preempting lower priority pods if possible.</span>
+    <span class="token comment">// It returns the node where preemption happened, a list of preempted pods, a</span>
+    <span class="token comment">// list of pods whose nominated node name should be removed, and error if any.</span>
+    <span class="token function">Preempt</span><span class="token punctuation">(</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> NodeLister<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>selectedNode <span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">,</span> preemptedPods <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> cleanupNominatedPods <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> err <span class="token builtin">error</span><span class="token punctuation">)</span>
+    <span class="token comment">// Predicates() returns a pointer to a map of predicate functions. This is</span>
+    <span class="token comment">// exposed for testing.</span>
+    <span class="token function">Predicates</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span>FitPredicate
+    <span class="token comment">// Prioritizers returns a slice of priority config. This is exposed for</span>
+    <span class="token comment">// testing.</span>
+    <span class="token function">Prioritizers</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>PriorityConfig
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>Preempt</code>&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x4E3A;<code>genericScheduler</code>&#x7ED3;&#x6784;&#x4F53;&#x3002;</p>
+<p><code>Preempt</code>&#x7684;&#x4E3B;&#x8981;&#x5B9E;&#x73B0;&#x662F;&#x627E;&#x5230;&#x53EF;&#x4EE5;&#x8C03;&#x5EA6;&#x7684;&#x8282;&#x70B9;&#x548C;&#x4E0A;&#x9762;&#x56E0;&#x62A2;&#x5360;&#x800C;&#x9700;&#x8981;&#x88AB;&#x5254;&#x9664;&#x7684;pod&#x3002;</p>
+<p><strong>&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<ol>
+<li>&#x6839;&#x636E;&#x8C03;&#x5EA6;&#x5931;&#x8D25;&#x7684;&#x539F;&#x56E0;&#x5BF9;&#x6240;&#x6709;&#x8282;&#x70B9;&#x5148;&#x8FDB;&#x884C;&#x4E00;&#x6279;&#x7B5B;&#x9009;&#xFF0C;&#x7B5B;&#x9009;&#x51FA;&#x6F5C;&#x5728;&#x7684;&#x88AB;&#x8C03;&#x5EA6;&#x8282;&#x70B9;&#x5217;&#x8868;&#x3002;</li>
+<li>&#x901A;&#x8FC7;<code>selectNodesForPreemption</code>&#x7B5B;&#x9009;&#x51FA;&#x9700;&#x8981;&#x727A;&#x7272;&#x7684;pod&#x548C;&#x5176;&#x8282;&#x70B9;&#x3002;</li>
+<li>&#x57FA;&#x4E8E;&#x62D3;&#x5C55;&#x62A2;&#x5360;&#x903B;&#x8F91;&#x518D;&#x6B21;&#x5BF9;&#x4E0A;&#x8FF0;&#x7B5B;&#x9009;&#x51FA;&#x6765;&#x7684;&#x727A;&#x7272;&#x8005;&#x505A;&#x8FC7;&#x6EE4;&#x3002;</li>
+<li>&#x57FA;&#x4E8E;&#x4E0A;&#x8FF0;&#x7684;&#x8FC7;&#x6EE4;&#x7ED3;&#x679C;&#xFF0C;&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x6700;&#x7EC8;&#x53EF;&#x80FD;&#x56E0;&#x62A2;&#x5360;&#x88AB;&#x8C03;&#x5EA6;&#x7684;&#x8282;&#x70B9;&#x3002;</li>
+<li>&#x57FA;&#x4E8E;&#x4E0A;&#x8FF0;&#x7684;&#x5019;&#x9009;&#x8282;&#x70B9;&#xFF0C;&#x627E;&#x51FA;&#x8BE5;&#x8282;&#x70B9;&#x4E0A;&#x4F18;&#x5148;&#x7EA7;&#x4F4E;&#x4E8E;&#x5F53;&#x524D;&#x88AB;&#x8C03;&#x5EA6;pod&#x7684;&#x727A;&#x7272;&#x8005;pod&#x5217;&#x8868;&#x3002;</li>
+</ol>
+<p>&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;pkg/scheduler/core/generic_scheduler.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// preempt finds nodes with pods that can be preempted to make room for &quot;pod&quot; to</span>
+<span class="token comment">// schedule. It chooses one of the nodes and preempts the pods on the node and</span>
+<span class="token comment">// returns 1) the node, 2) the list of preempted pods if such a node is found,</span>
+<span class="token comment">// 3) A list of pods whose nominated node name should be cleared, and 4) any</span>
+<span class="token comment">// possible error.</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>g <span class="token operator">*</span>genericScheduler<span class="token punctuation">)</span> <span class="token function">Preempt</span><span class="token punctuation">(</span>pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> nodeLister algorithm<span class="token punctuation">.</span>NodeLister<span class="token punctuation">,</span> scheduleErr <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Scheduler may return various types of errors. Consider preemption only if</span>
+    <span class="token comment">// the error is of type FitError.</span>
+    fitError<span class="token punctuation">,</span> ok <span class="token operator">:=</span> scheduleErr<span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token operator">*</span>FitError<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token operator">!</span>ok <span class="token operator">||</span> fitError <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+    <span class="token punctuation">}</span>
+    err <span class="token operator">:=</span> g<span class="token punctuation">.</span>cache<span class="token punctuation">.</span><span class="token function">UpdateNodeNameToInfoMap</span><span class="token punctuation">(</span>g<span class="token punctuation">.</span>cachedNodeInfoMap<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token operator">!</span><span class="token function">podEligibleToPreemptOthers</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> g<span class="token punctuation">.</span>cachedNodeInfoMap<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        glog<span class="token punctuation">.</span><span class="token function">V</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Pod %v/%v is not eligible for more preemption.&quot;</span><span class="token punctuation">,</span> pod<span class="token punctuation">.</span>Namespace<span class="token punctuation">,</span> pod<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+    <span class="token punctuation">}</span>
+    allNodes<span class="token punctuation">,</span> err <span class="token operator">:=</span> nodeLister<span class="token punctuation">.</span><span class="token function">List</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>allNodes<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> ErrNoNodesAvailable
+    <span class="token punctuation">}</span>
+    potentialNodes <span class="token operator">:=</span> <span class="token function">nodesWherePreemptionMightHelp</span><span class="token punctuation">(</span>allNodes<span class="token punctuation">,</span> fitError<span class="token punctuation">.</span>FailedPredicates<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>potentialNodes<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        glog<span class="token punctuation">.</span><span class="token function">V</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Preemption will not help schedule pod %v/%v on any node.&quot;</span><span class="token punctuation">,</span> pod<span class="token punctuation">.</span>Namespace<span class="token punctuation">,</span> pod<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+        <span class="token comment">// In this case, we should clean-up any existing nominated node name of the pod.</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">{</span>pod<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+    <span class="token punctuation">}</span>
+    pdbs<span class="token punctuation">,</span> err <span class="token operator">:=</span> g<span class="token punctuation">.</span>cache<span class="token punctuation">.</span><span class="token function">ListPDBs</span><span class="token punctuation">(</span>labels<span class="token punctuation">.</span><span class="token function">Everything</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+  <span class="token comment">// &#x627E;&#x51FA;&#x53EF;&#x80FD;&#x88AB;&#x62A2;&#x5360;&#x7684;&#x8282;&#x70B9;</span>
+    nodeToVictims<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">selectNodesForPreemption</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> g<span class="token punctuation">.</span>cachedNodeInfoMap<span class="token punctuation">,</span> potentialNodes<span class="token punctuation">,</span> g<span class="token punctuation">.</span>predicates<span class="token punctuation">,</span>
+        g<span class="token punctuation">.</span>predicateMetaProducer<span class="token punctuation">,</span> g<span class="token punctuation">.</span>schedulingQueue<span class="token punctuation">,</span> pdbs<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// We will only check nodeToVictims with extenders that support preemption.</span>
+    <span class="token comment">// Extenders which do not support preemption may later prevent preemptor from being scheduled on the nominated</span>
+    <span class="token comment">// node. In that case, scheduler will find a different host for the preemptor in subsequent scheduling cycles.</span>
+    nodeToVictims<span class="token punctuation">,</span> err <span class="token operator">=</span> g<span class="token punctuation">.</span><span class="token function">processPreemptionWithExtenders</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> nodeToVictims<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    <span class="token comment">// &#x9009;&#x51FA;&#x6700;&#x7EC8;&#x88AB;&#x62A2;&#x5360;&#x7684;&#x8282;&#x70B9;</span>
+    candidateNode <span class="token operator">:=</span> <span class="token function">pickOneNodeForPreemption</span><span class="token punctuation">(</span>nodeToVictims<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> candidateNode <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// Lower priority pods nominated to run on this node, may no longer fit on</span>
+    <span class="token comment">// this node. So, we should remove their nomination. Removing their</span>
+    <span class="token comment">// nomination updates these pods and moves them to the active queue. It</span>
+    <span class="token comment">// lets scheduler find another place for them.</span>
+  <span class="token comment">// &#x627E;&#x51FA;&#x88AB;&#x5F3A;&#x5360;&#x8282;&#x70B9;&#x4E0A;&#x727A;&#x7272;&#x8005;pod&#x5217;&#x8868;</span>
+    nominatedPods <span class="token operator">:=</span> g<span class="token punctuation">.</span><span class="token function">getLowerPriorityNominatedPods</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> candidateNode<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> nodeInfo<span class="token punctuation">,</span> ok <span class="token operator">:=</span> g<span class="token punctuation">.</span>cachedNodeInfoMap<span class="token punctuation">[</span>candidateNode<span class="token punctuation">.</span>Name<span class="token punctuation">]</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> nodeInfo<span class="token punctuation">.</span><span class="token function">Node</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> nodeToVictims<span class="token punctuation">[</span>candidateNode<span class="token punctuation">]</span><span class="token punctuation">.</span>Pods<span class="token punctuation">,</span> nominatedPods<span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span>
+        <span class="token string">&quot;preemption failed: the target node %s has been deleted from scheduler cache&quot;</span><span class="token punctuation">,</span>
+        candidateNode<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<hr>
+<p>&#x4EE5;&#x4E0B;&#x5BF9;<code>genericScheduler.Preempt</code>&#x5206;&#x6BB5;&#x8FDB;&#x884C;&#x5206;&#x6790;&#x3002;</p>
+<h2 id="31-selectnodesforpreemption">3.1. selectNodesForPreemption</h2>
+<p><code>selectNodesForPreemption</code>&#x5E76;&#x884C;&#x5730;&#x6240;&#x6709;&#x8282;&#x70B9;&#x4E2D;&#x627E;&#x53EF;&#x80FD;&#x88AB;&#x62A2;&#x5360;&#x7684;&#x8282;&#x70B9;&#x3002;</p>
+<pre class="language-"><code class="lang-go">nodeToVictims<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">selectNodesForPreemption</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> g<span class="token punctuation">.</span>cachedNodeInfoMap<span class="token punctuation">,</span> potentialNodes<span class="token punctuation">,</span> g<span class="token punctuation">.</span>predicates<span class="token punctuation">,</span>g<span class="token punctuation">.</span>predicateMetaProducer<span class="token punctuation">,</span> g<span class="token punctuation">.</span>schedulingQueue<span class="token punctuation">,</span> pdbs<span class="token punctuation">)</span>
+</code></pre>
+<p><code>selectNodesForPreemption</code>&#x4E3B;&#x8981;&#x57FA;&#x4E8E;<code>selectVictimsOnNode</code>&#x6784;&#x9020;&#x4E00;&#x4E2A;checkNode&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x7136;&#x540E;&#x5E76;&#x53D1;&#x6267;&#x884C;&#x8BE5;&#x51FD;&#x6570;&#x3002;</p>
+<p><code>selectNodesForPreemption</code>&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// selectNodesForPreemption finds all the nodes with possible victims for</span>
+<span class="token comment">// preemption in parallel.</span>
+<span class="token keyword">func</span> <span class="token function">selectNodesForPreemption</span><span class="token punctuation">(</span>pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span>
+    nodeNameToInfo <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token operator">*</span>schedulercache<span class="token punctuation">.</span>NodeInfo<span class="token punctuation">,</span>
+    potentialNodes <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">,</span>
+    predicates <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span>algorithm<span class="token punctuation">.</span>FitPredicate<span class="token punctuation">,</span>
+    metadataProducer algorithm<span class="token punctuation">.</span>PredicateMetadataProducer<span class="token punctuation">,</span>
+    queue SchedulingQueue<span class="token punctuation">,</span>
+    pdbs <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>policy<span class="token punctuation">.</span>PodDisruptionBudget<span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">]</span><span class="token operator">*</span>schedulerapi<span class="token punctuation">.</span>Victims<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    nodeToVictims <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">]</span><span class="token operator">*</span>schedulerapi<span class="token punctuation">.</span>Victims<span class="token punctuation">{</span><span class="token punctuation">}</span>
+    <span class="token keyword">var</span> resultLock sync<span class="token punctuation">.</span>Mutex
+
+    <span class="token comment">// We can use the same metadata producer for all nodes.</span>
+    meta <span class="token operator">:=</span> <span class="token function">metadataProducer</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> nodeNameToInfo<span class="token punctuation">)</span>
+    checkNode <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>i <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        nodeName <span class="token operator">:=</span> potentialNodes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>Name
+        <span class="token keyword">var</span> metaCopy algorithm<span class="token punctuation">.</span>PredicateMetadata
+        <span class="token keyword">if</span> meta <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            metaCopy <span class="token operator">=</span> meta<span class="token punctuation">.</span><span class="token function">ShallowCopy</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        pods<span class="token punctuation">,</span> numPDBViolations<span class="token punctuation">,</span> fits <span class="token operator">:=</span> <span class="token function">selectVictimsOnNode</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> metaCopy<span class="token punctuation">,</span> nodeNameToInfo<span class="token punctuation">[</span>nodeName<span class="token punctuation">]</span><span class="token punctuation">,</span> predicates<span class="token punctuation">,</span> queue<span class="token punctuation">,</span> pdbs<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> fits <span class="token punctuation">{</span>
+            resultLock<span class="token punctuation">.</span><span class="token function">Lock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+            victims <span class="token operator">:=</span> schedulerapi<span class="token punctuation">.</span>Victims<span class="token punctuation">{</span>
+                Pods<span class="token punctuation">:</span>             pods<span class="token punctuation">,</span>
+                NumPDBViolations<span class="token punctuation">:</span> numPDBViolations<span class="token punctuation">,</span>
+            <span class="token punctuation">}</span>
+            nodeToVictims<span class="token punctuation">[</span>potentialNodes<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token operator">&amp;</span>victims
+            resultLock<span class="token punctuation">.</span><span class="token function">Unlock</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    workqueue<span class="token punctuation">.</span><span class="token function">Parallelize</span><span class="token punctuation">(</span><span class="token number">16</span><span class="token punctuation">,</span> <span class="token function">len</span><span class="token punctuation">(</span>potentialNodes<span class="token punctuation">)</span><span class="token punctuation">,</span> checkNode<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> nodeToVictims<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="311-selectvictimsonnode">3.1.1. selectVictimsOnNode</h3>
+<p><code>selectVictimsOnNode</code>&#x627E;&#x5230;&#x5E94;&#x8BE5;&#x88AB;&#x62A2;&#x5360;&#x7684;&#x7ED9;&#x5B9A;&#x8282;&#x70B9;&#x4E0A;&#x7684;&#x6700;&#x5C0F;pod&#x96C6;&#x5408;&#xFF0C;&#x4EE5;&#x4FBF;&#x7ED9;&#x8C03;&#x5EA6;&#x5931;&#x8D25;&#x7684;pod&#x5B89;&#x6392;&#x8DB3;&#x591F;&#x7684;&#x7A7A;&#x95F4;&#x3002;&#x8BE5;&#x51FD;&#x6570;&#x6700;&#x7EC8;&#x8FD4;&#x56DE;&#x7684;&#x662F;&#x4E00;&#x4E2A;pod&#x7684;&#x6570;&#x7EC4;&#x3002;&#x5F53;&#x6709;&#x66F4;&#x4F4E;&#x4F18;&#x5148;&#x7EA7;&#x7684;pod&#x53EF;&#x80FD;&#x88AB;&#x9009;&#x62E9;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8F83;&#x9AD8;&#x4F18;&#x5148;&#x7EA7;&#x7684;pod&#x4E0D;&#x4F1A;&#x88AB;&#x9009;&#x5165;&#x8BE5;&#x5F85;&#x5254;&#x9664;&#x7684;pod&#x96C6;&#x5408;&#x3002;</p>
+<p><strong>&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<ol>
+<li>&#x5148;&#x68C0;&#x67E5;&#x5F53;&#x8BE5;&#x8282;&#x70B9;&#x4E0A;&#x6240;&#x6709;&#x4F4E;&#x4E8E;&#x9884;&#x88AB;&#x8C03;&#x5EA6;pod&#x4F18;&#x5148;&#x7EA7;&#x7684;pod&#x79FB;&#x9664;&#x540E;&#xFF0C;&#x8BE5;pod&#x80FD;&#x5426;&#x88AB;&#x8C03;&#x5EA6;&#x5230;&#x5F53;&#x524D;&#x8282;&#x70B9;&#x4E0A;&#x3002;</li>
+<li>&#x5982;&#x679C;&#x4E0A;&#x8FF0;&#x68C0;&#x67E5;&#x53EF;&#x4EE5;&#xFF0C;&#x5219;&#x5C06;&#x8BE5;&#x8282;&#x70B9;&#x7684;&#x6240;&#x6709;&#x4F4E;&#x4F18;&#x5148;&#x7EA7;pod&#x6309;&#x7167;&#x4F18;&#x5148;&#x7EA7;&#x6765;&#x6392;&#x5E8F;&#x3002;</li>
+</ol>
+<pre class="language-"><code class="lang-go"><span class="token comment">// selectVictimsOnNode finds minimum set of pods on the given node that should</span>
+<span class="token comment">// be preempted in order to make enough room for &quot;pod&quot; to be scheduled. The</span>
+<span class="token comment">// minimum set selected is subject to the constraint that a higher-priority pod</span>
+<span class="token comment">// is never preempted when a lower-priority pod could be (higher/lower relative</span>
+<span class="token comment">// to one another, not relative to the preemptor &quot;pod&quot;).</span>
+<span class="token comment">// The algorithm first checks if the pod can be scheduled on the node when all the</span>
+<span class="token comment">// lower priority pods are gone. If so, it sorts all the lower priority pods by</span>
+<span class="token comment">// their priority and then puts them into two groups of those whose PodDisruptionBudget</span>
+<span class="token comment">// will be violated if preempted and other non-violating pods. Both groups are</span>
+<span class="token comment">// sorted by priority. It first tries to reprieve as many PDB violating pods as</span>
+<span class="token comment">// possible and then does them same for non-PDB-violating pods while checking</span>
+<span class="token comment">// that the &quot;pod&quot; can still fit on the node.</span>
+<span class="token comment">// NOTE: This function assumes that it is never called if &quot;pod&quot; cannot be scheduled</span>
+<span class="token comment">// due to pod affinity, node affinity, or node anti-affinity reasons. None of</span>
+<span class="token comment">// these predicates can be satisfied by removing more pods from the node.</span>
+<span class="token keyword">func</span> <span class="token function">selectVictimsOnNode</span><span class="token punctuation">(</span>
+    pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span>
+    meta algorithm<span class="token punctuation">.</span>PredicateMetadata<span class="token punctuation">,</span>
+    nodeInfo <span class="token operator">*</span>schedulercache<span class="token punctuation">.</span>NodeInfo<span class="token punctuation">,</span>
+    fitPredicates <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span>algorithm<span class="token punctuation">.</span>FitPredicate<span class="token punctuation">,</span>
+    queue SchedulingQueue<span class="token punctuation">,</span>
+    pdbs <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>policy<span class="token punctuation">.</span>PodDisruptionBudget<span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> <span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token builtin">bool</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    potentialVictims <span class="token operator">:=</span> util<span class="token punctuation">.</span>SortableList<span class="token punctuation">{</span>CompFunc<span class="token punctuation">:</span> util<span class="token punctuation">.</span>HigherPriorityPod<span class="token punctuation">}</span>
+    nodeInfoCopy <span class="token operator">:=</span> nodeInfo<span class="token punctuation">.</span><span class="token function">Clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    removePod <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>rp <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        nodeInfoCopy<span class="token punctuation">.</span><span class="token function">RemovePod</span><span class="token punctuation">(</span>rp<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> meta <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            meta<span class="token punctuation">.</span><span class="token function">RemovePod</span><span class="token punctuation">(</span>rp<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    addPod <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>ap <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        nodeInfoCopy<span class="token punctuation">.</span><span class="token function">AddPod</span><span class="token punctuation">(</span>ap<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> meta <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            meta<span class="token punctuation">.</span><span class="token function">AddPod</span><span class="token punctuation">(</span>ap<span class="token punctuation">,</span> nodeInfoCopy<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// As the first step, remove all the lower priority pods from the node and</span>
+    <span class="token comment">// check if the given pod can be scheduled.</span>
+    podPriority <span class="token operator">:=</span> util<span class="token punctuation">.</span><span class="token function">GetPodPriority</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> p <span class="token operator">:=</span> <span class="token keyword">range</span> nodeInfoCopy<span class="token punctuation">.</span><span class="token function">Pods</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> util<span class="token punctuation">.</span><span class="token function">GetPodPriority</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">&lt;</span> podPriority <span class="token punctuation">{</span>
+            potentialVictims<span class="token punctuation">.</span>Items <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>potentialVictims<span class="token punctuation">.</span>Items<span class="token punctuation">,</span> p<span class="token punctuation">)</span>
+            <span class="token function">removePod</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    potentialVictims<span class="token punctuation">.</span><span class="token function">Sort</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token comment">// If the new pod does not fit after removing all the lower priority pods,</span>
+    <span class="token comment">// we are almost done and this node is not suitable for preemption. The only condition</span>
+    <span class="token comment">// that we should check is if the &quot;pod&quot; is failing to schedule due to pod affinity</span>
+    <span class="token comment">// failure.</span>
+    <span class="token comment">// TODO(bsalamat): Consider checking affinity to lower priority pods if feasible with reasonable performance.</span>
+    <span class="token keyword">if</span> fits<span class="token punctuation">,</span> <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">podFitsOnNode</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> meta<span class="token punctuation">,</span> nodeInfoCopy<span class="token punctuation">,</span> fitPredicates<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> queue<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token operator">!</span>fits <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            glog<span class="token punctuation">.</span><span class="token function">Warningf</span><span class="token punctuation">(</span><span class="token string">&quot;Encountered error while selecting victims on node %v: %v&quot;</span><span class="token punctuation">,</span> nodeInfo<span class="token punctuation">.</span><span class="token function">Node</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Name<span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">var</span> victims <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod
+    numViolatingVictim <span class="token operator">:=</span> <span class="token number">0</span>
+    <span class="token comment">// Try to reprieve as many pods as possible. We first try to reprieve the PDB</span>
+    <span class="token comment">// violating victims and then other non-violating ones. In both cases, we start</span>
+    <span class="token comment">// from the highest priority victims.</span>
+    violatingVictims<span class="token punctuation">,</span> nonViolatingVictims <span class="token operator">:=</span> <span class="token function">filterPodsWithPDBViolation</span><span class="token punctuation">(</span>potentialVictims<span class="token punctuation">.</span>Items<span class="token punctuation">,</span> pdbs<span class="token punctuation">)</span>
+    reprievePod <span class="token operator">:=</span> <span class="token keyword">func</span><span class="token punctuation">(</span>p <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">)</span> <span class="token builtin">bool</span> <span class="token punctuation">{</span>
+        <span class="token function">addPod</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+        fits<span class="token punctuation">,</span> <span class="token boolean">_</span><span class="token punctuation">,</span> <span class="token boolean">_</span> <span class="token operator">:=</span> <span class="token function">podFitsOnNode</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> meta<span class="token punctuation">,</span> nodeInfoCopy<span class="token punctuation">,</span> fitPredicates<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> queue<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> <span class="token operator">!</span>fits <span class="token punctuation">{</span>
+            <span class="token function">removePod</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+            victims <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>victims<span class="token punctuation">,</span> p<span class="token punctuation">)</span>
+            glog<span class="token punctuation">.</span><span class="token function">V</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Pod %v is a potential preemption victim on node %v.&quot;</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>Name<span class="token punctuation">,</span> nodeInfo<span class="token punctuation">.</span><span class="token function">Node</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> fits
+    <span class="token punctuation">}</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> p <span class="token operator">:=</span> <span class="token keyword">range</span> violatingVictims <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token operator">!</span><span class="token function">reprievePod</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            numViolatingVictim<span class="token operator">++</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// Now we try to reprieve non-violating victims.</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> p <span class="token operator">:=</span> <span class="token keyword">range</span> nonViolatingVictims <span class="token punctuation">{</span>
+        <span class="token function">reprievePod</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> victims<span class="token punctuation">,</span> numViolatingVictim<span class="token punctuation">,</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="32-processpreemptionwithextenders">3.2. processPreemptionWithExtenders</h2>
+<p><code>processPreemptionWithExtenders</code>&#x57FA;&#x4E8E;<code>selectNodesForPreemption</code>&#x9009;&#x51FA;&#x7684;&#x727A;&#x7272;&#x8005;&#x8FDB;&#x884C;&#x6269;&#x5C55;&#x7684;&#x62A2;&#x5360;&#x903B;&#x8F91;&#x7EE7;&#x7EED;&#x7B5B;&#x9009;&#x727A;&#x7272;&#x8005;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// We will only check nodeToVictims with extenders that support preemption.</span>
+<span class="token comment">// Extenders which do not support preemption may later prevent preemptor from being scheduled on the nominated</span>
+<span class="token comment">// node. In that case, scheduler will find a different host for the preemptor in subsequent scheduling cycles.</span>
+nodeToVictims<span class="token punctuation">,</span> err <span class="token operator">=</span> g<span class="token punctuation">.</span><span class="token function">processPreemptionWithExtenders</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> nodeToVictims<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>processPreemptionWithExtenders</code>&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// processPreemptionWithExtenders processes preemption with extenders</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>g <span class="token operator">*</span>genericScheduler<span class="token punctuation">)</span> <span class="token function">processPreemptionWithExtenders</span><span class="token punctuation">(</span>
+    pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span>
+    nodeToVictims <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">]</span><span class="token operator">*</span>schedulerapi<span class="token punctuation">.</span>Victims<span class="token punctuation">,</span>
+<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">]</span><span class="token operator">*</span>schedulerapi<span class="token punctuation">.</span>Victims<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>nodeToVictims<span class="token punctuation">)</span> <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> extender <span class="token operator">:=</span> <span class="token keyword">range</span> g<span class="token punctuation">.</span>extenders <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> extender<span class="token punctuation">.</span><span class="token function">SupportsPreemption</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> extender<span class="token punctuation">.</span><span class="token function">IsInterested</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                newNodeToVictims<span class="token punctuation">,</span> err <span class="token operator">:=</span> extender<span class="token punctuation">.</span><span class="token function">ProcessPreemption</span><span class="token punctuation">(</span>
+                    pod<span class="token punctuation">,</span>
+                    nodeToVictims<span class="token punctuation">,</span>
+                    g<span class="token punctuation">.</span>cachedNodeInfoMap<span class="token punctuation">,</span>
+                <span class="token punctuation">)</span>
+                <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">if</span> extender<span class="token punctuation">.</span><span class="token function">IsIgnorable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        glog<span class="token punctuation">.</span><span class="token function">Warningf</span><span class="token punctuation">(</span><span class="token string">&quot;Skipping extender %v as it returned error %v and has ignorable flag set&quot;</span><span class="token punctuation">,</span>
+                            extender<span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+                        <span class="token keyword">continue</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+                <span class="token punctuation">}</span>
+
+                <span class="token comment">// Replace nodeToVictims with new result after preemption. So the</span>
+                <span class="token comment">// rest of extenders can continue use it as parameter.</span>
+                nodeToVictims <span class="token operator">=</span> newNodeToVictims
+
+                <span class="token comment">// If node list becomes empty, no preemption can happen regardless of other extenders.</span>
+                <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>nodeToVictims<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">break</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> nodeToVictims<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="33-pickonenodeforpreemption">3.3. pickOneNodeForPreemption</h2>
+<p><code>pickOneNodeForPreemption</code>&#x4ECE;&#x7B5B;&#x9009;&#x51FA;&#x7684;node&#x4E2D;&#x518D;&#x6311;&#x9009;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x4F5C;&#x4E3A;&#x6700;&#x7EC8;&#x8C03;&#x5EA6;&#x8282;&#x70B9;&#x3002;</p>
+<pre class="language-"><code class="lang-go">candidateNode <span class="token operator">:=</span> <span class="token function">pickOneNodeForPreemption</span><span class="token punctuation">(</span>nodeToVictims<span class="token punctuation">)</span>
+<span class="token keyword">if</span> candidateNode <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>pickOneNodeForPreemption</code>&#x5B8C;&#x6574;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// pickOneNodeForPreemption chooses one node among the given nodes. It assumes</span>
+<span class="token comment">// pods in each map entry are ordered by decreasing priority.</span>
+<span class="token comment">// It picks a node based on the following criteria:</span>
+<span class="token comment">// 1. A node with minimum number of PDB violations.</span>
+<span class="token comment">// 2. A node with minimum highest priority victim is picked.</span>
+<span class="token comment">// 3. Ties are broken by sum of priorities of all victims.</span>
+<span class="token comment">// 4. If there are still ties, node with the minimum number of victims is picked.</span>
+<span class="token comment">// 5. If there are still ties, the first such node is picked (sort of randomly).</span>
+<span class="token comment">// The &apos;minNodes1&apos; and &apos;minNodes2&apos; are being reused here to save the memory</span>
+<span class="token comment">// allocation and garbage collection time.</span>
+<span class="token keyword">func</span> <span class="token function">pickOneNodeForPreemption</span><span class="token punctuation">(</span>nodesToVictims <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">]</span><span class="token operator">*</span>schedulerapi<span class="token punctuation">.</span>Victims<span class="token punctuation">)</span> <span class="token operator">*</span>v1<span class="token punctuation">.</span>Node <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>nodesToVictims<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span>
+    <span class="token punctuation">}</span>
+    minNumPDBViolatingPods <span class="token operator">:=</span> math<span class="token punctuation">.</span>MaxInt32
+    <span class="token keyword">var</span> minNodes1 <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node
+    lenNodes1 <span class="token operator">:=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> node<span class="token punctuation">,</span> victims <span class="token operator">:=</span> <span class="token keyword">range</span> nodesToVictims <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>victims<span class="token punctuation">.</span>Pods<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+            <span class="token comment">// We found a node that doesn&apos;t need any preemption. Return it!</span>
+            <span class="token comment">// This should happen rarely when one or more pods are terminated between</span>
+            <span class="token comment">// the time that scheduler tries to schedule the pod and the time that</span>
+            <span class="token comment">// preemption logic tries to find nodes for preemption.</span>
+            <span class="token keyword">return</span> node
+        <span class="token punctuation">}</span>
+        numPDBViolatingPods <span class="token operator">:=</span> victims<span class="token punctuation">.</span>NumPDBViolations
+        <span class="token keyword">if</span> numPDBViolatingPods <span class="token operator">&lt;</span> minNumPDBViolatingPods <span class="token punctuation">{</span>
+            minNumPDBViolatingPods <span class="token operator">=</span> numPDBViolatingPods
+            minNodes1 <span class="token operator">=</span> <span class="token boolean">nil</span>
+            lenNodes1 <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> numPDBViolatingPods <span class="token operator">==</span> minNumPDBViolatingPods <span class="token punctuation">{</span>
+            minNodes1 <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>minNodes1<span class="token punctuation">,</span> node<span class="token punctuation">)</span>
+            lenNodes1<span class="token operator">++</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> lenNodes1 <span class="token operator">==</span> <span class="token number">1</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> minNodes1<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// There are more than one node with minimum number PDB violating pods. Find</span>
+    <span class="token comment">// the one with minimum highest priority victim.</span>
+    minHighestPriority <span class="token operator">:=</span> <span class="token function">int32</span><span class="token punctuation">(</span>math<span class="token punctuation">.</span>MaxInt32<span class="token punctuation">)</span>
+    <span class="token keyword">var</span> minNodes2 <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Node<span class="token punctuation">,</span> lenNodes1<span class="token punctuation">)</span>
+    lenNodes2 <span class="token operator">:=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> lenNodes1<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        node <span class="token operator">:=</span> minNodes1<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+        victims <span class="token operator">:=</span> nodesToVictims<span class="token punctuation">[</span>node<span class="token punctuation">]</span>
+        <span class="token comment">// highestPodPriority is the highest priority among the victims on this node.</span>
+        highestPodPriority <span class="token operator">:=</span> util<span class="token punctuation">.</span><span class="token function">GetPodPriority</span><span class="token punctuation">(</span>victims<span class="token punctuation">.</span>Pods<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> highestPodPriority <span class="token operator">&lt;</span> minHighestPriority <span class="token punctuation">{</span>
+            minHighestPriority <span class="token operator">=</span> highestPodPriority
+            lenNodes2 <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> highestPodPriority <span class="token operator">==</span> minHighestPriority <span class="token punctuation">{</span>
+            minNodes2<span class="token punctuation">[</span>lenNodes2<span class="token punctuation">]</span> <span class="token operator">=</span> node
+            lenNodes2<span class="token operator">++</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> lenNodes2 <span class="token operator">==</span> <span class="token number">1</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> minNodes2<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// There are a few nodes with minimum highest priority victim. Find the</span>
+    <span class="token comment">// smallest sum of priorities.</span>
+    minSumPriorities <span class="token operator">:=</span> <span class="token function">int64</span><span class="token punctuation">(</span>math<span class="token punctuation">.</span>MaxInt64<span class="token punctuation">)</span>
+    lenNodes1 <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> lenNodes2<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> sumPriorities <span class="token builtin">int64</span>
+        node <span class="token operator">:=</span> minNodes2<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+        <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> pod <span class="token operator">:=</span> <span class="token keyword">range</span> nodesToVictims<span class="token punctuation">[</span>node<span class="token punctuation">]</span><span class="token punctuation">.</span>Pods <span class="token punctuation">{</span>
+            <span class="token comment">// We add MaxInt32+1 to all priorities to make all of them &gt;= 0. This is</span>
+            <span class="token comment">// needed so that a node with a few pods with negative priority is not</span>
+            <span class="token comment">// picked over a node with a smaller number of pods with the same negative</span>
+            <span class="token comment">// priority (and similar scenarios).</span>
+            sumPriorities <span class="token operator">+=</span> <span class="token function">int64</span><span class="token punctuation">(</span>util<span class="token punctuation">.</span><span class="token function">GetPodPriority</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token function">int64</span><span class="token punctuation">(</span>math<span class="token punctuation">.</span>MaxInt32<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> sumPriorities <span class="token operator">&lt;</span> minSumPriorities <span class="token punctuation">{</span>
+            minSumPriorities <span class="token operator">=</span> sumPriorities
+            lenNodes1 <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> sumPriorities <span class="token operator">==</span> minSumPriorities <span class="token punctuation">{</span>
+            minNodes1<span class="token punctuation">[</span>lenNodes1<span class="token punctuation">]</span> <span class="token operator">=</span> node
+            lenNodes1<span class="token operator">++</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> lenNodes1 <span class="token operator">==</span> <span class="token number">1</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> minNodes1<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">// There are a few nodes with minimum highest priority victim and sum of priorities.</span>
+    <span class="token comment">// Find one with the minimum number of pods.</span>
+    minNumPods <span class="token operator">:=</span> math<span class="token punctuation">.</span>MaxInt32
+    lenNodes2 <span class="token operator">=</span> <span class="token number">0</span>
+    <span class="token keyword">for</span> i <span class="token operator">:=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> lenNodes1<span class="token punctuation">;</span> i<span class="token operator">++</span> <span class="token punctuation">{</span>
+        node <span class="token operator">:=</span> minNodes1<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+        numPods <span class="token operator">:=</span> <span class="token function">len</span><span class="token punctuation">(</span>nodesToVictims<span class="token punctuation">[</span>node<span class="token punctuation">]</span><span class="token punctuation">.</span>Pods<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> numPods <span class="token operator">&lt;</span> minNumPods <span class="token punctuation">{</span>
+            minNumPods <span class="token operator">=</span> numPods
+            lenNodes2 <span class="token operator">=</span> <span class="token number">0</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> numPods <span class="token operator">==</span> minNumPods <span class="token punctuation">{</span>
+            minNodes2<span class="token punctuation">[</span>lenNodes2<span class="token punctuation">]</span> <span class="token operator">=</span> node
+            lenNodes2<span class="token operator">++</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// At this point, even if there are more than one node with the same score,</span>
+    <span class="token comment">// return the first one.</span>
+    <span class="token keyword">if</span> lenNodes2 <span class="token operator">&gt;</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> minNodes2<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+    glog<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;Error in logic of node scoring for preemption. We should never reach here!&quot;</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="34-getlowerprioritynominatedpods">3.4. getLowerPriorityNominatedPods</h2>
+<p><code>getLowerPriorityNominatedPods</code>&#x7684;&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ol>
+<li>&#x83B7;&#x53D6;&#x5019;&#x9009;&#x8282;&#x70B9;&#x4E0A;&#x7684;pod&#x5217;&#x8868;&#x3002;</li>
+<li>&#x83B7;&#x53D6;&#x5F85;&#x8C03;&#x5EA6;pod&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x503C;&#x3002;</li>
+<li>&#x904D;&#x5386;&#x8BE5;&#x8282;&#x70B9;&#x7684;pod&#x5217;&#x8868;&#xFF0C;&#x5982;&#x679C;&#x4F4E;&#x4E8E;&#x5F85;&#x8C03;&#x5EA6;pod&#x7684;&#x4F18;&#x5148;&#x7EA7;&#x5219;&#x653E;&#x5165;&#x4F4E;&#x4F18;&#x5148;&#x7EA7;pod&#x5217;&#x8868;&#x4E2D;&#x3002;</li>
+</ol>
+<p>genericScheduler.Preempt&#x4E2D;&#x76F8;&#x5173;&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Lower priority pods nominated to run on this node, may no longer fit on</span>
+<span class="token comment">// this node. So, we should remove their nomination. Removing their</span>
+<span class="token comment">// nomination updates these pods and moves them to the active queue. It</span>
+<span class="token comment">// lets scheduler find another place for them.</span>
+nominatedPods <span class="token operator">:=</span> g<span class="token punctuation">.</span><span class="token function">getLowerPriorityNominatedPods</span><span class="token punctuation">(</span>pod<span class="token punctuation">,</span> candidateNode<span class="token punctuation">.</span>Name<span class="token punctuation">)</span>
+<span class="token keyword">if</span> nodeInfo<span class="token punctuation">,</span> ok <span class="token operator">:=</span> g<span class="token punctuation">.</span>cachedNodeInfoMap<span class="token punctuation">[</span>candidateNode<span class="token punctuation">.</span>Name<span class="token punctuation">]</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> nodeInfo<span class="token punctuation">.</span><span class="token function">Node</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> nodeToVictims<span class="token punctuation">[</span>candidateNode<span class="token punctuation">]</span><span class="token punctuation">.</span>Pods<span class="token punctuation">,</span> nominatedPods<span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>getLowerPriorityNominatedPods</code>&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<blockquote>
+<p>&#x6B64;&#x90E8;&#x5206;&#x4EE3;&#x7801;&#x4F4D;&#x4E8E;pkg/scheduler/core/generic_scheduler.go</p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token comment">// getLowerPriorityNominatedPods returns pods whose priority is smaller than the</span>
+<span class="token comment">// priority of the given &quot;pod&quot; and are nominated to run on the given node.</span>
+<span class="token comment">// Note: We could possibly check if the nominated lower priority pods still fit</span>
+<span class="token comment">// and return those that no longer fit, but that would require lots of</span>
+<span class="token comment">// manipulation of NodeInfo and PredicateMeta per nominated pod. It may not be</span>
+<span class="token comment">// worth the complexity, especially because we generally expect to have a very</span>
+<span class="token comment">// small number of nominated pods per node.</span>
+<span class="token keyword">func</span> <span class="token punctuation">(</span>g <span class="token operator">*</span>genericScheduler<span class="token punctuation">)</span> <span class="token function">getLowerPriorityNominatedPods</span><span class="token punctuation">(</span>pod <span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod<span class="token punctuation">,</span> nodeName <span class="token builtin">string</span><span class="token punctuation">)</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod <span class="token punctuation">{</span>
+    pods <span class="token operator">:=</span> g<span class="token punctuation">.</span>schedulingQueue<span class="token punctuation">.</span><span class="token function">WaitingPodsForNode</span><span class="token punctuation">(</span>nodeName<span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>pods<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">var</span> lowerPriorityPods <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">*</span>v1<span class="token punctuation">.</span>Pod
+    podPriority <span class="token operator">:=</span> util<span class="token punctuation">.</span><span class="token function">GetPodPriority</span><span class="token punctuation">(</span>pod<span class="token punctuation">)</span>
+    <span class="token keyword">for</span> <span class="token boolean">_</span><span class="token punctuation">,</span> p <span class="token operator">:=</span> <span class="token keyword">range</span> pods <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> util<span class="token punctuation">.</span><span class="token function">GetPodPriority</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span> <span class="token operator">&lt;</span> podPriority <span class="token punctuation">{</span>
+            lowerPriorityPods <span class="token operator">=</span> <span class="token function">append</span><span class="token punctuation">(</span>lowerPriorityPods<span class="token punctuation">,</span> p<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> lowerPriorityPods
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="4-&#x603B;&#x7ED3;">4. &#x603B;&#x7ED3;</h1>
+<h2 id="41-schedulerpreempt">4.1. Scheduler.preempt</h2>
+<p>&#x5F53;pod&#x8C03;&#x5EA6;&#x5931;&#x8D25;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x62A2;&#x5360;&#x4F4E;&#x4F18;&#x5148;&#x7EA7;pod&#x7684;&#x7A7A;&#x95F4;&#x6765;&#x7ED9;&#x9AD8;&#x4F18;&#x5148;&#x7EA7;&#x7684;pod&#x3002;&#x5176;&#x4E2D;&#x5165;&#x53C2;&#x4E3A;&#x8C03;&#x5EA6;&#x5931;&#x8D25;&#x7684;pod&#x5BF9;&#x8C61;&#x548C;&#x8C03;&#x5EA6;&#x5931;&#x8D25;&#x7684;err&#x3002;</p>
+<p><strong>&#x62A2;&#x5360;&#x7684;&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<ol>
+<li>&#x5224;&#x65AD;&#x662F;&#x5426;&#x6709;&#x5173;&#x95ED;&#x62A2;&#x5360;&#x673A;&#x5236;&#xFF0C;&#x5982;&#x679C;&#x5173;&#x95ED;&#x62A2;&#x5360;&#x673A;&#x5236;&#x5219;&#x76F4;&#x63A5;&#x8FD4;&#x56DE;&#x3002;</li>
+<li>&#x83B7;&#x53D6;&#x8C03;&#x5EA6;&#x5931;&#x8D25;pod&#x7684;&#x6700;&#x65B0;&#x5BF9;&#x8C61;&#x6570;&#x636E;&#x3002;</li>
+<li>&#x6267;&#x884C;&#x62A2;&#x5360;&#x7B97;&#x6CD5;<code>Algorithm.Preempt</code>&#xFF0C;&#x8FD4;&#x56DE;&#x9884;&#x8C03;&#x5EA6;&#x8282;&#x70B9;&#x548C;&#x9700;&#x8981;&#x88AB;&#x5254;&#x9664;&#x7684;pod&#x5217;&#x8868;&#x3002;</li>
+<li>&#x5C06;&#x62A2;&#x5360;&#x7B97;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;node&#x6DFB;&#x52A0;&#x5230;pod&#x7684;<code>Status.NominatedNodeName</code>&#x4E2D;&#xFF0C;&#x5E76;&#x5220;&#x9664;&#x9700;&#x8981;&#x88AB;&#x5254;&#x9664;&#x7684;pod&#x3002;</li>
+<li>&#x5F53;&#x62A2;&#x5360;&#x7B97;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;node&#x662F;nil&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6E05;&#x9664;pod&#x7684;<code>Status.NominatedNodeName</code>&#x4FE1;&#x606F;&#x3002;</li>
+</ol>
+<p>&#x6574;&#x4E2A;&#x62A2;&#x5360;&#x6D41;&#x7A0B;&#x7684;&#x6700;&#x7EC8;&#x7ED3;&#x679C;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x66F4;&#x65B0;<code>Pod.Status.NominatedNodeName</code>&#x5C5E;&#x6027;&#x7684;&#x4FE1;&#x606F;&#x3002;&#x5982;&#x679C;&#x62A2;&#x5360;&#x7B97;&#x6CD5;&#x8FD4;&#x56DE;&#x7684;&#x8282;&#x70B9;&#x4E0D;&#x4E3A;&#x7A7A;&#xFF0C;&#x5219;&#x5C06;&#x8BE5;node&#x66F4;&#x65B0;&#x5230;<code>Pod.Status.NominatedNodeName</code>&#x4E2D;&#xFF0C;&#x5426;&#x5219;&#x5C31;&#x5C06;<code>Pod.Status.NominatedNodeName</code>&#x8BBE;&#x7F6E;&#x4E3A;&#x7A7A;&#x3002;</p>
+<h2 id="42-genericschedulerpreempt">4.2. genericScheduler.Preempt</h2>
+<p><code>Preempt</code>&#x7684;&#x4E3B;&#x8981;&#x5B9E;&#x73B0;&#x662F;&#x627E;&#x5230;&#x53EF;&#x4EE5;&#x8C03;&#x5EA6;&#x7684;&#x8282;&#x70B9;&#x548C;&#x4E0A;&#x9762;&#x56E0;&#x62A2;&#x5360;&#x800C;&#x9700;&#x8981;&#x88AB;&#x5254;&#x9664;&#x7684;pod&#x3002;</p>
+<p><strong>&#x57FA;&#x672C;&#x6D41;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<ol>
+<li>&#x6839;&#x636E;&#x8C03;&#x5EA6;&#x5931;&#x8D25;&#x7684;&#x539F;&#x56E0;&#x5BF9;&#x6240;&#x6709;&#x8282;&#x70B9;&#x5148;&#x8FDB;&#x884C;&#x4E00;&#x6279;&#x7B5B;&#x9009;&#xFF0C;&#x7B5B;&#x9009;&#x51FA;&#x6F5C;&#x5728;&#x7684;&#x88AB;&#x8C03;&#x5EA6;&#x8282;&#x70B9;&#x5217;&#x8868;&#x3002;</li>
+<li>&#x901A;&#x8FC7;<code>selectNodesForPreemption</code>&#x7B5B;&#x9009;&#x51FA;&#x9700;&#x8981;&#x727A;&#x7272;&#x7684;pod&#x548C;&#x5176;&#x8282;&#x70B9;&#x3002;</li>
+<li>&#x57FA;&#x4E8E;&#x62D3;&#x5C55;&#x62A2;&#x5360;&#x903B;&#x8F91;&#x518D;&#x6B21;&#x5BF9;&#x4E0A;&#x8FF0;&#x7B5B;&#x9009;&#x51FA;&#x6765;&#x7684;&#x727A;&#x7272;&#x8005;&#x505A;&#x8FC7;&#x6EE4;&#x3002;</li>
+<li>&#x57FA;&#x4E8E;&#x4E0A;&#x8FF0;&#x7684;&#x8FC7;&#x6EE4;&#x7ED3;&#x679C;&#xFF0C;&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x6700;&#x7EC8;&#x53EF;&#x80FD;&#x56E0;&#x62A2;&#x5360;&#x88AB;&#x8C03;&#x5EA6;&#x7684;&#x8282;&#x70B9;&#x3002;</li>
+<li>&#x57FA;&#x4E8E;&#x4E0A;&#x8FF0;&#x7684;&#x5019;&#x9009;&#x8282;&#x70B9;&#xFF0C;&#x627E;&#x51FA;&#x8BE5;&#x8282;&#x70B9;&#x4E0A;&#x4F18;&#x5148;&#x7EA7;&#x4F4E;&#x4E8E;&#x5F53;&#x524D;&#x88AB;&#x8C03;&#x5EA6;pod&#x7684;&#x727A;&#x7272;&#x8005;pod&#x5217;&#x8868;&#x3002;</li>
+</ol>
+<p>&#x53C2;&#x8003;&#xFF1A;</p>
+<ul>
+<li><a href="https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/scheduler/scheduler.go" target="_blank">https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/scheduler/scheduler.go</a></li>
+<li><a href="https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/scheduler/core/generic_scheduler.go" target="_blank">https://github.com/kubernetes/kubernetes/blob/v1.12.0/pkg/scheduler/core/generic_scheduler.go</a></li>
+</ul>
+<footer class="page-footer"><span class="copyright">Copyright &#xA9; www.huweihuang.com 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
+2019-05-17 15:29:03
+</span></footer>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="PrioritizeNodes.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: PrioritizeNodes">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"preempt","level":"12.3.6","depth":2,"next":{"title":"kube-apiserver","level":"12.4","depth":1,"ref":"","articles":[{"title":"NewAPIServerCommand","level":"12.4.1","depth":2,"path":"code-analysis/kube-apiserver/NewAPIServerCommand.md","ref":"code-analysis/kube-apiserver/NewAPIServerCommand.md","articles":[]}]},"previous":{"title":"PrioritizeNodes","level":"12.3.5","depth":2,"path":"code-analysis/kube-scheduler/PrioritizeNodes.md","ref":"code-analysis/kube-scheduler/PrioritizeNodes.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga","disqus","donate"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"huweihuang"},"github":{"url":"https://github.com/huweihuang"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"donate":{"alipay":"http://ozilwgpje.bkt.clouddn.com/donate/alipay.jpg","alipayText":"支付宝打赏","button":"赏","title":"","wechat":"http://ozilwgpje.bkt.clouddn.com/donate/wechatpay.jpg","wechatText":"微信打赏"},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"images/favicon.ico","bookmark":"images/favicon.ico","appleTouch":"images/favicon.ico","appleTouchMore":{"120x120":"images/favicon.ico","180x180":"images/favicon.ico"}},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.1","level":"4.2.2","list_caption":"Figure: pod","alt":"pod","nro":1,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"4.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.2","level":"4.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"4.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.3","level":"4.2.2","list_caption":"Figure: service","alt":"service","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"4.2.2.3"},{"backlink":"concepts/pod/pod-volume.html#fig4.3.5.1","level":"4.3.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":4,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.5.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.7.1","level":"4.3.7","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.7.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.7.2","level":"4.3.7","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.7.2"},{"backlink":"principle/kubernetes-core-principle-api-server.html#fig5.1.1","level":"5.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"5.1.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.2.1","level":"5.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"5.2.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.2.2","level":"5.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":9,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"5.2.2"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.2.3","level":"5.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"5.2.3"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.2.4","level":"5.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"5.2.4"},{"backlink":"principle/kubernetes-core-principle-scheduler.html#fig5.3.1","level":"5.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"5.3.1"},{"backlink":"network/docker-network.html#fig6.1.1","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/container-network.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.1"},{"backlink":"network/docker-network.html#fig6.1.2","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/bridge.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.2"},{"backlink":"network/kubernetes-network.html#fig6.2.1","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":15,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/network-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.1"},{"backlink":"network/kubernetes-network.html#fig6.2.2","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":16,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/pod-network.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.1","level":"6.3.1","list_caption":"Figure: 动态路由","alt":"动态路由","nro":17,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/dynamic-route.png","index":1,"caption_template":"图片 - _CAPTION_","label":"动态路由","attributes":{},"skip":false,"key":"6.3.1.1"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.2","level":"6.3.1","list_caption":"Figure: flannel","alt":"flannel","nro":18,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/flannel.png","index":2,"caption_template":"图片 - _CAPTION_","label":"flannel","attributes":{},"skip":false,"key":"6.3.1.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.3","level":"6.3.1","list_caption":"Figure: UDP封装","alt":"UDP封装","nro":19,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578569/article/flannel/udp.png","index":3,"caption_template":"图片 - _CAPTION_","label":"UDP封装","attributes":{},"skip":false,"key":"6.3.1.3"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.4","level":"6.3.1","list_caption":"Figure: docker启动参数","alt":"docker启动参数","nro":20,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/docker-init-args.png","index":4,"caption_template":"图片 - _CAPTION_","label":"docker启动参数","attributes":{},"skip":false,"key":"6.3.1.4"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.5","level":"6.3.1","list_caption":"Figure: 数据发送节点路由表","alt":"数据发送节点路由表","nro":21,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataSendRouteTable.png","index":5,"caption_template":"图片 - _CAPTION_","label":"数据发送节点路由表","attributes":{},"skip":false,"key":"6.3.1.5"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.6","level":"6.3.1","list_caption":"Figure: 数据接收节点路由表","alt":"数据接收节点路由表","nro":22,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataReceiveRouteTable.png","index":6,"caption_template":"图片 - _CAPTION_","label":"数据接收节点路由表","attributes":{},"skip":false,"key":"6.3.1.6"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig13.1.1","level":"13.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":23,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"13.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig13.2.1","level":"13.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":24,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"13.2.1"},{"backlink":"docker/docker-commands-principle.html#fig14.3.1","level":"14.3","list_caption":"Figure: 1","alt":"1","nro":25,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578327/article/docker/commands/1.png","index":1,"caption_template":"图片 - _CAPTION_","label":"1","attributes":{},"skip":false,"key":"14.3.1"},{"backlink":"docker/docker-commands-principle.html#fig14.3.2","level":"14.3","list_caption":"Figure: 2.1","alt":"2.1","nro":26,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578328/article/docker/commands/2.1.png","index":2,"caption_template":"图片 - _CAPTION_","label":"2.1","attributes":{},"skip":false,"key":"14.3.2"},{"backlink":"docker/docker-commands-principle.html#fig14.3.3","level":"14.3","list_caption":"Figure: 3.2","alt":"3.2","nro":27,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578328/article/docker/commands/3.2.png","index":3,"caption_template":"图片 - _CAPTION_","label":"3.2","attributes":{},"skip":false,"key":"14.3.3"},{"backlink":"docker/docker-commands-principle.html#fig14.3.4","level":"14.3","list_caption":"Figure: 4.1.1","alt":"4.1.1","nro":28,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.1.1.png","index":4,"caption_template":"图片 - _CAPTION_","label":"4.1.1","attributes":{},"skip":false,"key":"14.3.4"},{"backlink":"docker/docker-commands-principle.html#fig14.3.5","level":"14.3","list_caption":"Figure: 4.1.2","alt":"4.1.2","nro":29,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.1.2.png","index":5,"caption_template":"图片 - _CAPTION_","label":"4.1.2","attributes":{},"skip":false,"key":"14.3.5"},{"backlink":"docker/docker-commands-principle.html#fig14.3.6","level":"14.3","list_caption":"Figure: 4.1.3","alt":"4.1.3","nro":30,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.1.3.png","index":6,"caption_template":"图片 - _CAPTION_","label":"4.1.3","attributes":{},"skip":false,"key":"14.3.6"},{"backlink":"docker/docker-commands-principle.html#fig14.3.7","level":"14.3","list_caption":"Figure: 4.2.1.1","alt":"4.2.1.1","nro":31,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.1.png","index":7,"caption_template":"图片 - _CAPTION_","label":"4.2.1.1","attributes":{},"skip":false,"key":"14.3.7"},{"backlink":"docker/docker-commands-principle.html#fig14.3.8","level":"14.3","list_caption":"Figure: 4.2.1.2","alt":"4.2.1.2","nro":32,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.2.png","index":8,"caption_template":"图片 - _CAPTION_","label":"4.2.1.2","attributes":{},"skip":false,"key":"14.3.8"},{"backlink":"docker/docker-commands-principle.html#fig14.3.9","level":"14.3","list_caption":"Figure: 4.2.1.3","alt":"4.2.1.3","nro":33,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.3.png","index":9,"caption_template":"图片 - _CAPTION_","label":"4.2.1.3","attributes":{},"skip":false,"key":"14.3.9"},{"backlink":"docker/docker-commands-principle.html#fig14.3.10","level":"14.3","list_caption":"Figure: 4.2.1.3.1","alt":"4.2.1.3.1","nro":34,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578329/article/docker/commands/4.2.1.3.1.png","index":10,"caption_template":"图片 - _CAPTION_","label":"4.2.1.3.1","attributes":{},"skip":false,"key":"14.3.10"},{"backlink":"docker/docker-commands-principle.html#fig14.3.11","level":"14.3","list_caption":"Figure: 4.2.1.4","alt":"4.2.1.4","nro":35,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.4.png","index":11,"caption_template":"图片 - _CAPTION_","label":"4.2.1.4","attributes":{},"skip":false,"key":"14.3.11"},{"backlink":"docker/docker-commands-principle.html#fig14.3.12","level":"14.3","list_caption":"Figure: 4.2.1.5","alt":"4.2.1.5","nro":36,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.5.png","index":12,"caption_template":"图片 - _CAPTION_","label":"4.2.1.5","attributes":{},"skip":false,"key":"14.3.12"},{"backlink":"docker/docker-commands-principle.html#fig14.3.13","level":"14.3","list_caption":"Figure: 4.2.1.6","alt":"4.2.1.6","nro":37,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578330/article/docker/commands/4.2.1.6.png","index":13,"caption_template":"图片 - _CAPTION_","label":"4.2.1.6","attributes":{},"skip":false,"key":"14.3.13"},{"backlink":"docker/docker-commands-principle.html#fig14.3.14","level":"14.3","list_caption":"Figure: 4.2.1.7","alt":"4.2.1.7","nro":38,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.7.png","index":14,"caption_template":"图片 - _CAPTION_","label":"4.2.1.7","attributes":{},"skip":false,"key":"14.3.14"},{"backlink":"docker/docker-commands-principle.html#fig14.3.15","level":"14.3","list_caption":"Figure: 4.2.1.7.2","alt":"4.2.1.7.2","nro":39,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.7.2.png","index":15,"caption_template":"图片 - _CAPTION_","label":"4.2.1.7.2","attributes":{},"skip":false,"key":"14.3.15"},{"backlink":"docker/docker-commands-principle.html#fig14.3.16","level":"14.3","list_caption":"Figure: 4.2.1.8.1","alt":"4.2.1.8.1","nro":40,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.8.1.png","index":16,"caption_template":"图片 - _CAPTION_","label":"4.2.1.8.1","attributes":{},"skip":false,"key":"14.3.16"},{"backlink":"docker/docker-commands-principle.html#fig14.3.17","level":"14.3","list_caption":"Figure: 4.2.1.8.2","alt":"4.2.1.8.2","nro":41,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.1.8.2.png","index":17,"caption_template":"图片 - _CAPTION_","label":"4.2.1.8.2","attributes":{},"skip":false,"key":"14.3.17"},{"backlink":"docker/docker-commands-principle.html#fig14.3.18","level":"14.3","list_caption":"Figure: 4.2.2.1.1","alt":"4.2.2.1.1","nro":42,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.1.1.png","index":18,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.1","attributes":{},"skip":false,"key":"14.3.18"},{"backlink":"docker/docker-commands-principle.html#fig14.3.19","level":"14.3","list_caption":"Figure: 4.2.2.1.2","alt":"4.2.2.1.2","nro":43,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.1.2.png","index":19,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.2","attributes":{},"skip":false,"key":"14.3.19"},{"backlink":"docker/docker-commands-principle.html#fig14.3.20","level":"14.3","list_caption":"Figure: 4.2.2.1.3","alt":"4.2.2.1.3","nro":44,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.1.3.png","index":20,"caption_template":"图片 - _CAPTION_","label":"4.2.2.1.3","attributes":{},"skip":false,"key":"14.3.20"},{"backlink":"docker/docker-commands-principle.html#fig14.3.21","level":"14.3","list_caption":"Figure: 4.2.2.2.1","alt":"4.2.2.2.1","nro":45,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578331/article/docker/commands/4.2.2.2.1.png","index":21,"caption_template":"图片 - _CAPTION_","label":"4.2.2.2.1","attributes":{},"skip":false,"key":"14.3.21"},{"backlink":"docker/docker-commands-principle.html#fig14.3.22","level":"14.3","list_caption":"Figure: 4.2.2.2.2","alt":"4.2.2.2.2","nro":46,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.2.2.png","index":22,"caption_template":"图片 - _CAPTION_","label":"4.2.2.2.2","attributes":{},"skip":false,"key":"14.3.22"},{"backlink":"docker/docker-commands-principle.html#fig14.3.23","level":"14.3","list_caption":"Figure: 4.2.2.3.1","alt":"4.2.2.3.1","nro":47,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.2.3.1.png","index":23,"caption_template":"图片 - _CAPTION_","label":"4.2.2.3.1","attributes":{},"skip":false,"key":"14.3.23"},{"backlink":"docker/docker-commands-principle.html#fig14.3.24","level":"14.3","list_caption":"Figure: 4.2.3.1","alt":"4.2.3.1","nro":48,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.1.png","index":24,"caption_template":"图片 - _CAPTION_","label":"4.2.3.1","attributes":{},"skip":false,"key":"14.3.24"},{"backlink":"docker/docker-commands-principle.html#fig14.3.25","level":"14.3","list_caption":"Figure: 4.2.3.2","alt":"4.2.3.2","nro":49,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.2.png","index":25,"caption_template":"图片 - _CAPTION_","label":"4.2.3.2","attributes":{},"skip":false,"key":"14.3.25"},{"backlink":"docker/docker-commands-principle.html#fig14.3.26","level":"14.3","list_caption":"Figure: 4.2.3.3","alt":"4.2.3.3","nro":50,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578332/article/docker/commands/4.2.3.3.png","index":26,"caption_template":"图片 - _CAPTION_","label":"4.2.3.3","attributes":{},"skip":false,"key":"14.3.26"},{"backlink":"docker/docker-commands-principle.html#fig14.3.27","level":"14.3","list_caption":"Figure: 4.2.3.4","alt":"4.2.3.4","nro":51,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578333/article/docker/commands/4.2.3.4.png","index":27,"caption_template":"图片 - _CAPTION_","label":"4.2.3.4","attributes":{},"skip":false,"key":"14.3.27"},{"backlink":"etcd/etcd-introduction.html#fig15.1.1","level":"15.1","list_caption":"Figure: etcd的架构图","alt":"etcd的架构图","nro":52,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/etcd-architecture.jpg","index":1,"caption_template":"图片 - _CAPTION_","label":"etcd的架构图","attributes":{},"skip":false,"key":"15.1.1"},{"backlink":"etcd/raft.html#fig15.2.1","level":"15.2","list_caption":"Figure: raft","alt":"raft","nro":53,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/raft.png","index":1,"caption_template":"图片 - _CAPTION_","label":"raft","attributes":{},"skip":false,"key":"15.2.1"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"胡伟煌的博客":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"code-analysis/kube-scheduler/preempt.md","mtime":"2019-05-17T07:29:03.280Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-05-17T10:07:38.010Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-page-toc-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-editlink/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-3-ba/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-donate/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
