@@ -96,6 +96,7 @@
     * [scheduleOne](code-analysis/kube-scheduler/scheduleOne.md)
     * [findNodesThatFit](code-analysis/kube-scheduler/findNodesThatFit.md)
     * [PrioritizeNodes](code-analysis/kube-scheduler/PrioritizeNodes.md)
+    * [preempt](code-analysis/kube-scheduler/preempt.md)
 * [kube-apiserver]()
     * [NewAPIServerCommand](code-analysis/kube-apiserver/NewAPIServerCommand.md)
 
