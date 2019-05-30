@@ -228,6 +228,9 @@ kubectl delete pod <PodName> --namespace=<NAMESPACE>
 
 # 强制删除Pod，当Pod一直处于Terminating状态
 kubectl delete pod <PodName> --namespace=<NAMESPACE> --force --grace-period=0
+
+# 删除某个namespace下某个类型的所有对象
+kubectl delete deploy --all --namespace=test
 ```
 
 ## 4.4 日志查看
@@ -239,7 +242,9 @@ $ 查看上一个挂掉的容器日志
 kubectl logs <PodName> -p --namespace=<NAMESPACE> 
 ```
 
-# 5. Node隔离与恢复
+# 5. 常用命令
+
+## 5.1. Node隔离与恢复
 
 说明：Node设置隔离之后，原先运行在该Node上的Pod不受影响，后续的Pod不会调度到被隔离的Node上。
 
@@ -260,7 +265,7 @@ kubectl uncordon <NodeName>
 kubectl patch node <NodeName> -p '{"spec":{"unschedulable":false}}'
 ```
 
-# 6. kubectl label
+## 5.2. kubectl label
 
 **1. 固定Pod到指定机器**
 
@@ -273,6 +278,48 @@ kubectl label node <NodeName> namespace/<NAMESPACE>=true
 ```bash
 kubectl label node <NodeName> namespace/<NAMESPACE>-
 ```
+
+## 5.3. 升级镜像
+
+```bash
+# 升级镜像
+kubectl set image deployment/nginx nginx=nginx:1.15.12 -n nginx
+# 查看滚动升级情况
+kubectl rollout status deployment/nginx  -n nginx
+```
+
+## 5.4. 调整资源值
+
+```bash
+# 调整指定容器的资源值
+kubectl set resources sts nginx-0 -c=agent --limits=memory=512Mi -n nginx
+```
+
+## 5.5. 调整readiness probe
+
+```bash
+# 批量查看readiness probe timeoutSeconds
+kubectl get statefulset -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.template.spec.containers[0].readinessProbe.timeoutSeconds}{"\n"}{end}'
+
+# 调整readiness probe timeoutSeconds参数
+kubectl patch statefulset nginx-sts --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/readinessProbe/timeoutSeconds", "value":5}]' -n nginx
+```
+
+## 5.6. 调整tolerations属性
+
+```bash
+kubectl patch statefulset nginx-sts --patch '{"spec": {"template": {"spec": {"tolerations": [{"effect": "NoSchedule","key": "dedicated","operator": "Equal","value": "nginx"}]}}}}' -n nginx
+```
+
+## 5.7. 查看所有节点的IP
+
+```bash
+kubectl get nodes -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.addresses[0].address}{"\n"}{end}'
+```
+
+
+
+
 
 
 

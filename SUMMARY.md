@@ -57,6 +57,7 @@
 
 * [csi-cephfs-plugin](csi/ceph/csi-cephfs-plugin.md)
 * [部署csi-cephfs](csi/ceph/deploy-csi-cephfs.md)
+* [部署cephfs-provisioner](csi/provisioner/cephfs-provisioner.md)
 
 ## 资源配额
 
