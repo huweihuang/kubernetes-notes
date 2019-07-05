@@ -6,7 +6,13 @@
     "author": "胡伟煌",
     "links": {
         "sidebar": {
-            "胡伟煌的博客": "https://www.huweihuang.com"
+            "胡伟煌的博客": "https://www.huweihuang.com",
+            "Kubernetes 学习笔记": "https://www.huweihuang.com/kubernetes-notes/",
+            "Golang 学习笔记": "https://www.huweihuang.com/golang-notes/",
+            "Linux 学习笔记": "https://www.huweihuang.com/linux-notes/",
+            "数据结构学习笔记": "https://www.huweihuang.com/data-structure-notes/",
+            "Python 学习笔记": "https://www.huweihuang.com/python-notes/",
+            "Blockchain 学习笔记": "https://www.huweihuang.com/blockchain-notes/"
         }
     },
     "plugins": [
