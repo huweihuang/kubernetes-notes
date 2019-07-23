@@ -116,6 +116,21 @@ source <(kubectl completion bash)
 echo "source <(kubectl completion bash)" >> ~/.bashrc
 ```
 
+如果出现以下报错
+
+```bash
+# kubectl自动补齐失败
+kubectl _get_comp_words_by_ref : command not found
+```
+
+解决方法：
+
+```bash
+yum install bash-completion -y
+
+source /etc/profile.d/bash_completion.sh 
+```
+
 
 
 参考文章：

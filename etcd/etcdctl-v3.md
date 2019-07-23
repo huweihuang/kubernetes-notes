@@ -31,7 +31,7 @@ export ETCDCTL_API=3
 或者在`/etc/profile`文件中添加环境变量
 vi /etc/profile
 ...
-ETCDCTL_API=3
+export ETCDCTL_API=3
 ...
 source /etc/profile
 ```
@@ -175,7 +175,7 @@ etcdctl --endpoints=$ENDPOINTS get web --prefix
 etcdctl --endpoints=$ENDPOINTS get / --prefix --keys-only
 ```
 
-3、删**
+3、**删**
 
 ```bash
 etcdctl --endpoints=$ENDPOINTS put key myvalue
