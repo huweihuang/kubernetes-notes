@@ -62,6 +62,7 @@
 * [运维指南]()
     * [kubectl安装与配置](operation/install-kubectl.md)
     * [kubectl命令说明](operation/kubectl-commands.md)
+    * [kubectl命令别名](operation/kubectl-alias.md)
     * [安全迁移节点](operation/safely-drain-node.md)
     * [kubernetes集群问题排查](operation/kubernetes-troubleshooting.md)
     * [指定Node调度与隔离](operation/nodeselector-and-taint.md)
