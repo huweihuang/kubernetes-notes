@@ -317,10 +317,44 @@ kubectl patch statefulset nginx-sts --patch '{"spec": {"template": {"spec": {"to
 kubectl get nodes -o=jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.status.addresses[0].address}{"\n"}{end}'
 ```
 
+## 5.8. 查看当前k8s组件leader节点
 
+当k8s集群高可用部署的时候，`kube-controller-manager`和`kube-scheduler`只能一个服务处于实际逻辑运行状态，通过参数`--leader-elect=true`来开启选举操作。以下提供查询leader节点的命令。
 
+```bash
+$ kubectl get endpoints kube-controller-manager --namespace=kube-system  -o yaml
 
+apiVersion: v1
+kind: Endpoints
+metadata:
+  annotations:
+    control-plane.alpha.kubernetes.io/leader: '{"holderIdentity":"xxx.xxx.xxx.xxx_6537b938-7f5a-11e9-8487-00220d338975","leaseDurationSeconds":15,"acquireTime":"2019-05-26T02:03:18Z","renewTime":"2019-05-26T02:06:08Z","leaderTransitions":1}'
+  creationTimestamp: "2019-05-26T01:52:39Z"
+  name: kube-controller-manager
+  namespace: kube-system
+  resourceVersion: "1965"
+  selfLink: /api/v1/namespaces/kube-system/endpoints/kube-controller-manager
+  uid: f1755fc5-7f58-11e9-b4c4-00220d338975
+```
+以上表示`"holderIdentity":"xxx.xxx.xxx.xxx`为kube-controller-manager的leader节点。
 
+同理，可以通过以下命令查看`kube-scheduler`的leader节点。
+
+```bash
+kubectl get endpoints kube-scheduler --namespace=kube-system  -o yaml
+```
+
+## 5.9. 修改副本数
+
+```bash
+kubectl scale deployment.v1.apps/nginx-deployment --replicas=10
+```
+
+## 5.10. 批量删除pod
+
+```bash
+kubectl get po -n default |grep Evicted |awk '{print $1}' |xargs -I {} kubectl delete po  {} -n default
+```
 
 
 
