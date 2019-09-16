@@ -16,6 +16,7 @@
 * [前言](README.md)
 * [PaaS]()
     * [12-Factor](paas/12-factor.md)
+    * [k8s知识体系](paas/k8s.md)
 * [安装与配置]()
     * [使用kubespray安装kubernetes](setup/install-k8s-by-kubespray.md)
     * [使用minikube安装kubernetes](setup/install-k8s-by-minikube.md)
