@@ -133,3 +133,8 @@
 * [Etcd访问控制](etcd/etcd-auth-and-security.md)
 * [etcdctl命令工具-V2](etcd/etcdctl-v2.md)
 * [etcdctl命令工具-V3](etcd/etcdctl-v3.md)
+
+## Virtual Kubelet
+
+* [Virtual Kubelet介绍](virtual-kubelet/virtual-kubelet.md)
+* [Virtual Kubelet 命令](virtual-kubelet/virtual-kubelet-cmd.md)
