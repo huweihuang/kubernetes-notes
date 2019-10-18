@@ -86,8 +86,8 @@
             "shortName": "huweihuang"
         },
         "donate": {
-            "wechat": "http://ozilwgpje.bkt.clouddn.com/donate/wechatpay.jpg",
-            "alipay": "http://ozilwgpje.bkt.clouddn.com/donate/alipay.jpg",
+            "wechat": "https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599472/blog/donate/wechatpay.jpg",
+            "alipay": "https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599640/blog/donate/alipay.jpg",
             "title": "",
             "button": "赏",
             "alipayText": "支付宝打赏",
