@@ -138,3 +138,7 @@
 
 * [Virtual Kubelet介绍](virtual-kubelet/virtual-kubelet.md)
 * [Virtual Kubelet 命令](virtual-kubelet/virtual-kubelet-cmd.md)
+
+## GPU
+
+* [nvidia-device-plugin介绍](gpu/nvidia-device-plugin.md)

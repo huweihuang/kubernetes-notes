@@ -38,3 +38,5 @@ raft算法中涉及三种角色，分别是：
 参考：
 
 - http://thesecretlivesofdata.com/raft/
+- https://raft.github.io/raft.pdf
+- https://raft.github.io/
