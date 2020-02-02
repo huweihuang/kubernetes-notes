@@ -26,6 +26,7 @@
 
 * [使用kubespray安装kubernetes](setup/install-k8s-by-kubespray.md)
 * [使用minikube安装kubernetes](setup/install-k8s-by-minikube.md)
+* [k8s证书及秘钥](setup/k8s-cert.md)
 
 ## 基本概念
 
