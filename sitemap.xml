@@ -81,5 +81,6 @@
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/virtual-kubelet/virtual-kubelet.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/virtual-kubelet/virtual-kubelet-cmd.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/kubeedge/kubeedge-arch.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/kubeedge/code-analysis/cloudcore.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/gpu/nvidia-device-plugin.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 </urlset>
