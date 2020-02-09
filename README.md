@@ -155,7 +155,8 @@
 
 * [KubeEdge介绍](kubeedge/kubeedge-arch.md)
 * [KubeEdge源码分析]()
-    * [cloudcore](kubeedge/code-analysis/cloudcore.md) 
+    * [cloudcore](kubeedge/code-analysis/cloudcore.md)
+    * [edgecore](kubeedge/code-analysis/edgecore.md)
 
 ## GPU
 
