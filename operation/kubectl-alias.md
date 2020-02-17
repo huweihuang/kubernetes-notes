@@ -62,6 +62,10 @@ cd ~ && wget https://raw.githubusercontent.com/ahmetb/kubectl-aliases/master/.ku
 
 # 将以下内容添加到 .bashrc中，并执行 source .bashrc
 [ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
+function kubectl() { command kubectl $@; }
+
+# 如果需要提示别名的完整命令，则将以下内容添加到 .bashrc中，并执行 source .bashrc
+[ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
 function kubectl() { echo "+ kubectl $@"; command kubectl $@; }
 ```
 
