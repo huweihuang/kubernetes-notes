@@ -28,12 +28,15 @@ cp etcdctl /usr/local/bin/
 ```bash
 export ETCDCTL_API=3
 
-或者在`/etc/profile`文件中添加环境变量
+# 或者在`/etc/profile`文件中添加环境变量
 vi /etc/profile
 ...
 export ETCDCTL_API=3
 ...
 source /etc/profile
+
+# 或者在命令执行前加 ETCDCTL_API=3
+ETCDCTL_API=3 etcdctl --endpoints=$ENDPOINTS member list
 ```
 
 查看当前etcdctl的版本信息`etcdctl version`。
@@ -142,6 +145,30 @@ HOST_3=10.240.0.19
 ENDPOINTS=$HOST_1:2379,$HOST_2:2379,$HOST_3:2379
 
 etcdctl --endpoints=$ENDPOINTS member list
+```
+
+如果etcd设置了证书访问，则需要添加证书相关参数：
+
+```bash
+ETCDCTL_API=3 etcdctl --endpoints=$ENDPOINTS --cacert=<ca-file> --cert=<cert-file> --key=<key-file>  <command>
+```
+
+参数说明如下：
+
+```bash
+  --cacert=""				verify certificates of TLS-enabled secure servers using this CA bundle
+  --cert=""					identify secure client using this TLS certificate file
+  --key=""					identify secure client using this TLS key file
+  --endpoints=[127.0.0.1:2379]		gRPC endpoints
+```
+可以自定义alias命令
+
+```bash
+# alias 命令，避免每次需要输入证书参数
+alias ectl='ETCDCTL_API=3 etcdctl --endpoints=$ENDPOINTS --cacert=<ca-file> --cert=<cert-file> --key=<key-file>'
+
+# 直接使用别名执行命令
+ectl <command>
 ```
 
 ## 3.2. 增删改查

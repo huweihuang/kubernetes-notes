@@ -188,6 +188,52 @@ sudo apt-get purge docker-ce
 sudo rm -rf /var/lib/docker
 ```
 
+# 3. 离线rpm包安装Docker
+
+## 3.1. 下载docker rpm包
+
+rpm包地址：https://mirrors.aliyun.com/docker-ce/linux/centos/7/x86_64/stable/Packages/
+
+下载指定版本的containerd.io、docker-ce、docker-ce-cli
+
+```bash
+wget https://mirrors.aliyun.com/docker-ce/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+wget https://mirrors.aliyun.com/docker-ce/linux/centos/7/x86_64/stable/Packages/docker-ce-18.09.9-3.el7.x86_64.rpm
+wget https://mirrors.aliyun.com/docker-ce/linux/centos/7/x86_64/stable/Packages/docker-ce-cli-18.09.9-3.el7.x86_64.rpm
+```
+
+下载container-selinux
+
+地址：http://mirror.centos.org/centos/7/extras/x86_64/Packages/
+
+```bash
+wget http://mirror.centos.org/centos/7/extras/x86_64/Packages/container-selinux-2.107-3.el7.noarch.rpm
+```
+
+## 3.2. 安装rpm包
+
+```bash
+# container-selinux
+rpm -ivh container-selinux*.rpm
+# containerd.io
+rpm -ivh containerd.io*.rpm
+# docker-ce
+rpm -ivh docker-ce*.rpm
+# docker-ce-cli
+rpm -ivh docker-ce-cli*.rpm
+```
+
+## 3.3. 启动docker服务
+
+```bash
+# 启动
+systemctl start docker
+# 查看状态
+systemctl status docker
+```
+
+
+
 
 
 文章参考：
