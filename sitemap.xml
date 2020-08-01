@@ -80,6 +80,7 @@
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/etcdctl-v2.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/etcdctl-v3.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/k8s-etcd-data.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/etcd-operator-usage.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/virtual-kubelet/virtual-kubelet.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/virtual-kubelet/virtual-kubelet-cmd.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/kubeedge/kubeedge-arch.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
