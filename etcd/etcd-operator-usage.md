@@ -315,3 +315,5 @@ kubectl delete clusterrolebinding etcd-operator
 - https://github.com/coreos/etcd-operator
 - https://github.com/coreos/etcd-operator/blob/master/doc/user/install_guide.md
 - https://github.com/coreos/etcd-operator/blob/master/doc/user/client_service.md
+- https://github.com/coreos/etcd-operator/blob/master/doc/user/spec_examples.md
+- https://github.com/coreos/etcd-operator/blob/master/doc/user/cluster_tls.md
