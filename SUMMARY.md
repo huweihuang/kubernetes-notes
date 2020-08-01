@@ -13,6 +13,7 @@
 
 * [使用kubespray安装kubernetes](setup/install-k8s-by-kubespray.md)
 * [使用minikube安装kubernetes](setup/install-k8s-by-minikube.md)
+* [使用kind安装kubernetes](setup/install-k8s-by-kind.md)
 * [k8s证书及秘钥](setup/k8s-cert.md)
 
 ## 基本概念
