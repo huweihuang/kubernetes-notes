@@ -137,6 +137,7 @@
 * [etcdctl命令工具-V2](etcd/etcdctl-v2.md)
 * [etcdctl命令工具-V3](etcd/etcdctl-v3.md)
 * [Etcd中的k8s数据](etcd/k8s-etcd-data.md)
+* [Etcd-Operator的使用](etcd/etcd-operator-usage.md)
 
 ## Virtual Kubelet
 
