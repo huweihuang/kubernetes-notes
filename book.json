@@ -13,7 +13,8 @@
             "数据结构学习笔记": "https://www.huweihuang.com/data-structure-notes/",
             "Python 学习笔记": "https://www.huweihuang.com/python-notes/",
             "Blockchain 学习笔记": "https://www.huweihuang.com/blockchain-notes/",
-            "Kubernetes 源码分析笔记": "https://www.huweihuang.com/k8s-source-code-analysis/"
+            "Kubernetes 源码分析笔记": "https://www.huweihuang.com/k8s-source-code-analysis/",
+            "Docker 学习笔记": "https://www.huweihuang.com/docker-notes/"
         }
     },
     "plugins": [

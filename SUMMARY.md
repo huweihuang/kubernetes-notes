@@ -2,7 +2,7 @@
 
 ## 前言
 
-* [序言](README.md)
+* [目录](README.md)
 
 ## PaaS
 
@@ -34,12 +34,17 @@
     * [Pod调度](concepts/pod/pod-scheduler.md)
     * [Pod操作](concepts/pod/pod-operation.md)
 
+## 流程图
+
+* [Pod创建流程](flow/pod-flow.md)
+* [PVC创建流程](flow/pvc-flow.md)
+
 ## 核心原理
 
- * [Api Server](principle/kubernetes-core-principle-api-server.md)
- * [Controller Manager](principle/kubernetes-core-principle-controller-manager.md)
- * [Scheduler](principle/kubernetes-core-principle-scheduler.md)
- * [Kubelet](principle/kubernetes-core-principle-kubelet.md)
+* [Api Server](principle/kubernetes-core-principle-api-server.md)
+* [Controller Manager](principle/kubernetes-core-principle-controller-manager.md)
+* [Scheduler](principle/kubernetes-core-principle-scheduler.md)
+* [Kubelet](principle/kubernetes-core-principle-kubelet.md)
 
 ## 网络
 
