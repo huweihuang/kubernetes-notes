@@ -101,6 +101,8 @@
 * [client-go的使用及源码分析](develop/client-go.md)
 * [nfs-client-provisioner源码分析](develop/nfs-client-provisioner.md)
 * [csi-provisioner源码分析](develop/csi-provisioner.md)
+* [operator开发]()
+    * [kubebuilder的使用](develop/operator/kubebuilder.md)
 
 ## 源码分析
 
