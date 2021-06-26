@@ -65,6 +65,8 @@
 * [k8s网络](network/kubernetes-network.md)
 * [Flannel]()
     * [Flannel介绍](network/flannel/flannel-introduction.md)
+* [CNI]()
+    * [Macvlan介绍](network/cni/macvlan.md)
 
 ## 存储
 
@@ -103,6 +105,12 @@
 * [csi-provisioner源码分析](develop/csi-provisioner.md)
 * [operator开发]()
     * [kubebuilder的使用](develop/operator/kubebuilder.md)
+
+## 问题排查
+
+* [Pod驱逐](trouble-shooting/pod-evicted.md)
+* [PVC Terminating](trouble-shooting/pvc-terminating.md)
+* [keycreate permission denied](trouble-shooting/keycreate-permission-denied.md)
 
 ## 源码分析
 
@@ -161,6 +169,11 @@
 * [Virtual Kubelet介绍](virtual-kubelet/virtual-kubelet.md)
 * [Virtual Kubelet命令](virtual-kubelet/virtual-kubelet-cmd.md)
 
+## Kata Container
+
+* [kata容器简介](kata/kata-container.md)
+* [kata配置](kata/kata-container-conf.md)
+
 ## KubeEdge
 
 * [KubeEdge介绍](kubeedge/kubeedge-arch.md)
@@ -171,6 +184,11 @@
 ## GPU
 
 * [nvidia-device-plugin介绍](gpu/nvidia-device-plugin.md)
+
+## 虚拟化
+
+* [虚拟化相关概念](kvm/vm-concept.md)
+
 
 # 赞赏
 
