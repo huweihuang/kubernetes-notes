@@ -75,6 +75,7 @@
 * [资源配额](resource/resource-quota.md)
 * [Pod限额](resource/limit-range.md)
 * [资源服务质量](resource/quality-of-service.md)
+* [Lxcfs资源视图隔离](resource/lxcfs/lxcfs.md)
 
 ## 运维指南
 

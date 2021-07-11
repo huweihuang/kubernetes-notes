@@ -1,5 +1,3 @@
-[TOC]
-
 
 > 本文介绍通过pod指定 ImagePullSecrets来拉取私有镜像仓库的镜像
 
