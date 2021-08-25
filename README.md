@@ -173,11 +173,12 @@
 * [Etcd-Operator的使用](etcd/etcd-operator-usage.md)
 
 ## 多集群管理
+* [k8s多集群管理的思考](multi-cluster/k8s-multi-cluster-thinking.md)
 * [Virtual Kubelet]()
     * [Virtual Kubelet介绍](virtual-kubelet/virtual-kubelet.md)
     * [Virtual Kubelet 命令](virtual-kubelet/virtual-kubelet-cmd.md)
 * [Karmada]()
-    * [Karmada介绍](mult-cluster/karmada.md)
+    * [Karmada介绍](multi-cluster/karmada.md)
 
 ## KubeEdge
 

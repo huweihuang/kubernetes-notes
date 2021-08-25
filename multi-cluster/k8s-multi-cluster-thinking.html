@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>Karmada介绍 · Kubernetes 学习笔记</title>
+        <title>k8s多集群管理的思考 · Kubernetes 学习笔记</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -87,8 +87,8 @@
     <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../kubeedge/kubeedge-arch.html" />
     
+    <link rel="prev" href="../etcd/etcd-operator-usage.html" />
     
 
     
@@ -2097,12 +2097,27 @@
         
         
     
-        <li class="chapter " data-level="15.1" >
+        <li class="chapter active" data-level="15.1" data-path="k8s-multi-cluster-thinking.html">
+            
+                <a href="k8s-multi-cluster-thinking.html">
+            
+                    
+                        <b>15.1.</b>
+                    
+                    k8s多集群管理的思考
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.2" >
             
                 <span>
             
                     
-                        <b>15.1.</b>
+                        <b>15.2.</b>
                     
                     Virtual Kubelet
             
@@ -2113,12 +2128,12 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="15.1.1" data-path="../virtual-kubelet/virtual-kubelet.html">
+        <li class="chapter " data-level="15.2.1" data-path="../virtual-kubelet/virtual-kubelet.html">
             
                 <a href="../virtual-kubelet/virtual-kubelet.html">
             
                     
-                        <b>15.1.1.</b>
+                        <b>15.2.1.</b>
                     
                     Virtual Kubelet介绍
             
@@ -2128,12 +2143,12 @@
             
         </li>
     
-        <li class="chapter " data-level="15.1.2" data-path="../virtual-kubelet/virtual-kubelet-cmd.html">
+        <li class="chapter " data-level="15.2.2" data-path="../virtual-kubelet/virtual-kubelet-cmd.html">
             
                 <a href="../virtual-kubelet/virtual-kubelet-cmd.html">
             
                     
-                        <b>15.1.2.</b>
+                        <b>15.2.2.</b>
                     
                     Virtual Kubelet 命令
             
@@ -2148,12 +2163,12 @@
             
         </li>
     
-        <li class="chapter " data-level="15.2" >
+        <li class="chapter " data-level="15.3" >
             
                 <span>
             
                     
-                        <b>15.2.</b>
+                        <b>15.3.</b>
                     
                     Karmada
             
@@ -2164,12 +2179,12 @@
             <ul class="articles">
                 
     
-        <li class="chapter active" data-level="15.2.1" data-path="karmada.html">
+        <li class="chapter " data-level="15.3.1" data-path="karmada.html">
             
                 <a href="karmada.html">
             
                     
-                        <b>15.2.1.</b>
+                        <b>15.3.1.</b>
                     
                     Karmada介绍
             
@@ -2398,7 +2413,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >Karmada介绍</a>
+        <a href=".." >k8s多集群管理的思考</a>
     </h1>
 </div>
 
@@ -2413,48 +2428,127 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <blockquote>
-<p>&#x672C;&#x6587;&#x7531;&#x7F51;&#x7EDC;&#x8D44;&#x6E90;&#x6574;&#x7406;&#x4EE5;&#x4F5C;&#x8BB0;&#x5F55;</p>
+                                <h1 id="k8s&#x591A;&#x96C6;&#x7FA4;&#x7684;&#x601D;&#x8003;">k8s&#x591A;&#x96C6;&#x7FA4;&#x7684;&#x601D;&#x8003;</h1>
+<h1 id="1-&#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x591A;&#x96C6;&#x7FA4;">1. &#x4E3A;&#x4EC0;&#x4E48;&#x9700;&#x8981;&#x591A;&#x96C6;&#x7FA4;</h1>
+<p><strong>1&#x3001;k8s&#x5355;&#x96C6;&#x7FA4;&#x7684;&#x627F;&#x8F7D;&#x80FD;&#x529B;&#x6709;&#x9650;&#x3002;</strong></p>
+<p> Kubernetes v1.21 &#x652F;&#x6301;&#x7684;&#x6700;&#x5927;&#x8282;&#x70B9;&#x6570;&#x4E3A; 5000&#x3002; &#x66F4;&#x5177;&#x4F53;&#x5730;&#x8BF4;&#xFF0C;Kubernetes&#x65E8;&#x5728;&#x9002;&#x5E94;&#x6EE1;&#x8DB3;&#x4EE5;&#x4E0B;<em>&#x6240;&#x6709;</em>&#x6807;&#x51C6;&#x7684;&#x914D;&#x7F6E;&#xFF1A;</p>
+<ul>
+<li>&#x6BCF;&#x4E2A;&#x8282;&#x70B9;&#x7684; Pod &#x6570;&#x91CF;&#x4E0D;&#x8D85;&#x8FC7; 100</li>
+<li>&#x8282;&#x70B9;&#x6570;&#x4E0D;&#x8D85;&#x8FC7; 5000</li>
+<li>Pod &#x603B;&#x6570;&#x4E0D;&#x8D85;&#x8FC7; 150000</li>
+<li>&#x5BB9;&#x5668;&#x603B;&#x6570;&#x4E0D;&#x8D85;&#x8FC7; 300000</li>
+</ul>
+<blockquote>
+<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://kubernetes.io/zh/docs/setup/best-practices/cluster-large/" target="_blank">https://kubernetes.io/zh/docs/setup/best-practices/cluster-large/</a></p>
 </blockquote>
-<h1 id="&#x7B80;&#x4ECB;">&#x7B80;&#x4ECB;</h1>
-<p>Karmada&#xFF08;Kubernetes Armada&#xFF09;&#x662F;&#x57FA;&#x4E8E;Kubernetes&#x539F;&#x751F;API&#x7684;&#x591A;&#x96C6;&#x7FA4;&#x7BA1;&#x7406;&#x7CFB;&#x7EDF;&#x3002;&#x5728;&#x591A;&#x4E91;&#x548C;&#x6DF7;&#x5408;&#x4E91;&#x573A;&#x666F;&#x4E0B;&#xFF0C;Karmada&#x63D0;&#x4F9B;&#x53EF;&#x63D2;&#x62D4;&#xFF0C;&#x5168;&#x81EA;&#x52A8;&#x5316;&#x7BA1;&#x7406;&#x591A;&#x96C6;&#x7FA4;&#x5E94;&#x7528;&#xFF0C;&#x5B9E;&#x73B0;&#x591A;&#x4E91;&#x96C6;&#x4E2D;&#x7BA1;&#x7406;&#x3001;&#x9AD8;&#x53EF;&#x7528;&#x6027;&#x3001;&#x6545;&#x969C;&#x6062;&#x590D;&#x548C;&#x6D41;&#x91CF;&#x8C03;&#x5EA6;&#x3002;</p>
-<h1 id="&#x7279;&#x6027;">&#x7279;&#x6027;</h1>
+<p>&#x4E14;&#x5F53;&#x8282;&#x70B9;&#x6570;&#x91CF;&#x8F83;&#x5927;&#x65F6;&#xFF0C;&#x4F1A;&#x51FA;&#x73B0;&#x8C03;&#x5EA6;&#x5EF6;&#x8FDF;&#xFF0C;etcd&#x8BFB;&#x5199;&#x5EF6;&#x8FDF;&#xFF0C;apiserver&#x8D1F;&#x8F7D;&#x9AD8;&#x7B49;&#x95EE;&#x9898;&#xFF0C;&#x5F71;&#x54CD;&#x670D;&#x52A1;&#x7684;&#x6B63;&#x5E38;&#x521B;&#x5EFA;&#x3002;</p>
+<p><strong>2&#x3001;&#x5206;&#x6563;&#x96C6;&#x7FA4;&#x670D;&#x52A1;&#x98CE;&#x9669;&#x3002;</strong></p>
+<p>&#x5168;&#x90E8;&#x670D;&#x52A1;&#x90FD;&#x653E;&#x5728;&#x4E00;&#x4E2A;k8s&#x96C6;&#x7FA4;&#x4E2D;&#xFF0C;&#x5F53;&#x8BE5;&#x96C6;&#x7FA4;&#x51FA;&#x73B0;&#x5F02;&#x5E38;&#xFF0C;&#x77ED;&#x671F;&#x65E0;&#x6CD5;&#x6062;&#x590D;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5219;&#x5F71;&#x54CD;&#x5168;&#x90E8;&#x670D;&#x52A1;&#x548C;&#x5F71;&#x54CD;&#x90E8;&#x7F72;&#x3002;&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x673A;&#x623F;&#x7B49;&#x6545;&#x969C;&#x5BFC;&#x81F4;&#x5355;&#x96C6;&#x7FA4;&#x5F02;&#x5E38;&#xFF0C;&#x5EFA;&#x8BAE;&#x5C06;k8s&#x7684;master&#x5728;&#x5206;&#x6563;&#x5728;&#x5EF6;&#x8FDF;&#x8F83;&#x4F4E;&#x7684;&#x4E0D;&#x540C;&#x53EF;&#x7528;&#x533A;&#x90E8;&#x7F72;&#xFF0C;&#x4E14;&#x5728;&#x4E0D;&#x540C;region&#x90E8;&#x7F72;&#x591A;&#x4E2A;k8s&#x96C6;&#x7FA4;&#x6765;&#x8FDB;&#x884C;&#x96C6;&#x7FA4;&#x7EA7;&#x522B;&#x7684;&#x5BB9;&#x707E;&#x3002;</p>
+<p><strong>3&#x3001;&#x5F53;&#x524D;&#x6DF7;&#x5408;&#x4E91;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#x548C;&#x67B6;&#x6784;</strong></p>
+<p>&#x5F53;&#x524D;&#x90E8;&#x5206;&#x516C;&#x53F8;&#x4F1A;&#x5B58;&#x5728;&#x81EA;&#x5EFA;&#x673A;&#x623F;+&#x4E0D;&#x540C;&#x4E91;&#x5382;&#x5546;&#x7684;&#x516C;&#x6709;&#x4E91;&#x4ECE;&#x800C;&#x6765;&#x5B9E;&#x73B0;&#x6DF7;&#x90E8;&#x4E91;&#x7684;&#x8FD0;&#x8425;&#x6A21;&#x5F0F;&#xFF0C;&#x90A3;&#x4E48;&#x81EA;&#x7136;&#x4F1A;&#x5F15;&#x5165;&#x591A;&#x96C6;&#x7FA4;&#x7BA1;&#x7406;&#x7684;&#x95EE;&#x9898;&#x3002;</p>
+<h1 id="2-&#x591A;&#x96C6;&#x7FA4;&#x90E8;&#x7F72;&#x9700;&#x8981;&#x89E3;&#x51B3;&#x54EA;&#x4E9B;&#x95EE;&#x9898;">2. &#x591A;&#x96C6;&#x7FA4;&#x90E8;&#x7F72;&#x9700;&#x8981;&#x89E3;&#x51B3;&#x54EA;&#x4E9B;&#x95EE;&#x9898;</h1>
+<p>&#x76EE;&#x6807;&#xFF1A;<strong>&#x8BA9;&#x7528;&#x6237;&#x50CF;&#x4F7F;&#x7528;&#x5355;&#x96C6;&#x7FA4;&#x4E00;&#x6837;&#x6765;&#x4F7F;&#x7528;&#x591A;&#x96C6;&#x7FA4;</strong>&#x3002;</p>
+<p>&#x6269;&#x5C55;&#x96C6;&#x7FA4;&#x7684;&#x8FB9;&#x754C;&#xFF0C;&#x670D;&#x52A1;&#x7684;&#x8FB9;&#x754C;&#x4ECE;&#x5355;&#x53F0;&#x7269;&#x7406;&#x673A;&#x591A;&#x4E2A;&#x8FDB;&#x7A0B;&#xFF0C;&#x53D1;&#x5C55;&#x5230;&#x901A;&#x8FC7;k8s&#x96C6;&#x7FA4;&#x6765;&#x7BA1;&#x7406;&#x591A;&#x53F0;&#x7684;&#x7269;&#x7406;&#x673A;&#xFF0C;&#x518D;&#x53D1;&#x5C55;&#x5230;&#x7BA1;&#x7406;&#x591A;&#x4E2A;&#x7684;k8s&#x96C6;&#x7FA4;&#x3002;<strong>&#x670D;&#x52A1;&#x7684;&#x8FB9;&#x754C;&#x4ECE;&#x7269;&#x7406;&#x673A;&#x53D1;&#x5C55;&#x5230;&#x96C6;&#x7FA4;</strong>&#x3002;</p>
+<p>&#x800C;&#x591A;&#x96C6;&#x7FA4;&#x7BA1;&#x7406;&#x9700;&#x8981;&#x89E3;&#x51B3;&#x4EE5;&#x4E0B;&#x95EE;&#x9898;&#xFF1A;</p>
 <ul>
-<li>&#x57FA;&#x4E8E;K8s&#x539F;&#x751F;API&#x7684;&#x8DE8;&#x96C6;&#x7FA4;&#x5E94;&#x7528;&#x7BA1;&#x7406;&#xFF0C;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x65B9;&#x4FBF;&#x5FEB;&#x6377;&#x5730;&#x5C06;&#x5E94;&#x7528;&#x4ECE;&#x5355;&#x96C6;&#x7FA4;&#x8FC1;&#x79FB;&#x5230;&#x591A;&#x96C6;&#x7FA4;&#x3002;</li>
-<li>&#x4E2D;&#x5FC3;&#x5F0F;&#x64CD;&#x4F5C;&#x548C;&#x7BA1;&#x7406;Kubernetes&#x96C6;&#x7FA4;&#x3002;</li>
-<li>&#x8DE8;&#x96C6;&#x7FA4;&#x5E94;&#x7528;&#x53EF;&#x5728;&#x591A;&#x96C6;&#x7FA4;&#x4E0A;&#x81EA;&#x52A8;&#x6269;&#x5C55;&#xFF0C;&#x6545;&#x969C;&#x8F6C;&#x79FB;&#x548C;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#x3002;</li>
-<li>&#x9AD8;&#x7EA7;&#x7684;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#xFF1A;&#x533A;&#x57DF;&#xFF0C;&#x53EF;&#x7528;&#x533A;&#xFF0C;&#x4E91;&#x63D0;&#x4F9B;&#x5546;&#xFF0C;&#x96C6;&#x7FA4;&#x4EB2;&#x548C;&#x6027;/&#x53CD;&#x4EB2;&#x548C;&#x6027;&#x3002;</li>
-<li>&#x652F;&#x6301;&#x521B;&#x5EFA;&#x5206;&#x53D1;&#x7528;&#x6237;&#x81EA;&#x5B9A;&#x4E49;&#xFF08;CustomResourceDefinitions&#xFF09;&#x8D44;&#x6E90;&#x3002;</li>
+<li><strong>&#x591A;&#x96C6;&#x7FA4;&#x670D;&#x52A1;&#x7684;&#x5206;&#x53D1;&#x90E8;&#x7F72;&#xFF08;deployment&#x3001;daemonset&#x7B49;&#xFF09;</strong></li>
+<li><strong>&#x8DE8;&#x96C6;&#x7FA4;&#x81EA;&#x52A8;&#x8FC1;&#x79FB;&#x4E0E;&#x8C03;&#x5EA6;&#xFF08;&#x5F53;&#x67D0;&#x4E2A;&#x96C6;&#x7FA4;&#x5F02;&#x5E38;&#xFF0C;&#x670D;&#x52A1;&#x53EF;&#x4EE5;&#x5728;&#x5176;&#x4ED6;&#x96C6;&#x7FA4;&#x81EA;&#x52A8;&#x90E8;&#x7F72;&#xFF09;</strong></li>
+<li><strong>&#x591A;&#x96C6;&#x7FA4;&#x670D;&#x52A1;&#x53D1;&#x73B0;&#xFF0C;&#x7F51;&#x7EDC;&#x901A;&#x4FE1;&#x53CA;&#x8D1F;&#x8F7D;&#x5747;&#x8861;&#xFF08;service&#xFF0C;ingress&#x7B49;&#xFF09;</strong></li>
 </ul>
-<h1 id="&#x6846;&#x67B6;&#x7ED3;&#x6784;">&#x6846;&#x67B6;&#x7ED3;&#x6784;</h1>
-<figure id="fig15.2.1.1"><img src="https://support.huaweicloud.com/productdesc-mcp/zh-cn_image_0000001094636778.png" alt="img"><figcaption>&#x56FE;&#x7247; - img</figcaption></figure>
+<p>&#x800C;&#x591A;&#x96C6;&#x7FA4;&#x670D;&#x52A1;&#x7684;&#x7F51;&#x7EDC;&#x901A;&#x4FE1;&#x53EF;&#x4EE5;&#x7531;Service mesh&#x7B49;&#x6765;&#x89E3;&#x51B3;&#xFF0C;&#x672C;&#x6587;&#x4E0D;&#x505A;&#x91CD;&#x70B9;&#x8BA8;&#x8BBA;&#x3002;</p>
+<p>&#x4EE5;&#x4E0A;&#x51E0;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x53EF;&#x4EE5;&#x5148;&#x4ECE;k8s&#x7BA1;&#x7406;&#x8282;&#x70B9;&#x7684;&#x601D;&#x7EF4;&#x8FDB;&#x884C;&#x5206;&#x6790;</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>&#x7269;&#x7406;&#x673A;&#x89C6;&#x89D2;</th>
+<th>&#x5355;&#x96C6;&#x7FA4;&#x89C6;&#x89D2;</th>
+<th>&#x591A;&#x96C6;&#x7FA4;&#x89C6;&#x89D2;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&#x8FDB;&#x7A0B;&#x7684;&#x8FB9;&#x754C;</td>
+<td>&#x7269;&#x7406;&#x673A;</td>
+<td>k8s&#x96C6;&#x7FA4;</td>
+<td>&#x591A;&#x96C6;&#x7FA4;</td>
+</tr>
+<tr>
+<td>&#x8C03;&#x5EA6;&#x5355;&#x5143;</td>
+<td>&#x8FDB;&#x7A0B;&#x6216;&#x7EBF;&#x7A0B;</td>
+<td>&#x5BB9;&#x5668;&#x6216;pod</td>
+<td>&#x5DE5;&#x4F5C;&#x8D1F;&#x8F7D;&#xFF08;deployment&#xFF09;</td>
+</tr>
+<tr>
+<td>&#x670D;&#x52A1;&#x7684;&#x96C6;&#x5408;</td>
+<td></td>
+<td>&#x5DE5;&#x4F5C;&#x8D1F;&#x8F7D;&#xFF08;deployment&#xFF09;</td>
+<td>&#x4E0D;&#x540C;&#x96C6;&#x7FA4;&#x5DE5;&#x4F5C;&#x8D1F;&#x8F7D;&#x7684;&#x96C6;&#x5408;&#x4F53;&#xFF08;workloadGroup&#xFF09;</td>
+</tr>
+<tr>
+<td>&#x670D;&#x52A1;&#x53D1;&#x73B0;</td>
+<td></td>
+<td>service</td>
+<td>&#x4E0D;&#x540C;&#x96C6;&#x7FA4;service&#x7684;&#x96C6;&#x5408;&#x4F53;</td>
+</tr>
+<tr>
+<td>&#x670D;&#x52A1;&#x8FC1;&#x79FB;</td>
+<td></td>
+<td>&#x5DE5;&#x4F5C;&#x8D1F;&#x8F7D;&#xFF08;deployment&#xFF09;&#x63A7;&#x5236;&#x5668;</td>
+<td>&#x4E0D;&#x540C;&#x96C6;&#x7FA4;&#x5DE5;&#x4F5C;&#x8D1F;&#x8F7D;&#x7684;&#x96C6;&#x5408;&#x4F53;&#x63A7;&#x5236;&#x5668;</td>
+</tr>
+<tr>
+<td>&#x670D;&#x52A1;&#x8C03;&#x5EA6;</td>
+<td></td>
+<td>nodename&#x6216;&#x8005;node selector</td>
+<td>clustername&#x6216;cluster selector</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>pod&#x7684;&#x53CD;&#x4EB2;&#x548C;&#xFF08;&#x76F8;&#x540C;deployment&#x4E0B;&#x7684;pod&#x4E0D;&#x8C03;&#x5EA6;&#x5728;&#x76F8;&#x540C;&#x8282;&#x70B9;&#xFF09;</td>
+<td>workload&#x53CD;&#x4EB2;&#x548C;&#xFF08;&#x76F8;&#x540C;workloadGroup&#x5206;&#x6563;&#x5728;&#x4E0D;&#x540C;&#x96C6;&#x7FA4;&#xFF09;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="21-&#x591A;&#x96C6;&#x7FA4;&#x5DE5;&#x4F5C;&#x8D1F;&#x8F7D;&#x7684;&#x5206;&#x53D1;">2.1. &#x591A;&#x96C6;&#x7FA4;&#x5DE5;&#x4F5C;&#x8D1F;&#x8F7D;&#x7684;&#x5206;&#x53D1;</h2>
+<p>&#x5355;&#x96C6;&#x7FA4;&#x4E2D;k8s&#x7684;&#x8C03;&#x5EA6;&#x5355;&#x5143;&#x662F;pod&#xFF0C;&#x5373;&#x4E00;&#x4E2A;pod&#x53EA;&#x80FD;&#x8DD1;&#x5728;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#xFF0C;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x53EF;&#x4EE5;&#x8FD0;&#x884C;&#x591A;&#x4E2A;pod&#xFF0C;&#x800C;&#x4E0D;&#x540C;&#x8282;&#x70B9;&#x4E0A;&#x7684;&#x4E00;&#x7EC4;pod&#x662F;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;workload&#x6765;&#x63A7;&#x5236;&#x548C;&#x5206;&#x53D1;&#x3002;&#x7C7B;&#x4F3C;&#x8FD9;&#x4E2A;&#x903B;&#x8F91;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x591A;&#x96C6;&#x7FA4;&#x7684;&#x89C6;&#x89D2;&#x4E0B;&#xFF0C;&#x591A;&#x96C6;&#x7FA4;&#x7684;&#x8C03;&#x5EA6;&#x5355;&#x5143;&#x662F;&#x4E00;&#x4E2A;&#x96C6;&#x7FA4;&#x7684;workload&#xFF0C;&#x4E00;&#x4E2A;workload&#x53EA;&#x80FD;&#x8DD1;&#x5728;&#x4E00;&#x4E2A;&#x96C6;&#x7FA4;&#x4E2D;&#xFF0C;&#x4E00;&#x4E2A;&#x96C6;&#x7FA4;&#x53EF;&#x4EE5;&#x8FD0;&#x884C;&#x591A;&#x4E2A;workload&#x3002;</p>
+<p>&#x90A3;&#x4E48;&#x5C31;&#x9700;&#x8981;&#x6709;&#x4E00;&#x4E2A;&#x63A7;&#x5236;&#x5668;&#x6765;&#x7BA1;&#x7406;&#x4E0D;&#x540C;k8s&#x96C6;&#x7FA4;&#x7684;&#x76F8;&#x540C;workload&#x3002;&#x4F8B;&#x5982; workloadGroup&#x3002;&#x800C;&#x8BE5;workloadGroup&#x5728;&#x4E0D;&#x4FB5;&#x5165;k8s&#x539F;&#x751F;API&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x4E3B;&#x8981;&#x5305;&#x542B;&#x4E24;&#x4E2A;&#x90E8;&#x5206;&#x3002;</p>
+<p><strong>workloadGroup:</strong></p>
 <ul>
-<li>ETCD&#xFF1A;&#x5B58;&#x50A8;Karmada API&#x5BF9;&#x8C61;&#x3002;</li>
-<li>Karmada Scheduler&#xFF1A;&#x63D0;&#x4F9B;&#x9AD8;&#x7EA7;&#x7684;&#x591A;&#x96C6;&#x7FA4;&#x8C03;&#x5EA6;&#x7B56;&#x7565;&#x3002;</li>
-<li>Karmada Controller Manager: &#x5305;&#x542B;&#x591A;&#x4E2A;Controller&#xFF0C;Controller&#x76D1;&#x542C;karmada&#x5BF9;&#x8C61;&#x5E76;&#x4E14;&#x4E0E;&#x6210;&#x5458;&#x96C6;&#x7FA4;API server&#x8FDB;&#x884C;&#x901A;&#x4FE1;&#x5E76;&#x521B;&#x5EFA;&#x6210;&#x5458;&#x96C6;&#x7FA4;&#x7684;k8s&#x5BF9;&#x8C61;&#x3002;<ul>
-<li>Cluster Controller&#xFF1A;&#x6210;&#x5458;&#x96C6;&#x7FA4;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x7BA1;&#x7406;&#x4E0E;&#x5BF9;&#x8C61;&#x7BA1;&#x7406;&#x3002;</li>
-<li>Policy Controller&#xFF1A;&#x76D1;&#x542C;PropagationPolicy&#x5BF9;&#x8C61;&#xFF0C;&#x521B;&#x5EFA;ResourceBinding&#xFF0C;&#x914D;&#x7F6E;&#x8D44;&#x6E90;&#x5206;&#x53D1;&#x7B56;&#x7565;&#x3002;</li>
-<li>Binding Controller&#xFF1A;&#x76D1;&#x542C;ResourceBinding&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x521B;&#x5EFA;work&#x5BF9;&#x8C61;&#x54CD;&#x5E94;&#x8D44;&#x6E90;&#x6E05;&#x5355;&#x3002;</li>
-<li>Execution Controller&#xFF1A;&#x76D1;&#x542C;work&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x5C06;&#x8D44;&#x6E90;&#x5206;&#x53D1;&#x5230;&#x6210;&#x5458;&#x96C6;&#x7FA4;&#x4E2D;&#x3002;</li>
+<li><strong>&#x8D44;&#x6E90;&#x6A21;&#x677F;&#xFF08;Resource Template</strong>&#xFF09;&#xFF1A;&#x670D;&#x52A1;&#x7684;&#x63CF;&#x8FF0;&#xFF08;workload&#xFF09;</li>
+<li><strong>&#x5206;&#x53D1;&#x7B56;&#x7565;&#xFF08;Propagaion Policy&#xFF09;</strong>&#xFF1A;&#x670D;&#x52A1;&#x5206;&#x53D1;&#x7684;&#x96C6;&#x7FA4;&#xFF08;&#x5373;&#x591A;&#x4E2A;workload&#x5E94;&#x8BE5;&#x88AB;&#x5206;&#x53D1;&#x5230;&#x54EA;&#x4E9B;&#x96C6;&#x7FA4;&#x8FD0;&#x884C;&#xFF09;</li>
 </ul>
-</li>
-</ul>
-<h1 id="&#x8D44;&#x6E90;&#x5206;&#x53D1;&#x6D41;&#x7A0B;">&#x8D44;&#x6E90;&#x5206;&#x53D1;&#x6D41;&#x7A0B;</h1>
-<p><strong>&#x57FA;&#x672C;&#x6982;&#x5FF5;</strong></p>
-<ul>
-<li>&#x8D44;&#x6E90;&#x6A21;&#x677F;&#xFF08;Resource Template&#xFF09;&#xFF1A;Karmada&#x4F7F;&#x7528;K8s&#x539F;&#x751F;API&#x5B9A;&#x4E49;&#x4F5C;&#x4E3A;&#x8D44;&#x6E90;&#x6A21;&#x677F;&#xFF0C;&#x4FBF;&#x4E8E;&#x5FEB;&#x901F;&#x5BF9;&#x63A5;K8s&#x751F;&#x6001;&#x5DE5;&#x5177;&#x94FE;&#x3002;</li>
-<li>&#x5206;&#x53D1;&#x7B56;&#x7565;&#xFF08;Propagaion Policy&#xFF09;&#xFF1A;Karmada&#x63D0;&#x4F9B;&#x72EC;&#x7ACB;&#x7684;&#x7B56;&#x7565;API&#xFF0C;&#x7528;&#x6765;&#x914D;&#x7F6E;&#x8D44;&#x6E90;&#x5206;&#x53D1;&#x7B56;&#x7565;&#x3002;</li>
-<li>&#x5DEE;&#x5F02;&#x5316;&#x7B56;&#x7565;&#xFF08;Override Policy&#xFF09;&#xFF1A;Karmada&#x63D0;&#x4F9B;&#x72EC;&#x7ACB;&#x7684;&#x5DEE;&#x5F02;&#x5316;API&#xFF0C;&#x7528;&#x6765;&#x914D;&#x7F6E;&#x4E0E;&#x96C6;&#x7FA4;&#x76F8;&#x5173;&#x7684;&#x5DEE;&#x5F02;&#x5316;&#x914D;&#x7F6E;&#x3002;&#x6BD4;&#x5982;&#x914D;&#x7F6E;&#x4E0D;&#x540C;&#x96C6;&#x7FA4;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x955C;&#x50CF;&#x3002;</li>
-</ul>
-<p>Karmada&#x8D44;&#x6E90;&#x5206;&#x53D1;&#x6D41;&#x7A0B;&#x56FE;&#xFF1A;</p>
-<figure id="fig15.2.1.2"><img src="https://support.huaweicloud.com/productdesc-mcp/zh-cn_image_0000001141316765.png" alt="img"><figcaption>&#x56FE;&#x7247; - img</figcaption></figure>
+<p>workload&#x63CF;&#x8FF0;&#x7684;&#x662F;&#x4EC0;&#x4E48;&#x670D;&#x52A1;&#x8FD0;&#x884C;&#x5728;&#x4E0A;&#x9762;&#x8282;&#x70B9;&#xFF0C;workloadGroup&#x63CF;&#x8FF0;&#x7684;&#x662F;&#x4EC0;&#x4E48;&#x670D;&#x52A1;&#x8FD0;&#x884C;&#x5728;&#x4EC0;&#x4E48;&#x96C6;&#x7FA4;&#x3002;</p>
+<p><strong>&#x5B9E;&#x73B0;workloadGroup&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;</strong>&#xFF1A;</p>
+<ol>
+<li>&#x4E00;&#x79CD;&#x662F;&#x81EA;&#x5B9A;&#x4E49;API&#x5C06;workloadGroup&#x4E2D;&#x7684;Resource Template&#x548C;Propagaion Policy&#x5408;&#x6210;&#x5728;&#x4E00;&#x4E2A;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x5BF9;&#x8C61;&#x4E2D;&#xFF0C;&#x7531;&#x7528;&#x6237;&#x76F4;&#x63A5;&#x6307;&#x5B9A;&#x8BE5;workloadGroup&#x4FE1;&#x606F;&#xFF0C;&#x4ECE;&#x800C;&#x5C06;&#x4E0D;&#x540C;&#x7684;workload&#x5206;&#x53D1;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x96C6;&#x7FA4;&#x4E2D;&#x3002;</li>
+<li>&#x53E6;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x662F;&#x901A;&#x8FC7;&#x4E00;&#x4E2A;k8s&#x8F7D;&#x4F53;&#x6765;&#x8BB0;&#x5F55;&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x7684;workload&#x5BF9;&#x8C61;&#xFF0C;&#x518D;&#x7531;&#x7528;&#x6237;&#x6307;&#x5B9A;Propagaion Policy&#x5173;&#x8054;&#x8BE5;workload&#x5BF9;&#x8C61;&#xFF0C;&#x4ECE;&#x800C;&#x8BA9;&#x63A7;&#x5236;&#x5668;&#x81EA;&#x52A8;&#x6839;&#x636E;&#x7528;&#x6237;&#x6307;&#x5B9A;&#x7684;Propagaion Policy&#x5C06;workload&#x5206;&#x53D1;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x96C6;&#x7FA4;&#x4E2D;&#x3002;</li>
+</ol>
+<h2 id="22-&#x8DE8;&#x96C6;&#x7FA4;&#x81EA;&#x52A8;&#x8FC1;&#x79FB;&#x4E0E;&#x8C03;&#x5EA6;">2.2. &#x8DE8;&#x96C6;&#x7FA4;&#x81EA;&#x52A8;&#x8FC1;&#x79FB;&#x4E0E;&#x8C03;&#x5EA6;</h2>
+<p>&#x5355;&#x96C6;&#x7FA4;&#x4E2D;k8s&#x4E2D;&#x901A;&#x8FC7;workload&#x4E2D;&#x7684;nodeselector&#x6216;&#x8005;nodename&#x4EE5;&#x53CA;&#x4EB2;&#x548C;&#x6027;&#x6765;&#x63A7;&#x5236;pod&#x8FD0;&#x884C;&#x5728;&#x54EA;&#x4E2A;&#x8282;&#x70B9;&#x4E0A;&#x3002;&#x800C;&#x591A;&#x96C6;&#x7FA4;&#x7684;&#x89C6;&#x89D2;&#x4E0B;&#xFF0C;&#x5219;&#x9700;&#x8981;&#x6709;&#x4E00;&#x4E2A;&#x63A7;&#x5236;&#x5668;&#x6765;&#x5B9E;&#x73B0;&#x96C6;&#x7FA4;&#x7EA7;&#x522B;&#x7684;&#x8C03;&#x5EA6;&#x903B;&#x8F91;&#xFF0C;&#x4F8B;&#x5982;clustername&#xFF0C;cluster selector&#xFF0C;cluster AntiAffinity&#xFF0C;&#x4ECE;&#x800C;&#x6765;&#x81EA;&#x52A8;&#x63A7;&#x5236;workloadGroup&#x4E0B;&#x7684;workload&#x5206;&#x6563;&#x5728;&#x4EC0;&#x4E48;&#x96C6;&#x7FA4;&#x4E0A;&#x3002;</p>
+<h1 id="3-&#x76EE;&#x524D;&#x7684;&#x591A;&#x96C6;&#x7FA4;&#x65B9;&#x6848;">3. &#x76EE;&#x524D;&#x7684;&#x591A;&#x96C6;&#x7FA4;&#x65B9;&#x6848;</h1>
+<h2 id="31-kubefedfederation-v2">3.1. Kubefed[Federation v2]</h2>
+<p>&#x7B80;&#x4ECB;</p>
+<p>&#x57FA;&#x672C;&#x601D;&#x60F3;</p>
+<h2 id="32-virtual-kubelet">3.2. virtual kubelet</h2>
+<p>&#x7B80;&#x4ECB;</p>
+<p>&#x57FA;&#x672C;&#x601D;&#x60F3;</p>
+<h2 id="33--karmada">3.3.  Karmada</h2>
+<p>&#x7B80;&#x4ECB;</p>
+<p>&#x57FA;&#x672C;&#x601D;&#x60F3;</p>
 <p>&#x53C2;&#x8003;&#xFF1A;</p>
 <ul>
-<li><a href="https://github.com/karmada-io/karmada" target="_blank">https://github.com/karmada-io/karmada</a></li>
-<li><a href="https://support.huaweicloud.com/productdesc-mcp/mcp_productdesc_0001.html" target="_blank">https://support.huaweicloud.com/productdesc-mcp/mcp_productdesc_0001.html</a></li>
+<li><a href="https://kubernetes.io/zh/docs/setup/best-practices/cluster-large/" target="_blank">https://kubernetes.io/zh/docs/setup/best-practices/cluster-large/</a></li>
+<li><a href="https://caicloud.io/blog/57392eca8241681100000003" target="_blank">CoreOS &#x662F;&#x5982;&#x4F55;&#x5C06; Kubernetes &#x7684;&#x6027;&#x80FD;&#x63D0;&#x9AD8; 10 &#x500D;&#x7684;?</a></li>
+<li><a href="https://juejin.cn/post/6844903950836056077" target="_blank">&#x5F53; K8s &#x96C6;&#x7FA4;&#x8FBE;&#x5230;&#x4E07;&#x7EA7;&#x89C4;&#x6A21;&#xFF0C;&#x963F;&#x91CC;&#x5DF4;&#x5DF4;&#x5982;&#x4F55;&#x89E3;&#x51B3;&#x7CFB;&#x7EDF;&#x5404;&#x7EC4;&#x4EF6;&#x6027;&#x80FD;&#x95EE;&#x9898;&#xFF1F;</a></li>
+<li><a href="https://github.com/kubernetes-sigs/kubefed" target="_blank">https://github.com/kubernetes-sigs/kubefed</a></li>
+<li><a href="https://jimmysong.io/kubernetes-handbook/practice/federation.html" target="_blank">https://jimmysong.io/kubernetes-handbook/practice/federation.html</a></li>
+<li><a href="https://kubernetes.io/blog/2018/12/12/kubernetes-federation-evolution/" target="_blank">https://kubernetes.io/blog/2018/12/12/kubernetes-federation-evolution/</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/355193315" target="_blank">https://zhuanlan.zhihu.com/p/355193315</a></li>
 </ul>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; www.huweihuang.com 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
-2021-08-25 11:31:19
+2021-08-25 16:01:34
 </span></footer>
                                 
                                 </section>
@@ -2482,10 +2576,10 @@
 
             
                 
-                
-                <a href="../kubeedge/kubeedge-arch.html" class="navigation navigation-next navigation-unique" aria-label="Next page: KubeEdge介绍">
-                    <i class="fa fa-angle-right"></i>
+                <a href="../etcd/etcd-operator-usage.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Etcd-Operator的使用">
+                    <i class="fa fa-angle-left"></i>
                 </a>
+                
                 
             
         
@@ -2494,7 +2588,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Karmada介绍","level":"15.2.1","depth":2,"next":{"title":"KubeEdge介绍","level":"16.1","depth":1,"path":"kubeedge/kubeedge-arch.md","ref":"kubeedge/kubeedge-arch.md","articles":[]},"previous":{"title":"Karmada","level":"15.2","depth":1,"ref":"","articles":[{"title":"Karmada介绍","level":"15.2.1","depth":2,"path":"mult-cluster/karmada.md","ref":"mult-cluster/karmada.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga","disqus","donate"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"huweihuang"},"github":{"url":"https://github.com/huweihuang"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"donate":{"alipay":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599640/blog/donate/alipay.jpg","alipayText":"支付宝打赏","button":"赏","title":"","wechat":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599472/blog/donate/wechatpay.jpg","wechatText":"微信打赏"},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"images/favicon.ico","bookmark":"images/favicon.ico","appleTouch":"images/favicon.ico","appleTouchMore":{"120x120":"images/favicon.ico","180x180":"images/favicon.ico"}},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"paas/k8s.html#fig2.2.1","level":"2.2","list_caption":"Figure: k8s体系","alt":"k8s体系","nro":1,"url":"http://assets.processon.com/chart_image/5d7f7cafe4b08987f55cbee3.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s体系","attributes":{},"skip":false,"key":"2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.1","level":"4.2.2","list_caption":"Figure: pod","alt":"pod","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"4.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.2","level":"4.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"4.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.3","level":"4.2.2","list_caption":"Figure: service","alt":"service","nro":4,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"4.2.2.3"},{"backlink":"concepts/pod/pod-volume.html#fig4.3.5.1","level":"4.3.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.5.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.6.1","level":"4.3.6","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.6.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.6.2","level":"4.3.6","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.6.2"},{"backlink":"principle/kubernetes-core-principle-api-server.html#fig5.1.1.1","level":"5.1.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"5.1.1.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.1","level":"5.1.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":9,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"5.1.2.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.2","level":"5.1.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"5.1.2.2"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.3","level":"5.1.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"5.1.2.3"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.4","level":"5.1.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"5.1.2.4"},{"backlink":"principle/kubernetes-core-principle-scheduler.html#fig5.1.3.1","level":"5.1.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"5.1.3.1"},{"backlink":"network/docker-network.html#fig6.1.1","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/container-network.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.1"},{"backlink":"network/docker-network.html#fig6.1.2","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":15,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/bridge.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.2"},{"backlink":"network/kubernetes-network.html#fig6.2.1","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":16,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/network-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.1"},{"backlink":"network/kubernetes-network.html#fig6.2.2","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":17,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/pod-network.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.1","level":"6.3.1","list_caption":"Figure: 动态路由","alt":"动态路由","nro":18,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/dynamic-route.png","index":1,"caption_template":"图片 - _CAPTION_","label":"动态路由","attributes":{},"skip":false,"key":"6.3.1.1"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.2","level":"6.3.1","list_caption":"Figure: flannel","alt":"flannel","nro":19,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/flannel.png","index":2,"caption_template":"图片 - _CAPTION_","label":"flannel","attributes":{},"skip":false,"key":"6.3.1.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.3","level":"6.3.1","list_caption":"Figure: UDP封装","alt":"UDP封装","nro":20,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578569/article/flannel/udp.png","index":3,"caption_template":"图片 - _CAPTION_","label":"UDP封装","attributes":{},"skip":false,"key":"6.3.1.3"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.4","level":"6.3.1","list_caption":"Figure: docker启动参数","alt":"docker启动参数","nro":21,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/docker-init-args.png","index":4,"caption_template":"图片 - _CAPTION_","label":"docker启动参数","attributes":{},"skip":false,"key":"6.3.1.4"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.5","level":"6.3.1","list_caption":"Figure: 数据发送节点路由表","alt":"数据发送节点路由表","nro":22,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataSendRouteTable.png","index":5,"caption_template":"图片 - _CAPTION_","label":"数据发送节点路由表","attributes":{},"skip":false,"key":"6.3.1.5"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.6","level":"6.3.1","list_caption":"Figure: 数据接收节点路由表","alt":"数据接收节点路由表","nro":23,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataReceiveRouteTable.png","index":6,"caption_template":"图片 - _CAPTION_","label":"数据接收节点路由表","attributes":{},"skip":false,"key":"6.3.1.6"},{"backlink":"resource/lxcfs/lxcfs.html#fig8.4.1","level":"8.4","list_caption":"Figure: lxcfs","alt":"lxcfs","nro":24,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1626002975/article/kubernetes/resource/lxcfs/lxcfs.webp","index":1,"caption_template":"图片 - _CAPTION_","label":"lxcfs","attributes":{},"skip":false,"key":"8.4.1"},{"backlink":"trouble-shooting/node/cgroup-subsystem-not-mount.html#fig11.1.3.1","level":"11.1.3","list_caption":"Figure: kubelet","alt":"kubelet","nro":25,"url":"../../images/troubleshooting/cgroup-not-mount.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kubelet","attributes":{},"skip":false,"key":"11.1.3.1"},{"backlink":"etcd/etcd-introduction.html#fig14.1.1","level":"14.1","list_caption":"Figure: etcd的架构图","alt":"etcd的架构图","nro":26,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/etcd-architecture.jpg","index":1,"caption_template":"图片 - _CAPTION_","label":"etcd的架构图","attributes":{},"skip":false,"key":"14.1.1"},{"backlink":"etcd/raft.html#fig14.2.1","level":"14.2","list_caption":"Figure: raft","alt":"raft","nro":27,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/raft.png","index":1,"caption_template":"图片 - _CAPTION_","label":"raft","attributes":{},"skip":false,"key":"14.2.1"},{"backlink":"mult-cluster/karmada.html#fig15.2.1.1","level":"15.2.1","list_caption":"Figure: img","alt":"img","nro":28,"url":"https://support.huaweicloud.com/productdesc-mcp/zh-cn_image_0000001094636778.png","index":1,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"15.2.1.1"},{"backlink":"mult-cluster/karmada.html#fig15.2.1.2","level":"15.2.1","list_caption":"Figure: img","alt":"img","nro":29,"url":"https://support.huaweicloud.com/productdesc-mcp/zh-cn_image_0000001141316765.png","index":2,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"15.2.1.2"},{"backlink":"kubeedge/kubeedge-arch.html#fig16.1.1","level":"16.1","list_caption":"Figure: kubeedge-arch","alt":"kubeedge-arch","nro":30,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1580806242/article/kubernetes/kubeedge/kubeedge_arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kubeedge-arch","attributes":{},"skip":false,"key":"16.1.1"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig17.1.1","level":"17.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":31,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"17.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig17.2.1","level":"17.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":32,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"17.2.1"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"Golang 学习笔记":"https://www.huweihuang.com/golang-notes/","Linux 学习笔记":"https://www.huweihuang.com/linux-notes/","Blockchain 学习笔记":"https://www.huweihuang.com/blockchain-notes/","数据结构学习笔记":"https://www.huweihuang.com/data-structure-notes/","Kubernetes 学习笔记":"https://www.huweihuang.com/kubernetes-notes/","Kubernetes 源码分析笔记":"https://www.huweihuang.com/k8s-source-code-analysis/","Docker 学习笔记":"https://www.huweihuang.com/docker-notes/","Python 学习笔记":"https://www.huweihuang.com/python-notes/","胡伟煌的博客":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"mult-cluster/karmada.md","mtime":"2021-08-25T03:31:19.036Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-08-25T04:55:56.543Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"k8s多集群管理的思考","level":"15.1","depth":1,"next":{"title":"Virtual Kubelet","level":"15.2","depth":1,"ref":"","articles":[{"title":"Virtual Kubelet介绍","level":"15.2.1","depth":2,"path":"virtual-kubelet/virtual-kubelet.md","ref":"virtual-kubelet/virtual-kubelet.md","articles":[]},{"title":"Virtual Kubelet 命令","level":"15.2.2","depth":2,"path":"virtual-kubelet/virtual-kubelet-cmd.md","ref":"virtual-kubelet/virtual-kubelet-cmd.md","articles":[]}]},"previous":{"title":"Etcd-Operator的使用","level":"14.7","depth":1,"path":"etcd/etcd-operator-usage.md","ref":"etcd/etcd-operator-usage.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga","disqus","donate"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"huweihuang"},"github":{"url":"https://github.com/huweihuang"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"donate":{"alipay":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599640/blog/donate/alipay.jpg","alipayText":"支付宝打赏","button":"赏","title":"","wechat":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599472/blog/donate/wechatpay.jpg","wechatText":"微信打赏"},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"images/favicon.ico","bookmark":"images/favicon.ico","appleTouch":"images/favicon.ico","appleTouchMore":{"120x120":"images/favicon.ico","180x180":"images/favicon.ico"}},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"paas/k8s.html#fig2.2.1","level":"2.2","list_caption":"Figure: k8s体系","alt":"k8s体系","nro":1,"url":"http://assets.processon.com/chart_image/5d7f7cafe4b08987f55cbee3.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s体系","attributes":{},"skip":false,"key":"2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.1","level":"4.2.2","list_caption":"Figure: pod","alt":"pod","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"4.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.2","level":"4.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"4.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.3","level":"4.2.2","list_caption":"Figure: service","alt":"service","nro":4,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"4.2.2.3"},{"backlink":"concepts/pod/pod-volume.html#fig4.3.5.1","level":"4.3.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.5.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.6.1","level":"4.3.6","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.6.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.6.2","level":"4.3.6","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.6.2"},{"backlink":"principle/kubernetes-core-principle-api-server.html#fig5.1.1.1","level":"5.1.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"5.1.1.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.1","level":"5.1.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":9,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"5.1.2.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.2","level":"5.1.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"5.1.2.2"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.3","level":"5.1.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"5.1.2.3"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.4","level":"5.1.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"5.1.2.4"},{"backlink":"principle/kubernetes-core-principle-scheduler.html#fig5.1.3.1","level":"5.1.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"5.1.3.1"},{"backlink":"network/docker-network.html#fig6.1.1","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/container-network.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.1"},{"backlink":"network/docker-network.html#fig6.1.2","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":15,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/bridge.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.2"},{"backlink":"network/kubernetes-network.html#fig6.2.1","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":16,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/network-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.1"},{"backlink":"network/kubernetes-network.html#fig6.2.2","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":17,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/pod-network.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.1","level":"6.3.1","list_caption":"Figure: 动态路由","alt":"动态路由","nro":18,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/dynamic-route.png","index":1,"caption_template":"图片 - _CAPTION_","label":"动态路由","attributes":{},"skip":false,"key":"6.3.1.1"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.2","level":"6.3.1","list_caption":"Figure: flannel","alt":"flannel","nro":19,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/flannel.png","index":2,"caption_template":"图片 - _CAPTION_","label":"flannel","attributes":{},"skip":false,"key":"6.3.1.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.3","level":"6.3.1","list_caption":"Figure: UDP封装","alt":"UDP封装","nro":20,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578569/article/flannel/udp.png","index":3,"caption_template":"图片 - _CAPTION_","label":"UDP封装","attributes":{},"skip":false,"key":"6.3.1.3"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.4","level":"6.3.1","list_caption":"Figure: docker启动参数","alt":"docker启动参数","nro":21,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/docker-init-args.png","index":4,"caption_template":"图片 - _CAPTION_","label":"docker启动参数","attributes":{},"skip":false,"key":"6.3.1.4"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.5","level":"6.3.1","list_caption":"Figure: 数据发送节点路由表","alt":"数据发送节点路由表","nro":22,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataSendRouteTable.png","index":5,"caption_template":"图片 - _CAPTION_","label":"数据发送节点路由表","attributes":{},"skip":false,"key":"6.3.1.5"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.6","level":"6.3.1","list_caption":"Figure: 数据接收节点路由表","alt":"数据接收节点路由表","nro":23,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataReceiveRouteTable.png","index":6,"caption_template":"图片 - _CAPTION_","label":"数据接收节点路由表","attributes":{},"skip":false,"key":"6.3.1.6"},{"backlink":"resource/lxcfs/lxcfs.html#fig8.4.1","level":"8.4","list_caption":"Figure: lxcfs","alt":"lxcfs","nro":24,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1626002975/article/kubernetes/resource/lxcfs/lxcfs.webp","index":1,"caption_template":"图片 - _CAPTION_","label":"lxcfs","attributes":{},"skip":false,"key":"8.4.1"},{"backlink":"trouble-shooting/node/cgroup-subsystem-not-mount.html#fig11.1.3.1","level":"11.1.3","list_caption":"Figure: kubelet","alt":"kubelet","nro":25,"url":"../../images/troubleshooting/cgroup-not-mount.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kubelet","attributes":{},"skip":false,"key":"11.1.3.1"},{"backlink":"etcd/etcd-introduction.html#fig14.1.1","level":"14.1","list_caption":"Figure: etcd的架构图","alt":"etcd的架构图","nro":26,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/etcd-architecture.jpg","index":1,"caption_template":"图片 - _CAPTION_","label":"etcd的架构图","attributes":{},"skip":false,"key":"14.1.1"},{"backlink":"etcd/raft.html#fig14.2.1","level":"14.2","list_caption":"Figure: raft","alt":"raft","nro":27,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/raft.png","index":1,"caption_template":"图片 - _CAPTION_","label":"raft","attributes":{},"skip":false,"key":"14.2.1"},{"backlink":"multi-cluster/karmada.html#fig15.3.1.1","level":"15.3.1","list_caption":"Figure: img","alt":"img","nro":28,"url":"https://support.huaweicloud.com/productdesc-mcp/zh-cn_image_0000001094636778.png","index":1,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"15.3.1.1"},{"backlink":"multi-cluster/karmada.html#fig15.3.1.2","level":"15.3.1","list_caption":"Figure: img","alt":"img","nro":29,"url":"https://support.huaweicloud.com/productdesc-mcp/zh-cn_image_0000001141316765.png","index":2,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"15.3.1.2"},{"backlink":"kubeedge/kubeedge-arch.html#fig16.1.1","level":"16.1","list_caption":"Figure: kubeedge-arch","alt":"kubeedge-arch","nro":30,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1580806242/article/kubernetes/kubeedge/kubeedge_arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kubeedge-arch","attributes":{},"skip":false,"key":"16.1.1"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig17.1.1","level":"17.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":31,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"17.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig17.2.1","level":"17.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":32,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"17.2.1"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"Golang 学习笔记":"https://www.huweihuang.com/golang-notes/","Linux 学习笔记":"https://www.huweihuang.com/linux-notes/","Blockchain 学习笔记":"https://www.huweihuang.com/blockchain-notes/","数据结构学习笔记":"https://www.huweihuang.com/data-structure-notes/","Kubernetes 学习笔记":"https://www.huweihuang.com/kubernetes-notes/","Kubernetes 源码分析笔记":"https://www.huweihuang.com/k8s-source-code-analysis/","Docker 学习笔记":"https://www.huweihuang.com/docker-notes/","Python 学习笔记":"https://www.huweihuang.com/python-notes/","胡伟煌的博客":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"multi-cluster/k8s-multi-cluster-thinking.md","mtime":"2021-08-25T08:01:34.431Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-08-25T08:03:30.421Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
