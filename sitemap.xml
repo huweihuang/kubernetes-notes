@@ -76,9 +76,10 @@
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kube-scheduler/PrioritizeNodes.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kube-scheduler/preempt.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kube-apiserver/NewAPIServerCommand.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/runtime/runtime.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/docker/docker-notes.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/kata/kata-container.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/kata/kata-container-conf.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/runtime/kata/kata-container.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/runtime/kata/kata-container-conf.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/etcd-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/raft.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/etcd-setup-flags.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
