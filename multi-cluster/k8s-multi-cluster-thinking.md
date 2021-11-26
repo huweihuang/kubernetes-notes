@@ -60,7 +60,7 @@
 - **资源模板（Resource Template**）：服务的描述（workload）
 - **分发策略（Propagaion Policy）**：服务分发的集群（即多个workload应该被分发到哪些集群运行）
 
-workload描述的是什么服务运行在上面节点，workloadGroup描述的是什么服务运行在什么集群。
+workload描述的是什么服务运行在什么节点，workloadGroup描述的是什么服务运行在什么集群。
 
 **实现workloadGroup有两种方式**：
 

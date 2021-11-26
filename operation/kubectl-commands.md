@@ -356,9 +356,36 @@ kubectl scale deployment.v1.apps/nginx-deployment --replicas=10
 kubectl get po -n default |grep Evicted |awk '{print $1}' |xargs -I {} kubectl delete po  {} -n default
 ```
 
+## 5.11. 各种查看命令
+
+```bash
+# 不使用外部工具来输出解码后的 Secret
+kubectl get secret my-secret -o go-template='{{range $k,$v := .data}}{{"### "}}{{$k}}{{"\n"}}{{$v|base64decode}}{{"\n\n"}}{{end}}'
+
+# 列出事件（Events），按时间戳排序
+kubectl get events --sort-by=.metadata.creationTimestamp
+```
+
+# kubectl日志级别
+
+Kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参数后跟一个数字表示日志的级别。 Kubernetes 通用的日志习惯和相关的日志级别在 [这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) 有相应的描述。
+
+| 详细程度 | 描述                                                         |
+| -------- | ------------------------------------------------------------ |
+| `--v=0`  | 用于那些应该 *始终* 对运维人员可见的信息，因为这些信息一般很有用。 |
+| `--v=1`  | 如果您不想要看到冗余信息，此值是一个合理的默认日志级别。     |
+| `--v=2`  | 输出有关服务的稳定状态的信息以及重要的日志消息，这些信息可能与系统中的重大变化有关。这是建议大多数系统设置的默认日志级别。 |
+| `--v=3`  | 包含有关系统状态变化的扩展信息。                             |
+| `--v=4`  | 包含调试级别的冗余信息。                                     |
+| `--v=5`  | 跟踪级别的详细程度。                                         |
+| `--v=6`  | 显示所请求的资源。                                           |
+| `--v=7`  | 显示 HTTP 请求头。                                           |
+| `--v=8`  | 显示 HTTP 请求内容。                                         |
+| `--v=9`  | 显示 HTTP 请求内容而且不截断内容。                           |
 
 
 参考文章：
 
 - https://kubernetes.io/docs/reference/kubectl/overview/
 - https://kubernetes.io/docs/tasks/access-application-cluster/configure-access-multiple-clusters/
+- https://kubernetes.io/zh/docs/reference/kubectl/cheatsheet/
