@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>kata配置 · Kubernetes 学习笔记</title>
+        <title>CNI接口介绍 · Kubernetes 学习笔记</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -87,10 +87,8 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="../../etcd/etcd-introduction.html" />
+    <link rel="next" href="macvlan.html" />
     
-    
-    <link rel="prev" href="kata-container.html" />
     
 
     
@@ -749,9 +747,9 @@
         
         
     
-        <li class="chapter " data-level="6.1" data-path="../../network/docker-network.html">
+        <li class="chapter " data-level="6.1" data-path="../docker-network.html">
             
-                <a href="../../network/docker-network.html">
+                <a href="../docker-network.html">
             
                     
                         <b>6.1.</b>
@@ -764,9 +762,9 @@
             
         </li>
     
-        <li class="chapter " data-level="6.2" data-path="../../network/kubernetes-network.html">
+        <li class="chapter " data-level="6.2" data-path="../kubernetes-network.html">
             
-                <a href="../../network/kubernetes-network.html">
+                <a href="../kubernetes-network.html">
             
                     
                         <b>6.2.</b>
@@ -795,9 +793,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.3.1" data-path="../../network/flannel/flannel-introduction.html">
+        <li class="chapter " data-level="6.3.1" data-path="../flannel/flannel-introduction.html">
             
-                <a href="../../network/flannel/flannel-introduction.html">
+                <a href="../flannel/flannel-introduction.html">
             
                     
                         <b>6.3.1.</b>
@@ -831,9 +829,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="6.4.1" data-path="../../network/cni/cni.html">
+        <li class="chapter active" data-level="6.4.1" data-path="cni.html">
             
-                <a href="../../network/cni/cni.html">
+                <a href="cni.html">
             
                     
                         <b>6.4.1.</b>
@@ -846,9 +844,9 @@
             
         </li>
     
-        <li class="chapter " data-level="6.4.2" data-path="../../network/cni/macvlan.html">
+        <li class="chapter " data-level="6.4.2" data-path="macvlan.html">
             
-                <a href="../../network/cni/macvlan.html">
+                <a href="macvlan.html">
             
                     
                         <b>6.4.2.</b>
@@ -1888,9 +1886,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="13.1.1" data-path="../runtime.html">
+        <li class="chapter " data-level="13.1.1" data-path="../../runtime/runtime.html">
             
-                <a href="../runtime.html">
+                <a href="../../runtime/runtime.html">
             
                     
                         <b>13.1.1.</b>
@@ -1960,9 +1958,9 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="13.3.1" data-path="kata-container.html">
+        <li class="chapter " data-level="13.3.1" data-path="../../runtime/kata/kata-container.html">
             
-                <a href="kata-container.html">
+                <a href="../../runtime/kata/kata-container.html">
             
                     
                         <b>13.3.1.</b>
@@ -1975,9 +1973,9 @@
             
         </li>
     
-        <li class="chapter active" data-level="13.3.2" data-path="kata-container-conf.html">
+        <li class="chapter " data-level="13.3.2" data-path="../../runtime/kata/kata-container-conf.html">
             
-                <a href="kata-container-conf.html">
+                <a href="../../runtime/kata/kata-container-conf.html">
             
                     
                         <b>13.3.2.</b>
@@ -2466,7 +2464,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="../.." >kata配置</a>
+        <a href="../.." >CNI接口介绍</a>
     </h1>
 </div>
 
@@ -2481,503 +2479,294 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="1-&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;">1. &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x8DEF;&#x5F84;</h1>
-<p>&#x9ED8;&#x8BA4;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4F4D;&#x4E8E;<code>/usr/share/defaults/kata-containers/configuration.toml</code>&#xFF0C;&#x5982;&#x679C;<code>/etc/kata-containers/configuration.toml</code>&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5B58;&#x5728;&#xFF0C;&#x5219;&#x4F1A;&#x66FF;&#x4EE3;&#x9ED8;&#x8BA4;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002;</p>
-<p>&#x67E5;&#x770B;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x8DEF;&#x5F84;&#x547D;&#x4EE4;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre class="language-"><code class="lang-bash"><span class="token comment"># kata-runtime --kata-show-default-config-paths</span>
-/etc/kata-containers/configuration.toml
-/usr/share/defaults/kata-containers/configuration.toml
+                                <h1 id="1-cni&#xFF08;container-network-interface&#xFF09;">1. CNI&#xFF08;Container Network Interface&#xFF09;</h1>
+<p>CNI&#xFF08;Container Network Interface&#xFF09;&#x5373;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#xFF0C;&#x901A;&#x8FC7;&#x7EA6;&#x5B9A;&#x7EDF;&#x4E00;&#x7684;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#x63A5;&#x53E3;&#xFF0C;&#x4ECE;&#x800C;kubelet&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x6807;&#x51C6;&#x7684;API&#x6765;&#x8C03;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x7F51;&#x7EDC;&#x63D2;&#x4EF6;&#x5B9E;&#x73B0;&#x4E0D;&#x540C;&#x7684;&#x7F51;&#x7EDC;&#x529F;&#x80FD;&#x3002;</p>
+<p>kubelet&#x542F;&#x52A8;&#x53C2;&#x6570;--network-plugin=cni&#x6765;&#x6307;&#x5B9A;CNI&#x63D2;&#x4EF6;&#xFF0C;kubelet&#x4ECE;<code>--cni-conf-dir</code> &#xFF08;&#x9ED8;&#x8BA4;&#x662F; <code>/etc/cni/net.d</code>&#xFF09; &#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x5E76;&#x4F7F;&#x7528; &#x8BE5;&#x6587;&#x4EF6;&#x4E2D;&#x7684; CNI &#x914D;&#x7F6E;&#x6765;&#x8BBE;&#x7F6E;&#x5404;&#x4E2A; Pod &#x7684;&#x7F51;&#x7EDC;&#x3002; CNI &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5FC5;&#x987B;&#x4E0E; <a href="https://github.com/containernetworking/cni/blob/master/SPEC.md#network-configuration" target="_blank">CNI &#x89C4;&#x7EA6;</a> &#x5339;&#x914D;&#xFF0C;&#x5E76;&#x4E14;&#x914D;&#x7F6E;&#x6240;&#x5F15;&#x7528;&#x7684;&#x6240;&#x6709;&#x6240;&#x9700;&#x7684; CNI &#x63D2;&#x4EF6;&#x90FD;&#x5E94;&#x5B58;&#x5728;&#x4E8E; <code>--cni-bin-dir</code>&#xFF08;&#x9ED8;&#x8BA4;&#x662F; <code>/opt/cni/bin</code>&#xFF09;&#x4E0B;&#x3002;&#x5982;&#x679C;&#x6709;&#x591A;&#x4E2A;CNI&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;kubelet &#x5C06;&#x4F1A;&#x4F7F;&#x7528;&#x6309;&#x6587;&#x4EF6;&#x540D;&#x7684;&#x5B57;&#x5178;&#x987A;&#x5E8F;&#x6392;&#x5217; &#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x4F5C;&#x4E3A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002;</p>
+<p>CNI&#x89C4;&#x8303;&#x5B9A;&#x4E49;&#xFF1A;</p>
+<ul>
+<li><p>&#x7F51;&#x7EDC;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x683C;&#x5F0F;</p>
+</li>
+<li><p>&#x5BB9;&#x5668;runtime&#x4E0E;CNI&#x63D2;&#x4EF6;&#x7684;&#x901A;&#x4FE1;&#x534F;&#x8BAE;</p>
+</li>
+<li><p>&#x57FA;&#x4E8E;&#x63D0;&#x4F9B;&#x7684;&#x914D;&#x7F6E;&#x6267;&#x884C;&#x7F51;&#x7EDC;&#x63D2;&#x4EF6;&#x7684;&#x6B65;&#x9AA4;</p>
+</li>
+<li><p>&#x7F51;&#x7EDC;&#x63D2;&#x4EF6;&#x8C03;&#x7528;&#x5176;&#x4ED6;&#x529F;&#x80FD;&#x63D2;&#x4EF6;&#x7684;&#x6B65;&#x9AA4;</p>
+</li>
+<li><p>&#x63D2;&#x4EF6;&#x8FD4;&#x56DE;&#x7ED9;runtime&#x7ED3;&#x679C;&#x7684;&#x6570;&#x636E;&#x683C;&#x5F0F;</p>
+</li>
+</ul>
+<h1 id="2-cni&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x683C;&#x5F0F;">2. CNI&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x683C;&#x5F0F;</h1>
+<p>CNI&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x683C;&#x5F0F;&#x4E3A;JSON&#x683C;&#x5F0F;&#xFF0C;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x7684;&#x9ED8;&#x8BA4;&#x8DEF;&#x5F84;&#xFF1A;/etc/cni/net.d&#x3002;&#x63D2;&#x4EF6;&#x4E8C;&#x8FDB;&#x5236;&#x9ED8;&#x8BA4;&#x7684;&#x8DEF;&#x5F84;&#x4E3A;&#xFF1A;/opt/cni/bin&#x3002;</p>
+<h2 id="21-&#x4E3B;&#x914D;&#x7F6E;&#x7684;&#x5B57;&#x6BB5;">2.1. &#x4E3B;&#x914D;&#x7F6E;&#x7684;&#x5B57;&#x6BB5;</h2>
+<ul>
+<li><p><code>cniVersion</code> (string)&#xFF1A;CNI&#x89C4;&#x8303;&#x4F7F;&#x7528;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x4F8B;&#x5982;&#x7248;&#x672C;&#x4E3A;0.4.0&#x3002;</p>
+</li>
+<li><p><code>name</code> (string)&#xFF1A;&#x76EE;&#x6807;&#x7F51;&#x7EDC;&#x7684;&#x540D;&#x79F0;&#x3002;</p>
+</li>
+<li><p><code>disableCheck</code> (boolean)&#xFF1A;&#x5173;&#x95ED;CHECK&#x64CD;&#x4F5C;&#x3002;</p>
+</li>
+<li><p><code>plugins</code> (list)&#xFF1A;CNI&#x63D2;&#x4EF6;&#x5217;&#x8868;&#x53CA;&#x63D2;&#x4EF6;&#x914D;&#x7F6E;&#x3002;</p>
+</li>
+</ul>
+<h2 id="22-&#x63D2;&#x4EF6;&#x914D;&#x7F6E;&#x5B57;&#x6BB5;">2.2. &#x63D2;&#x4EF6;&#x914D;&#x7F6E;&#x5B57;&#x6BB5;</h2>
+<p>&#x6839;&#x636E;&#x4E0D;&#x540C;&#x7684;&#x63D2;&#x4EF6;&#xFF0C;&#x63D2;&#x4EF6;&#x914D;&#x7F6E;&#x6240;&#x9700;&#x7684;&#x5B57;&#x6BB5;&#x4E0D;&#x540C;&#x3002;</p>
+<p>&#x5FC5;&#x9009;&#x5B57;&#x6BB5;&#xFF1A;</p>
+<ul>
+<li><code>type</code> (string)&#xFF1A;&#x8282;&#x70B9;&#x4E0A;&#x63D2;&#x4EF6;&#x4E8C;&#x8FDB;&#x5236;&#x7684;&#x540D;&#x79F0;&#xFF0C;&#x6BD4;&#x5982;bridge&#xFF0C;sriov&#xFF0C;macvlan&#x7B49;&#x3002;</li>
+</ul>
+<p>&#x53EF;&#x9009;&#x5B57;&#x6BB5;&#xFF1A;</p>
+<ul>
+<li><p><code>capabilities</code> (dictionary)</p>
+</li>
+<li><p><code>ipMasq</code> (boolean)&#xFF1A;&#x4E3A;&#x76EE;&#x6807;&#x7F51;&#x7EDC;&#x914D;&#x4E0A;Outbound Masquerade(&#x5730;&#x5740;&#x4F2A;&#x88C5;)&#xFF0C;&#x5373;&#xFF1A;&#x7531;&#x5BB9;&#x5668;&#x5185;&#x90E8;&#x901A;&#x8FC7;&#x7F51;&#x5173;&#x5411;&#x5916;&#x53D1;&#x9001;&#x6570;&#x636E;&#x5305;&#x65F6;&#xFF0C;&#x5BF9;&#x6570;&#x636E;&#x5305;&#x7684;&#x6E90;IP&#x5730;&#x5740;&#x8FDB;&#x884C;&#x4FEE;&#x6539;&#x3002;</p>
+<p>&#x5F53;&#x6211;&#x4EEC;&#x7684;&#x5BB9;&#x5668;&#x4EE5;&#x5BBF;&#x4E3B;&#x673A;&#x4F5C;&#x4E3A;&#x7F51;&#x5173;&#x65F6;&#xFF0C;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x5FC5;&#x987B;&#x8981;&#x8BBE;&#x7F6E;&#x7684;&#x3002;&#x5426;&#x5219;&#xFF0C;&#x4ECE;&#x5BB9;&#x5668;&#x5185;&#x90E8;&#x53D1;&#x51FA;&#x7684;&#x6570;&#x636E;&#x5305;&#x5C31;&#x6CA1;&#x6709;&#x529E;&#x6CD5;&#x901A;&#x8FC7;&#x7F51;&#x5173;&#x8DEF;&#x7531;&#x5230;&#x5176;&#x4ED6;&#x7F51;&#x6BB5;&#x3002;&#x56E0;&#x4E3A;&#x5BB9;&#x5668;&#x5185;&#x90E8;&#x7684;IP&#x5730;&#x5740;&#x65E0;&#x6CD5;&#x88AB;&#x76EE;&#x6807;&#x7F51;&#x6BB5;&#x8BC6;&#x522B;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x5305;&#x6700;&#x7EC8;&#x4F1A;&#x88AB;&#x4E22;&#x5F03;&#x6389;&#x3002;</p>
+</li>
+<li><p><code>ipam</code> (dictionary)&#xFF1A;IPAM(IP Adderss Management)&#x5373;IP&#x5730;&#x5740;&#x7BA1;&#x7406;&#xFF0C;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x65B9;&#x6CD5;&#x7528;&#x4E8E;&#x5BF9;IP&#x548C;&#x8DEF;&#x7531;&#x8FDB;&#x884C;&#x7BA1;&#x7406;&#x3002;&#x5B83;&#x5BF9;&#x5E94;&#x7684;&#x662F;&#x7531;CNI&#x63D0;&#x4F9B;&#x7684;&#x4E00;&#x7EC4;&#x6807;&#x51C6;IPAM&#x63D2;&#x4EF6;&#xFF0C;&#x6BD4;&#x5982;&#x50CF;host-local&#xFF0C;dhcp&#xFF0C;static&#x7B49;&#x3002;&#x6BD4;&#x5982;&#x6587;&#x4E2D;&#x7528;&#x5230;&#x7684;bridge&#x63D2;&#x4EF6;&#xFF0C;&#x4F1A;&#x8C03;&#x7528;&#x6211;&#x4EEC;&#x6240;&#x6307;&#x5B9A;&#x7684;IPAM&#x63D2;&#x4EF6;&#xFF0C;&#x5B9E;&#x73B0;&#x5BF9;&#x7F51;&#x7EDC;&#x8BBE;&#x5907;IP&#x5730;&#x5740;&#x7684;&#x5206;&#x914D;&#x548C;&#x7BA1;&#x7406;&#x3002;**&#x5982;&#x679C;&#x662F;&#x81EA;&#x5DF1;&#x5F00;&#x53D1;&#x7684;ipam&#x63D2;&#x4EF6;&#xFF0C;&#x5219;&#x76F8;&#x5173;&#x7684;&#x5165;&#x53C2;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x5B9A;&#x4E49;&#x548C;&#x5B9E;&#x73B0;&#x3002;</p>
+<p>&#x4EE5;&#x4E0B;&#x4EE5;host-local&#x4E3A;&#x4F8B;&#x8BF4;&#x660E;&#x3002;</p>
+<ul>
+<li>type&#xFF1A;&#x6307;&#x5B9A;&#x6240;&#x7528;IPAM&#x63D2;&#x4EF6;&#x7684;&#x540D;&#x79F0;&#xFF0C;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x4F8B;&#x5B50;&#x91CC;&#xFF0C;&#x7528;&#x7684;&#x662F;host-local&#x3002;</li>
+<li>subnet&#xFF1A;&#x4E3A;&#x76EE;&#x6807;&#x7F51;&#x7EDC;&#x5206;&#x914D;&#x7F51;&#x6BB5;&#xFF0C;&#x5305;&#x62EC;&#x7F51;&#x7EDC;ID&#x548C;&#x5B50;&#x7F51;&#x63A9;&#x7801;&#xFF0C;&#x4EE5;CIDR&#x5F62;&#x5F0F;&#x6807;&#x8BB0;&#x3002;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x4F8B;&#x5B50;&#x91CC;&#x4E3A;<code>10.15.10.0/24</code>&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x76EE;&#x6807;&#x7F51;&#x6BB5;&#x4E3A;<code>10.15.10.0</code>&#xFF0C;&#x5B50;&#x7F51;&#x63A9;&#x7801;&#x4E3A;<code>255.255.255.0</code>&#x3002;</li>
+<li>routes&#xFF1A;&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#xFF0C;&#x63D2;&#x4EF6;&#x4F1A;&#x4E3A;&#x6211;&#x4EEC;&#x5728;&#x5BB9;&#x5668;&#x7684;&#x8DEF;&#x7531;&#x8868;&#x91CC;&#x751F;&#x6210;&#x76F8;&#x5E94;&#x7684;&#x89C4;&#x5219;&#x3002;&#x5176;&#x4E2D;&#xFF0C;dst&#x8868;&#x793A;&#x5E0C;&#x671B;&#x5230;&#x8FBE;&#x7684;&#x76EE;&#x6807;&#x7F51;&#x6BB5;&#xFF0C;&#x4EE5;CIDR&#x5F62;&#x5F0F;&#x6807;&#x8BB0;&#x3002;gw&#x5BF9;&#x5E94;&#x7F51;&#x5173;&#x7684;IP&#x5730;&#x5740;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8981;&#x5230;&#x8FBE;&#x76EE;&#x6807;&#x7F51;&#x6BB5;&#x6240;&#x8981;&#x7ECF;&#x8FC7;&#x7684;&#x201C;next hop(&#x4E0B;&#x4E00;&#x8DF3;)&#x201D;&#x3002;&#x5982;&#x679C;&#x7701;&#x7565;gw&#x7684;&#x8BDD;&#xFF0C;&#x90A3;&#x4E48;&#x63D2;&#x4EF6;&#x4F1A;&#x81EA;&#x52A8;&#x5E2E;&#x6211;&#x4EEC;&#x9009;&#x62E9;&#x9ED8;&#x8BA4;&#x7F51;&#x5173;&#x3002;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x4F8B;&#x5B50;&#x91CC;&#xFF0C;gw&#x9009;&#x62E9;&#x7684;&#x662F;&#x9ED8;&#x8BA4;&#x7F51;&#x5173;&#xFF0C;&#x800C;dst&#x4E3A;<code>0.0.0.0/0</code>&#x5219;&#x4EE3;&#x8868;&#x201C;&#x4EFB;&#x4F55;&#x7F51;&#x7EDC;&#x201D;&#xFF0C;&#x8868;&#x793A;&#x6570;&#x636E;&#x5305;&#x5C06;&#x901A;&#x8FC7;&#x9ED8;&#x8BA4;&#x7F51;&#x5173;&#x53D1;&#x5F80;&#x4EFB;&#x4F55;&#x7F51;&#x7EDC;&#x3002;&#x5B9E;&#x9645;&#x4E0A;&#xFF0C;&#x8FD9;&#x5BF9;&#x5E94;&#x7684;&#x662F;&#x4E00;&#x6761;&#x9ED8;&#x8BA4;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#xFF0C;&#x5373;&#xFF1A;&#x5F53;&#x6240;&#x6709;&#x5176;&#x4ED6;&#x8DEF;&#x7531;&#x89C4;&#x5219;&#x90FD;&#x4E0D;&#x5339;&#x914D;&#x65F6;&#xFF0C;&#x5C06;&#x9009;&#x62E9;&#x8BE5;&#x8DEF;&#x7531;&#x3002;</li>
+<li>rangeStart&#xFF1A;&#x5141;&#x8BB8;&#x5206;&#x914D;&#x7684;IP&#x5730;&#x5740;&#x8303;&#x56F4;&#x7684;&#x8D77;&#x59CB;&#x503C;</li>
+<li>rangeEnd&#xFF1A;&#x5141;&#x8BB8;&#x5206;&#x914D;&#x7684;IP&#x5730;&#x5740;&#x8303;&#x56F4;&#x7684;&#x7ED3;&#x675F;&#x503C;</li>
+<li>gateway&#xFF1A;&#x4E3A;&#x7F51;&#x5173;&#xFF08;&#x4E5F;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x5C06;&#x8981;&#x5728;&#x5BBF;&#x4E3B;&#x673A;&#x4E0A;&#x521B;&#x5EFA;&#x7684;bridge&#xFF09;&#x6307;&#x5B9A;&#x7684;IP&#x5730;&#x5740;&#x3002;&#x5982;&#x679C;&#x7701;&#x7565;&#x7684;&#x8BDD;&#xFF0C;&#x90A3;&#x4E48;&#x63D2;&#x4EF6;&#x4F1A;&#x81EA;&#x52A8;&#x4ECE;&#x5141;&#x8BB8;&#x5206;&#x914D;&#x7684;IP&#x5730;&#x5740;&#x8303;&#x56F4;&#x5185;&#x9009;&#x62E9;&#x8D77;&#x59CB;&#x503C;&#x4F5C;&#x4E3A;&#x7F51;&#x5173;&#x7684;IP&#x5730;&#x5740;&#x3002;</li>
+</ul>
+</li>
+<li><p><code>dns</code> (dictionary, optional)&#xFF1A;dns&#x914D;&#x7F6E;</p>
+<ul>
+<li><p><code>nameservers</code> (list of strings, optional)</p>
+</li>
+<li><p><code>domain</code> (string, optional)</p>
+</li>
+<li><p><code>search</code> (list of strings, optional)</p>
+</li>
+<li><p><code>options</code> (list of strings, optional)</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="23-&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x793A;&#x4F8B;">2.3. &#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x793A;&#x4F8B;</h2>
+<pre class="language-"><code class="lang-json">$ mkdir -p /etc/cni/net.d
+$ cat &gt;/etc/cni/net.d/<span class="token number">10</span>-mynet.conf &lt;&lt;EOF
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;cniVersion&quot;</span><span class="token operator">:</span> <span class="token string">&quot;1.0.0&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;name&quot;</span><span class="token operator">:</span> <span class="token string">&quot;dbnet&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;plugins&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;bridge&quot;</span><span class="token punctuation">,</span>
+      // plugin specific parameters
+      <span class="token property">&quot;bridge&quot;</span><span class="token operator">:</span> <span class="token string">&quot;cni0&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;keyA&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">&quot;some more&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;plugin specific&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;configuration&quot;</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+      <span class="token property">&quot;ipam&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;host-local&quot;</span><span class="token punctuation">,</span>
+        // ipam specific
+        <span class="token property">&quot;subnet&quot;</span><span class="token operator">:</span> <span class="token string">&quot;10.1.0.0/16&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;gateway&quot;</span><span class="token operator">:</span> <span class="token string">&quot;10.1.0.1&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;routes&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+            <span class="token punctuation">{</span><span class="token property">&quot;dst&quot;</span><span class="token operator">:</span> <span class="token string">&quot;0.0.0.0/0&quot;</span><span class="token punctuation">}</span>
+        <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;dns&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;nameservers&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token string">&quot;10.1.0.1&quot;</span> <span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;tuning&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;capabilities&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;mac&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;sysctl&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;net.core.somaxconn&quot;</span><span class="token operator">:</span> <span class="token string">&quot;500&quot;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+        <span class="token property">&quot;type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;portmap&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;capabilities&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token property">&quot;portMappings&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
 </code></pre>
-<p>&#x6307;&#x5B9A;&#x81EA;&#x5B9A;&#x4E49;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x8FD0;&#x884C;</p>
-<pre class="language-"><code class="lang-bash">kata-runtime --kata-config<span class="token operator">=</span>/some/where/configuration.toml <span class="token punctuation">..</span>.
+<h1 id="3-cni&#x63D2;&#x4EF6;">3. CNI&#x63D2;&#x4EF6;</h1>
+<h2 id="31-&#x5B89;&#x88C5;&#x63D2;&#x4EF6;">3.1. &#x5B89;&#x88C5;&#x63D2;&#x4EF6;</h2>
+<p>&#x5B89;&#x88C5;CNI&#x4E8C;&#x8FDB;&#x5236;&#x63D2;&#x4EF6;&#xFF0C;&#x63D2;&#x4EF6;&#x4E0B;&#x8F7D;&#x5730;&#xFF1A;<a href="https://github.com/containernetworking/plugins/releases" target="_blank">https://github.com/containernetworking/plugins/releases</a></p>
+<pre class="language-"><code class="lang-bash"><span class="token comment"># &#x4E0B;&#x8F7D;&#x4E8C;&#x8FDB;&#x5236;</span>
+<span class="token function">wget</span> https://github.com/containernetworking/plugins/releases/download/v1.1.0/cni-plugins-linux-amd64-v1.1.0.tgz
+
+<span class="token comment"># &#x89E3;&#x538B;&#x6587;&#x4EF6;</span>
+<span class="token function">tar</span> -zvxf cni-plugins-linux-amd64-v1.1.0.tgz -C /opt/cni/bin/
+
+<span class="token comment"># &#x67E5;&#x770B;&#x89E3;&#x538B;&#x6587;&#x4EF6;</span>
+<span class="token comment"># ll -h</span>
+&#x603B;&#x7528;&#x91CF; 63M
+-rwxr-xr-x 1 root root 3.7M 2&#x6708;  24 01:01 bandwidth
+-rwxr-xr-x 1 root root 4.1M 2&#x6708;  24 01:01 bridge
+-rwxr-xr-x 1 root root 9.3M 2&#x6708;  24 01:01 dhcp
+-rwxr-xr-x 1 root root 4.2M 2&#x6708;  24 01:01 firewall
+-rwxr-xr-x 1 root root 3.7M 2&#x6708;  24 01:01 host-device
+-rwxr-xr-x 1 root root 3.1M 2&#x6708;  24 01:01 host-local
+-rwxr-xr-x 1 root root 3.8M 2&#x6708;  24 01:01 ipvlan
+-rwxr-xr-x 1 root root 3.2M 2&#x6708;  24 01:01 loopback
+-rwxr-xr-x 1 root root 3.8M 2&#x6708;  24 01:01 macvlan
+-rwxr-xr-x 1 root root 3.6M 2&#x6708;  24 01:01 portmap
+-rwxr-xr-x 1 root root 4.0M 2&#x6708;  24 01:01 ptp
+-rwxr-xr-x 1 root root 3.4M 2&#x6708;  24 01:01 sbr
+-rwxr-xr-x 1 root root 2.7M 2&#x6708;  24 01:01 static
+-rwxr-xr-x 1 root root 3.3M 2&#x6708;  24 01:01 tuning
+-rwxr-xr-x 1 root root 3.8M 2&#x6708;  24 01:01 vlan
+-rwxr-xr-x 1 root root 3.4M 2&#x6708;  24 01:01 vrf
 </code></pre>
-<h1 id="2-kata-env">2. kata-env</h1>
-<p>&#x67E5;&#x770B;runtime&#x4F7F;&#x7528;&#x5230;&#x7684;&#x73AF;&#x5883;&#x53C2;&#x6570;&#xFF0C;</p>
-<pre class="language-"><code class="lang-bash">kata-runtime kata-env
-</code></pre>
-<p>&#x8F93;&#x51FA;&#x5185;&#x5BB9;&#x5982;&#x4E0B;&#xFF1A;</p>
-<pre class="language-"><code class="lang-bash"><span class="token punctuation">[</span>Meta<span class="token punctuation">]</span>
-  Version <span class="token operator">=</span> <span class="token string">&quot;1.0.23&quot;</span>
-
-<span class="token punctuation">[</span>Runtime<span class="token punctuation">]</span>
-  Debug <span class="token operator">=</span> <span class="token boolean">false</span>
-  Trace <span class="token operator">=</span> <span class="token boolean">false</span>
-  DisableGuestSeccomp <span class="token operator">=</span> <span class="token boolean">true</span>
-  DisableNewNetNs <span class="token operator">=</span> <span class="token boolean">false</span>
-  Path <span class="token operator">=</span> <span class="token string">&quot;/usr/bin/kata-runtime&quot;</span>
-  <span class="token punctuation">[</span>Runtime.Version<span class="token punctuation">]</span>
-    Semver <span class="token operator">=</span> <span class="token string">&quot;1.7.2&quot;</span>
-    Commit <span class="token operator">=</span> <span class="token string">&quot;9b9282693cfbcf70d442916bea56771cc6fc3afe&quot;</span>
-    OCI <span class="token operator">=</span> <span class="token string">&quot;1.0.1-dev&quot;</span>
-  <span class="token punctuation">[</span>Runtime.Config<span class="token punctuation">]</span>
-    Path <span class="token operator">=</span> <span class="token string">&quot;/usr/share/defaults/kata-containers/configuration.toml&quot;</span>
-
-<span class="token punctuation">[</span>Hypervisor<span class="token punctuation">]</span>
-  MachineType <span class="token operator">=</span> <span class="token string">&quot;pc&quot;</span>
-  Version <span class="token operator">=</span> <span class="token string">&quot;QEMU emulator version 2.11.0\nCopyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers&quot;</span>
-  Path <span class="token operator">=</span> <span class="token string">&quot;/usr/bin/qemu-lite-system-x86_64&quot;</span>
-  BlockDeviceDriver <span class="token operator">=</span> <span class="token string">&quot;virtio-scsi&quot;</span>
-  EntropySource <span class="token operator">=</span> <span class="token string">&quot;/dev/urandom&quot;</span>
-  Msize9p <span class="token operator">=</span> 8192
-  MemorySlots <span class="token operator">=</span> 10
-  Debug <span class="token operator">=</span> <span class="token boolean">false</span>
-  UseVSock <span class="token operator">=</span> <span class="token boolean">false</span>
-  SharedFS <span class="token operator">=</span> <span class="token string">&quot;virtio-9p&quot;</span>
-
-<span class="token punctuation">[</span>Image<span class="token punctuation">]</span>
-  Path <span class="token operator">=</span> <span class="token string">&quot;/usr/share/kata-containers/kata-containers-image_centos_1.7.2_agent_20190702.img&quot;</span>
-
-<span class="token punctuation">[</span>Kernel<span class="token punctuation">]</span>
-  Path <span class="token operator">=</span> <span class="token string">&quot;/usr/share/kata-containers/vmlinuz-4.19.28.42-6.1.container&quot;</span>
-  Parameters <span class="token operator">=</span> <span class="token string">&quot;init=/usr/lib/systemd/systemd systemd.unit=kata-containers.target systemd.mask=systemd-networkd.service systemd.mask=systemd-networkd.socket systemd.mask=systemd-journald.service systemd.mask=systemd-journald.socket systemd.mask=systemd-journal-flush.service systemd.mask=systemd-journald-dev-log.socket systemd.mask=systemd-udevd.service systemd.mask=systemd-udevd.socket systemd.mask=systemd-udev-trigger.service systemd.mask=systemd-udevd-kernel.socket systemd.mask=systemd-udevd-control.socket systemd.mask=systemd-timesyncd.service systemd.mask=systemd-update-utmp.service systemd.mask=systemd-tmpfiles-setup.service systemd.mask=systemd-tmpfiles-cleanup.service systemd.mask=systemd-tmpfiles-cleanup.timer systemd.mask=tmp.mount systemd.mask=systemd-random-seed.service systemd.mask=systemd-coredump@.service&quot;</span>
-
-<span class="token punctuation">[</span>Initrd<span class="token punctuation">]</span>
-  Path <span class="token operator">=</span> <span class="token string">&quot;&quot;</span>
-
-<span class="token punctuation">[</span>Proxy<span class="token punctuation">]</span>
-  Type <span class="token operator">=</span> <span class="token string">&quot;kataProxy&quot;</span>
-  Version <span class="token operator">=</span> <span class="token string">&quot;kata-proxy version 1.7.2-a56df7c&quot;</span>
-  Path <span class="token operator">=</span> <span class="token string">&quot;/usr/libexec/kata-containers/kata-proxy&quot;</span>
-  Debug <span class="token operator">=</span> <span class="token boolean">false</span>
-
-<span class="token punctuation">[</span>Shim<span class="token punctuation">]</span>
-  Type <span class="token operator">=</span> <span class="token string">&quot;kataShim&quot;</span>
-  Version <span class="token operator">=</span> <span class="token string">&quot;kata-shim version 1.7.2-2ea178c&quot;</span>
-  Path <span class="token operator">=</span> <span class="token string">&quot;/usr/libexec/kata-containers/kata-shim&quot;</span>
-  Debug <span class="token operator">=</span> <span class="token boolean">false</span>
-
-<span class="token punctuation">[</span>Agent<span class="token punctuation">]</span>
-  Type <span class="token operator">=</span> <span class="token string">&quot;kata&quot;</span>
-  Debug <span class="token operator">=</span> <span class="token boolean">false</span>
-  Trace <span class="token operator">=</span> <span class="token boolean">false</span>
-  TraceMode <span class="token operator">=</span> <span class="token string">&quot;&quot;</span>
-  TraceType <span class="token operator">=</span> <span class="token string">&quot;&quot;</span>
-
-<span class="token punctuation">[</span>Host<span class="token punctuation">]</span>
-  Kernel <span class="token operator">=</span> <span class="token string">&quot;4.14.105-1-tlinux3-0008&quot;</span>
-  Architecture <span class="token operator">=</span> <span class="token string">&quot;amd64&quot;</span>
-  VMContainerCapable <span class="token operator">=</span> <span class="token boolean">true</span>
-  SupportVSocks <span class="token operator">=</span> <span class="token boolean">true</span>
-  <span class="token punctuation">[</span>Host.Distro<span class="token punctuation">]</span>
-    Name <span class="token operator">=</span> <span class="token string">&quot;Tencent tlinux&quot;</span>
-    Version <span class="token operator">=</span> <span class="token string">&quot;2.2&quot;</span>
-  <span class="token punctuation">[</span>Host.CPU<span class="token punctuation">]</span>
-    Vendor <span class="token operator">=</span> <span class="token string">&quot;GenuineIntel&quot;</span>
-    Model <span class="token operator">=</span> <span class="token string">&quot;Intel(R) Xeon(R) CPU           X3440  @ 2.53GHz&quot;</span>
-
-<span class="token punctuation">[</span>Netmon<span class="token punctuation">]</span>
-  Version <span class="token operator">=</span> <span class="token string">&quot;kata-netmon version 1.7.2&quot;</span>
-  Path <span class="token operator">=</span> <span class="token string">&quot;/usr/libexec/kata-containers/kata-netmon&quot;</span>
-  Debug <span class="token operator">=</span> <span class="token boolean">false</span>
-  Enable <span class="token operator">=</span> <span class="token boolean">false</span>
-</code></pre>
-<h1 id="3-configurationtoml">3. configuration.toml</h1>
-<pre class="language-"><code class="lang-bash"><span class="token comment"># Copyright (c) 2017-2019 Intel Corporation</span>
-<span class="token comment">#</span>
-<span class="token comment"># SPDX-License-Identifier: Apache-2.0</span>
-<span class="token comment">#</span>
-
-<span class="token comment"># XXX: WARNING: this file is auto-generated.</span>
-<span class="token comment"># XXX:</span>
-<span class="token comment"># XXX: Source file: &quot;cli/config/configuration-qemu.toml.in&quot;</span>
-<span class="token comment"># XXX: Project:</span>
-<span class="token comment"># XXX:   Name: Kata Containers</span>
-<span class="token comment"># XXX:   Type: kata</span>
-
-<span class="token punctuation">[</span>hypervisor.qemu<span class="token punctuation">]</span>
-path <span class="token operator">=</span> <span class="token string">&quot;/usr/bin/qemu-lite-system-x86_64&quot;</span>
-kernel <span class="token operator">=</span> <span class="token string">&quot;/usr/share/kata-containers/vmlinuz.container&quot;</span>
-image <span class="token operator">=</span> <span class="token string">&quot;/usr/share/kata-containers/kata-containers.img&quot;</span>
-machine_type <span class="token operator">=</span> <span class="token string">&quot;pc&quot;</span>
-
-<span class="token comment"># Optional space-separated list of options to pass to the guest kernel.</span>
-<span class="token comment"># For example, use `kernel_params = &quot;vsyscall=emulate&quot;` if you are having</span>
-<span class="token comment"># trouble running pre-2.15 glibc.</span>
-<span class="token comment">#</span>
-<span class="token comment"># WARNING: - any parameter specified here will take priority over the default</span>
-<span class="token comment"># parameter value of the same name used to start the virtual machine.</span>
-<span class="token comment"># Do not set values here unless you understand the impact of doing so as you</span>
-<span class="token comment"># may stop the virtual machine from booting.</span>
-<span class="token comment"># To see the list of default parameters, enable hypervisor debug, create a</span>
-<span class="token comment"># container and look for &apos;default-kernel-parameters&apos; log entries.</span>
-kernel_params <span class="token operator">=</span> <span class="token string">&quot;&quot;</span>
-
-<span class="token comment"># Path to the firmware.</span>
-<span class="token comment"># If you want that qemu uses the default firmware leave this option empty</span>
-firmware <span class="token operator">=</span> <span class="token string">&quot;&quot;</span>
-
-<span class="token comment"># Machine accelerators</span>
-<span class="token comment"># comma-separated list of machine accelerators to pass to the hypervisor.</span>
-<span class="token comment"># For example, `machine_accelerators = &quot;nosmm,nosmbus,nosata,nopit,static-prt,nofw&quot;`</span>
-machine_accelerators<span class="token operator">=</span><span class="token string">&quot;&quot;</span>
-
-<span class="token comment"># Default number of vCPUs per SB/VM:</span>
-<span class="token comment"># unspecified or 0                --&gt; will be set to 1</span>
-<span class="token comment"># &lt; 0                             --&gt; will be set to the actual number of physical cores</span>
-<span class="token comment"># &gt; 0 &lt;= number of physical cores --&gt; will be set to the specified number</span>
-<span class="token comment"># &gt; number of physical cores      --&gt; will be set to the actual number of physical cores</span>
-default_vcpus <span class="token operator">=</span> 1
-
-<span class="token comment"># Default maximum number of vCPUs per SB/VM:</span>
-<span class="token comment"># unspecified or == 0             --&gt; will be set to the actual number of physical cores or to the maximum number</span>
-<span class="token comment">#                                     of vCPUs supported by KVM if that number is exceeded</span>
-<span class="token comment"># &gt; 0 &lt;= number of physical cores --&gt; will be set to the specified number</span>
-<span class="token comment"># &gt; number of physical cores      --&gt; will be set to the actual number of physical cores or to the maximum number</span>
-<span class="token comment">#                                     of vCPUs supported by KVM if that number is exceeded</span>
-<span class="token comment"># WARNING: Depending of the architecture, the maximum number of vCPUs supported by KVM is used when</span>
-<span class="token comment"># the actual number of physical cores is greater than it.</span>
-<span class="token comment"># WARNING: Be aware that this value impacts the virtual machine&apos;s memory footprint and CPU</span>
-<span class="token comment"># the hotplug functionality. For example, `default_maxvcpus = 240` specifies that until 240 vCPUs</span>
-<span class="token comment"># can be added to a SB/VM, but the memory footprint will be big. Another example, with</span>
-<span class="token comment"># `default_maxvcpus = 8` the memory footprint will be small, but 8 will be the maximum number of</span>
-<span class="token comment"># vCPUs supported by the SB/VM. In general, we recommend that you do not edit this variable,</span>
-<span class="token comment"># unless you know what are you doing.</span>
-default_maxvcpus <span class="token operator">=</span> 0
-
-<span class="token comment"># Bridges can be used to hot plug devices.</span>
-<span class="token comment"># Limitations:</span>
-<span class="token comment"># * Currently only pci bridges are supported</span>
-<span class="token comment"># * Until 30 devices per bridge can be hot plugged.</span>
-<span class="token comment"># * Until 5 PCI bridges can be cold plugged per VM.</span>
-<span class="token comment">#   This limitation could be a bug in qemu or in the kernel</span>
-<span class="token comment"># Default number of bridges per SB/VM:</span>
-<span class="token comment"># unspecified or 0   --&gt; will be set to 1</span>
-<span class="token comment"># &gt; 1 &lt;= 5           --&gt; will be set to the specified number</span>
-<span class="token comment"># &gt; 5                --&gt; will be set to 5</span>
-default_bridges <span class="token operator">=</span> 1
-
-<span class="token comment"># Default memory size in MiB for SB/VM.</span>
-<span class="token comment"># If unspecified then it will be set 2048 MiB.</span>
-default_memory <span class="token operator">=</span> 2048
-<span class="token comment">#</span>
-<span class="token comment"># Default memory slots per SB/VM.</span>
-<span class="token comment"># If unspecified then it will be set 10.</span>
-<span class="token comment"># This is will determine the times that memory will be hotadded to sandbox/VM.</span>
-<span class="token comment">#memory_slots = 10</span>
-
-<span class="token comment"># The size in MiB will be plused to max memory of hypervisor.</span>
-<span class="token comment"># It is the memory address space for the NVDIMM devie.</span>
-<span class="token comment"># If set block storage driver (block_device_driver) to &quot;nvdimm&quot;,</span>
-<span class="token comment"># should set memory_offset to the size of block device.</span>
-<span class="token comment"># Default 0</span>
-<span class="token comment">#memory_offset = 0</span>
-
-<span class="token comment"># Disable block device from being used for a container&apos;s rootfs.</span>
-<span class="token comment"># In case of a storage driver like devicemapper where a container&apos;s</span>
-<span class="token comment"># root file system is backed by a block device, the block device is passed</span>
-<span class="token comment"># directly to the hypervisor for performance reasons.</span>
-<span class="token comment"># This flag prevents the block device from being passed to the hypervisor,</span>
-<span class="token comment"># 9pfs is used instead to pass the rootfs.</span>
-disable_block_device_use <span class="token operator">=</span> <span class="token boolean">false</span>
-
-<span class="token comment"># Shared file system type:</span>
-<span class="token comment">#   - virtio-9p (default)</span>
-<span class="token comment">#   - virtio-fs</span>
-shared_fs <span class="token operator">=</span> <span class="token string">&quot;virtio-9p&quot;</span>
-
-<span class="token comment"># Path to vhost-user-fs daemon.</span>
-virtio_fs_daemon <span class="token operator">=</span> <span class="token string">&quot;/usr/bin/virtiofsd-x86_64&quot;</span>
-
-<span class="token comment"># Default size of DAX cache in MiB</span>
-virtio_fs_cache_size <span class="token operator">=</span> 1024
-
-<span class="token comment"># Cache mode:</span>
-<span class="token comment">#</span>
-<span class="token comment">#  - none</span>
-<span class="token comment">#    Metadata, data, and pathname lookup are not cached in guest. They are</span>
-<span class="token comment">#    always fetched from host and any changes are immediately pushed to host.</span>
-<span class="token comment">#</span>
-<span class="token comment">#  - auto</span>
-<span class="token comment">#    Metadata and pathname lookup cache expires after a configured amount of</span>
-<span class="token comment">#    time (default is 1 second). Data is cached while the file is open (close</span>
-<span class="token comment">#    to open consistency).</span>
-<span class="token comment">#</span>
-<span class="token comment">#  - always</span>
-<span class="token comment">#    Metadata, data, and pathname lookup are cached in guest and never expire.</span>
-virtio_fs_cache <span class="token operator">=</span> <span class="token string">&quot;always&quot;</span>
-
-<span class="token comment"># Block storage driver to be used for the hypervisor in case the container</span>
-<span class="token comment"># rootfs is backed by a block device. This is virtio-scsi, virtio-blk</span>
-<span class="token comment"># or nvdimm.</span>
-block_device_driver <span class="token operator">=</span> <span class="token string">&quot;virtio-scsi&quot;</span>
-
-<span class="token comment"># Specifies cache-related options will be set to block devices or not.</span>
-<span class="token comment"># Default false</span>
-<span class="token comment">#block_device_cache_set = true</span>
-
-<span class="token comment"># Specifies cache-related options for block devices.</span>
-<span class="token comment"># Denotes whether use of O_DIRECT (bypass the host page cache) is enabled.</span>
-<span class="token comment"># Default false</span>
-<span class="token comment">#block_device_cache_direct = true</span>
-
-<span class="token comment"># Specifies cache-related options for block devices.</span>
-<span class="token comment"># Denotes whether flush requests for the device are ignored.</span>
-<span class="token comment"># Default false</span>
-<span class="token comment">#block_device_cache_noflush = true</span>
-
-<span class="token comment"># Enable iothreads (data-plane) to be used. This causes IO to be</span>
-<span class="token comment"># handled in a separate IO thread. This is currently only implemented</span>
-<span class="token comment"># for SCSI.</span>
-<span class="token comment">#</span>
-enable_iothreads <span class="token operator">=</span> <span class="token boolean">false</span>
-
-<span class="token comment"># Enable pre allocation of VM RAM, default false</span>
-<span class="token comment"># Enabling this will result in lower container density</span>
-<span class="token comment"># as all of the memory will be allocated and locked</span>
-<span class="token comment"># This is useful when you want to reserve all the memory</span>
-<span class="token comment"># upfront or in the cases where you want memory latencies</span>
-<span class="token comment"># to be very predictable</span>
-<span class="token comment"># Default false</span>
-<span class="token comment">#enable_mem_prealloc = true</span>
-
-<span class="token comment"># Enable huge pages for VM RAM, default false</span>
-<span class="token comment"># Enabling this will result in the VM memory</span>
-<span class="token comment"># being allocated using huge pages.</span>
-<span class="token comment"># This is useful when you want to use vhost-user network</span>
-<span class="token comment"># stacks within the container. This will automatically</span>
-<span class="token comment"># result in memory pre allocation</span>
-<span class="token comment">#enable_hugepages = true</span>
-
-<span class="token comment"># Enable swap of vm memory. Default false.</span>
-<span class="token comment"># The behaviour is undefined if mem_prealloc is also set to true</span>
-<span class="token comment">#enable_swap = true</span>
-
-<span class="token comment"># This option changes the default hypervisor and kernel parameters</span>
-<span class="token comment"># to enable debug output where available. This extra output is added</span>
-<span class="token comment"># to the proxy logs, but only when proxy debug is also enabled.</span>
-<span class="token comment">#</span>
-<span class="token comment"># Default false</span>
-<span class="token comment">#enable_debug = true</span>
-
-<span class="token comment"># Disable the customizations done in the runtime when it detects</span>
-<span class="token comment"># that it is running on top a VMM. This will result in the runtime</span>
-<span class="token comment"># behaving as it would when running on bare metal.</span>
-<span class="token comment">#</span>
-<span class="token comment">#disable_nesting_checks = true</span>
-
-<span class="token comment"># This is the msize used for 9p shares. It is the number of bytes</span>
-<span class="token comment"># used for 9p packet payload.</span>
-<span class="token comment">#msize_9p = 8192</span>
-
-<span class="token comment"># If true and vsocks are supported, use vsocks to communicate directly</span>
-<span class="token comment"># with the agent and no proxy is started, otherwise use unix</span>
-<span class="token comment"># sockets and start a proxy to communicate with the agent.</span>
-<span class="token comment"># Default false</span>
-<span class="token comment">#use_vsock = true</span>
-
-<span class="token comment"># VFIO devices are hotplugged on a bridge by default.</span>
-<span class="token comment"># Enable hotplugging on root bus. This may be required for devices with</span>
-<span class="token comment"># a large PCI bar, as this is a current limitation with hotplugging on</span>
-<span class="token comment"># a bridge. This value is valid for &quot;pc&quot; machine type.</span>
-<span class="token comment"># Default false</span>
-<span class="token comment">#hotplug_vfio_on_root_bus = true</span>
-
-<span class="token comment"># If host doesn&apos;t support vhost_net, set to true. Thus we won&apos;t create vhost fds for nics.</span>
-<span class="token comment"># Default false</span>
-<span class="token comment">#disable_vhost_net = true</span>
-<span class="token comment">#</span>
-<span class="token comment"># Default entropy source.</span>
-<span class="token comment"># The path to a host source of entropy (including a real hardware RNG)</span>
-<span class="token comment"># /dev/urandom and /dev/random are two main options.</span>
-<span class="token comment"># Be aware that /dev/random is a blocking source of entropy.  If the host</span>
-<span class="token comment"># runs out of entropy, the VMs boot time will increase leading to get startup</span>
-<span class="token comment"># timeouts.</span>
-<span class="token comment"># The source of entropy /dev/urandom is non-blocking and provides a</span>
-<span class="token comment"># generally acceptable source of entropy. It should work well for pretty much</span>
-<span class="token comment"># all practical purposes.</span>
-<span class="token comment">#entropy_source= &quot;/dev/urandom&quot;</span>
-
-<span class="token comment"># Path to OCI hook binaries in the *guest rootfs*.</span>
-<span class="token comment"># This does not affect host-side hooks which must instead be added to</span>
-<span class="token comment"># the OCI spec passed to the runtime.</span>
-<span class="token comment">#</span>
-<span class="token comment"># You can create a rootfs with hooks by customizing the osbuilder scripts:</span>
-<span class="token comment"># https://github.com/kata-containers/osbuilder</span>
-<span class="token comment">#</span>
-<span class="token comment"># Hooks must be stored in a subdirectory of guest_hook_path according to their</span>
-<span class="token comment"># hook type, i.e. &quot;guest_hook_path/{prestart,postart,poststop}&quot;.</span>
-<span class="token comment"># The agent will scan these directories for executable files and add them, in</span>
-<span class="token comment"># lexicographical order, to the lifecycle of the guest container.</span>
-<span class="token comment"># Hooks are executed in the runtime namespace of the guest. See the official documentation:</span>
-<span class="token comment"># https://github.com/opencontainers/runtime-spec/blob/v1.0.1/config.md#posix-platform-hooks</span>
-<span class="token comment"># Warnings will be logged if any error is encountered will scanning for hooks,</span>
-<span class="token comment"># but it will not abort container execution.</span>
-<span class="token comment">#guest_hook_path = &quot;/usr/share/oci/hooks&quot;</span>
-
-<span class="token punctuation">[</span>factory<span class="token punctuation">]</span>
-<span class="token comment"># VM templating support. Once enabled, new VMs are created from template</span>
-<span class="token comment"># using vm cloning. They will share the same initial kernel, initramfs and</span>
-<span class="token comment"># agent memory by mapping it readonly. It helps speeding up new container</span>
-<span class="token comment"># creation and saves a lot of memory if there are many kata containers running</span>
-<span class="token comment"># on the same host.</span>
-<span class="token comment">#</span>
-<span class="token comment"># When disabled, new VMs are created from scratch.</span>
-<span class="token comment">#</span>
-<span class="token comment"># Note: Requires &quot;initrd=&quot; to be set (&quot;image=&quot; is not supported).</span>
-<span class="token comment">#</span>
-<span class="token comment"># Default false</span>
-<span class="token comment">#enable_template = true</span>
-
-<span class="token comment"># Specifies the path of template.</span>
-<span class="token comment">#</span>
-<span class="token comment"># Default &quot;/run/vc/vm/template&quot;</span>
-<span class="token comment">#template_path = &quot;/run/vc/vm/template&quot;</span>
-
-<span class="token comment"># The number of caches of VMCache:</span>
-<span class="token comment"># unspecified or == 0   --&gt; VMCache is disabled</span>
-<span class="token comment"># &gt; 0                   --&gt; will be set to the specified number</span>
-<span class="token comment">#</span>
-<span class="token comment"># VMCache is a function that creates VMs as caches before using it.</span>
-<span class="token comment"># It helps speed up new container creation.</span>
-<span class="token comment"># The function consists of a server and some clients communicating</span>
-<span class="token comment"># through Unix socket.  The protocol is gRPC in protocols/cache/cache.proto.</span>
-<span class="token comment"># The VMCache server will create some VMs and cache them by factory cache.</span>
-<span class="token comment"># It will convert the VM to gRPC format and transport it when gets</span>
-<span class="token comment"># requestion from clients.</span>
-<span class="token comment"># Factory grpccache is the VMCache client.  It will request gRPC format</span>
-<span class="token comment"># VM and convert it back to a VM.  If VMCache function is enabled,</span>
-<span class="token comment"># kata-runtime will request VM from factory grpccache when it creates</span>
-<span class="token comment"># a new sandbox.</span>
-<span class="token comment">#</span>
-<span class="token comment"># Default 0</span>
-<span class="token comment">#vm_cache_number = 0</span>
-
-<span class="token comment"># Specify the address of the Unix socket that is used by VMCache.</span>
-<span class="token comment">#</span>
-<span class="token comment"># Default /var/run/kata-containers/cache.sock</span>
-<span class="token comment">#vm_cache_endpoint = &quot;/var/run/kata-containers/cache.sock&quot;</span>
-
-<span class="token punctuation">[</span>proxy.kata<span class="token punctuation">]</span>
-path <span class="token operator">=</span> <span class="token string">&quot;/usr/libexec/kata-containers/kata-proxy&quot;</span>
-
-<span class="token comment"># If enabled, proxy messages will be sent to the system log</span>
-<span class="token comment"># (default: disabled)</span>
-<span class="token comment">#enable_debug = true</span>
-
-<span class="token punctuation">[</span>shim.kata<span class="token punctuation">]</span>
-path <span class="token operator">=</span> <span class="token string">&quot;/usr/libexec/kata-containers/kata-shim&quot;</span>
-
-<span class="token comment"># If enabled, shim messages will be sent to the system log</span>
-<span class="token comment"># (default: disabled)</span>
-<span class="token comment">#enable_debug = true</span>
-
-<span class="token comment"># If enabled, the shim will create opentracing.io traces and spans.</span>
-<span class="token comment"># (See https://www.jaegertracing.io/docs/getting-started).</span>
-<span class="token comment">#</span>
-<span class="token comment"># Note: By default, the shim runs in a separate network namespace. Therefore,</span>
-<span class="token comment"># to allow it to send trace details to the Jaeger agent running on the host,</span>
-<span class="token comment"># it is necessary to set &apos;disable_new_netns=true&apos; so that it runs in the host</span>
-<span class="token comment"># network namespace.</span>
-<span class="token comment">#</span>
-<span class="token comment"># (default: disabled)</span>
-<span class="token comment">#enable_tracing = true</span>
-
-<span class="token punctuation">[</span>agent.kata<span class="token punctuation">]</span>
-<span class="token comment"># If enabled, make the agent display debug-level messages.</span>
-<span class="token comment"># (default: disabled)</span>
-<span class="token comment">#enable_debug = true</span>
-
-<span class="token comment"># Enable agent tracing.</span>
-<span class="token comment">#</span>
-<span class="token comment"># If enabled, the default trace mode is &quot;dynamic&quot; and the</span>
-<span class="token comment"># default trace type is &quot;isolated&quot;. The trace mode and type are set</span>
-<span class="token comment"># explicity with the `trace_type=` and `trace_mode=` options.</span>
-<span class="token comment">#</span>
-<span class="token comment"># Notes:</span>
-<span class="token comment">#</span>
-<span class="token comment"># - Tracing is ONLY enabled when `enable_tracing` is set: explicitly</span>
-<span class="token comment">#   setting `trace_mode=` and/or `trace_type=` without setting `enable_tracing`</span>
-<span class="token comment">#   will NOT activate agent tracing.</span>
-<span class="token comment">#</span>
-<span class="token comment"># - See https://github.com/kata-containers/agent/blob/master/TRACING.md for</span>
-<span class="token comment">#   full details.</span>
-<span class="token comment">#</span>
-<span class="token comment"># (default: disabled)</span>
-<span class="token comment">#enable_tracing = true</span>
-<span class="token comment">#</span>
-<span class="token comment">#trace_mode = &quot;dynamic&quot;</span>
-<span class="token comment">#trace_type = &quot;isolated&quot;</span>
-
-<span class="token punctuation">[</span>netmon<span class="token punctuation">]</span>
-<span class="token comment"># If enabled, the network monitoring process gets started when the</span>
-<span class="token comment"># sandbox is created. This allows for the detection of some additional</span>
-<span class="token comment"># network being added to the existing network namespace, after the</span>
-<span class="token comment"># sandbox has been created.</span>
-<span class="token comment"># (default: disabled)</span>
-<span class="token comment">#enable_netmon = true</span>
-
-<span class="token comment"># Specify the path to the netmon binary.</span>
-path <span class="token operator">=</span> <span class="token string">&quot;/usr/libexec/kata-containers/kata-netmon&quot;</span>
-
-<span class="token comment"># If enabled, netmon messages will be sent to the system log</span>
-<span class="token comment"># (default: disabled)</span>
-<span class="token comment">#enable_debug = true</span>
-
-<span class="token punctuation">[</span>runtime<span class="token punctuation">]</span>
-<span class="token comment"># If enabled, the runtime will log additional debug messages to the</span>
-<span class="token comment"># system log</span>
-<span class="token comment"># (default: disabled)</span>
-<span class="token comment">#enable_debug = true</span>
-<span class="token comment">#</span>
-<span class="token comment"># Internetworking model</span>
-<span class="token comment"># Determines how the VM should be connected to the</span>
-<span class="token comment"># the container network interface</span>
-<span class="token comment"># Options:</span>
-<span class="token comment">#</span>
-<span class="token comment">#   - bridged</span>
-<span class="token comment">#     Uses a linux bridge to interconnect the container interface to</span>
-<span class="token comment">#     the VM. Works for most cases except macvlan and ipvlan.</span>
-<span class="token comment">#</span>
-<span class="token comment">#   - macvtap</span>
-<span class="token comment">#     Used when the Container network interface can be bridged using</span>
-<span class="token comment">#     macvtap.</span>
-<span class="token comment">#</span>
-<span class="token comment">#   - none</span>
-<span class="token comment">#     Used when customize network. Only creates a tap device. No veth pair.</span>
-<span class="token comment">#</span>
-<span class="token comment">#   - tcfilter</span>
-<span class="token comment">#     Uses tc filter rules to redirect traffic from the network interface</span>
-<span class="token comment">#     provided by plugin to a tap interface connected to the VM.</span>
-<span class="token comment">#</span>
-internetworking_model<span class="token operator">=</span><span class="token string">&quot;tcfilter&quot;</span>
-
-<span class="token comment"># disable guest seccomp</span>
-<span class="token comment"># Determines whether container seccomp profiles are passed to the virtual</span>
-<span class="token comment"># machine and applied by the kata agent. If set to true, seccomp is not applied</span>
-<span class="token comment"># within the guest</span>
-<span class="token comment"># (default: true)</span>
-disable_guest_seccomp<span class="token operator">=</span>true
-
-<span class="token comment"># If enabled, the runtime will create opentracing.io traces and spans.</span>
-<span class="token comment"># (See https://www.jaegertracing.io/docs/getting-started).</span>
-<span class="token comment"># (default: disabled)</span>
-<span class="token comment">#enable_tracing = true</span>
-
-<span class="token comment"># If enabled, the runtime will not create a network namespace for shim and hypervisor processes.</span>
-<span class="token comment"># This option may have some potential impacts to your host. It should only be used when you know what you&apos;re doing.</span>
-<span class="token comment"># `disable_new_netns` conflicts with `enable_netmon`</span>
-<span class="token comment"># `disable_new_netns` conflicts with `internetworking_model=bridged` and `internetworking_model=macvtap`. It works only</span>
-<span class="token comment"># with `internetworking_model=none`. The tap device will be in the host network namespace and can connect to a bridge</span>
-<span class="token comment"># (like OVS) directly.</span>
-<span class="token comment"># If you are using docker, `disable_new_netns` only works with `docker run --net=none`</span>
-<span class="token comment"># (default: false)</span>
-<span class="token comment">#disable_new_netns = true</span>
-
-<span class="token comment"># Enabled experimental feature list, format: [&quot;a&quot;, &quot;b&quot;].</span>
-<span class="token comment"># Experimental features are features not stable enough for production,</span>
-<span class="token comment"># They may break compatibility, and are prepared for a big version bump.</span>
-<span class="token comment"># Supported experimental features:</span>
-<span class="token comment"># 1. &quot;newstore&quot;: new persist storage driver which breaks backward compatibility,</span>
-<span class="token comment">#                expected to move out of experimental in 2.0.0.</span>
-<span class="token comment"># (default: [])</span>
-experimental<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">]</span>
-</code></pre>
+<h2 id="32-&#x63D2;&#x4EF6;&#x5206;&#x7C7B;">3.2. &#x63D2;&#x4EF6;&#x5206;&#x7C7B;</h2>
+<p>&#x53C2;&#x8003;&#xFF1A;<a href="https://www.cni.dev/plugins/current/" target="_blank">https://www.cni.dev/plugins/current/</a></p>
+<table>
+<thead>
+<tr>
+<th>&#x5206;&#x7C7B;</th>
+<th>&#x63D2;&#x4EF6;</th>
+<th>&#x8BF4;&#x660E;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>main</td>
+<td>bridge</td>
+<td>Creates a bridge, adds the host and the container to it</td>
+</tr>
+<tr>
+<td></td>
+<td>ipvlan</td>
+<td>Adds an ipvlan interface in the container</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>macvlan</strong></td>
+<td>Creates a new MAC address, forwards all traffic to that to the container</td>
+</tr>
+<tr>
+<td></td>
+<td>ptp</td>
+<td>Creates a veth pair</td>
+</tr>
+<tr>
+<td></td>
+<td><a href="https://www.cni.dev/plugins/current/main/host-device/" target="_blank">host-device</a></td>
+<td>Moves an already-existing device into a container</td>
+</tr>
+<tr>
+<td></td>
+<td>vlan</td>
+<td>Creates a vlan interface off a master</td>
+</tr>
+<tr>
+<td>IPAM</td>
+<td>dhcp</td>
+<td>Runs a daemon on the host to make DHCP requests on behalf of a container</td>
+</tr>
+<tr>
+<td></td>
+<td>host-local</td>
+<td>Maintains a local database of allocated IPs</td>
+</tr>
+<tr>
+<td></td>
+<td>static</td>
+<td>Allocates static IPv4/IPv6 addresses to containers</td>
+</tr>
+<tr>
+<td>meta</td>
+<td>tuning</td>
+<td>Changes sysctl parameters of an existing interface</td>
+</tr>
+<tr>
+<td></td>
+<td>portmap</td>
+<td>An iptables-based portmapping plugin. Maps ports from the host&#x2019;s address space to the container</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>bandwidth</strong></td>
+<td>Allows bandwidth-limiting through use of traffic control tbf (ingress/egress)</td>
+</tr>
+<tr>
+<td></td>
+<td>sbr</td>
+<td>A plugin that configures source based routing for an interface (from which it is chained)</td>
+</tr>
+<tr>
+<td></td>
+<td>firewall</td>
+<td>A firewall plugin which uses iptables or firewalld to add rules to allow traffic to/from the container</td>
+</tr>
+</tbody>
+</table>
+<h1 id="4-cni&#x63D2;&#x4EF6;&#x63A5;&#x53E3;">4. CNI&#x63D2;&#x4EF6;&#x63A5;&#x53E3;</h1>
+<p>&#x5177;&#x4F53;&#x53EF;&#x53C2;&#x8003;&#xFF1A;<a href="https://github.com/containernetworking/cni/blob/master/SPEC.md#cni-operations" target="_blank">https://github.com/containernetworking/cni/blob/master/SPEC.md#cni-operations</a></p>
+<p>CNI&#x5B9A;&#x4E49;&#x7684;&#x63A5;&#x53E3;&#x64CD;&#x4F5C;&#x6709;&#xFF1A;</p>
+<ul>
+<li><code>ADD</code>&#xFF1A;&#x6DFB;&#x52A0;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#xFF0C;&#x5728;&#x5BB9;&#x5668;&#x542F;&#x52A8;&#x65F6;&#x8C03;&#x7528;&#x3002;</li>
+<li><code>DEL</code>&#xFF1A;&#x5220;&#x9664;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#xFF0C;&#x5728;&#x5BB9;&#x5668;&#x5220;&#x9664;&#x65F6;&#x8C03;&#x7528;&#x3002;</li>
+<li><code>CHECK</code>&#xFF1A;&#x68C0;&#x67E5;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#x662F;&#x5426;&#x6B63;&#x5E38;&#x3002;</li>
+<li><code>VERSION</code>&#xFF1A;&#x663E;&#x793A;&#x63D2;&#x4EF6;&#x7248;&#x672C;&#x3002;</li>
+</ul>
+<p>&#x8FD9;&#x4E9B;&#x64CD;&#x4F5C;&#x901A;&#x8FC7;<code>CNI_COMMAND</code>&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x6765;&#x4F20;&#x9012;&#x7ED9;CNI&#x63D2;&#x4EF6;&#x4E8C;&#x8FDB;&#x5236;&#x3002;</p>
+<p>&#x5176;&#x4E2D;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x5305;&#x62EC;&#xFF1A;</p>
+<ul>
+<li><p><code>CNI_COMMAND</code>&#xFF1A;&#x547D;&#x4EE4;&#x64CD;&#x4F5C;&#xFF0C;&#x5305;&#x62EC; <code>ADD</code>, <code>DEL</code>, <code>CHECK</code>, or <code>VERSION</code>&#x3002;</p>
+</li>
+<li><p><code>CNI_CONTAINERID</code>:&#x5BB9;&#x5668;&#x7684;ID&#xFF0C;&#x6709;runtime&#x5206;&#x914D;&#xFF0C;&#x4E0D;&#x4E3A;&#x7A7A;&#x3002;</p>
+</li>
+<li><p><code>CNI_NETNS</code>:&#x5BB9;&#x5668;&#x7684;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#xFF0C;&#x547D;&#x540D;&#x7A7A;&#x95F4;&#x8DEF;&#x5F84;&#xFF0C;&#x4F8B;&#x5982;&#xFF1A;/run/netns/[nsname]</p>
+</li>
+<li><p><code>CNI_IFNAME</code>:&#x5BB9;&#x5668;&#x5185;&#x7684;&#x7F51;&#x5361;&#x540D;&#x79F0;&#x3002;</p>
+</li>
+<li><p><code>CNI_ARGS</code>:&#x5176;&#x4ED6;&#x53C2;&#x6570;&#x3002;</p>
+</li>
+<li><p><code>CNI_PATH</code>:CNI&#x63D2;&#x4EF6;&#x4E8C;&#x8FDB;&#x5236;&#x7684;&#x8DEF;&#x5F84;&#x3002;</p>
+</li>
+</ul>
+<h2 id="41-add&#x63A5;&#x53E3;&#xFF1A;&#x6DFB;&#x52A0;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;">4.1. ADD&#x63A5;&#x53E3;&#xFF1A;&#x6DFB;&#x52A0;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;</h2>
+<p>&#x5728;&#x5BB9;&#x5668;&#x7684;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;<code>CNI_NETNS</code>&#x4E2D;&#x521B;&#x5EFA;<code>CNI_IFNAME</code>&#x7F51;&#x5361;&#x8BBE;&#x5907;&#xFF0C;&#x6216;&#x8005;&#x8C03;&#x6574;&#x7F51;&#x5361;&#x914D;&#x7F6E;&#x3002;</p>
+<p>&#x5FC5;&#x9009;&#x53C2;&#x6570;&#xFF1A;</p>
+<ul>
+<li><code>CNI_COMMAND</code></li>
+<li><code>CNI_CONTAINERID</code></li>
+<li><code>CNI_NETNS</code></li>
+<li><code>CNI_IFNAME</code></li>
+</ul>
+<p>&#x53EF;&#x9009;&#x53C2;&#x6570;&#xFF1A;</p>
+<ul>
+<li><code>CNI_ARGS</code></li>
+<li><code>CNI_PATH</code></li>
+</ul>
+<h2 id="42-del&#x63A5;&#x53E3;&#xFF1A;&#x5220;&#x9664;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;">4.2. DEL&#x63A5;&#x53E3;&#xFF1A;&#x5220;&#x9664;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;</h2>
+<p>&#x5220;&#x9664;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;&#x547D;&#x540D;&#x7A7A;&#x95F4;<code>CNI_NETNS</code>&#x4E2D;&#x7684;&#x5BB9;&#x5668;&#x7F51;&#x5361;<code>CNI_IFNAME</code>&#xFF0C;&#x6216;&#x8005;&#x64A4;&#x9500;ADD&#x4FEE;&#x6539;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x5FC5;&#x9009;&#x53C2;&#x6570;&#xFF1A;</p>
+<ul>
+<li><code>CNI_COMMAND</code></li>
+<li><code>CNI_CONTAINERID</code></li>
+<li><code>CNI_IFNAME</code></li>
+</ul>
+<p>&#x53EF;&#x9009;&#x53C2;&#x6570;&#xFF1A;</p>
+<ul>
+<li><code>CNI_NETNS</code></li>
+<li><code>CNI_ARGS</code></li>
+<li><code>CNI_PATH</code></li>
+</ul>
+<h2 id="43-check&#x63A5;&#x53E3;&#xFF1A;&#x68C0;&#x67E5;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;">4.3. CHECK&#x63A5;&#x53E3;&#xFF1A;&#x68C0;&#x67E5;&#x5BB9;&#x5668;&#x7F51;&#x7EDC;</h2>
+<h2 id="44-version&#x63A5;&#x53E3;&#xFF1A;&#x8F93;&#x51FA;cni&#x7684;&#x7248;&#x672C;">4.4. VERSION&#x63A5;&#x53E3;&#xFF1A;&#x8F93;&#x51FA;CNI&#x7684;&#x7248;&#x672C;</h2>
 <p>&#x53C2;&#x8003;&#xFF1A;</p>
 <ul>
-<li><a href="https://github.com/kata-containers/runtime#configuration" target="_blank">https://github.com/kata-containers/runtime#configuration</a> </li>
+<li><a href="https://www.cni.dev/docs/spec/" target="_blank">https://www.cni.dev/docs/spec/</a></li>
+<li><a href="https://github.com/containernetworking/cni" target="_blank">https://github.com/containernetworking/cni</a></li>
+<li><a href="https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md" target="_blank">https://github.com/containernetworking/cni/blob/spec-v0.4.0/SPEC.md</a></li>
+<li><a href="https://kubernetes.io/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/" target="_blank">https://kubernetes.io/zh/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/</a></li>
+<li><a href="https://github.com/containernetworking/plugins/tree/master/plugins" target="_blank">https://github.com/containernetworking/plugins/tree/master/plugins</a></li>
+<li><a href="https://www.cni.dev/plugins/current/" target="_blank">https://www.cni.dev/plugins/current/</a></li>
+<li><a href="https://cloud.tencent.com/developer/news/600713" target="_blank">https://cloud.tencent.com/developer/news/600713</a></li>
+<li><a href="https://morningspace.github.io/tech/k8s-net-cni/#%E9%85%8D%E7%BD%AEcni%E6%8F%92%E4%BB%B6" target="_blank">&#x914D;&#x7F6E;CNI&#x63D2;&#x4EF6;</a></li>
 </ul>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; www.huweihuang.com 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
-2021-07-18 13:41:22
+2022-03-14 22:46:21
 </span></footer>
                                 
                                 </section>
@@ -3005,12 +2794,8 @@ experimental<span class="token operator">=</span><span class="token punctuation"
 
             
                 
-                <a href="kata-container.html" class="navigation navigation-prev " aria-label="Previous page: kata容器简介">
-                    <i class="fa fa-angle-left"></i>
-                </a>
                 
-                
-                <a href="../../etcd/etcd-introduction.html" class="navigation navigation-next " aria-label="Next page: Etcd介绍">
+                <a href="macvlan.html" class="navigation navigation-next navigation-unique" aria-label="Next page: Macvlan介绍">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -3021,7 +2806,7 @@ experimental<span class="token operator">=</span><span class="token punctuation"
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"kata配置","level":"13.3.2","depth":2,"next":{"title":"Etcd介绍","level":"14.1","depth":1,"path":"etcd/etcd-introduction.md","ref":"etcd/etcd-introduction.md","articles":[]},"previous":{"title":"kata容器简介","level":"13.3.1","depth":2,"path":"runtime/kata/kata-container.md","ref":"runtime/kata/kata-container.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga","disqus","donate"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"huweihuang"},"github":{"url":"https://github.com/huweihuang"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"donate":{"alipay":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599640/blog/donate/alipay.jpg","alipayText":"支付宝打赏","button":"赏","title":"","wechat":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599472/blog/donate/wechatpay.jpg","wechatText":"微信打赏"},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"images/favicon.ico","bookmark":"images/favicon.ico","appleTouch":"images/favicon.ico","appleTouchMore":{"120x120":"images/favicon.ico","180x180":"images/favicon.ico"}},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"paas/k8s.html#fig2.2.1","level":"2.2","list_caption":"Figure: k8s体系","alt":"k8s体系","nro":1,"url":"http://assets.processon.com/chart_image/5d7f7cafe4b08987f55cbee3.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s体系","attributes":{},"skip":false,"key":"2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.1","level":"4.2.2","list_caption":"Figure: pod","alt":"pod","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"4.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.2","level":"4.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"4.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.3","level":"4.2.2","list_caption":"Figure: service","alt":"service","nro":4,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"4.2.2.3"},{"backlink":"concepts/pod/pod-volume.html#fig4.3.5.1","level":"4.3.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.5.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.6.1","level":"4.3.6","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.6.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.6.2","level":"4.3.6","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.6.2"},{"backlink":"principle/kubernetes-core-principle-api-server.html#fig5.1.1.1","level":"5.1.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"5.1.1.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.1","level":"5.1.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":9,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"5.1.2.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.2","level":"5.1.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"5.1.2.2"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.3","level":"5.1.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"5.1.2.3"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.4","level":"5.1.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"5.1.2.4"},{"backlink":"principle/kubernetes-core-principle-scheduler.html#fig5.1.3.1","level":"5.1.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"5.1.3.1"},{"backlink":"network/docker-network.html#fig6.1.1","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/container-network.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.1"},{"backlink":"network/docker-network.html#fig6.1.2","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":15,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/bridge.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.2"},{"backlink":"network/kubernetes-network.html#fig6.2.1","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":16,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/network-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.1"},{"backlink":"network/kubernetes-network.html#fig6.2.2","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":17,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/pod-network.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.1","level":"6.3.1","list_caption":"Figure: 动态路由","alt":"动态路由","nro":18,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/dynamic-route.png","index":1,"caption_template":"图片 - _CAPTION_","label":"动态路由","attributes":{},"skip":false,"key":"6.3.1.1"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.2","level":"6.3.1","list_caption":"Figure: flannel","alt":"flannel","nro":19,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/flannel.png","index":2,"caption_template":"图片 - _CAPTION_","label":"flannel","attributes":{},"skip":false,"key":"6.3.1.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.3","level":"6.3.1","list_caption":"Figure: UDP封装","alt":"UDP封装","nro":20,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578569/article/flannel/udp.png","index":3,"caption_template":"图片 - _CAPTION_","label":"UDP封装","attributes":{},"skip":false,"key":"6.3.1.3"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.4","level":"6.3.1","list_caption":"Figure: docker启动参数","alt":"docker启动参数","nro":21,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/docker-init-args.png","index":4,"caption_template":"图片 - _CAPTION_","label":"docker启动参数","attributes":{},"skip":false,"key":"6.3.1.4"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.5","level":"6.3.1","list_caption":"Figure: 数据发送节点路由表","alt":"数据发送节点路由表","nro":22,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataSendRouteTable.png","index":5,"caption_template":"图片 - _CAPTION_","label":"数据发送节点路由表","attributes":{},"skip":false,"key":"6.3.1.5"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.6","level":"6.3.1","list_caption":"Figure: 数据接收节点路由表","alt":"数据接收节点路由表","nro":23,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataReceiveRouteTable.png","index":6,"caption_template":"图片 - _CAPTION_","label":"数据接收节点路由表","attributes":{},"skip":false,"key":"6.3.1.6"},{"backlink":"resource/lxcfs/lxcfs.html#fig8.4.1","level":"8.4","list_caption":"Figure: lxcfs","alt":"lxcfs","nro":24,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1626002975/article/kubernetes/resource/lxcfs/lxcfs.webp","index":1,"caption_template":"图片 - _CAPTION_","label":"lxcfs","attributes":{},"skip":false,"key":"8.4.1"},{"backlink":"trouble-shooting/node/cgroup-subsystem-not-mount.html#fig11.1.3.1","level":"11.1.3","list_caption":"Figure: kubelet","alt":"kubelet","nro":25,"url":"../../images/troubleshooting/cgroup-not-mount.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kubelet","attributes":{},"skip":false,"key":"11.1.3.1"},{"backlink":"runtime/runtime.html#fig13.1.1.1","level":"13.1.1","list_caption":"Figure: 关系图","alt":"关系图","nro":26,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1631845163/article/kubernetes/containerd/runtime.webp","index":1,"caption_template":"图片 - _CAPTION_","label":"关系图","attributes":{},"skip":false,"key":"13.1.1.1"},{"backlink":"etcd/etcd-introduction.html#fig14.1.1","level":"14.1","list_caption":"Figure: etcd的架构图","alt":"etcd的架构图","nro":27,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/etcd-architecture.jpg","index":1,"caption_template":"图片 - _CAPTION_","label":"etcd的架构图","attributes":{},"skip":false,"key":"14.1.1"},{"backlink":"etcd/raft.html#fig14.2.1","level":"14.2","list_caption":"Figure: raft","alt":"raft","nro":28,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/raft.png","index":1,"caption_template":"图片 - _CAPTION_","label":"raft","attributes":{},"skip":false,"key":"14.2.1"},{"backlink":"multi-cluster/karmada.html#fig15.3.1.1","level":"15.3.1","list_caption":"Figure: img","alt":"img","nro":29,"url":"https://support.huaweicloud.com/productdesc-mcp/zh-cn_image_0000001094636778.png","index":1,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"15.3.1.1"},{"backlink":"multi-cluster/karmada.html#fig15.3.1.2","level":"15.3.1","list_caption":"Figure: img","alt":"img","nro":30,"url":"https://support.huaweicloud.com/productdesc-mcp/zh-cn_image_0000001141316765.png","index":2,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"15.3.1.2"},{"backlink":"kubeedge/kubeedge-arch.html#fig16.1.1","level":"16.1","list_caption":"Figure: kubeedge-arch","alt":"kubeedge-arch","nro":31,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1580806242/article/kubernetes/kubeedge/kubeedge_arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kubeedge-arch","attributes":{},"skip":false,"key":"16.1.1"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig17.1.1","level":"17.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":32,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"17.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig17.2.1","level":"17.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":33,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"17.2.1"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"Golang 学习笔记":"https://www.huweihuang.com/golang-notes/","Linux 学习笔记":"https://www.huweihuang.com/linux-notes/","Blockchain 学习笔记":"https://www.huweihuang.com/blockchain-notes/","数据结构学习笔记":"https://www.huweihuang.com/data-structure-notes/","Kubernetes 学习笔记":"https://www.huweihuang.com/kubernetes-notes/","Kubernetes 源码分析笔记":"https://www.huweihuang.com/k8s-source-code-analysis/","Docker 学习笔记":"https://www.huweihuang.com/docker-notes/","Python 学习笔记":"https://www.huweihuang.com/python-notes/","胡伟煌的博客":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"runtime/kata/kata-container-conf.md","mtime":"2021-07-18T05:41:22.291Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-14T14:51:01.366Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"CNI接口介绍","level":"6.4.1","depth":2,"next":{"title":"Macvlan介绍","level":"6.4.2","depth":2,"path":"network/cni/macvlan.md","ref":"network/cni/macvlan.md","articles":[]},"previous":{"title":"CNI","level":"6.4","depth":1,"ref":"","articles":[{"title":"CNI接口介绍","level":"6.4.1","depth":2,"path":"network/cni/cni.md","ref":"network/cni/cni.md","articles":[]},{"title":"Macvlan介绍","level":"6.4.2","depth":2,"path":"network/cni/macvlan.md","ref":"network/cni/macvlan.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","page-toc-button","image-captions","editlink","back-to-top-button","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga","disqus","donate"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"huweihuang"},"github":{"url":"https://github.com/huweihuang"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"donate":{"alipay":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599640/blog/donate/alipay.jpg","alipayText":"支付宝打赏","button":"赏","title":"","wechat":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599472/blog/donate/wechatpay.jpg","wechatText":"微信打赏"},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"images/favicon.ico","bookmark":"images/favicon.ico","appleTouch":"images/favicon.ico","appleTouchMore":{"120x120":"images/favicon.ico","180x180":"images/favicon.ico"}},"page-toc-button":{},"back-to-top-button":{},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"paas/k8s.html#fig2.2.1","level":"2.2","list_caption":"Figure: k8s体系","alt":"k8s体系","nro":1,"url":"http://assets.processon.com/chart_image/5d7f7cafe4b08987f55cbee3.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s体系","attributes":{},"skip":false,"key":"2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.1","level":"4.2.2","list_caption":"Figure: pod","alt":"pod","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"4.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.2","level":"4.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"4.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.3","level":"4.2.2","list_caption":"Figure: service","alt":"service","nro":4,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"4.2.2.3"},{"backlink":"concepts/pod/pod-volume.html#fig4.3.5.1","level":"4.3.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.5.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.6.1","level":"4.3.6","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.6.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.6.2","level":"4.3.6","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.6.2"},{"backlink":"principle/kubernetes-core-principle-api-server.html#fig5.1.1.1","level":"5.1.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"5.1.1.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.1","level":"5.1.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":9,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"5.1.2.1"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.2","level":"5.1.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"5.1.2.2"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.3","level":"5.1.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"5.1.2.3"},{"backlink":"principle/kubernetes-core-principle-controller-manager.html#fig5.1.2.4","level":"5.1.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"5.1.2.4"},{"backlink":"principle/kubernetes-core-principle-scheduler.html#fig5.1.3.1","level":"5.1.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"5.1.3.1"},{"backlink":"network/docker-network.html#fig6.1.1","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/container-network.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.1"},{"backlink":"network/docker-network.html#fig6.1.2","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":15,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/bridge.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.2"},{"backlink":"network/kubernetes-network.html#fig6.2.1","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":16,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/network-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.1"},{"backlink":"network/kubernetes-network.html#fig6.2.2","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":17,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/pod-network.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.1","level":"6.3.1","list_caption":"Figure: 动态路由","alt":"动态路由","nro":18,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/dynamic-route.png","index":1,"caption_template":"图片 - _CAPTION_","label":"动态路由","attributes":{},"skip":false,"key":"6.3.1.1"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.2","level":"6.3.1","list_caption":"Figure: flannel","alt":"flannel","nro":19,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/flannel.png","index":2,"caption_template":"图片 - _CAPTION_","label":"flannel","attributes":{},"skip":false,"key":"6.3.1.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.3","level":"6.3.1","list_caption":"Figure: UDP封装","alt":"UDP封装","nro":20,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578569/article/flannel/udp.png","index":3,"caption_template":"图片 - _CAPTION_","label":"UDP封装","attributes":{},"skip":false,"key":"6.3.1.3"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.4","level":"6.3.1","list_caption":"Figure: docker启动参数","alt":"docker启动参数","nro":21,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/docker-init-args.png","index":4,"caption_template":"图片 - _CAPTION_","label":"docker启动参数","attributes":{},"skip":false,"key":"6.3.1.4"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.5","level":"6.3.1","list_caption":"Figure: 数据发送节点路由表","alt":"数据发送节点路由表","nro":22,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataSendRouteTable.png","index":5,"caption_template":"图片 - _CAPTION_","label":"数据发送节点路由表","attributes":{},"skip":false,"key":"6.3.1.5"},{"backlink":"network/flannel/flannel-introduction.html#fig6.3.1.6","level":"6.3.1","list_caption":"Figure: 数据接收节点路由表","alt":"数据接收节点路由表","nro":23,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataReceiveRouteTable.png","index":6,"caption_template":"图片 - _CAPTION_","label":"数据接收节点路由表","attributes":{},"skip":false,"key":"6.3.1.6"},{"backlink":"resource/lxcfs/lxcfs.html#fig8.4.1","level":"8.4","list_caption":"Figure: lxcfs","alt":"lxcfs","nro":24,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1626002975/article/kubernetes/resource/lxcfs/lxcfs.webp","index":1,"caption_template":"图片 - _CAPTION_","label":"lxcfs","attributes":{},"skip":false,"key":"8.4.1"},{"backlink":"trouble-shooting/node/cgroup-subsystem-not-mount.html#fig11.1.3.1","level":"11.1.3","list_caption":"Figure: kubelet","alt":"kubelet","nro":25,"url":"../../images/troubleshooting/cgroup-not-mount.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kubelet","attributes":{},"skip":false,"key":"11.1.3.1"},{"backlink":"runtime/runtime.html#fig13.1.1.1","level":"13.1.1","list_caption":"Figure: 关系图","alt":"关系图","nro":26,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1631845163/article/kubernetes/containerd/runtime.webp","index":1,"caption_template":"图片 - _CAPTION_","label":"关系图","attributes":{},"skip":false,"key":"13.1.1.1"},{"backlink":"etcd/etcd-introduction.html#fig14.1.1","level":"14.1","list_caption":"Figure: etcd的架构图","alt":"etcd的架构图","nro":27,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/etcd-architecture.jpg","index":1,"caption_template":"图片 - _CAPTION_","label":"etcd的架构图","attributes":{},"skip":false,"key":"14.1.1"},{"backlink":"etcd/raft.html#fig14.2.1","level":"14.2","list_caption":"Figure: raft","alt":"raft","nro":28,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/raft.png","index":1,"caption_template":"图片 - _CAPTION_","label":"raft","attributes":{},"skip":false,"key":"14.2.1"},{"backlink":"multi-cluster/karmada.html#fig15.3.1.1","level":"15.3.1","list_caption":"Figure: img","alt":"img","nro":29,"url":"https://support.huaweicloud.com/productdesc-mcp/zh-cn_image_0000001094636778.png","index":1,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"15.3.1.1"},{"backlink":"multi-cluster/karmada.html#fig15.3.1.2","level":"15.3.1","list_caption":"Figure: img","alt":"img","nro":30,"url":"https://support.huaweicloud.com/productdesc-mcp/zh-cn_image_0000001141316765.png","index":2,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"15.3.1.2"},{"backlink":"kubeedge/kubeedge-arch.html#fig16.1.1","level":"16.1","list_caption":"Figure: kubeedge-arch","alt":"kubeedge-arch","nro":31,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1580806242/article/kubernetes/kubeedge/kubeedge_arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kubeedge-arch","attributes":{},"skip":false,"key":"16.1.1"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig17.1.1","level":"17.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":32,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"17.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig17.2.1","level":"17.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":33,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"17.2.1"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"Golang 学习笔记":"https://www.huweihuang.com/golang-notes/","Linux 学习笔记":"https://www.huweihuang.com/linux-notes/","Blockchain 学习笔记":"https://www.huweihuang.com/blockchain-notes/","数据结构学习笔记":"https://www.huweihuang.com/data-structure-notes/","Kubernetes 学习笔记":"https://www.huweihuang.com/kubernetes-notes/","Kubernetes 源码分析笔记":"https://www.huweihuang.com/k8s-source-code-analysis/","Docker 学习笔记":"https://www.huweihuang.com/docker-notes/","Python 学习笔记":"https://www.huweihuang.com/python-notes/","胡伟煌的博客":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"network/cni/cni.md","mtime":"2022-03-14T14:46:21.501Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-03-14T14:51:01.366Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
