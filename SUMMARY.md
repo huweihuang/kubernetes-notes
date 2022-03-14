@@ -54,6 +54,7 @@
 * [网络插件]()
     * [Flannel介绍](network/flannel/flannel-introduction.md)
 * [CNI]()
+    * [CNI接口介绍](network/cni/cni.md)
     * [Macvlan介绍](network/cni/macvlan.md)
 
 ## 存储

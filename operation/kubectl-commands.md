@@ -366,7 +366,7 @@ kubectl get secret my-secret -o go-template='{{range $k,$v := .data}}{{"### "}}{
 kubectl get events --sort-by=.metadata.creationTimestamp
 ```
 
-# kubectl日志级别
+# 6. kubectl日志级别
 
 Kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参数后跟一个数字表示日志的级别。 Kubernetes 通用的日志习惯和相关的日志级别在 [这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) 有相应的描述。
 
