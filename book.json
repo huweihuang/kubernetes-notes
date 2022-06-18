@@ -34,7 +34,8 @@
         "sitemap-general",
         "ga",
         "disqus",
-        "donate"
+        "donate",
+        "expandable-chapters"
     ],
     "pluginsConfig": {
         "theme-default": {
