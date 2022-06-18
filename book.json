@@ -21,10 +21,9 @@
         "github",
         "codesnippet",
         "splitter",
-        "page-toc-button",
+        "anchor-navigation-ex",
         "image-captions",
         "editlink",
-        "back-to-top-button",
         "-lunr", "-search", "search-plus",
         "github-buttons@2.1.0",
         "favicon@^0.0.2",
@@ -94,6 +93,17 @@
             "button": "赏",
             "alipayText": "支付宝打赏",
             "wechatText": "微信打赏"
+        },
+        "anchor-navigation-ex": {
+            "tocLevel1Icon": "fa fa-hand-o-right",
+            "tocLevel2Icon": "fa fa-hand-o-right",
+            "tocLevel3Icon": "fa fa-hand-o-right",
+            "multipleH1": false,
+            "multipleH2": false,
+            "multipleH3": false,
+            "multipleH4": false,
+            "showLevelIcon": false,
+            "showLevel": false
         }
     }
 }
