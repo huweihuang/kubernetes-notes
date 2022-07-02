@@ -3,6 +3,7 @@
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/paas/12-factor.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/paas/k8s.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/setup/install-k8s-by-kubeadm.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/setup/install-k8s-by-kubespray.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/setup/install-k8s-by-minikube.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/setup/install-k8s-by-kind.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
@@ -78,9 +79,11 @@
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kube-scheduler/preempt.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/code-analysis/kube-apiserver/NewAPIServerCommand.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/runtime/runtime.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/runtime/containerd/install-containerd.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/docker/docker-notes.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/runtime/kata/kata-container.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/runtime/kata/kata-container-conf.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/gpu/nvidia-device-plugin.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/etcd-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/raft.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/etcd/etcd-setup-flags.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
@@ -96,12 +99,11 @@
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/kubeedge/kubeedge-arch.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/kubeedge/code-analysis/cloudcore.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/kubeedge/code-analysis/edgecore.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/kvm/vm-concept.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/kvm/kubevirt/kubevirt-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
+<url> <loc>https://www.huweihuang.com/kubernetes-notes/kvm/kubevirt/kubevirt-installation.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/monitor/kubernetes-cluster-monitoring.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/monitor/cadvisor-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/monitor/heapster-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 <url> <loc>https://www.huweihuang.com/kubernetes-notes/monitor/influxdb-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/gpu/nvidia-device-plugin.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/kvm/vm-concept.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/kvm/kubevirt/kubevirt-introduction.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
-<url> <loc>https://www.huweihuang.com/kubernetes-notes/kvm/kubevirt/kubevirt-installation.html</loc> <changefreq>weekly</changefreq> <priority>0.5</priority> </url>
 </urlset>

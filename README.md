@@ -15,17 +15,14 @@
 
 ---
 
-## 目录
-
-- [目录](README.md)
-
 ## 云原生体系
 
 - [12-Factor](paas/12-factor.md)
-- [k8s知识体系](paas/k8s.md)
+- [K8S知识体系](paas/k8s.md)
   
 ## 安装与配置
 
+- [使用kubeadm安装生产环境kubernetes](setup/install-k8s-by-kubeadm.md)
 - [使用kubespray安装kubernetes](setup/install-k8s-by-kubespray.md)
 - [使用minikube安装kubernetes](setup/install-k8s-by-minikube.md)
 - [使用kind安装kubernetes](setup/install-k8s-by-kind.md)
@@ -62,7 +59,7 @@
   - [Pod创建流程](principle/flow/pod-flow.md)
   - [PVC创建流程](principle/flow/pvc-flow.md)
 
-## 网络
+## 容器网络
 
 - [Docker网络](network/docker-network.md)
 - [K8S网络](network/kubernetes-network.md)
@@ -72,7 +69,7 @@
   - [CNI接口介绍](network/cni/cni.md)
   - [Macvlan介绍](network/cni/macvlan.md)
 
-## 存储
+## 容器存储
 
 - [存储卷概念]()
   - [Volume](storage/volume.md)
@@ -158,11 +155,15 @@
 
 - [Runtime]()
   - [Runc和Containerd概述](runtime/runtime.md)
+- [Containerd]()
+  - [安装Containerd](runtime/containerd/install-containerd.md)
 - [Docker]()
   - [Docker学习笔记](docker/docker-notes.md)
 - [Kata Container]()
   - [kata容器简介](runtime/kata/kata-container.md)
   - [kata配置](runtime/kata/kata-container-conf.md)
+- [GPU]()
+  - [nvidia-device-plugin介绍](gpu/nvidia-device-plugin.md)
 
 ## Etcd
 
@@ -186,23 +187,12 @@
 - [Karmada]()
   - [Karmada介绍](multi-cluster/karmada.md)
 
-## KubeEdge
+## 边缘容器
 
 - [KubeEdge介绍](kubeedge/kubeedge-arch.md)
 - [KubeEdge源码分析]()
   - [cloudcore](kubeedge/code-analysis/cloudcore.md)
   - [edgecore](kubeedge/code-analysis/edgecore.md)
-
-## 监控体系
-
-- [监控体系介绍](monitor/kubernetes-cluster-monitoring.md)
-- [cAdvisor介绍](monitor/cadvisor-introduction.md)
-- [Heapster介绍](monitor/heapster-introduction.md)
-- [Influxdb介绍](monitor/influxdb-introduction.md)
-
-## GPU
-
-- [nvidia-device-plugin介绍](gpu/nvidia-device-plugin.md)
 
 ## 虚拟化
 
@@ -210,6 +200,13 @@
 - [KubeVirt]()
   - [KubeVirt的介绍](kvm/kubevirt/kubevirt-introduction.md)
   - [KubeVirt的使用](kvm/kubevirt/kubevirt-installation.md)
+
+## 监控体系
+
+- [监控体系介绍](monitor/kubernetes-cluster-monitoring.md)
+- [cAdvisor介绍](monitor/cadvisor-introduction.md)
+- [Heapster介绍](monitor/heapster-introduction.md)
+- [Influxdb介绍](monitor/influxdb-introduction.md)
 
 ---
 
