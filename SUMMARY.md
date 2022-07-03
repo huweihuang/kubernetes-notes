@@ -8,14 +8,16 @@
 
 - [12-Factor](paas/12-factor.md)
 - [K8S知识体系](paas/k8s.md)
-  
+
 ## 安装与配置
 
-- [使用kubeadm安装生产环境kubernetes](setup/install-k8s-by-kubeadm.md)
-- [使用kubespray安装kubernetes](setup/install-k8s-by-kubespray.md)
-- [使用minikube安装kubernetes](setup/install-k8s-by-minikube.md)
-- [使用kind安装kubernetes](setup/install-k8s-by-kind.md)
+- [部署k8s集群]()
+  - [使用kubeadm安装生产环境kubernetes](setup/install-k8s-by-kubeadm.md)
+  - [使用kubespray安装kubernetes](setup/install-k8s-by-kubespray.md)
+  - [使用minikube安装kubernetes](setup/install-k8s-by-minikube.md)
+  - [使用kind安装kubernetes](setup/install-k8s-by-kind.md)
 - [k8s证书及秘钥](setup/k8s-cert.md)
+- [k8s版本说明](setup/k8s-version-release.md)
 
 ## 基本概念
 

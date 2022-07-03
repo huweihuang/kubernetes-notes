@@ -237,17 +237,23 @@ apiServer:
 ```
 
 - networking:
+  
   - podSubnet：Pod CIDR范围
   - serviceSubnet： service CIDR范围
   - dnsDomain
+
 - etcd:
+  
   - dataDir：Etcd的数据存储目录
 
 - apiserver
+  
   - certSANs：设置额外的apiserver的域名签名证书
 
 - imageRepository：镜像仓库
+
 - controlPlaneEndpoint：控制面LB的域名
+
 - kubernetesVersion：k8s版本
 
 ## 4.2. Init配置示例
@@ -368,6 +374,7 @@ Then you can join any number of worker nodes by running the following on each as
 kubeadm join <control-plane-endpoint>:6443 --token <token> \
 --discovery-token-ca-cert-hash sha256:<hash> \
 --control-plane --certificate-key <certificate-key> \
+--cri-socket /run/containerd/containerd.sock \
 --node-name <nodename>
 ```
 
@@ -449,9 +456,11 @@ rm -f /etc/cni/net.d/*
 
 ```bash
 # 重新生成token
+kubeadm token create --print-join-command
+kubeadm token list
+
 # kubeadm token create
 oumnnc.aqlxuvdbntlvzoiv
-
 
 # 重新生成hash
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
@@ -471,5 +480,6 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 - [容器运行时 | Kubernetes](https://kubernetes.io/zh-cn/docs/setup/production-environment/container-runtimes/)
 - https://github.com/Mirantis/cri-dockerd
 - [配置 cgroup 驱动|Kubernetes](https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)
-- [GitHub - flannel-io/flannel: flannel is a network fabric for containers, designed for Kubernetes](https://github.com/flannel-io/flannel)
+- [GitHub: flannel is a network fabric for containers](https://github.com/flannel-io/flannel)
+
 

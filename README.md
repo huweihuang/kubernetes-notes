@@ -1,16 +1,16 @@
 # Kubernetes 学习笔记
 
 > 本系列是 [Kubernetes 学习笔记](https://www.huweihuang.com/kubernetes-notes/)
->
+> 
 > 更多的学习笔记请参考：
->
+> 
 > - [Kubernetes 学习笔记](https://www.huweihuang.com/kubernetes-notes/)
 > - [Kubernetes 源码分析笔记](https://www.huweihuang.com/k8s-source-code-analysis/)
 > - [Docker 学习笔记](https://www.huweihuang.com/docker-notes/)
 > - [Golang 学习笔记](https://www.huweihuang.com/golang-notes/)
 > - [Linux 学习笔记](https://www.huweihuang.com/linux-notes/)
 > - [数据结构学习笔记](https://www.huweihuang.com/data-structure-notes/)
->
+> 
 > 个人博客：[www.huweihuang.com](https://www.huweihuang.com/)
 
 ---
@@ -19,14 +19,16 @@
 
 - [12-Factor](paas/12-factor.md)
 - [K8S知识体系](paas/k8s.md)
-  
+
 ## 安装与配置
 
-- [使用kubeadm安装生产环境kubernetes](setup/install-k8s-by-kubeadm.md)
-- [使用kubespray安装kubernetes](setup/install-k8s-by-kubespray.md)
-- [使用minikube安装kubernetes](setup/install-k8s-by-minikube.md)
-- [使用kind安装kubernetes](setup/install-k8s-by-kind.md)
+- [部署k8s集群]()
+  - [使用kubeadm安装生产环境kubernetes](setup/install-k8s-by-kubeadm.md)
+  - [使用kubespray安装kubernetes](setup/install-k8s-by-kubespray.md)
+  - [使用minikube安装kubernetes](setup/install-k8s-by-minikube.md)
+  - [使用kind安装kubernetes](setup/install-k8s-by-kind.md)
 - [k8s证书及秘钥](setup/k8s-cert.md)
+- [k8s版本说明](setup/k8s-version-release.md)
 
 ## 基本概念
 
@@ -130,23 +132,30 @@
 - [Kubernetes源码分析笔记](code-analysis/code-analysis-notes.md)
 
 - [kubelet]()
+  
   - [NewKubeletCommand](code-analysis/kubelet/NewKubeletCommand.md)
   - [NewMainKubelet](code-analysis/kubelet/NewMainKubelet.md)
   - [startKubelet](code-analysis/kubelet/startKubelet.md)
   - [syncLoopIteration](code-analysis/kubelet/syncLoopIteration.md)
   - [syncPod](code-analysis/kubelet/syncPod.md)
+
 - [kube-controller-manager]()
+  
   - [NewControllerManagerCommand](code-analysis/kube-controller-manager/NewControllerManagerCommand.md)
   - [DeploymentController](code-analysis/kube-controller-manager/deployment-controller.md)
   - [Informer机制](code-analysis/kube-controller-manager/sharedIndexInformer.md)
+
 - [kube-scheduler]()
+  
   - [NewSchedulerCommand](code-analysis/kube-scheduler/NewSchedulerCommand.md)
   - [registerAlgorithmProvider](code-analysis/kube-scheduler/registerAlgorithmProvider.md)
   - [scheduleOne](code-analysis/kube-scheduler/scheduleOne.md)
   - [findNodesThatFit](code-analysis/kube-scheduler/findNodesThatFit.md)
   - [PrioritizeNodes](code-analysis/kube-scheduler/PrioritizeNodes.md)
   - [preempt](code-analysis/kube-scheduler/preempt.md)
+
 - [kube-apiserver]()
+  
   - [NewAPIServerCommand](code-analysis/kube-apiserver/NewAPIServerCommand.md)
 
 ----
@@ -182,9 +191,12 @@
 - [k8s多集群管理的思考](multi-cluster/k8s-multi-cluster-thinking.md)
 
 - [Virtual Kubelet]()
+  
   - [Virtual Kubelet介绍](virtual-kubelet/virtual-kubelet.md)
   - [Virtual Kubelet 命令](virtual-kubelet/virtual-kubelet-cmd.md)
+
 - [Karmada]()
+  
   - [Karmada介绍](multi-cluster/karmada.md)
 
 ## 边缘容器
