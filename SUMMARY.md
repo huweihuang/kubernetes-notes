@@ -1,6 +1,6 @@
 # Summary
 
-## 目录
+## 目录 <a id="introduction"></a>
 
 - [序言](README.md)
 
@@ -11,11 +11,11 @@
 
 ## 安装与配置 <a id="setup"></a>
 
-- [部署k8s集群](setup/README.md)
-  - [使用kubeadm安装生产环境kubernetes](setup/install-k8s-by-kubeadm.md)
-  - [使用kubespray安装kubernetes](setup/install-k8s-by-kubespray.md)
-  - [使用minikube安装kubernetes](setup/install-k8s-by-minikube.md)
-  - [使用kind安装kubernetes](setup/install-k8s-by-kind.md)
+- [部署k8s集群](setup/installer/README.md)
+  - [使用kubeadm安装生产环境kubernetes](setup/installer/install-k8s-by-kubeadm.md)
+  - [使用kubespray安装kubernetes](setup/installer/install-k8s-by-kubespray.md)
+  - [使用minikube安装kubernetes](setup/installer/install-k8s-by-minikube.md)
+  - [使用kind安装kubernetes](setup/installer/install-k8s-by-kind.md)
 - [k8s证书及秘钥](setup/k8s-cert.md)
 - [k8s版本说明](setup/k8s-version-release.md)
 
@@ -54,7 +54,7 @@
 
 - [Docker网络](network/docker-network.md)
 - [K8S网络](network/kubernetes-network.md)
-- [网络插件](network/README.md)
+- [网络插件](network/flannel/README.md)
   - [Flannel介绍](network/flannel/flannel-introduction.md)
 - [CNI](network/cni/README.md)
   - [CNI接口介绍](network/cni/cni.md)
@@ -62,17 +62,17 @@
 
 ## 容器存储 <a id="storage"></a>
 
-- [存储卷概念](storage/README.md)
-  - [Volume](storage/volume.md)
-  - [Persistent Volume](storage/persistent-volume.md)
-  - [Persistent Volume Claim](storage/persistent-volume-claim.md)
-  - [Storage Class](storage/storage-class.md)
-  - [Dynamic Volume Provisioning](storage/dynamic-provisioning.md)
-- [CSI](csi/README.md)
-  - [csi-cephfs-plugin](csi/ceph/csi-cephfs-plugin.md)
-  - [部署csi-cephfs](csi/ceph/deploy-csi-cephfs.md)
-  - [部署cephfs-provisioner](csi/provisioner/cephfs-provisioner.md)
-  - [FlexVolume介绍](csi/flexvolume.md)
+- [存储卷概念](storage/volume/README.md)
+  - [Volume](storage/volume/volume.md)
+  - [Persistent Volume](storage/volume/persistent-volume.md)
+  - [Persistent Volume Claim](storage/volume/persistent-volume-claim.md)
+  - [Storage Class](storage/volume/storage-class.md)
+  - [Dynamic Volume Provisioning](storage/volume/dynamic-provisioning.md)
+- [CSI](storage/csi/README.md)
+  - [csi-cephfs-plugin](storage/csi/ceph/csi-cephfs-plugin.md)
+  - [部署csi-cephfs](storage/csi/ceph/deploy-csi-cephfs.md)
+  - [部署cephfs-provisioner](storage/csi/provisioner/cephfs-provisioner.md)
+  - [FlexVolume介绍](storage/csi/flexvolume.md)
 
 ## 资源隔离 <a id="resource"></a>
 
@@ -83,14 +83,14 @@
 
 ## 运维指南 <a id="operation"></a>
 
-- [kubectl工具](operation/README.md)
-  - [kubectl安装与配置](operation/install-kubectl.md)
-  - [kubectl命令说明](operation/kubectl-commands.md)
-  - [kubectl命令别名](operation/kubectl-alias.md)
+- [kubectl工具](operation/kubectl/README.md)
+  - [kubectl安装与配置](operation/kubectl/install-kubectl.md)
+  - [kubectl命令说明](operation/kubectl/kubectl-commands.md)
+  - [kubectl命令别名](operation/kubectl/kubectl-alias.md)
 - [kubernetes集群问题排查](operation/kubernetes-troubleshooting.md)
-- [节点调度](operation/README.md)
-  - [安全迁移节点](operation/safely-drain-node.md)
-  - [指定Node调度与隔离](operation/nodeselector-and-taint.md)
+- [节点调度](operation/node/README.md)
+  - [安全迁移节点](operation/node/safely-drain-node.md)
+  - [指定Node调度与隔离](operation/node/nodeselector-and-taint.md)
 - [镜像仓库配置](operation/registry/README.md)
   - [配置私有的镜像仓库](operation/registry/config-private-registry.md)
   - [拉取私有镜像](operation/registry/ImagePullSecrets.md)
@@ -106,7 +106,7 @@
 
 ## 问题排查 <a id="trouble-shooting"></a>
 
-- [节点相关问题](trouble-shooting/README.md)
+- [节点相关问题](trouble-shooting/node/README.md)
   - [keycreate permission denied](trouble-shooting/node/keycreate-permission-denied.md)
   - [Cgroup不支持pid资源](trouble-shooting/node/cgroup-pid-error.md)
   - [Cgroup子系统无法挂载](trouble-shooting/node/cgroup-subsystem-not-mount.md)
@@ -147,7 +147,7 @@
   - [Runc和Containerd概述](runtime/runtime.md)
 - [Containerd](runtime/containerd/README.md)
   - [安装Containerd](runtime/containerd/install-containerd.md)
-- [Docker]()
+- [Docker](docker/README.md)
   - [Docker学习笔记](docker/docker-notes.md)
 - [Kata Container](runtime/kata/README.md)
   - [kata容器简介](runtime/kata/kata-container.md)
@@ -161,32 +161,32 @@
 - [Raft算法](etcd/raft.md)
 - [Etcd启动配置参数](etcd/etcd-setup-flags.md)
 - [Etcd访问控制](etcd/etcd-auth-and-security.md)
-- [etcdctl命令工具](etcd/README.md)
-  - [etcdctl命令工具-V3](etcd/etcdctl-v3.md)
-  - [etcdctl命令工具-V2](etcd/etcdctl-v2.md)
+- [etcdctl命令工具](etcd/etcdctl/README.md)
+  - [etcdctl命令工具-V3](etcd/etcdctl/etcdctl-v3.md)
+  - [etcdctl命令工具-V2](etcd/etcdctl/etcdctl-v2.md)
 - [Etcd中的k8s数据](etcd/k8s-etcd-data.md)
 - [Etcd-Operator的使用](etcd/etcd-operator-usage.md)
 
 ## 多集群管理 <a id="multi-cluster"></a>
 
 - [k8s多集群管理的思考](multi-cluster/k8s-multi-cluster-thinking.md)
-- [Virtual Kubelet](virtual-kubelet/README.md)
-  - [Virtual Kubelet介绍](virtual-kubelet/virtual-kubelet.md)
-  - [Virtual Kubelet 命令](virtual-kubelet/virtual-kubelet-cmd.md)
-- [Karmada](multi-cluster/README.md)
-  - [Karmada介绍](multi-cluster/karmada.md)
+- [Virtual Kubelet](multi-cluster/virtual-kubelet/README.md)
+  - [Virtual Kubelet介绍](multi-cluster/virtual-kubelet/virtual-kubelet.md)
+  - [Virtual Kubelet 命令](multi-cluster/virtual-kubelet/virtual-kubelet-cmd.md)
+- [Karmada](multi-cluster/karmada/README.md)
+  - [Karmada介绍](multi-cluster/karmada/karmada-introduction.md)
 
 ## 边缘容器 <a id="kubeedge"></a>
 
 - [KubeEdge介绍](kubeedge/kubeedge-arch.md)
-- [KubeEdge源码分析](kubeedge/README.md)
+- [KubeEdge源码分析](kubeedge/code-analysis/README.md)
   - [cloudcore](kubeedge/code-analysis/cloudcore.md)
   - [edgecore](kubeedge/code-analysis/edgecore.md)
 
 ## 虚拟化 <a id="kvm"></a>
 
 - [虚拟化相关概念](kvm/vm-concept.md)
-- [KubeVirt](kvm/README.md)
+- [KubeVirt](kvm/kubevirt/README.md)
   - [KubeVirt的介绍](kvm/kubevirt/kubevirt-introduction.md)
   - [KubeVirt的使用](kvm/kubevirt/kubevirt-installation.md)
 
