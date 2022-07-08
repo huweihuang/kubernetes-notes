@@ -13,7 +13,7 @@ catagories:
 
 # 1. Kubernetes的总架构图
 
-<img src="http://res.cloudinary.com/dqxtn0ick/image/upload/v1512807164/article/kubernetes/arch/k8s-arch.jpg" width="90%">
+<img src="http://res.cloudinary.com/dqxtn0ick/image/upload/v1512807164/article/kubernetes/arch/k8s-arch.jpg" width="100%">
 
 # 2. Kubernetes各个组件介绍
 

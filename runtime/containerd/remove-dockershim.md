@@ -11,3 +11,5 @@
 - [Dockershim removal feedback & issues ](https://github.com/kubernetes/kubernetes/issues/106917)
 
 - [将 Docker Engine 节点从 dockershim 迁移到 cri-dockerd | Kubernetes](https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/migrate-dockershim-dockerd/)
+
+- [查明节点上所使用的容器运行时 | Kubernetes](https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/migrating-from-dockershim/find-out-runtime-you-use/)

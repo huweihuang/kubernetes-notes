@@ -1,9 +1,9 @@
-# Ubuntu安装containerd
+# 1. Ubuntu安装containerd
 
 以下以Ubuntu为例
 
 > 说明：安装containerd与安装docker流程基本一致，差别在于不需要安装docker-ce
->
+> 
 > - `containerd`: apt-get install -y containerd.io
 > - `docker`: apt-get install docker-ce docker-ce-cli containerd.io
 
@@ -68,7 +68,7 @@ systemctl status containerd
 ```bash
 # 查看版本
 apt-cache madison containerd
- 
+
 # sudo apt-get install containerd=<VERSION>
 ```
 
@@ -79,7 +79,6 @@ apt-cache madison containerd
 1、生成默认配置
 
 ```bash
-# 生成默认配置
 containerd config default > /etc/containerd/config.toml
 ```
 
@@ -100,9 +99,63 @@ k8s官方推荐使用systemd类型的CgroupDriver。
 systemctl restart containerd
 ```
 
+# 2. 离线二进制安装containerd
 
+把`containerd`、`runc`、`cni-plugins`、`nerdctl`二进制下载到本地，再上传到对应服务器，解压文件到对应目录，修改containerd配置文件，启动containerd。
 
+```bash
+#!/bin/bash
+set -e
 
+ContainerdVersion=$1
+ContainerdVersion=${ContainerdVersion:-1.6.6}
+
+RuncVersion=$2
+RuncVersion=${RuncVersion:-1.1.3}
+
+CniVersion=$3
+CniVersion=${CniVersion:-1.1.1}
+
+NerdctlVersion=$4
+NerdctlVersion=${NerdctlVersion:-0.21.0}
+
+CrictlVersion=$5
+CrictlVersion=${CrictlVersion:-1.24.2}
+
+echo "--------------install containerd--------------"
+wget https://github.com/containerd/containerd/releases/download/v${ContainerdVersion}/containerd-${ContainerdVersion}-linux-amd64.tar.gz
+tar Cxzvf /usr/local containerd-${ContainerdVersion}-linux-amd64.tar.gz
+
+echo "--------------install containerd service--------------"
+wget https://raw.githubusercontent.com/containerd/containerd/681aaf68b7dcbe08a51c3372cbb8f813fb4466e0/containerd.service
+mv containerd.service /lib/systemd/system/
+
+mkdir -p /etc/containerd/
+containerd config default > /etc/containerd/config.toml
+
+echo "--------------install runc--------------"
+wget https://github.com/opencontainers/runc/releases/download/v${RuncVersion}/runc.amd64
+chmod +x runc.amd64
+mv runc.amd64 /usr/local/bin/runc
+
+echo "--------------install cni plugins--------------"
+wget https://github.com/containernetworking/plugins/releases/download/v${CniVersion}/cni-plugins-linux-amd64-v${CniVersion}.tgz
+rm -fr /opt/cni/bin
+mkdir -p /opt/cni/bin
+tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v${CniVersion}.tgz
+
+echo "--------------install nerdctl--------------"
+wget https://github.com/containerd/nerdctl/releases/download/v${NerdctlVersion}/nerdctl-${NerdctlVersion}-linux-amd64.tar.gz
+tar Cxzvf /usr/local/bin nerdctl-${NerdctlVersion}-linux-amd64.tar.gz
+
+echo "--------------install crictl--------------"
+wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v${CrictlVersion}/crictl-v${CrictlVersion}-linux-amd64.tar.gz
+tar Cxzvf /usr/local/bin crictl-v${CrictlVersion}-linux-amd64.tar.gz
+
+# 启动containerd服务
+systemctl daemon-reload
+systemctl restart contaienrd
+```
 
 参考：
 
@@ -113,3 +166,9 @@ systemctl restart containerd
 - https://docs.docker.com/engine/install/ubuntu/
 
 - https://kubernetes.io/docs/setup/production-environment/container-runtimes/#containerd
+
+- [containerd/containerd.service at main · containerd/containerd · GitHub](https://github.com/containerd/containerd/blob/main/containerd.service)
+
+- [GitHub - containerd/nerdctl: containerd ctl ](https://github.com/containerd/nerdctl)
+
+- [GitHub - kubernetes-sigs/cri-tools: CLI and validation tools for Kubelet Container Runtime Interface (CRI) .](https://github.com/kubernetes-sigs/cri-tools)

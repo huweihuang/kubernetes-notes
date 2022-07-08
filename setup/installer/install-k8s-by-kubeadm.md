@@ -2,6 +2,36 @@
 
 # 1. 环境准备
 
+## 1.0. master硬件配置
+
+参考：
+
+- [Master节点规格](https://help.aliyun.com/document_detail/98886.html)
+
+- [高可靠推荐配置 - 容器服务 ACK - 阿里云](https://help.aliyun.com/document_detail/94292.html)
+
+Kubernetes集群Master节点上运行着etcd、kube-apiserver、kube-controller等核心组件，对于Kubernetes集群的稳定性有着至关重要的影响，对于生产环境的集群，必须慎重选择Master规格。Master规格跟集群规模有关，集群规模越大，所需要的Master规格也越高。
+
+**说明** ：可从多个角度衡量集群规模，例如节点数量、Pod数量、部署频率、访问量。这里简单的认为集群规模就是集群里的节点数量。
+
+对于常见的集群规模，可以参见如下的方式选择Master节点的规格（对于测试环境，规格可以小一些。下面的选择能尽量保证Master负载维持在一个较低的水平上）。
+
+| 节点规模           | Master规格          | 磁盘         |
+| -------------- | ----------------- | ---------- |
+| 1~5个节点         | 4核8 GB（不建议2核4 GB） |            |
+| 6~20个节点        | 4核16 GB           |            |
+| 21~100个节点      | 8核32 GB           |            |
+| **100~200个节点** | **16核64 GB**      |            |
+| **1000个节点**    | **32核128GB**      | **1T SSD** |
+
+**注意事项：**
+
+- **由于Etcd的性能瓶颈，Etcd的数据存储盘尽量选择SSD磁盘。**
+
+- **为了实现多机房容灾，可将三台master分布在一个可用区下三个不同机房。**（机房之间的网络延迟在10毫秒及以下级别）
+
+- **申请LB来做master节点的负载均衡实现高可用，LB作为apiserver的访问地址。**
+
 ## 1.1. 设置防火墙端口策略
 
 生产环境设置k8s节点的iptables端口访问规则。
@@ -85,7 +115,6 @@ apt install -y containerd.io
 2、生成默认配置
 
 ```bash
-# 生成默认配置
 containerd config default > /etc/containerd/config.toml
 ```
 
@@ -156,7 +185,10 @@ EOF
 
 # 安装指定版本的kubeadm, kubelet, kubectl
 apt-get update
-apt-get install -y kubelet=1.21.10-00 kubeadm=1.21.10-00 kubectl=1.21.10-00
+apt-get install -y kubelet=1.24.2-00 kubeadm=1.24.2-00 kubectl=1.24.2-00
+
+# 查询有哪些版本
+apt-cache madison kubeadm
 ```
 
 # 4. 配置kubeadm config
@@ -267,7 +299,7 @@ kubeadm config print init-defaults > kubeadm-config.yaml
 修改配置内容
 
 ```yaml
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 bootstrapTokens:
 - groups:
   - system:bootstrappers:kubeadm:default-node-token
@@ -281,7 +313,8 @@ localAPIEndpoint:
   advertiseAddress: 1.2.3.4 # 修改为apiserver的IP 或者去掉localAPIEndpoint则会读取默认IP。
   bindPort: 6443
 nodeRegistration:
-  criSocket: /run/containerd/containerd.sock
+  criSocket: unix:///var/run/containerd/containerd.sock
+  imagePullPolicy: IfNotPresent
   name: node
   taints: null
 ---
@@ -290,19 +323,18 @@ apiServer:
   - lb.k8s.domain  # 添加额外的apiserver的域名
   - <vip/lb_ip>
   timeoutForControlPlane: 4m0s
-apiVersion: kubeadm.k8s.io/v1beta2
+apiVersion: kubeadm.k8s.io/v1beta3
 certificatesDir: /etc/kubernetes/pki
 clusterName: kubernetes
 controllerManager: {}
-dns:
-  type: CoreDNS
+dns: {}   # 默认为coredns
 etcd:
   local:
     dataDir: /data/etcd   # 修改etcd的存储盘目录
 imageRepository: k8s.gcr.io  # 修改镜像仓库地址
 controlPlaneEndpoint: lb.k8s.domain  # 修改控制面域名
 kind: ClusterConfiguration
-kubernetesVersion: 1.21.0  # k8s 版本
+kubernetesVersion: 1.24.0  # k8s 版本
 networking:
   dnsDomain: cluster.local
   serviceSubnet: 10.96.0.0/12
@@ -331,7 +363,7 @@ kubeadm config images pull
 ## 5.1. 安装master
 
 ```bash
-sudo kubeadm init --config kubeadm-config.yaml --upload-certs --cri-socket /run/containerd/containerd.sock --node-name <nodename>
+sudo kubeadm init --config kubeadm-config.yaml --upload-certs  --node-name <nodename>
 ```
 
 部署参数说明：
@@ -374,7 +406,6 @@ Then you can join any number of worker nodes by running the following on each as
 kubeadm join <control-plane-endpoint>:6443 --token <token> \
 --discovery-token-ca-cert-hash sha256:<hash> \
 --control-plane --certificate-key <certificate-key> \
---cri-socket /run/containerd/containerd.sock \
 --node-name <nodename>
 ```
 
@@ -468,6 +499,30 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 
 基于新生成的token重新添加节点。
 
+## 9.2. 修改kubeadm join的master IP或端口
+
+`kubeadm join`命令会去`kube-public`命名空间获取名为`cluster-info`的`ConfigMap`。如果需要修改kubeadm join使用的master的IP或端口，则需要修改cluster-info的configmap。
+
+```bash
+# 查看cluster-info
+kubectl -n kube-public get configmaps cluster-info -o yaml
+
+# 修改cluster-info
+kubectl -n kube-public edit configmaps cluster-info
+```
+
+修改配置文件中的`server`字段
+
+```yaml
+clusters:
+- cluster:
+    certificate-authority-data: xxx
+    server: https://lb.k8s.domain:36443
+  name: ""
+```
+
+执行kubeadm join的命令时指定新修改的master地址。
+
 参考：
 
 - [利用 kubeadm 创建高可用集群 | Kubernetes](https://kubernetes.io/zh-cn/docs/setup/production-environment/tools/kubeadm/high-availability/)
@@ -481,5 +536,3 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 - https://github.com/Mirantis/cri-dockerd
 - [配置 cgroup 驱动|Kubernetes](https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)
 - [GitHub: flannel is a network fabric for containers](https://github.com/flannel-io/flannel)
-
-
