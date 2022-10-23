@@ -13,7 +13,14 @@
 > 
 > 个人博客：
 > - [www.huweihuang.com](https://www.huweihuang.com/)
+> - [blog.huweihuang.com](https://blog.huweihuang.com/)
 > - [k8s.huweihuang.com](https://k8s.huweihuang.com/)
+
+# 微信公众号
+
+微信公众号：容器云架构
+
+<img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1551600382/blog/wechat-public-acconut.jpg" width="35%">
 
 ---
 
@@ -160,13 +167,13 @@
   - [Runc和Containerd概述](runtime/runtime.md)
 - [Containerd](runtime/containerd/README.md)
   - [安装Containerd](runtime/containerd/install-containerd.md)
-- [Docker](docker/README.md)
-  - [Docker学习笔记](docker/docker-notes.md)
+- [Docker](runtime/docker/README.md)
+  - [Docker学习笔记](runtime/docker/docker-notes.md)
 - [Kata Container](runtime/kata/README.md)
   - [kata容器简介](runtime/kata/kata-container.md)
   - [kata配置](runtime/kata/kata-container-conf.md)
-- [GPU](gpu/README.md)
-  - [nvidia-device-plugin介绍](gpu/nvidia-device-plugin.md)
+- [GPU](runtime/gpu/README.md)
+  - [nvidia-device-plugin介绍](runtime/gpu/nvidia-device-plugin.md)
 
 ## Etcd
 
@@ -191,10 +198,11 @@
 
 ## 边缘容器
 
-- [KubeEdge介绍](kubeedge/kubeedge-arch.md)
-- [KubeEdge源码分析](kubeedge/code-analysis/README.md)
-  - [cloudcore](kubeedge/code-analysis/cloudcore.md)
-  - [edgecore](kubeedge/code-analysis/edgecore.md)
+- [KubeEdge介绍](edge/kubeedge/kubeedge-arch.md)
+- [KubeEdge源码分析](edge/kubeedge/code-analysis/README.md)
+  - [cloudcore](edge/kubeedge/code-analysis/cloudcore.md)
+  - [edgecore](edge/kubeedge/code-analysis/edgecore.md)
+- [OpenYurt部署](edge/openyurt/install-openyurt.md)  
 
 ## 虚拟化
 

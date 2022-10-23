@@ -191,6 +191,55 @@ apt-get install -y kubelet=1.24.2-00 kubeadm=1.24.2-00 kubectl=1.24.2-00
 apt-cache madison kubeadm
 ```
 
+**离线下载安装**
+
+```bash
+#!/bin/bash
+Version=${Version:-1.24.2}
+wget https://dl.k8s.io/release/v${Version}/bin/linux/amd64/kubeadm
+wget https://dl.k8s.io/release/v${Version}/bin/linux/amd64/kubelet
+wget https://dl.k8s.io/release/v${Version}/bin/linux/amd64/kubectl
+chmod +x kubeadm kubelet kubectl
+cp kubeadm kubelet kubectl /usr/bin/
+
+# add kubelet serivce
+cat > /lib/systemd/system/kubelet.service << EOF
+[Unit]
+Description=kubelet: The Kubernetes Node Agent
+Documentation=https://kubernetes.io/docs/home/
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/kubelet
+Restart=always
+StartLimitInterval=0
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+mkdir -p /etc/systemd/system/kubelet.service.d
+cat > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf << EOF
+# Note: This dropin only works with kubeadm and kubelet v1.11+
+[Service]
+Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
+Environment="KUBELET_CONFIG_ARGS=--config=/var/lib/kubelet/config.yaml"
+# This is a file that "kubeadm init" and "kubeadm join" generates at runtime, populating the KUBELET_KUBEADM_ARGS variable dynamically
+EnvironmentFile=-/var/lib/kubelet/kubeadm-flags.env
+# This is a file that the user can use for overrides of the kubelet args as a last resort. Preferably, the user should use
+# the .NodeRegistration.KubeletExtraArgs object in the configuration files instead. KUBELET_EXTRA_ARGS should be sourced from this file.
+EnvironmentFile=-/etc/default/kubelet
+ExecStart=
+ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS
+EOF
+
+
+systemctl daemon-reload
+systemctl restart kubelet
+```
+
 # 4. 配置kubeadm config
 
 参考：
@@ -446,7 +495,17 @@ ifconfig cni0 down
 ip link delete cni0
 ```
 
-# 8. 重置部署
+# 8. 部署dashboard
+
+```bash
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/aio/deploy/recommended.yaml
+```
+
+镜像： kubernetesui/dashboard:v2.5.0
+
+默认端口：8443
+
+# 9. 重置部署
 
 ```bash
 # kubeadm重置
@@ -469,9 +528,9 @@ rm -rf /var/lib/cni/
 rm -f /etc/cni/net.d/*
 ```
 
-# 9. 问题排查
+# 10. 问题排查
 
-## 9.1. kubeadm token过期
+## 10.1. kubeadm token过期
 
 问题描述:
 
@@ -499,7 +558,7 @@ openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outfor
 
 基于新生成的token重新添加节点。
 
-## 9.2. 修改kubeadm join的master IP或端口
+## 10.2. 修改kubeadm join的master IP或端口
 
 `kubeadm join`命令会去`kube-public`命名空间获取名为`cluster-info`的`ConfigMap`。如果需要修改kubeadm join使用的master的IP或端口，则需要修改cluster-info的configmap。
 
@@ -536,3 +595,4 @@ clusters:
 - https://github.com/Mirantis/cri-dockerd
 - [配置 cgroup 驱动|Kubernetes](https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/kubeadm/configure-cgroup-driver/)
 - [GitHub: flannel is a network fabric for containers](https://github.com/flannel-io/flannel)
+- [部署和访问 Kubernetes 仪表板（Dashboard） | Kubernetes](https://kubernetes.io/zh-cn/docs/tasks/access-application-cluster/web-ui-dashboard/)
