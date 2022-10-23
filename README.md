@@ -13,7 +13,14 @@
 > 
 > 个人博客：
 > - [www.huweihuang.com](https://www.huweihuang.com/)
+> - [blog.huweihuang.com](https://blog.huweihuang.com/)
 > - [k8s.huweihuang.com](https://k8s.huweihuang.com/)
+
+# 微信公众号
+
+微信公众号：容器云架构
+
+<img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1551600382/blog/wechat-public-acconut.jpg" width="35%">
 
 ---
 

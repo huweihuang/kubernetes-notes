@@ -134,7 +134,7 @@ wget https://raw.githubusercontent.com/openyurtio/openyurt/master/config/setup/y
 kubectl apply -f yurt-tunnel-agent.yaml
 ```
 
-> 由于yurt-tunnel-server默认使用host模式，因此可能存在边缘段的agent无法访问云端的tunnel-server，需要为tunnel-server配置一个可访问的地址。
+> 由于yurt-tunnel-server默认使用host模式，因此可能存在边缘端的agent无法访问云端的tunnel-server，需要为tunnel-server配置一个可访问的地址。
 
 
 
