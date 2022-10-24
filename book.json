@@ -35,7 +35,8 @@
         "ga",
         "disqus",
         "donate",
-        "expandable-chapters"
+        "expandable-chapters",
+        "readmore"
     ],
     "pluginsConfig": {
         "theme-default": {
@@ -105,6 +106,13 @@
             "multipleH4": false,
             "showLevelIcon": false,
             "showLevel": false
+        },
+        "readmore":{
+            "allowDomain":["www.huweihuang.com","localhost"],
+            "blogId": "30679-1666530720672-990",
+            "name": "容器云架构",
+            "qrcode": "https://res.cloudinary.com/dqxtn0ick/image/upload/v1551600382/blog/wechat-public-acconut.jpg",
+            "keyword": "vip"
         }
     }
 }
