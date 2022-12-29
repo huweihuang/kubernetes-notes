@@ -1,3 +1,16 @@
+---
+title: "Docker整体架构图"
+linkTitle: "Docker架构图"
+weight: 3
+catalog: true
+date: 2017-07-09 10:50:57
+subtitle:
+tags:
+- Docker
+catagories:
+- Docker
+---
+
 # 1. Docker的总架构图 
 
 <img src="http://res.cloudinary.com/dqxtn0ick/image/upload/v1510577966/article/docker/dockerArch/docker-architecture.jpg" width="60%"/>

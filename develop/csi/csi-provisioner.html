@@ -1,0 +1,3393 @@
+
+<!DOCTYPE HTML>
+<html lang="zh-hans" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>csi-provisioner源码分析 · Kubernetes 学习笔记</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        <meta name="author" content="胡伟煌">
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-splitter/splitter.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchor-navigation-ex/style/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-image-captions/image-captions.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-search-plus/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-tbfed-pagefooter/footer.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-prism/prism-okaidia.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-disqus/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-donate/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../operator/_index.html" />
+    
+    
+    <link rel="prev" href="nfs-client-provisioner.html" />
+    
+
+    
+        <link rel="shortcut icon" href='../../images/favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="bookmark" href='../../images/favicon.ico' type="image/x-icon">
+    
+    
+        <link rel="apple-touch-icon" href='../../images/favicon.ico'>
+    
+    
+        
+        <link rel="apple-touch-icon" sizes="120x120" href="../../images/favicon.ico">
+        
+        <link rel="apple-touch-icon" sizes="180x180" href="../../images/favicon.ico">
+        
+    
+
+    <style>
+    @media only screen and (max-width: 640px) {
+        .book-header .hidden-mobile {
+            display: none;
+        }
+    }
+    </style>
+    <script>
+        window["gitbook-plugin-github-buttons"] = {"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"};
+    </script>
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="输入并搜索" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/golang-notes/" target="_blank" class="custom-link">Golang 学习笔记</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/linux-notes/" target="_blank" class="custom-link">Linux 学习笔记</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/blockchain-notes/" target="_blank" class="custom-link">Blockchain 学习笔记</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/data-structure-notes/" target="_blank" class="custom-link">数据结构学习笔记</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/kubernetes-notes/" target="_blank" class="custom-link">Kubernetes 学习笔记</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/k8s-source-code-analysis/" target="_blank" class="custom-link">Kubernetes 源码分析笔记</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/docker-notes/" target="_blank" class="custom-link">Docker 学习笔记</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com/python-notes/" target="_blank" class="custom-link">Python 学习笔记</a>
+        </li>
+    
+        
+        <li>
+            <a href="https://www.huweihuang.com" target="_blank" class="custom-link">胡伟煌的博客</a>
+        </li>
+    
+    
+
+    
+    <li class="divider"></li>
+    
+
+    
+        
+        <li class="header">目录</li>
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                        <b>1.1.</b>
+                    
+                    序言
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">云原生体系</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="../../paas/12-factor.html">
+            
+                <a href="../../paas/12-factor.html">
+            
+                    
+                        <b>2.1.</b>
+                    
+                    12-Factor
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2" data-path="../../paas/k8s.html">
+            
+                <a href="../../paas/k8s.html">
+            
+                    
+                        <b>2.2.</b>
+                    
+                    K8S知识体系
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">安装与配置</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="../../setup/installer/_index.html">
+            
+                <a href="../../setup/installer/_index.html">
+            
+                    
+                        <b>3.1.</b>
+                    
+                    部署k8s集群
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="3.1.1" data-path="../../setup/installer/install-k8s-by-kubeadm.html">
+            
+                <a href="../../setup/installer/install-k8s-by-kubeadm.html">
+            
+                    
+                        <b>3.1.1.</b>
+                    
+                    使用kubeadm安装生产环境kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.2" data-path="../../setup/installer/install-k8s-by-kubespray.html">
+            
+                <a href="../../setup/installer/install-k8s-by-kubespray.html">
+            
+                    
+                        <b>3.1.2.</b>
+                    
+                    使用kubespray安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.3" data-path="../../setup/installer/install-k8s-by-minikube.html">
+            
+                <a href="../../setup/installer/install-k8s-by-minikube.html">
+            
+                    
+                        <b>3.1.3.</b>
+                    
+                    使用minikube安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.1.4" data-path="../../setup/installer/install-k8s-by-kind.html">
+            
+                <a href="../../setup/installer/install-k8s-by-kind.html">
+            
+                    
+                        <b>3.1.4.</b>
+                    
+                    使用kind安装kubernetes
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="../../setup/k8s-cert.html">
+            
+                <a href="../../setup/k8s-cert.html">
+            
+                    
+                        <b>3.2.</b>
+                    
+                    k8s证书及秘钥
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.3" data-path="../../setup/k8s-version-release.html">
+            
+                <a href="../../setup/k8s-version-release.html">
+            
+                    
+                        <b>3.3.</b>
+                    
+                    k8s版本说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">基本概念</li>
+        
+        
+    
+        <li class="chapter " data-level="4.1" data-path="../../concepts/architecture/_index.html">
+            
+                <a href="../../concepts/architecture/_index.html">
+            
+                    
+                        <b>4.1.</b>
+                    
+                    kubernetes架构
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.1.1" data-path="../../concepts/architecture/kubernetes-architecture.html">
+            
+                <a href="../../concepts/architecture/kubernetes-architecture.html">
+            
+                    
+                        <b>4.1.1.</b>
+                    
+                    Kubernetes总架构图
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.1.2" data-path="../../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                <a href="../../concepts/architecture/paas-based-on-docker-and-kubernetes.html">
+            
+                    
+                        <b>4.1.2.</b>
+                    
+                    基于Docker及Kubernetes技术构建容器云（PaaS）平台概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2" data-path="../../concepts/object/_index.html">
+            
+                <a href="../../concepts/object/_index.html">
+            
+                    
+                        <b>4.2.</b>
+                    
+                    kubernetes对象
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.2.1" data-path="../../concepts/object/understanding-kubernetes-objects.html">
+            
+                <a href="../../concepts/object/understanding-kubernetes-objects.html">
+            
+                    
+                        <b>4.2.1.</b>
+                    
+                    理解kubernetes对象
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.2.2" data-path="../../concepts/object/kubernetes-basic-concepts.html">
+            
+                <a href="../../concepts/object/kubernetes-basic-concepts.html">
+            
+                    
+                        <b>4.2.2.</b>
+                    
+                    kubernetes常用对象说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3" data-path="../../concepts/pod/_index.html">
+            
+                <a href="../../concepts/pod/_index.html">
+            
+                    
+                        <b>4.3.</b>
+                    
+                    Pod
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.3.1" data-path="../../concepts/pod/pod.html">
+            
+                <a href="../../concepts/pod/pod.html">
+            
+                    
+                        <b>4.3.1.</b>
+                    
+                    Pod介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.2" data-path="../../concepts/pod/pod-definition.html">
+            
+                <a href="../../concepts/pod/pod-definition.html">
+            
+                    
+                        <b>4.3.2.</b>
+                    
+                    Pod定义文件
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.3" data-path="../../concepts/pod/pod-lifecycle.html">
+            
+                <a href="../../concepts/pod/pod-lifecycle.html">
+            
+                    
+                        <b>4.3.3.</b>
+                    
+                    Pod生命周期
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.4" data-path="../../concepts/pod/pod-probe.html">
+            
+                <a href="../../concepts/pod/pod-probe.html">
+            
+                    
+                        <b>4.3.4.</b>
+                    
+                    Pod健康检查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.5" data-path="../../concepts/pod/pod-volume.html">
+            
+                <a href="../../concepts/pod/pod-volume.html">
+            
+                    
+                        <b>4.3.5.</b>
+                    
+                    Pod存储卷
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.6" data-path="../../concepts/pod/pod-scheduler.html">
+            
+                <a href="../../concepts/pod/pod-scheduler.html">
+            
+                    
+                        <b>4.3.6.</b>
+                    
+                    Pod控制器
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="4.3.7" data-path="../../concepts/pod/pod-operation.html">
+            
+                <a href="../../concepts/pod/pod-operation.html">
+            
+                    
+                        <b>4.3.7.</b>
+                    
+                    Pod伸缩与升级
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.4" data-path="../../concepts/configmap/_index.html">
+            
+                <a href="../../concepts/configmap/_index.html">
+            
+                    
+                        <b>4.4.</b>
+                    
+                    配置
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="4.4.1" data-path="../../concepts/configmap/pod-configmap.html">
+            
+                <a href="../../concepts/configmap/pod-configmap.html">
+            
+                    
+                        <b>4.4.1.</b>
+                    
+                    ConfigMap
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="4.5" data-path="../../concepts/_index.html">
+            
+                <a href="../../concepts/_index.html">
+            
+                    
+                        <b>4.5.</b>
+                    
+                    Workload
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">核心原理</li>
+        
+        
+    
+        <li class="chapter " data-level="5.1" data-path="../../principle/component/_index.html">
+            
+                <a href="../../principle/component/_index.html">
+            
+                    
+                        <b>5.1.</b>
+                    
+                    核心组件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.1.1" data-path="../../principle/component/kubernetes-core-principle-api-server.html">
+            
+                <a href="../../principle/component/kubernetes-core-principle-api-server.html">
+            
+                    
+                        <b>5.1.1.</b>
+                    
+                    Api Server
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.2" data-path="../../principle/component/kubernetes-core-principle-controller-manager.html">
+            
+                <a href="../../principle/component/kubernetes-core-principle-controller-manager.html">
+            
+                    
+                        <b>5.1.2.</b>
+                    
+                    Controller Manager
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.3" data-path="../../principle/component/kubernetes-core-principle-scheduler.html">
+            
+                <a href="../../principle/component/kubernetes-core-principle-scheduler.html">
+            
+                    
+                        <b>5.1.3.</b>
+                    
+                    Scheduler
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.1.4" data-path="../../principle/component/kubernetes-core-principle-kubelet.html">
+            
+                <a href="../../principle/component/kubernetes-core-principle-kubelet.html">
+            
+                    
+                        <b>5.1.4.</b>
+                    
+                    Kubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2" data-path="../../principle/flow/_index.html">
+            
+                <a href="../../principle/flow/_index.html">
+            
+                    
+                        <b>5.2.</b>
+                    
+                    流程图
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="5.2.1" data-path="../../principle/flow/pod-flow.html">
+            
+                <a href="../../principle/flow/pod-flow.html">
+            
+                    
+                        <b>5.2.1.</b>
+                    
+                    Pod创建流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="5.2.2" data-path="../../principle/flow/pvc-flow.html">
+            
+                <a href="../../principle/flow/pvc-flow.html">
+            
+                    
+                        <b>5.2.2.</b>
+                    
+                    PVC创建流程
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">容器网络</li>
+        
+        
+    
+        <li class="chapter " data-level="6.1" data-path="../../network/docker-network.html">
+            
+                <a href="../../network/docker-network.html">
+            
+                    
+                        <b>6.1.</b>
+                    
+                    Docker网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.2" data-path="../../network/kubernetes-network.html">
+            
+                <a href="../../network/kubernetes-network.html">
+            
+                    
+                        <b>6.2.</b>
+                    
+                    K8S网络
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.3" data-path="../../network/pod-dns.html">
+            
+                <a href="../../network/pod-dns.html">
+            
+                    
+                        <b>6.3.</b>
+                    
+                    Pod的DNS策略
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.4" data-path="../../network/flannel/_index.html">
+            
+                <a href="../../network/flannel/_index.html">
+            
+                    
+                        <b>6.4.</b>
+                    
+                    网络插件
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.4.1" data-path="../../network/flannel/flannel-introduction.html">
+            
+                <a href="../../network/flannel/flannel-introduction.html">
+            
+                    
+                        <b>6.4.1.</b>
+                    
+                    Flannel介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5" data-path="../../network/cni/_index.html">
+            
+                <a href="../../network/cni/_index.html">
+            
+                    
+                        <b>6.5.</b>
+                    
+                    CNI
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="6.5.1" data-path="../../network/cni/cni.html">
+            
+                <a href="../../network/cni/cni.html">
+            
+                    
+                        <b>6.5.1.</b>
+                    
+                    CNI接口介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="6.5.2" data-path="../../network/cni/macvlan.html">
+            
+                <a href="../../network/cni/macvlan.html">
+            
+                    
+                        <b>6.5.2.</b>
+                    
+                    Macvlan介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">容器存储</li>
+        
+        
+    
+        <li class="chapter " data-level="7.1" data-path="../../storage/volume/_index.html">
+            
+                <a href="../../storage/volume/_index.html">
+            
+                    
+                        <b>7.1.</b>
+                    
+                    存储卷概念
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.1.1" data-path="../../storage/volume/volume.html">
+            
+                <a href="../../storage/volume/volume.html">
+            
+                    
+                        <b>7.1.1.</b>
+                    
+                    Volume
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.2" data-path="../../storage/volume/persistent-volume.html">
+            
+                <a href="../../storage/volume/persistent-volume.html">
+            
+                    
+                        <b>7.1.2.</b>
+                    
+                    Persistent Volume
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.3" data-path="../../storage/volume/persistent-volume-claim.html">
+            
+                <a href="../../storage/volume/persistent-volume-claim.html">
+            
+                    
+                        <b>7.1.3.</b>
+                    
+                    Persistent Volume Claim
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.4" data-path="../../storage/volume/storage-class.html">
+            
+                <a href="../../storage/volume/storage-class.html">
+            
+                    
+                        <b>7.1.4.</b>
+                    
+                    Storage Class
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.1.5" data-path="../../storage/volume/dynamic-provisioning.html">
+            
+                <a href="../../storage/volume/dynamic-provisioning.html">
+            
+                    
+                        <b>7.1.5.</b>
+                    
+                    Dynamic Volume Provisioning
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2" data-path="../../storage/csi/_index.html">
+            
+                <a href="../../storage/csi/_index.html">
+            
+                    
+                        <b>7.2.</b>
+                    
+                    CSI
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="7.2.1" data-path="../../storage/csi/ceph/csi-cephfs-plugin.html">
+            
+                <a href="../../storage/csi/ceph/csi-cephfs-plugin.html">
+            
+                    
+                        <b>7.2.1.</b>
+                    
+                    csi-cephfs-plugin
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2.2" data-path="../../storage/csi/ceph/deploy-csi-cephfs.html">
+            
+                <a href="../../storage/csi/ceph/deploy-csi-cephfs.html">
+            
+                    
+                        <b>7.2.2.</b>
+                    
+                    部署csi-cephfs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2.3" data-path="../../storage/csi/provisioner/cephfs-provisioner.html">
+            
+                <a href="../../storage/csi/provisioner/cephfs-provisioner.html">
+            
+                    
+                        <b>7.2.3.</b>
+                    
+                    部署cephfs-provisioner
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="7.2.4" data-path="../../storage/csi/flexvolume.html">
+            
+                <a href="../../storage/csi/flexvolume.html">
+            
+                    
+                        <b>7.2.4.</b>
+                    
+                    FlexVolume介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">资源隔离</li>
+        
+        
+    
+        <li class="chapter " data-level="8.1" data-path="../../resource/resource-quota.html">
+            
+                <a href="../../resource/resource-quota.html">
+            
+                    
+                        <b>8.1.</b>
+                    
+                    资源配额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.2" data-path="../../resource/limit-range.html">
+            
+                <a href="../../resource/limit-range.html">
+            
+                    
+                        <b>8.2.</b>
+                    
+                    Pod限额
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.3" data-path="../../resource/quality-of-service.html">
+            
+                <a href="../../resource/quality-of-service.html">
+            
+                    
+                        <b>8.3.</b>
+                    
+                    资源服务质量
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="8.4" data-path="../../resource/lxcfs/lxcfs.html">
+            
+                <a href="../../resource/lxcfs/lxcfs.html">
+            
+                    
+                        <b>8.4.</b>
+                    
+                    Lxcfs资源视图隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">运维指南</li>
+        
+        
+    
+        <li class="chapter " data-level="9.1" data-path="../../operation/kubectl/_index.html">
+            
+                <a href="../../operation/kubectl/_index.html">
+            
+                    
+                        <b>9.1.</b>
+                    
+                    kubectl工具
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.1.1" data-path="../../operation/kubectl/install-kubectl.html">
+            
+                <a href="../../operation/kubectl/install-kubectl.html">
+            
+                    
+                        <b>9.1.1.</b>
+                    
+                    kubectl安装与配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.2" data-path="../../operation/kubectl/kubectl-commands.html">
+            
+                <a href="../../operation/kubectl/kubectl-commands.html">
+            
+                    
+                        <b>9.1.2.</b>
+                    
+                    kubectl命令说明
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.3" data-path="../../operation/kubectl/kubectl-alias.html">
+            
+                <a href="../../operation/kubectl/kubectl-alias.html">
+            
+                    
+                        <b>9.1.3.</b>
+                    
+                    kubectl命令别名
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.4" data-path="../../operation/kubectl/kubectl-node-shell.html">
+            
+                <a href="../../operation/kubectl/kubectl-node-shell.html">
+            
+                    
+                        <b>9.1.4.</b>
+                    
+                    kubectl进入node shell
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.1.5" data-path="../../operation/kubectl/helm-usage.html">
+            
+                <a href="../../operation/kubectl/helm-usage.html">
+            
+                    
+                        <b>9.1.5.</b>
+                    
+                    helm的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9.2" data-path="../../operation/kubernetes-troubleshooting.html">
+            
+                <a href="../../operation/kubernetes-troubleshooting.html">
+            
+                    
+                        <b>9.2.</b>
+                    
+                    kubernetes集群问题排查
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3" data-path="../../operation/node/_index.html">
+            
+                <a href="../../operation/node/_index.html">
+            
+                    
+                        <b>9.3.</b>
+                    
+                    节点调度
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.3.1" data-path="../../operation/node/safely-drain-node.html">
+            
+                <a href="../../operation/node/safely-drain-node.html">
+            
+                    
+                        <b>9.3.1.</b>
+                    
+                    安全迁移节点
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.3.2" data-path="../../operation/node/nodeselector-and-taint.html">
+            
+                <a href="../../operation/node/nodeselector-and-taint.html">
+            
+                    
+                        <b>9.3.2.</b>
+                    
+                    指定Node调度与隔离
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="9.4" data-path="../../operation/registry/_index.html">
+            
+                <a href="../../operation/registry/_index.html">
+            
+                    
+                        <b>9.4.</b>
+                    
+                    镜像仓库配置
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="9.4.1" data-path="../../operation/registry/config-private-registry.html">
+            
+                <a href="../../operation/registry/config-private-registry.html">
+            
+                    
+                        <b>9.4.1.</b>
+                    
+                    配置私有的镜像仓库
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="9.4.2" data-path="../../operation/registry/ImagePullSecrets.html">
+            
+                <a href="../../operation/registry/ImagePullSecrets.html">
+            
+                    
+                        <b>9.4.2.</b>
+                    
+                    拉取私有镜像
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">开发指南</li>
+        
+        
+    
+        <li class="chapter " data-level="10.1" data-path="../client-go.html">
+            
+                <a href="../client-go.html">
+            
+                    
+                        <b>10.1.</b>
+                    
+                    client-go的使用及源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="10.2" data-path="_index.html">
+            
+                <a href="_index.html">
+            
+                    
+                        <b>10.2.</b>
+                    
+                    CSI插件开发
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.2.1" data-path="nfs-client-provisioner.html">
+            
+                <a href="nfs-client-provisioner.html">
+            
+                    
+                        <b>10.2.1.</b>
+                    
+                    nfs-client-provisioner源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="10.2.2" data-path="csi-provisioner.html">
+            
+                <a href="csi-provisioner.html">
+            
+                    
+                        <b>10.2.2.</b>
+                    
+                    csi-provisioner源码分析
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="10.3" data-path="../operator/_index.html">
+            
+                <a href="../operator/_index.html">
+            
+                    
+                        <b>10.3.</b>
+                    
+                    operator开发
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="10.3.1" data-path="../operator/kubebuilder.html">
+            
+                <a href="../operator/kubebuilder.html">
+            
+                    
+                        <b>10.3.1.</b>
+                    
+                    kubebuilder的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">问题排查</li>
+        
+        
+    
+        <li class="chapter " data-level="11.1" data-path="../../trouble-shooting/node/_index.html">
+            
+                <a href="../../trouble-shooting/node/_index.html">
+            
+                    
+                        <b>11.1.</b>
+                    
+                    节点相关问题
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="11.1.1" data-path="../../trouble-shooting/node/keycreate-permission-denied.html">
+            
+                <a href="../../trouble-shooting/node/keycreate-permission-denied.html">
+            
+                    
+                        <b>11.1.1.</b>
+                    
+                    keycreate permission denied
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="11.1.2" data-path="../../trouble-shooting/node/cgroup-pid-error.html">
+            
+                <a href="../../trouble-shooting/node/cgroup-pid-error.html">
+            
+                    
+                        <b>11.1.2.</b>
+                    
+                    Cgroup不支持pid资源
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="11.1.3" data-path="../../trouble-shooting/node/cgroup-subsystem-not-mount.html">
+            
+                <a href="../../trouble-shooting/node/cgroup-subsystem-not-mount.html">
+            
+                    
+                        <b>11.1.3.</b>
+                    
+                    Cgroup子系统无法挂载
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="11.2" data-path="../../trouble-shooting/pod-evicted.html">
+            
+                <a href="../../trouble-shooting/pod-evicted.html">
+            
+                    
+                        <b>11.2.</b>
+                    
+                    Pod驱逐
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="11.3" data-path="../../trouble-shooting/pod-image-error.html">
+            
+                <a href="../../trouble-shooting/pod-image-error.html">
+            
+                    
+                        <b>11.3.</b>
+                    
+                    镜像拉取失败问题
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="11.4" data-path="../../trouble-shooting/pvc-terminating.html">
+            
+                <a href="../../trouble-shooting/pvc-terminating.html">
+            
+                    
+                        <b>11.4.</b>
+                    
+                    PVC Terminating
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">源码分析</li>
+        
+        
+    
+        <li class="chapter " data-level="12.1" data-path="../../code-analysis/code-analysis-notes.html">
+            
+                <a href="../../code-analysis/code-analysis-notes.html">
+            
+                    
+                        <b>12.1.</b>
+                    
+                    Kubernetes源码分析笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2" data-path="../../code-analysis/kubelet/_index.html">
+            
+                <a href="../../code-analysis/kubelet/_index.html">
+            
+                    
+                        <b>12.2.</b>
+                    
+                    kubelet
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.2.1" data-path="../../code-analysis/kubelet/NewKubeletCommand.html">
+            
+                <a href="../../code-analysis/kubelet/NewKubeletCommand.html">
+            
+                    
+                        <b>12.2.1.</b>
+                    
+                    NewKubeletCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.2" data-path="../../code-analysis/kubelet/NewMainKubelet.html">
+            
+                <a href="../../code-analysis/kubelet/NewMainKubelet.html">
+            
+                    
+                        <b>12.2.2.</b>
+                    
+                    NewMainKubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.3" data-path="../../code-analysis/kubelet/startKubelet.html">
+            
+                <a href="../../code-analysis/kubelet/startKubelet.html">
+            
+                    
+                        <b>12.2.3.</b>
+                    
+                    startKubelet
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.4" data-path="../../code-analysis/kubelet/syncLoopIteration.html">
+            
+                <a href="../../code-analysis/kubelet/syncLoopIteration.html">
+            
+                    
+                        <b>12.2.4.</b>
+                    
+                    syncLoopIteration
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.2.5" data-path="../../code-analysis/kubelet/syncPod.html">
+            
+                <a href="../../code-analysis/kubelet/syncPod.html">
+            
+                    
+                        <b>12.2.5.</b>
+                    
+                    syncPod
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3" data-path="../../code-analysis/kube-controller-manager/_index.html">
+            
+                <a href="../../code-analysis/kube-controller-manager/_index.html">
+            
+                    
+                        <b>12.3.</b>
+                    
+                    kube-controller-manager
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.3.1" data-path="../../code-analysis/kube-controller-manager/NewControllerManagerCommand.html">
+            
+                <a href="../../code-analysis/kube-controller-manager/NewControllerManagerCommand.html">
+            
+                    
+                        <b>12.3.1.</b>
+                    
+                    NewControllerManagerCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.2" data-path="../../code-analysis/kube-controller-manager/deployment-controller.html">
+            
+                <a href="../../code-analysis/kube-controller-manager/deployment-controller.html">
+            
+                    
+                        <b>12.3.2.</b>
+                    
+                    DeploymentController
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.3.3" data-path="../../code-analysis/kube-controller-manager/sharedIndexInformer.html">
+            
+                <a href="../../code-analysis/kube-controller-manager/sharedIndexInformer.html">
+            
+                    
+                        <b>12.3.3.</b>
+                    
+                    Informer机制
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4" data-path="../../code-analysis/kube-scheduler/_index.html">
+            
+                <a href="../../code-analysis/kube-scheduler/_index.html">
+            
+                    
+                        <b>12.4.</b>
+                    
+                    kube-scheduler
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.4.1" data-path="../../code-analysis/kube-scheduler/NewSchedulerCommand.html">
+            
+                <a href="../../code-analysis/kube-scheduler/NewSchedulerCommand.html">
+            
+                    
+                        <b>12.4.1.</b>
+                    
+                    NewSchedulerCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4.2" data-path="../../code-analysis/kube-scheduler/registerAlgorithmProvider.html">
+            
+                <a href="../../code-analysis/kube-scheduler/registerAlgorithmProvider.html">
+            
+                    
+                        <b>12.4.2.</b>
+                    
+                    registerAlgorithmProvider
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4.3" data-path="../../code-analysis/kube-scheduler/scheduleOne.html">
+            
+                <a href="../../code-analysis/kube-scheduler/scheduleOne.html">
+            
+                    
+                        <b>12.4.3.</b>
+                    
+                    scheduleOne
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4.4" data-path="../../code-analysis/kube-scheduler/findNodesThatFit.html">
+            
+                <a href="../../code-analysis/kube-scheduler/findNodesThatFit.html">
+            
+                    
+                        <b>12.4.4.</b>
+                    
+                    findNodesThatFit
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4.5" data-path="../../code-analysis/kube-scheduler/PrioritizeNodes.html">
+            
+                <a href="../../code-analysis/kube-scheduler/PrioritizeNodes.html">
+            
+                    
+                        <b>12.4.5.</b>
+                    
+                    PrioritizeNodes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="12.4.6" data-path="../../code-analysis/kube-scheduler/preempt.html">
+            
+                <a href="../../code-analysis/kube-scheduler/preempt.html">
+            
+                    
+                        <b>12.4.6.</b>
+                    
+                    preempt
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="12.5" data-path="../../code-analysis/kube-apiserver/_index.html">
+            
+                <a href="../../code-analysis/kube-apiserver/_index.html">
+            
+                    
+                        <b>12.5.</b>
+                    
+                    kube-apiserver
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="12.5.1" data-path="../../code-analysis/kube-apiserver/NewAPIServerCommand.html">
+            
+                <a href="../../code-analysis/kube-apiserver/NewAPIServerCommand.html">
+            
+                    
+                        <b>12.5.1.</b>
+                    
+                    NewAPIServerCommand
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Runtime</li>
+        
+        
+    
+        <li class="chapter " data-level="13.1" data-path="../../runtime/_index.html">
+            
+                <a href="../../runtime/_index.html">
+            
+                    
+                        <b>13.1.</b>
+                    
+                    Runtime
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.1.1" data-path="../../runtime/runtime.html">
+            
+                <a href="../../runtime/runtime.html">
+            
+                    
+                        <b>13.1.1.</b>
+                    
+                    Runc和Containerd概述
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.2" data-path="../../runtime/containerd/_index.html">
+            
+                <a href="../../runtime/containerd/_index.html">
+            
+                    
+                        <b>13.2.</b>
+                    
+                    Containerd
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.2.1" data-path="../../runtime/containerd/install-containerd.html">
+            
+                <a href="../../runtime/containerd/install-containerd.html">
+            
+                    
+                        <b>13.2.1.</b>
+                    
+                    安装Containerd
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.3" data-path="../../runtime/docker/_index.html">
+            
+                <a href="../../runtime/docker/_index.html">
+            
+                    
+                        <b>13.3.</b>
+                    
+                    Docker
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.3.1" data-path="../../runtime/docker/docker-notes.html">
+            
+                <a href="../../runtime/docker/docker-notes.html">
+            
+                    
+                        <b>13.3.1.</b>
+                    
+                    Docker学习笔记
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.4" data-path="../../runtime/kata/_index.html">
+            
+                <a href="../../runtime/kata/_index.html">
+            
+                    
+                        <b>13.4.</b>
+                    
+                    Kata Container
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.4.1" data-path="../../runtime/kata/kata-container.html">
+            
+                <a href="../../runtime/kata/kata-container.html">
+            
+                    
+                        <b>13.4.1.</b>
+                    
+                    kata容器简介
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="13.4.2" data-path="../../runtime/kata/kata-container-conf.html">
+            
+                <a href="../../runtime/kata/kata-container-conf.html">
+            
+                    
+                        <b>13.4.2.</b>
+                    
+                    kata配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="13.5" data-path="../../runtime/gpu/_index.html">
+            
+                <a href="../../runtime/gpu/_index.html">
+            
+                    
+                        <b>13.5.</b>
+                    
+                    GPU
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="13.5.1" data-path="../../runtime/gpu/nvidia-device-plugin.html">
+            
+                <a href="../../runtime/gpu/nvidia-device-plugin.html">
+            
+                    
+                        <b>13.5.1.</b>
+                    
+                    nvidia-device-plugin介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Etcd</li>
+        
+        
+    
+        <li class="chapter " data-level="14.1" data-path="../../etcd/etcd-introduction.html">
+            
+                <a href="../../etcd/etcd-introduction.html">
+            
+                    
+                        <b>14.1.</b>
+                    
+                    Etcd介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.2" data-path="../../etcd/raft.html">
+            
+                <a href="../../etcd/raft.html">
+            
+                    
+                        <b>14.2.</b>
+                    
+                    Raft算法
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.3" data-path="../../etcd/etcd-setup-flags.html">
+            
+                <a href="../../etcd/etcd-setup-flags.html">
+            
+                    
+                        <b>14.3.</b>
+                    
+                    Etcd启动配置参数
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.4" data-path="../../etcd/etcd-auth-and-security.html">
+            
+                <a href="../../etcd/etcd-auth-and-security.html">
+            
+                    
+                        <b>14.4.</b>
+                    
+                    Etcd访问控制
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5" data-path="../../etcd/etcdctl/_index.html">
+            
+                <a href="../../etcd/etcdctl/_index.html">
+            
+                    
+                        <b>14.5.</b>
+                    
+                    etcdctl命令工具
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="14.5.1" data-path="../../etcd/etcdctl/etcdctl-v3.html">
+            
+                <a href="../../etcd/etcdctl/etcdctl-v3.html">
+            
+                    
+                        <b>14.5.1.</b>
+                    
+                    etcdctl命令工具-V3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.5.2" data-path="../../etcd/etcdctl/etcdctl-v2.html">
+            
+                <a href="../../etcd/etcdctl/etcdctl-v2.html">
+            
+                    
+                        <b>14.5.2.</b>
+                    
+                    etcdctl命令工具-V2
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="14.6" data-path="../../etcd/k8s-etcd-data.html">
+            
+                <a href="../../etcd/k8s-etcd-data.html">
+            
+                    
+                        <b>14.6.</b>
+                    
+                    Etcd中的k8s数据
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="14.7" data-path="../../etcd/etcd-operator-usage.html">
+            
+                <a href="../../etcd/etcd-operator-usage.html">
+            
+                    
+                        <b>14.7.</b>
+                    
+                    Etcd-Operator的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">多集群管理</li>
+        
+        
+    
+        <li class="chapter " data-level="15.1" data-path="../../multi-cluster/k8s-multi-cluster-thinking.html">
+            
+                <a href="../../multi-cluster/k8s-multi-cluster-thinking.html">
+            
+                    
+                        <b>15.1.</b>
+                    
+                    k8s多集群管理的思考
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.2" data-path="../../multi-cluster/virtual-kubelet/_index.html">
+            
+                <a href="../../multi-cluster/virtual-kubelet/_index.html">
+            
+                    
+                        <b>15.2.</b>
+                    
+                    Virtual Kubelet
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="15.2.1" data-path="../../multi-cluster/virtual-kubelet/virtual-kubelet.html">
+            
+                <a href="../../multi-cluster/virtual-kubelet/virtual-kubelet.html">
+            
+                    
+                        <b>15.2.1.</b>
+                    
+                    Virtual Kubelet介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="15.2.2" data-path="../../multi-cluster/virtual-kubelet/virtual-kubelet-cmd.html">
+            
+                <a href="../../multi-cluster/virtual-kubelet/virtual-kubelet-cmd.html">
+            
+                    
+                        <b>15.2.2.</b>
+                    
+                    Virtual Kubelet 命令
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="15.3" data-path="../../multi-cluster/karmada/_index.html">
+            
+                <a href="../../multi-cluster/karmada/_index.html">
+            
+                    
+                        <b>15.3.</b>
+                    
+                    Karmada
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="15.3.1" data-path="../../multi-cluster/karmada/karmada-introduction.html">
+            
+                <a href="../../multi-cluster/karmada/karmada-introduction.html">
+            
+                    
+                        <b>15.3.1.</b>
+                    
+                    Karmada介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">边缘容器</li>
+        
+        
+    
+        <li class="chapter " data-level="16.1" data-path="../../edge/kubeedge/kubeedge-arch.html">
+            
+                <a href="../../edge/kubeedge/kubeedge-arch.html">
+            
+                    
+                        <b>16.1.</b>
+                    
+                    KubeEdge介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="16.2" data-path="../../edge/kubeedge/code-analysis/_index.html">
+            
+                <a href="../../edge/kubeedge/code-analysis/_index.html">
+            
+                    
+                        <b>16.2.</b>
+                    
+                    KubeEdge源码分析
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="16.2.1" data-path="../../edge/kubeedge/code-analysis/cloudcore.html">
+            
+                <a href="../../edge/kubeedge/code-analysis/cloudcore.html">
+            
+                    
+                        <b>16.2.1.</b>
+                    
+                    cloudcore
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="16.2.2" data-path="../../edge/kubeedge/code-analysis/edgecore.html">
+            
+                <a href="../../edge/kubeedge/code-analysis/edgecore.html">
+            
+                    
+                        <b>16.2.2.</b>
+                    
+                    edgecore
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="16.3" data-path="../../edge/openyurt/_index.html">
+            
+                <a href="../../edge/openyurt/_index.html">
+            
+                    
+                        <b>16.3.</b>
+                    
+                    OpenYurt
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="16.3.1" data-path="../../edge/openyurt/install-openyurt.html">
+            
+                <a href="../../edge/openyurt/install-openyurt.html">
+            
+                    
+                        <b>16.3.1.</b>
+                    
+                    OpenYurt部署
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="16.3.2" data-path="../../edge/openyurt/update-k8s-for-openyurt.html">
+            
+                <a href="../../edge/openyurt/update-k8s-for-openyurt.html">
+            
+                    
+                        <b>16.3.2.</b>
+                    
+                    OpenYurt部署之调整k8s配置
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">虚拟化</li>
+        
+        
+    
+        <li class="chapter " data-level="17.1" data-path="../../kvm/vm-concept.html">
+            
+                <a href="../../kvm/vm-concept.html">
+            
+                    
+                        <b>17.1.</b>
+                    
+                    虚拟化相关概念
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="17.2" data-path="../../kvm/kubevirt/_index.html">
+            
+                <a href="../../kvm/kubevirt/_index.html">
+            
+                    
+                        <b>17.2.</b>
+                    
+                    KubeVirt
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="17.2.1" data-path="../../kvm/kubevirt/kubevirt-introduction.html">
+            
+                <a href="../../kvm/kubevirt/kubevirt-introduction.html">
+            
+                    
+                        <b>17.2.1.</b>
+                    
+                    KubeVirt的介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="17.2.2" data-path="../../kvm/kubevirt/kubevirt-installation.html">
+            
+                <a href="../../kvm/kubevirt/kubevirt-installation.html">
+            
+                    
+                        <b>17.2.2.</b>
+                    
+                    KubeVirt的使用
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">监控体系</li>
+        
+        
+    
+        <li class="chapter " data-level="18.1" data-path="../../monitor/kubernetes-cluster-monitoring.html">
+            
+                <a href="../../monitor/kubernetes-cluster-monitoring.html">
+            
+                    
+                        <b>18.1.</b>
+                    
+                    监控体系介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="18.2" data-path="../../monitor/cadvisor-introduction.html">
+            
+                <a href="../../monitor/cadvisor-introduction.html">
+            
+                    
+                        <b>18.2.</b>
+                    
+                    cAdvisor介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="18.3" data-path="../../monitor/heapster-introduction.html">
+            
+                <a href="../../monitor/heapster-introduction.html">
+            
+                    
+                        <b>18.3.</b>
+                    
+                    Heapster介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="18.4" data-path="../../monitor/influxdb-introduction.html">
+            
+                <a href="../../monitor/influxdb-introduction.html">
+            
+                    
+                        <b>18.4.</b>
+                    
+                    Influxdb介绍
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            本书使用 GitBook 发布
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../.." >csi-provisioner源码分析</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div class="search-plus" id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                
+                <div id="vip-container">
+                    <div id="anchor-navigation-ex-navbar"><i class="fa fa-navicon"></i><ul><li><span class="title-icon "></span><a href="#1-dynamic-provisioner"><b></b>1. Dynamic Provisioner</a></li><ul><li><span class="title-icon "></span><a href="#11-provisioner-interface"><b></b>1.1. Provisioner Interface</a></li><li><span class="title-icon "></span><a href="#12-&#x5F00;&#x53D1;provisioner&#x7684;&#x6B65;&#x9AA4;"><b></b>1.2. &#x5F00;&#x53D1;provisioner&#x7684;&#x6B65;&#x9AA4;</a></li></ul><li><span class="title-icon "></span><a href="#2-csi-provisioner"><b></b>2. CSI Provisioner</a></li><ul><li><span class="title-icon "></span><a href="#21-main-&#x51FD;&#x6570;"><b></b>2.1. Main &#x51FD;&#x6570;</a></li><ul><li><span class="title-icon "></span><a href="#211-&#x8BFB;&#x53D6;&#x73AF;&#x5883;&#x53D8;&#x91CF;"><b></b>2.1.1. &#x8BFB;&#x53D6;&#x73AF;&#x5883;&#x53D8;&#x91CF;</a></li><li><span class="title-icon "></span><a href="#212-&#x83B7;&#x53D6;clientset&#x5BF9;&#x8C61;"><b></b>2.1.2. &#x83B7;&#x53D6;clientset&#x5BF9;&#x8C61;</a></li><li><span class="title-icon "></span><a href="#213-k8s&#x7248;&#x672C;&#x6821;&#x9A8C;"><b></b>2.1.3. k8s&#x7248;&#x672C;&#x6821;&#x9A8C;</a></li><li><span class="title-icon "></span><a href="#214-&#x8FDE;&#x63A5;-csi-socket"><b></b>2.1.4. &#x8FDE;&#x63A5; csi socket</a></li><li><span class="title-icon "></span><a href="#215-&#x6784;&#x9020;csi-provisioner&#x5BF9;&#x8C61;"><b></b>2.1.5. &#x6784;&#x9020;csi-Provisioner&#x5BF9;&#x8C61;</a></li><li><span class="title-icon "></span><a href="#216-&#x8FD0;&#x884C;provisioncontroller"><b></b>2.1.6. &#x8FD0;&#x884C;ProvisionController</a></li></ul><li><span class="title-icon "></span><a href="#22-provision&#x548C;delete&#x65B9;&#x6CD5;"><b></b>2.2. Provision&#x548C;Delete&#x65B9;&#x6CD5;</a></li><ul><li><span class="title-icon "></span><a href="#221-provision&#x65B9;&#x6CD5;"><b></b>2.2.1. Provision&#x65B9;&#x6CD5;</a></li><li><span class="title-icon "></span><a href="#222-delete&#x65B9;&#x6CD5;"><b></b>2.2.2. Delete&#x65B9;&#x6CD5;</a></li></ul><li><span class="title-icon "></span><a href="#23-&#x603B;&#x7ED3;"><b></b>2.3. &#x603B;&#x7ED3;</a></li></ul><li><span class="title-icon "></span><a href="#3-csi-client"><b></b>3. csi-client</a></li><ul><li><span class="title-icon "></span><a href="#31-&#x6784;&#x9020;csi-client"><b></b>3.1. &#x6784;&#x9020;csi-client</a></li><ul><li><span class="title-icon "></span><a href="#311-&#x6784;&#x9020;grpcclient"><b></b>3.1.1. &#x6784;&#x9020;grpcClient</a></li><li><span class="title-icon "></span><a href="#312-&#x6784;&#x9020;csi-client"><b></b>3.1.2. &#x6784;&#x9020;csi-client</a></li></ul><li><span class="title-icon "></span><a href="#32-csiclientcreatevolume"><b></b>3.2. csiClient.CreateVolume</a></li><li><span class="title-icon "></span><a href="#33-csiclientdeletevolume"><b></b>3.3. csiClient.DeleteVolume</a></li></ul><li><span class="title-icon "></span><a href="#4-provisioncontrollerrun"><b></b>4. ProvisionController.Run</a></li></ul></div><a href="#1-dynamic-provisioner" id="anchorNavigationExGoTop"><i class="fa fa-arrow-up"></i></a><blockquote>
+<p>&#x672C;&#x6587;&#x4E3B;&#x8981;&#x5206;&#x6790;<code>csi-provisioner</code>&#x7684;&#x6E90;&#x7801;&#xFF0C;&#x5173;&#x4E8E;&#x5F00;&#x53D1;&#x4E00;&#x4E2A;<code>Dynamic Provisioner</code>&#xFF0C;&#x5177;&#x4F53;&#x53EF;&#x53C2;&#x8003;<a href="https://www.huweihuang.com/kubernetes-notes/develop/nfs-client-provisioner.html" target="_blank">nfs-client-provisioner&#x7684;&#x6E90;&#x7801;&#x5206;&#x6790;</a></p>
+</blockquote>
+<h1 id="1-dynamic-provisioner"><a name="1-dynamic-provisioner" class="anchor-navigation-ex-anchor" href="#1-dynamic-provisioner"><i class="fa fa-link" aria-hidden="true"></i></a>1. Dynamic Provisioner</h1>
+<h2 id="11-provisioner-interface"><a name="11-provisioner-interface" class="anchor-navigation-ex-anchor" href="#11-provisioner-interface"><i class="fa fa-link" aria-hidden="true"></i></a>1.1. Provisioner Interface</h2>
+<p>&#x5F00;&#x53D1;<code>Dynamic Provisioner</code>&#x9700;&#x8981;&#x5B9E;&#x73B0;<a href="https://github.com/kubernetes-incubator/external-storage/blob/master/lib/controller/volume.go#L29" target="_blank">Provisioner</a>&#x63A5;&#x53E3;&#xFF0C;&#x8BE5;&#x63A5;&#x53E3;&#x6709;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#xFF0C;&#x5206;&#x522B;&#x662F;&#xFF1A;</p>
+<ul>
+<li>Provision&#xFF1A;&#x521B;&#x5EFA;&#x5B58;&#x50A8;&#x8D44;&#x6E90;&#xFF0C;&#x5E76;&#x4E14;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;PV&#x5BF9;&#x8C61;&#x3002;</li>
+<li>Delete&#xFF1A;&#x79FB;&#x9664;&#x5BF9;&#x5E94;&#x7684;&#x5B58;&#x50A8;&#x8D44;&#x6E90;&#xFF0C;&#x4F46;&#x5E76;&#x6CA1;&#x6709;&#x5220;&#x9664;PV&#x5BF9;&#x8C61;&#x3002;</li>
+</ul>
+<h2 id="12-&#x5F00;&#x53D1;provisioner&#x7684;&#x6B65;&#x9AA4;"><a name="12-&#x5F00;&#x53D1;provisioner&#x7684;&#x6B65;&#x9AA4;" class="anchor-navigation-ex-anchor" href="#12-&#x5F00;&#x53D1;provisioner&#x7684;&#x6B65;&#x9AA4;"><i class="fa fa-link" aria-hidden="true"></i></a>1.2. &#x5F00;&#x53D1;provisioner&#x7684;&#x6B65;&#x9AA4;</h2>
+<ol>
+<li>&#x5199;&#x4E00;&#x4E2A;<code>provisioner</code>&#x5B9E;&#x73B0;<code>Provisioner</code>&#x63A5;&#x53E3;&#xFF08;&#x5305;&#x542B;<code>Provision</code>&#x548C;<code>Delete</code>&#x7684;&#x65B9;&#x6CD5;&#xFF09;&#x3002;</li>
+<li>&#x901A;&#x8FC7;&#x8BE5;<code>provisioner</code>&#x6784;&#x5EFA;<code>ProvisionController</code>&#x3002;</li>
+<li>&#x6267;&#x884C;<code>ProvisionController</code>&#x7684;<code>Run</code>&#x65B9;&#x6CD5;&#x3002;</li>
+</ol>
+<h1 id="2-csi-provisioner"><a name="2-csi-provisioner" class="anchor-navigation-ex-anchor" href="#2-csi-provisioner"><i class="fa fa-link" aria-hidden="true"></i></a>2. CSI Provisioner</h1>
+<p>CSI Provisioner&#x7684;&#x6E90;&#x7801;&#x53EF;&#x53C2;&#x8003;&#xFF1A;<a href="https://github.com/kubernetes-csi/external-provisioner&#x3002;" target="_blank">https://github.com/kubernetes-csi/external-provisioner&#x3002;</a></p>
+<h2 id="21-main-&#x51FD;&#x6570;"><a name="21-main-&#x51FD;&#x6570;" class="anchor-navigation-ex-anchor" href="#21-main-&#x51FD;&#x6570;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1. <a href="https://github.com/kubernetes-csi/external-provisioner/blob/master/cmd/csi-provisioner/csi-provisioner.go" target="_blank">Main &#x51FD;&#x6570;</a></h2>
+<h3 id="211-&#x8BFB;&#x53D6;&#x73AF;&#x5883;&#x53D8;&#x91CF;"><a name="211-&#x8BFB;&#x53D6;&#x73AF;&#x5883;&#x53D8;&#x91CF;" class="anchor-navigation-ex-anchor" href="#211-&#x8BFB;&#x53D6;&#x73AF;&#x5883;&#x53D8;&#x91CF;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.1. &#x8BFB;&#x53D6;&#x73AF;&#x5883;&#x53D8;&#x91CF;</h3>
+<p>&#x6E90;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">var</span> <span class="token punctuation">(</span>
+    provisioner          <span class="token operator">=</span> flag<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token string">&quot;provisioner&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;Name of the provisioner. The provisioner will only provision volumes for claims that request a StorageClass with a provisioner field set equal to this name.&quot;</span><span class="token punctuation">)</span>
+    master               <span class="token operator">=</span> flag<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token string">&quot;master&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;Master URL to build a client config from. Either this or kubeconfig needs to be set if the provisioner is being run out of cluster.&quot;</span><span class="token punctuation">)</span>
+    kubeconfig           <span class="token operator">=</span> flag<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token string">&quot;kubeconfig&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;Absolute path to the kubeconfig file. Either this or master needs to be set if the provisioner is being run out of cluster.&quot;</span><span class="token punctuation">)</span>
+    csiEndpoint          <span class="token operator">=</span> flag<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token string">&quot;csi-address&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;/run/csi/socket&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;The gRPC endpoint for Target CSI Volume&quot;</span><span class="token punctuation">)</span>
+    connectionTimeout    <span class="token operator">=</span> flag<span class="token punctuation">.</span><span class="token function">Duration</span><span class="token punctuation">(</span><span class="token string">&quot;connection-timeout&quot;</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token operator">*</span>time<span class="token punctuation">.</span>Second<span class="token punctuation">,</span> <span class="token string">&quot;Timeout for waiting for CSI driver socket.&quot;</span><span class="token punctuation">)</span>
+    volumeNamePrefix     <span class="token operator">=</span> flag<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token string">&quot;volume-name-prefix&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;pvc&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;Prefix to apply to the name of a created volume&quot;</span><span class="token punctuation">)</span>
+    volumeNameUUIDLength <span class="token operator">=</span> flag<span class="token punctuation">.</span><span class="token function">Int</span><span class="token punctuation">(</span><span class="token string">&quot;volume-name-uuid-length&quot;</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">&quot;Truncates generated UUID of a created volume to this length. Defaults behavior is to NOT truncate.&quot;</span><span class="token punctuation">)</span>
+    showVersion          <span class="token operator">=</span> flag<span class="token punctuation">.</span><span class="token function">Bool</span><span class="token punctuation">(</span><span class="token string">&quot;version&quot;</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token string">&quot;Show version.&quot;</span><span class="token punctuation">)</span>
+
+    provisionController <span class="token operator">*</span>controller<span class="token punctuation">.</span>ProvisionController
+    version             <span class="token operator">=</span> <span class="token string">&quot;unknown&quot;</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">func</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> config <span class="token operator">*</span>rest<span class="token punctuation">.</span>Config
+    <span class="token keyword">var</span> err <span class="token builtin">error</span>
+
+    flag<span class="token punctuation">.</span><span class="token function">Parse</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    flag<span class="token punctuation">.</span><span class="token function">Set</span><span class="token punctuation">(</span><span class="token string">&quot;logtostderr&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;true&quot;</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> <span class="token operator">*</span>showVersion <span class="token punctuation">{</span>
+        fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>Args<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">,</span> version<span class="token punctuation">)</span>
+        os<span class="token punctuation">.</span><span class="token function">Exit</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    glog<span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Version: %s&quot;</span><span class="token punctuation">,</span> version<span class="token punctuation">)</span>
+    <span class="token operator">...</span>    
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x901A;&#x8FC7;<code>init&#x51FD;&#x6570;</code>&#x89E3;&#x6790;&#x76F8;&#x5173;&#x53C2;&#x6570;&#xFF0C;&#x5176;&#x5B9E;<code>provisioner</code>&#x6307;&#x660E;&#x4E3A;PVC&#x63D0;&#x4F9B;PV&#x7684;provisioner&#x7684;&#x540D;&#x5B57;&#xFF0C;&#x9700;&#x8981;&#x548C;<code>StorageClass</code>&#x5BF9;&#x8C61;&#x4E2D;&#x7684;<code>provisioner</code>&#x5B57;&#x6BB5;&#x4E00;&#x81F4;&#x3002;</p>
+<h3 id="212-&#x83B7;&#x53D6;clientset&#x5BF9;&#x8C61;"><a name="212-&#x83B7;&#x53D6;clientset&#x5BF9;&#x8C61;" class="anchor-navigation-ex-anchor" href="#212-&#x83B7;&#x53D6;clientset&#x5BF9;&#x8C61;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.2. &#x83B7;&#x53D6;clientset&#x5BF9;&#x8C61;</h3>
+<p>&#x6E90;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// get the KUBECONFIG from env if specified (useful for local/debug cluster)</span>
+kubeconfigEnv <span class="token operator">:=</span> os<span class="token punctuation">.</span><span class="token function">Getenv</span><span class="token punctuation">(</span><span class="token string">&quot;KUBECONFIG&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> kubeconfigEnv <span class="token operator">!=</span> <span class="token string">&quot;&quot;</span> <span class="token punctuation">{</span>
+    glog<span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Found KUBECONFIG environment variable set, using that..&quot;</span><span class="token punctuation">)</span>
+    kubeconfig <span class="token operator">=</span> <span class="token operator">&amp;</span>kubeconfigEnv
+<span class="token punctuation">}</span>
+<span class="token keyword">if</span> <span class="token operator">*</span>master <span class="token operator">!=</span> <span class="token string">&quot;&quot;</span> <span class="token operator">||</span> <span class="token operator">*</span>kubeconfig <span class="token operator">!=</span> <span class="token string">&quot;&quot;</span> <span class="token punctuation">{</span>
+    glog<span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Either master or kubeconfig specified. building kube config from that..&quot;</span><span class="token punctuation">)</span>
+    config<span class="token punctuation">,</span> err <span class="token operator">=</span> clientcmd<span class="token punctuation">.</span><span class="token function">BuildConfigFromFlags</span><span class="token punctuation">(</span><span class="token operator">*</span>master<span class="token punctuation">,</span> <span class="token operator">*</span>kubeconfig<span class="token punctuation">)</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    glog<span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;Building kube configs for running in cluster...&quot;</span><span class="token punctuation">)</span>
+    config<span class="token punctuation">,</span> err <span class="token operator">=</span> rest<span class="token punctuation">.</span><span class="token function">InClusterConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    glog<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;Failed to create config: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+clientset<span class="token punctuation">,</span> err <span class="token operator">:=</span> kubernetes<span class="token punctuation">.</span><span class="token function">NewForConfig</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    glog<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;Failed to create client: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// snapclientset.NewForConfig creates a new Clientset for VolumesnapshotV1alpha1Client</span>
+snapClient<span class="token punctuation">,</span> err <span class="token operator">:=</span> snapclientset<span class="token punctuation">.</span><span class="token function">NewForConfig</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    glog<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;Failed to create snapshot client: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+csiAPIClient<span class="token punctuation">,</span> err <span class="token operator">:=</span> csiclientset<span class="token punctuation">.</span><span class="token function">NewForConfig</span><span class="token punctuation">(</span>config<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    glog<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;Failed to create CSI API client: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x901A;&#x8FC7;&#x8BFB;&#x53D6;&#x5BF9;&#x5E94;&#x7684;k8s&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x521B;&#x5EFA;<code>clientset</code>&#x5BF9;&#x8C61;&#xFF0C;&#x7528;&#x6765;&#x6267;&#x884C;k8s&#x5BF9;&#x5E94;&#x7684;API&#xFF0C;&#x5176;&#x4E2D;&#x4E3B;&#x8981;&#x5305;&#x62EC;&#x5BF9;PV&#x548C;PVC&#x7B49;&#x5BF9;&#x8C61;&#x7684;&#x521B;&#x5EFA;&#x5220;&#x9664;&#x7B49;&#x64CD;&#x4F5C;&#x3002;</p>
+<h3 id="213-k8s&#x7248;&#x672C;&#x6821;&#x9A8C;"><a name="213-k8s&#x7248;&#x672C;&#x6821;&#x9A8C;" class="anchor-navigation-ex-anchor" href="#213-k8s&#x7248;&#x672C;&#x6821;&#x9A8C;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.3. k8s&#x7248;&#x672C;&#x6821;&#x9A8C;</h3>
+<pre class="language-"><code class="lang-go"><span class="token comment">// The controller needs to know what the server version is because out-of-tree</span>
+<span class="token comment">// provisioners aren&apos;t officially supported until 1.5</span>
+serverVersion<span class="token punctuation">,</span> err <span class="token operator">:=</span> clientset<span class="token punctuation">.</span><span class="token function">Discovery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ServerVersion</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    glog<span class="token punctuation">.</span><span class="token function">Fatalf</span><span class="token punctuation">(</span><span class="token string">&quot;Error getting server version: %v&quot;</span><span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x83B7;&#x53D6;&#x4E86;k8s&#x7684;&#x7248;&#x672C;&#x4FE1;&#x606F;&#xFF0C;&#x56E0;&#x4E3A;provisioners&#x7684;&#x529F;&#x80FD;&#x5728;k8s 1.5&#x53CA;&#x4EE5;&#x4E0A;&#x7248;&#x672C;&#x624D;&#x652F;&#x6301;&#x3002;</p>
+<h3 id="214-&#x8FDE;&#x63A5;-csi-socket"><a name="214-&#x8FDE;&#x63A5;-csi-socket" class="anchor-navigation-ex-anchor" href="#214-&#x8FDE;&#x63A5;-csi-socket"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.4. &#x8FDE;&#x63A5; csi socket</h3>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Generate a unique ID for this provisioner</span>
+timeStamp <span class="token operator">:=</span> time<span class="token punctuation">.</span><span class="token function">Now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">UnixNano</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token function">int64</span><span class="token punctuation">(</span>time<span class="token punctuation">.</span>Millisecond<span class="token punctuation">)</span>
+identity <span class="token operator">:=</span> strconv<span class="token punctuation">.</span><span class="token function">FormatInt</span><span class="token punctuation">(</span>timeStamp<span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot;-&quot;</span> <span class="token operator">+</span> strconv<span class="token punctuation">.</span><span class="token function">Itoa</span><span class="token punctuation">(</span>rand<span class="token punctuation">.</span><span class="token function">Intn</span><span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">&quot;-&quot;</span> <span class="token operator">+</span> <span class="token operator">*</span>provisioner
+
+<span class="token comment">// Provisioner will stay in Init until driver opens csi socket, once it&apos;s done</span>
+<span class="token comment">// controller will exit this loop and proceed normally.</span>
+socketDown <span class="token operator">:=</span> <span class="token boolean">true</span>
+grpcClient <span class="token operator">:=</span> <span class="token operator">&amp;</span>grpc<span class="token punctuation">.</span>ClientConn<span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> socketDown <span class="token punctuation">{</span>
+    grpcClient<span class="token punctuation">,</span> err <span class="token operator">=</span> ctrl<span class="token punctuation">.</span><span class="token function">Connect</span><span class="token punctuation">(</span><span class="token operator">*</span>csiEndpoint<span class="token punctuation">,</span> <span class="token operator">*</span>connectionTimeout<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        socketDown <span class="token operator">=</span> <span class="token boolean">false</span>
+        <span class="token keyword">continue</span>
+    <span class="token punctuation">}</span>
+    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span><span class="token number">10</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Second<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x5728;<code>Provisioner</code>&#x4F1A;&#x505C;&#x7559;&#x5728;&#x521D;&#x59CB;&#x5316;&#x72B6;&#x6001;&#xFF0C;&#x76F4;&#x5230;<code>csi socket</code>&#x8FDE;&#x63A5;&#x6210;&#x529F;&#x624D;&#x6B63;&#x5E38;&#x8FD0;&#x884C;&#x3002;&#x5982;&#x679C;&#x8FDE;&#x63A5;&#x5931;&#x8D25;&#xFF0C;&#x4F1A;&#x6682;&#x505C;<code>10&#x79D2;</code>&#x540E;&#x91CD;&#x8BD5;&#xFF0C;&#x5176;&#x4E2D;&#x6D89;&#x53CA;&#x4EE5;&#x4E0B;2&#x4E2A;&#x53C2;&#x6570;&#xFF1A;</p>
+<ul>
+<li>csiEndpoint&#xFF1A;CSI Volume&#x7684;gRPC&#x5730;&#x5740;&#xFF0C;&#x9ED8;&#x8BA4;&#x901A;&#x8FC7;&#x4E3A;<code>/run/csi/socket</code>&#x3002;</li>
+<li>connectionTimeout&#xFF1A;&#x8FDE;&#x63A5;CSI driver socket&#x7684;&#x8D85;&#x65F6;&#x65F6;&#x95F4;&#xFF0C;&#x9ED8;&#x8BA4;&#x4E3A;10&#x79D2;&#x3002;</li>
+</ul>
+<h3 id="215-&#x6784;&#x9020;csi-provisioner&#x5BF9;&#x8C61;"><a name="215-&#x6784;&#x9020;csi-provisioner&#x5BF9;&#x8C61;" class="anchor-navigation-ex-anchor" href="#215-&#x6784;&#x9020;csi-provisioner&#x5BF9;&#x8C61;"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.5. &#x6784;&#x9020;csi-Provisioner&#x5BF9;&#x8C61;</h3>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Create the provisioner: it implements the Provisioner interface expected by</span>
+<span class="token comment">// the controller</span>
+csiProvisioner <span class="token operator">:=</span> ctrl<span class="token punctuation">.</span><span class="token function">NewCSIProvisioner</span><span class="token punctuation">(</span>clientset<span class="token punctuation">,</span> csiAPIClient<span class="token punctuation">,</span> <span class="token operator">*</span>csiEndpoint<span class="token punctuation">,</span> <span class="token operator">*</span>connectionTimeout<span class="token punctuation">,</span> identity<span class="token punctuation">,</span> <span class="token operator">*</span>volumeNamePrefix<span class="token punctuation">,</span> <span class="token operator">*</span>volumeNameUUIDLength<span class="token punctuation">,</span> grpcClient<span class="token punctuation">,</span> snapClient<span class="token punctuation">)</span>
+provisionController <span class="token operator">=</span> controller<span class="token punctuation">.</span><span class="token function">NewProvisionController</span><span class="token punctuation">(</span>
+    clientset<span class="token punctuation">,</span>
+    <span class="token operator">*</span>provisioner<span class="token punctuation">,</span>
+    csiProvisioner<span class="token punctuation">,</span>
+    serverVersion<span class="token punctuation">.</span>GitVersion<span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+</code></pre>
+<p>&#x901A;&#x8FC7;&#x53C2;&#x6570;<code>clientset</code>,<code>csiAPIClient</code>, <code>csiEndpoint</code>, <code>connectionTimeout</code>, <code>identity</code>, <code>volumeNamePrefix</code>, <code>volumeNameUUIDLength</code>,<code>grpcClient</code>, <code>snapClient</code>&#x6784;&#x9020;csi-Provisioner&#x5BF9;&#x8C61;&#x3002;</p>
+<p>&#x901A;&#x8FC7;<code>csiProvisioner</code>&#x6784;&#x9020;<code>ProvisionController</code>&#x5BF9;&#x8C61;&#x3002;</p>
+<h3 id="216-&#x8FD0;&#x884C;provisioncontroller"><a name="216-&#x8FD0;&#x884C;provisioncontroller" class="anchor-navigation-ex-anchor" href="#216-&#x8FD0;&#x884C;provisioncontroller"><i class="fa fa-link" aria-hidden="true"></i></a>2.1.6. &#x8FD0;&#x884C;ProvisionController</h3>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    provisionController<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span>wait<span class="token punctuation">.</span>NeverStop<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>ProvisionController</code>&#x5B9E;&#x73B0;&#x4E86;&#x5177;&#x4F53;&#x7684;PV&#x548C;PVC&#x7684;&#x76F8;&#x5173;&#x903B;&#x8F91;&#xFF0C;<code>Run</code>&#x65B9;&#x6CD5;&#x4EE5;&#x5E38;&#x9A7B;&#x8FDB;&#x7A0B;&#x7684;&#x65B9;&#x5F0F;&#x8FD0;&#x884C;&#x3002;</p>
+<h2 id="22-provision&#x548C;delete&#x65B9;&#x6CD5;"><a name="22-provision&#x548C;delete&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#22-provision&#x548C;delete&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2. <a href="https://github.com/kubernetes-csi/external-provisioner/blob/master/pkg/controller/controller.go#L336" target="_blank">Provision</a>&#x548C;<a href="https://github.com/kubernetes-csi/external-provisioner/blob/master/pkg/controller/controller.go#L606" target="_blank">Delete</a>&#x65B9;&#x6CD5;</h2>
+<h3 id="221-provision&#x65B9;&#x6CD5;"><a name="221-provision&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#221-provision&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.1. Provision&#x65B9;&#x6CD5;</h3>
+<blockquote>
+<p><code>csiProvisioner</code>&#x7684;<code>Provision</code>&#x65B9;&#x6CD5;&#x5177;&#x4F53;&#x6E90;&#x7801;&#x53C2;&#x8003;&#xFF1A;<a href="https://github.com/kubernetes-csi/external-provisioner/blob/master/pkg/controller/controller.go#L336" target="_blank">https://github.com/kubernetes-csi/external-provisioner/blob/master/pkg/controller/controller.go#L336</a></p>
+</blockquote>
+<p><code>Provision</code>&#x65B9;&#x6CD5;&#x7528;&#x6765;&#x521B;&#x5EFA;&#x5B58;&#x50A8;&#x8D44;&#x6E90;&#xFF0C;&#x5E76;&#x4E14;&#x8FD4;&#x56DE;&#x4E00;&#x4E2A;<code>PV</code>&#x5BF9;&#x8C61;&#x3002;&#x5176;&#x4E2D;&#x5165;&#x53C2;&#x662F;<code>VolumeOptions</code>&#xFF0C;&#x7528;&#x6765;&#x6307;&#x5B9A;<code>PV</code>&#x5BF9;&#x8C61;&#x7684;&#x76F8;&#x5173;&#x5C5E;&#x6027;&#x3002;</p>
+<p><strong>1&#x3001;&#x6784;&#x9020;PV&#x76F8;&#x5173;&#x5C5E;&#x6027;</strong></p>
+<pre class="language-"><code class="lang-go">pvName<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">makeVolumeName</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>volumeNamePrefix<span class="token punctuation">,</span> fmt<span class="token punctuation">.</span><span class="token function">Sprintf</span><span class="token punctuation">(</span><span class="token string">&quot;%s&quot;</span><span class="token punctuation">,</span> options<span class="token punctuation">.</span>PVC<span class="token punctuation">.</span>ObjectMeta<span class="token punctuation">.</span>UID<span class="token punctuation">)</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>volumeNameUUIDLength<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>2&#x3001;&#x6784;&#x9020;CSIPersistentVolumeSource&#x76F8;&#x5173;&#x5C5E;&#x6027;</strong></p>
+<pre class="language-"><code class="lang-go">driverState<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">checkDriverState</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>grpcClient<span class="token punctuation">,</span> p<span class="token punctuation">.</span>timeout<span class="token punctuation">,</span> needSnapshotSupport<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+
+<span class="token operator">...</span>
+<span class="token comment">// Resolve controller publish, node stage, node publish secret references</span>
+controllerPublishSecretRef<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">getSecretReference</span><span class="token punctuation">(</span>controllerPublishSecretNameKey<span class="token punctuation">,</span> controllerPublishSecretNamespaceKey<span class="token punctuation">,</span> options<span class="token punctuation">.</span>Parameters<span class="token punctuation">,</span> pvName<span class="token punctuation">,</span> options<span class="token punctuation">.</span>PVC<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+nodeStageSecretRef<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">getSecretReference</span><span class="token punctuation">(</span>nodeStageSecretNameKey<span class="token punctuation">,</span> nodeStageSecretNamespaceKey<span class="token punctuation">,</span> options<span class="token punctuation">.</span>Parameters<span class="token punctuation">,</span> pvName<span class="token punctuation">,</span> options<span class="token punctuation">.</span>PVC<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+nodePublishSecretRef<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">getSecretReference</span><span class="token punctuation">(</span>nodePublishSecretNameKey<span class="token punctuation">,</span> nodePublishSecretNamespaceKey<span class="token punctuation">,</span> options<span class="token punctuation">.</span>Parameters<span class="token punctuation">,</span> pvName<span class="token punctuation">,</span> options<span class="token punctuation">.</span>PVC<span class="token punctuation">)</span>
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+
+<span class="token operator">...</span>
+volumeAttributes <span class="token operator">:=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">{</span>provisionerIDKey<span class="token punctuation">:</span> p<span class="token punctuation">.</span>identity<span class="token punctuation">}</span>
+<span class="token keyword">for</span> k<span class="token punctuation">,</span> v <span class="token operator">:=</span> <span class="token keyword">range</span> rep<span class="token punctuation">.</span>Volume<span class="token punctuation">.</span>Attributes <span class="token punctuation">{</span>
+    volumeAttributes<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> v
+<span class="token punctuation">}</span>
+
+<span class="token operator">...</span>
+fsType <span class="token operator">:=</span> <span class="token string">&quot;&quot;</span>
+<span class="token keyword">for</span> k<span class="token punctuation">,</span> v <span class="token operator">:=</span> <span class="token keyword">range</span> options<span class="token punctuation">.</span>Parameters <span class="token punctuation">{</span>
+    <span class="token keyword">switch</span> strings<span class="token punctuation">.</span><span class="token function">ToLower</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> <span class="token string">&quot;fstype&quot;</span><span class="token punctuation">:</span>
+        fsType <span class="token operator">=</span> v
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>fsType<span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+    fsType <span class="token operator">=</span> defaultFSType
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>3&#x3001;&#x521B;&#x5EFA;CSI CreateVolumeRequest</strong> </p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Create a CSI CreateVolumeRequest and Response</span>
+req <span class="token operator">:=</span> csi<span class="token punctuation">.</span>CreateVolumeRequest<span class="token punctuation">{</span>
+    Name<span class="token punctuation">:</span>               pvName<span class="token punctuation">,</span>
+    Parameters<span class="token punctuation">:</span>         options<span class="token punctuation">.</span>Parameters<span class="token punctuation">,</span>
+    VolumeCapabilities<span class="token punctuation">:</span> volumeCaps<span class="token punctuation">,</span>
+    CapacityRange<span class="token punctuation">:</span> <span class="token operator">&amp;</span>csi<span class="token punctuation">.</span>CapacityRange<span class="token punctuation">{</span>
+        RequiredBytes<span class="token punctuation">:</span> <span class="token function">int64</span><span class="token punctuation">(</span>volSizeBytes<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+<span class="token operator">...</span>
+glog<span class="token punctuation">.</span><span class="token function">V</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;CreateVolumeRequest %+v&quot;</span><span class="token punctuation">,</span> req<span class="token punctuation">)</span>
+
+rep <span class="token operator">:=</span> <span class="token operator">&amp;</span>csi<span class="token punctuation">.</span>CreateVolumeResponse<span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token operator">...</span>
+opts <span class="token operator">:=</span> wait<span class="token punctuation">.</span>Backoff<span class="token punctuation">{</span>Duration<span class="token punctuation">:</span> backoffDuration<span class="token punctuation">,</span> Factor<span class="token punctuation">:</span> backoffFactor<span class="token punctuation">,</span> Steps<span class="token punctuation">:</span> backoffSteps<span class="token punctuation">}</span>
+err <span class="token operator">=</span> wait<span class="token punctuation">.</span><span class="token function">ExponentialBackoff</span><span class="token punctuation">(</span>opts<span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">bool</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    ctx<span class="token punctuation">,</span> cancel <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">WithTimeout</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>timeout<span class="token punctuation">)</span>
+    <span class="token keyword">defer</span> <span class="token function">cancel</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    rep<span class="token punctuation">,</span> err <span class="token operator">=</span> p<span class="token punctuation">.</span>csiClient<span class="token punctuation">.</span><span class="token function">CreateVolume</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token operator">&amp;</span>req<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token comment">// CreateVolume has finished successfully</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> status<span class="token punctuation">,</span> ok <span class="token operator">:=</span> status<span class="token punctuation">.</span><span class="token function">FromError</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> status<span class="token punctuation">.</span><span class="token function">Code</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> codes<span class="token punctuation">.</span>DeadlineExceeded <span class="token punctuation">{</span>
+            <span class="token comment">// CreateVolume timed out, give it another chance to complete</span>
+            glog<span class="token punctuation">.</span><span class="token function">Warningf</span><span class="token punctuation">(</span><span class="token string">&quot;CreateVolume timeout: %s has expired, operation will be retried&quot;</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>timeout<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// CreateVolume failed , no reason to retry, bailing from ExponentialBackoff</span>
+    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">,</span> err
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> rep<span class="token punctuation">.</span>Volume <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+    glog<span class="token punctuation">.</span><span class="token function">V</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;create volume rep: %+v&quot;</span><span class="token punctuation">,</span> <span class="token operator">*</span>rep<span class="token punctuation">.</span>Volume<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+respCap <span class="token operator">:=</span> rep<span class="token punctuation">.</span><span class="token function">GetVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">GetCapacityBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">if</span> respCap <span class="token operator">&lt;</span> volSizeBytes <span class="token punctuation">{</span>
+    capErr <span class="token operator">:=</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;created volume capacity %v less than requested capacity %v&quot;</span><span class="token punctuation">,</span> respCap<span class="token punctuation">,</span> volSizeBytes<span class="token punctuation">)</span>
+    delReq <span class="token operator">:=</span> <span class="token operator">&amp;</span>csi<span class="token punctuation">.</span>DeleteVolumeRequest<span class="token punctuation">{</span>
+        VolumeId<span class="token punctuation">:</span> rep<span class="token punctuation">.</span><span class="token function">GetVolume</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">GetId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    delReq<span class="token punctuation">.</span>ControllerDeleteSecrets <span class="token operator">=</span> provisionerCredentials
+    ctx<span class="token punctuation">,</span> cancel <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">WithTimeout</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>timeout<span class="token punctuation">)</span>
+    <span class="token keyword">defer</span> <span class="token function">cancel</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> p<span class="token punctuation">.</span>csiClient<span class="token punctuation">.</span><span class="token function">DeleteVolume</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> delReq<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        capErr <span class="token operator">=</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;%v. Cleanup of volume %s failed, volume is orphaned: %v&quot;</span><span class="token punctuation">,</span> capErr<span class="token punctuation">,</span> pvName<span class="token punctuation">,</span> err<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> capErr
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>Provison</code>&#x65B9;&#x6CD5;&#x6838;&#x5FC3;&#x529F;&#x80FD;&#x662F;&#x8C03;&#x7528;<code>p.csiClient.CreateVolume(ctx, &amp;req)</code>&#x3002;</p>
+<p><strong>4&#x3001;&#x6784;&#x9020;PV&#x5BF9;&#x8C61;</strong></p>
+<pre class="language-"><code class="lang-go">pv <span class="token operator">:=</span> <span class="token operator">&amp;</span>v1<span class="token punctuation">.</span>PersistentVolume<span class="token punctuation">{</span>
+    ObjectMeta<span class="token punctuation">:</span> metav1<span class="token punctuation">.</span>ObjectMeta<span class="token punctuation">{</span>
+        Name<span class="token punctuation">:</span> pvName<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    Spec<span class="token punctuation">:</span> v1<span class="token punctuation">.</span>PersistentVolumeSpec<span class="token punctuation">{</span>
+        PersistentVolumeReclaimPolicy<span class="token punctuation">:</span> options<span class="token punctuation">.</span>PersistentVolumeReclaimPolicy<span class="token punctuation">,</span>
+        AccessModes<span class="token punctuation">:</span>                   options<span class="token punctuation">.</span>PVC<span class="token punctuation">.</span>Spec<span class="token punctuation">.</span>AccessModes<span class="token punctuation">,</span>
+        Capacity<span class="token punctuation">:</span> v1<span class="token punctuation">.</span>ResourceList<span class="token punctuation">{</span>
+            v1<span class="token punctuation">.</span><span class="token function">ResourceName</span><span class="token punctuation">(</span>v1<span class="token punctuation">.</span>ResourceStorage<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token function">bytesToGiQuantity</span><span class="token punctuation">(</span>respCap<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token comment">// TODO wait for CSI VolumeSource API</span>
+        PersistentVolumeSource<span class="token punctuation">:</span> v1<span class="token punctuation">.</span>PersistentVolumeSource<span class="token punctuation">{</span>
+            CSI<span class="token punctuation">:</span> <span class="token operator">&amp;</span>v1<span class="token punctuation">.</span>CSIPersistentVolumeSource<span class="token punctuation">{</span>
+                Driver<span class="token punctuation">:</span>                     driverState<span class="token punctuation">.</span>driverName<span class="token punctuation">,</span>
+                VolumeHandle<span class="token punctuation">:</span>               p<span class="token punctuation">.</span><span class="token function">volumeIdToHandle</span><span class="token punctuation">(</span>rep<span class="token punctuation">.</span>Volume<span class="token punctuation">.</span>Id<span class="token punctuation">)</span><span class="token punctuation">,</span>
+                FSType<span class="token punctuation">:</span>                     fsType<span class="token punctuation">,</span>
+                VolumeAttributes<span class="token punctuation">:</span>           volumeAttributes<span class="token punctuation">,</span>
+                ControllerPublishSecretRef<span class="token punctuation">:</span> controllerPublishSecretRef<span class="token punctuation">,</span>
+                NodeStageSecretRef<span class="token punctuation">:</span>         nodeStageSecretRef<span class="token punctuation">,</span>
+                NodePublishSecretRef<span class="token punctuation">:</span>       nodePublishSecretRef<span class="token punctuation">,</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">if</span> driverState<span class="token punctuation">.</span>capabilities<span class="token punctuation">.</span><span class="token function">Has</span><span class="token punctuation">(</span>PluginCapability_ACCESSIBILITY_CONSTRAINTS<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    pv<span class="token punctuation">.</span>Spec<span class="token punctuation">.</span>NodeAffinity <span class="token operator">=</span> <span class="token function">GenerateVolumeNodeAffinity</span><span class="token punctuation">(</span>rep<span class="token punctuation">.</span>Volume<span class="token punctuation">.</span>AccessibleTopology<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+glog<span class="token punctuation">.</span><span class="token function">Infof</span><span class="token punctuation">(</span><span class="token string">&quot;successfully created PV %+v&quot;</span><span class="token punctuation">,</span> pv<span class="token punctuation">.</span>Spec<span class="token punctuation">.</span>PersistentVolumeSource<span class="token punctuation">)</span>
+
+<span class="token keyword">return</span> pv<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+</code></pre>
+<p><code>Provision</code>&#x65B9;&#x6CD5;&#x53EA;&#x662F;&#x901A;&#x8FC7;<code>VolumeOptions</code>&#x53C2;&#x6570;&#x6765;&#x6784;&#x5EFA;<code>PV</code>&#x5BF9;&#x8C61;&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x6267;&#x884C;&#x5177;&#x4F53;<code>PV</code>&#x7684;&#x521B;&#x5EFA;&#x6216;&#x5220;&#x9664;&#x7684;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;<code>Provisioner</code>&#x7684;&#xFF0C;&#x4E00;&#x822C;&#x662F;<code>PersistentVolumeSource</code>&#x7C7B;&#x578B;&#x548C;&#x53C2;&#x6570;&#x4E0D;&#x540C;&#xFF0C;&#x4F8B;&#x5982;<code>csi-provisioner</code>&#x5BF9;&#x5E94;&#x7684;<code>PersistentVolumeSource</code>&#x4E3A;<code>CSI</code>&#xFF0C;&#x5E76;&#x4E14;&#x9700;&#x8981;&#x4F20;&#x5165;<code>CSI</code>&#x76F8;&#x5173;&#x7684;&#x53C2;&#x6570;&#xFF1A;</p>
+<ul>
+<li><code>Driver</code></li>
+<li><code>VolumeHandle</code></li>
+<li><code>FSType</code></li>
+<li><code>VolumeAttributes</code></li>
+<li><code>ControllerPublishSecretRef</code></li>
+<li><code>NodeStageSecretRef</code></li>
+<li><code>NodePublishSecretRef</code></li>
+</ul>
+<h3 id="222-delete&#x65B9;&#x6CD5;"><a name="222-delete&#x65B9;&#x6CD5;" class="anchor-navigation-ex-anchor" href="#222-delete&#x65B9;&#x6CD5;"><i class="fa fa-link" aria-hidden="true"></i></a>2.2.2. Delete&#x65B9;&#x6CD5;</h3>
+<blockquote>
+<p><code>csiProvisioner</code>&#x7684;<code>delete</code>&#x65B9;&#x6CD5;&#x5177;&#x4F53;&#x6E90;&#x7801;&#x53C2;&#x8003;&#xFF1A;<a href="https://github.com/kubernetes-csi/external-provisioner/blob/master/pkg/controller/controller.go#L606" target="_blank">https://github.com/kubernetes-csi/external-provisioner/blob/master/pkg/controller/controller.go#L606</a></p>
+</blockquote>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>p <span class="token operator">*</span>csiProvisioner<span class="token punctuation">)</span> <span class="token function">Delete</span><span class="token punctuation">(</span>volume <span class="token operator">*</span>v1<span class="token punctuation">.</span>PersistentVolume<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> volume <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token operator">||</span> volume<span class="token punctuation">.</span>Spec<span class="token punctuation">.</span>CSI <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> fmt<span class="token punctuation">.</span><span class="token function">Errorf</span><span class="token punctuation">(</span><span class="token string">&quot;invalid CSI PV&quot;</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    volumeId <span class="token operator">:=</span> p<span class="token punctuation">.</span><span class="token function">volumeHandleToId</span><span class="token punctuation">(</span>volume<span class="token punctuation">.</span>Spec<span class="token punctuation">.</span>CSI<span class="token punctuation">.</span>VolumeHandle<span class="token punctuation">)</span>
+
+    <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">checkDriverState</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>grpcClient<span class="token punctuation">,</span> p<span class="token punctuation">.</span>timeout<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> err
+    <span class="token punctuation">}</span>
+
+    req <span class="token operator">:=</span> csi<span class="token punctuation">.</span>DeleteVolumeRequest<span class="token punctuation">{</span>
+        VolumeId<span class="token punctuation">:</span> volumeId<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// get secrets if StorageClass specifies it</span>
+    storageClassName <span class="token operator">:=</span> volume<span class="token punctuation">.</span>Spec<span class="token punctuation">.</span>StorageClassName
+    <span class="token keyword">if</span> <span class="token function">len</span><span class="token punctuation">(</span>storageClassName<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token number">0</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> storageClass<span class="token punctuation">,</span> err <span class="token operator">:=</span> p<span class="token punctuation">.</span>client<span class="token punctuation">.</span><span class="token function">StorageV1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">StorageClasses</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span>storageClassName<span class="token punctuation">,</span> metav1<span class="token punctuation">.</span>GetOptions<span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+            <span class="token comment">// Resolve provision secret credentials.</span>
+            <span class="token comment">// No PVC is provided when resolving provision/delete secret names, since the PVC may or may not exist at delete time.</span>
+            provisionerSecretRef<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">getSecretReference</span><span class="token punctuation">(</span>provisionerSecretNameKey<span class="token punctuation">,</span> provisionerSecretNamespaceKey<span class="token punctuation">,</span> storageClass<span class="token punctuation">.</span>Parameters<span class="token punctuation">,</span> volume<span class="token punctuation">.</span>Name<span class="token punctuation">,</span> <span class="token boolean">nil</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> err
+            <span class="token punctuation">}</span>
+            credentials<span class="token punctuation">,</span> err <span class="token operator">:=</span> <span class="token function">getCredentials</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>client<span class="token punctuation">,</span> provisionerSecretRef<span class="token punctuation">)</span>
+            <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> err
+            <span class="token punctuation">}</span>
+            req<span class="token punctuation">.</span>ControllerDeleteSecrets <span class="token operator">=</span> credentials
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+    ctx<span class="token punctuation">,</span> cancel <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">WithTimeout</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>timeout<span class="token punctuation">)</span>
+    <span class="token keyword">defer</span> <span class="token function">cancel</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">=</span> p<span class="token punctuation">.</span>csiClient<span class="token punctuation">.</span><span class="token function">DeleteVolume</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token operator">&amp;</span>req<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> err
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>Delete</code>&#x65B9;&#x6CD5;&#x4E3B;&#x8981;&#x662F;&#x8C03;&#x7528;&#x4E86;<code>p.csiClient.DeleteVolume(ctx, &amp;req)</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<h2 id="23-&#x603B;&#x7ED3;"><a name="23-&#x603B;&#x7ED3;" class="anchor-navigation-ex-anchor" href="#23-&#x603B;&#x7ED3;"><i class="fa fa-link" aria-hidden="true"></i></a>2.3. &#x603B;&#x7ED3;</h2>
+<p><code>csi provisioner</code>&#x5B9E;&#x73B0;&#x4E86;<code>Provisioner</code>&#x63A5;&#x53E3;&#xFF0C;&#x5176;&#x4E2D;&#x5305;&#x542B;<code>Provison</code>&#x548C;<code>Delete</code>&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;:</p>
+<ul>
+<li><code>Provision</code>&#xFF1A;&#x8C03;&#x7528;<code>csiClient.CreateVolume</code>&#x65B9;&#x6CD5;&#xFF0C;&#x540C;&#x65F6;&#x6784;&#x9020;&#x5E76;&#x8FD4;&#x56DE;PV&#x5BF9;&#x8C61;&#x3002;</li>
+<li><code>Delete</code>&#xFF1A;&#x8C03;&#x7528;<code>csiClient.DeleteVolume</code>&#x65B9;&#x6CD5;&#x3002;</li>
+</ul>
+<p><code>csi provisioner</code>&#x7684;&#x6838;&#x5FC3;&#x65B9;&#x6CD5;&#x90FD;&#x8C03;&#x7528;&#x4E86;<code>csi-client</code>&#x76F8;&#x5173;&#x65B9;&#x6CD5;&#x3002;</p>
+<h1 id="3-csi-client"><a name="3-csi-client" class="anchor-navigation-ex-anchor" href="#3-csi-client"><i class="fa fa-link" aria-hidden="true"></i></a>3. csi-client</h1>
+<blockquote>
+<p><code>csi client</code>&#x7684;&#x76F8;&#x5173;&#x4EE3;&#x7801;&#x53C2;&#x8003;&#xFF1A;<a href="https://github.com/container-storage-interface/spec/blob/master/lib/go/csi/v0/csi.pb.go" target="_blank">https://github.com/container-storage-interface/spec/blob/master/lib/go/csi/v0/csi.pb.go</a></p>
+</blockquote>
+<h2 id="31-&#x6784;&#x9020;csi-client"><a name="31-&#x6784;&#x9020;csi-client" class="anchor-navigation-ex-anchor" href="#31-&#x6784;&#x9020;csi-client"><i class="fa fa-link" aria-hidden="true"></i></a>3.1. &#x6784;&#x9020;csi-client</h2>
+<h3 id="311-&#x6784;&#x9020;grpcclient"><a name="311-&#x6784;&#x9020;grpcclient" class="anchor-navigation-ex-anchor" href="#311-&#x6784;&#x9020;grpcclient"><i class="fa fa-link" aria-hidden="true"></i></a>3.1.1. &#x6784;&#x9020;grpcClient</h3>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Provisioner will stay in Init until driver opens csi socket, once it&apos;s done</span>
+<span class="token comment">// controller will exit this loop and proceed normally.</span>
+socketDown <span class="token operator">:=</span> <span class="token boolean">true</span>
+grpcClient <span class="token operator">:=</span> <span class="token operator">&amp;</span>grpc<span class="token punctuation">.</span>ClientConn<span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">for</span> socketDown <span class="token punctuation">{</span>
+    grpcClient<span class="token punctuation">,</span> err <span class="token operator">=</span> ctrl<span class="token punctuation">.</span><span class="token function">Connect</span><span class="token punctuation">(</span><span class="token operator">*</span>csiEndpoint<span class="token punctuation">,</span> <span class="token operator">*</span>connectionTimeout<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        socketDown <span class="token operator">=</span> <span class="token boolean">false</span>
+        <span class="token keyword">continue</span>
+    <span class="token punctuation">}</span>
+    time<span class="token punctuation">.</span><span class="token function">Sleep</span><span class="token punctuation">(</span><span class="token number">10</span> <span class="token operator">*</span> time<span class="token punctuation">.</span>Second<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x901A;&#x8FC7;&#x8FDE;&#x63A5;<code>csi socket</code>&#xFF0C;&#x8FDE;&#x63A5;&#x6210;&#x529F;&#x624D;&#x6784;&#x9020;&#x53EF;&#x7528;&#x7684;<code>grpcClient</code>&#x3002;</p>
+<h3 id="312-&#x6784;&#x9020;csi-client"><a name="312-&#x6784;&#x9020;csi-client" class="anchor-navigation-ex-anchor" href="#312-&#x6784;&#x9020;csi-client"><i class="fa fa-link" aria-hidden="true"></i></a>3.1.2. &#x6784;&#x9020;csi-client</h3>
+<p>&#x901A;&#x8FC7;<code>grpcClient</code>&#x6784;&#x9020;<code>csi-client</code>&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Create the provisioner: it implements the Provisioner interface expected by</span>
+<span class="token comment">// the controller</span>
+csiProvisioner <span class="token operator">:=</span> ctrl<span class="token punctuation">.</span><span class="token function">NewCSIProvisioner</span><span class="token punctuation">(</span>clientset<span class="token punctuation">,</span> csiAPIClient<span class="token punctuation">,</span> <span class="token operator">*</span>csiEndpoint<span class="token punctuation">,</span> <span class="token operator">*</span>connectionTimeout<span class="token punctuation">,</span> identity<span class="token punctuation">,</span> <span class="token operator">*</span>volumeNamePrefix<span class="token punctuation">,</span> <span class="token operator">*</span>volumeNameUUIDLength<span class="token punctuation">,</span> grpcClient<span class="token punctuation">,</span> snapClient<span class="token punctuation">)</span>
+</code></pre>
+<p><strong>NewCSIProvisioner</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// NewCSIProvisioner creates new CSI provisioner</span>
+<span class="token keyword">func</span> <span class="token function">NewCSIProvisioner</span><span class="token punctuation">(</span>client kubernetes<span class="token punctuation">.</span>Interface<span class="token punctuation">,</span>
+    csiAPIClient csiclientset<span class="token punctuation">.</span>Interface<span class="token punctuation">,</span>
+    csiEndpoint <span class="token builtin">string</span><span class="token punctuation">,</span>
+    connectionTimeout time<span class="token punctuation">.</span>Duration<span class="token punctuation">,</span>
+    identity <span class="token builtin">string</span><span class="token punctuation">,</span>
+    volumeNamePrefix <span class="token builtin">string</span><span class="token punctuation">,</span>
+    volumeNameUUIDLength <span class="token builtin">int</span><span class="token punctuation">,</span>
+    grpcClient <span class="token operator">*</span>grpc<span class="token punctuation">.</span>ClientConn<span class="token punctuation">,</span>
+    snapshotClient snapclientset<span class="token punctuation">.</span>Interface<span class="token punctuation">)</span> controller<span class="token punctuation">.</span>Provisioner <span class="token punctuation">{</span>
+
+    csiClient <span class="token operator">:=</span> csi<span class="token punctuation">.</span><span class="token function">NewControllerClient</span><span class="token punctuation">(</span>grpcClient<span class="token punctuation">)</span>
+    provisioner <span class="token operator">:=</span> <span class="token operator">&amp;</span>csiProvisioner<span class="token punctuation">{</span>
+        client<span class="token punctuation">:</span>               client<span class="token punctuation">,</span>
+        grpcClient<span class="token punctuation">:</span>           grpcClient<span class="token punctuation">,</span>
+        csiClient<span class="token punctuation">:</span>            csiClient<span class="token punctuation">,</span>
+        csiAPIClient<span class="token punctuation">:</span>         csiAPIClient<span class="token punctuation">,</span>
+        snapshotClient<span class="token punctuation">:</span>       snapshotClient<span class="token punctuation">,</span>
+        timeout<span class="token punctuation">:</span>              connectionTimeout<span class="token punctuation">,</span>
+        identity<span class="token punctuation">:</span>             identity<span class="token punctuation">,</span>
+        volumeNamePrefix<span class="token punctuation">:</span>     volumeNamePrefix<span class="token punctuation">,</span>
+        volumeNameUUIDLength<span class="token punctuation">:</span> volumeNameUUIDLength<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> provisioner
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong><a href="https://github.com/container-storage-interface/spec/blob/master/lib/go/csi/v0/csi.pb.go#L4353" target="_blank">NewControllerClient</a></strong></p>
+<pre class="language-"><code class="lang-go">csiClient <span class="token operator">:=</span> csi<span class="token punctuation">.</span><span class="token function">NewControllerClient</span><span class="token punctuation">(</span>grpcClient<span class="token punctuation">)</span>
+<span class="token operator">...</span>
+<span class="token keyword">type</span> controllerClient <span class="token keyword">struct</span> <span class="token punctuation">{</span>
+    cc <span class="token operator">*</span>grpc<span class="token punctuation">.</span>ClientConn
+<span class="token punctuation">}</span>
+
+<span class="token keyword">func</span> <span class="token function">NewControllerClient</span><span class="token punctuation">(</span>cc <span class="token operator">*</span>grpc<span class="token punctuation">.</span>ClientConn<span class="token punctuation">)</span> ControllerClient <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token operator">&amp;</span>controllerClient<span class="token punctuation">{</span>cc<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="32-csiclientcreatevolume"><a name="32-csiclientcreatevolume" class="anchor-navigation-ex-anchor" href="#32-csiclientcreatevolume"><i class="fa fa-link" aria-hidden="true"></i></a>3.2. csiClient.CreateVolume</h2>
+<p><code>csi provisoner</code>&#x4E2D;&#x8C03;&#x7528;<code>csiClient.CreateVolume</code>&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go">opts <span class="token operator">:=</span> wait<span class="token punctuation">.</span>Backoff<span class="token punctuation">{</span>Duration<span class="token punctuation">:</span> backoffDuration<span class="token punctuation">,</span> Factor<span class="token punctuation">:</span> backoffFactor<span class="token punctuation">,</span> Steps<span class="token punctuation">:</span> backoffSteps<span class="token punctuation">}</span>
+err <span class="token operator">=</span> wait<span class="token punctuation">.</span><span class="token function">ExponentialBackoff</span><span class="token punctuation">(</span>opts<span class="token punctuation">,</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token builtin">bool</span><span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    ctx<span class="token punctuation">,</span> cancel <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">WithTimeout</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>timeout<span class="token punctuation">)</span>
+    <span class="token keyword">defer</span> <span class="token function">cancel</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    rep<span class="token punctuation">,</span> err <span class="token operator">=</span> p<span class="token punctuation">.</span>csiClient<span class="token punctuation">.</span><span class="token function">CreateVolume</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token operator">&amp;</span>req<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">==</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token comment">// CreateVolume has finished successfully</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">if</span> status<span class="token punctuation">,</span> ok <span class="token operator">:=</span> status<span class="token punctuation">.</span><span class="token function">FromError</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">;</span> ok <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> status<span class="token punctuation">.</span><span class="token function">Code</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> codes<span class="token punctuation">.</span>DeadlineExceeded <span class="token punctuation">{</span>
+            <span class="token comment">// CreateVolume timed out, give it another chance to complete</span>
+            glog<span class="token punctuation">.</span><span class="token function">Warningf</span><span class="token punctuation">(</span><span class="token string">&quot;CreateVolume timeout: %s has expired, operation will be retried&quot;</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>timeout<span class="token punctuation">.</span><span class="token function">String</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token boolean">nil</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// CreateVolume failed , no reason to retry, bailing from ExponentialBackoff</span>
+    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">,</span> err
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p><strong>CreateVolumeRequest&#x7684;&#x6784;&#x9020;&#xFF1A;</strong></p>
+<pre class="language-"><code class="lang-go"><span class="token comment">// Create a CSI CreateVolumeRequest and Response</span>
+req <span class="token operator">:=</span> csi<span class="token punctuation">.</span>CreateVolumeRequest<span class="token punctuation">{</span>
+    Name<span class="token punctuation">:</span>               pvName<span class="token punctuation">,</span>
+    Parameters<span class="token punctuation">:</span>         options<span class="token punctuation">.</span>Parameters<span class="token punctuation">,</span>
+    VolumeCapabilities<span class="token punctuation">:</span> volumeCaps<span class="token punctuation">,</span>
+    CapacityRange<span class="token punctuation">:</span> <span class="token operator">&amp;</span>csi<span class="token punctuation">.</span>CapacityRange<span class="token punctuation">{</span>
+        RequiredBytes<span class="token punctuation">:</span> <span class="token function">int64</span><span class="token punctuation">(</span>volSizeBytes<span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+<span class="token operator">...</span>
+req<span class="token punctuation">.</span>VolumeContentSource <span class="token operator">=</span> volumeContentSource
+<span class="token operator">...</span>
+req<span class="token punctuation">.</span>AccessibilityRequirements <span class="token operator">=</span> requirements
+<span class="token operator">...</span>
+req<span class="token punctuation">.</span>ControllerCreateSecrets <span class="token operator">=</span> provisionerCredentials
+</code></pre>
+<p><strong>&#x5177;&#x4F53;&#x7684;<code>Create</code>&#x5B9E;&#x73B0;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<blockquote>
+<p>&#x5176;&#x4E2D;<code>csiClient</code>&#x662F;&#x4E2A;&#x63A5;&#x53E3;&#x7C7B;&#x578B;</p>
+</blockquote>
+<p>&#x5177;&#x4F53;&#x4EE3;&#x7801;&#x53C2;&#x8003;<a href="https://github.com/container-storage-interface/spec/blob/master/lib/go/csi/v0/csi.pb.go#L4357" target="_blank">controllerClient.CreateVolume</a></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>c <span class="token operator">*</span>controllerClient<span class="token punctuation">)</span> <span class="token function">CreateVolume</span><span class="token punctuation">(</span>ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> in <span class="token operator">*</span>CreateVolumeRequest<span class="token punctuation">,</span> opts <span class="token operator">...</span>grpc<span class="token punctuation">.</span>CallOption<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>CreateVolumeResponse<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    out <span class="token operator">:=</span> <span class="token function">new</span><span class="token punctuation">(</span>CreateVolumeResponse<span class="token punctuation">)</span>
+    err <span class="token operator">:=</span> grpc<span class="token punctuation">.</span><span class="token function">Invoke</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token string">&quot;/csi.v0.Controller/CreateVolume&quot;</span><span class="token punctuation">,</span> in<span class="token punctuation">,</span> out<span class="token punctuation">,</span> c<span class="token punctuation">.</span>cc<span class="token punctuation">,</span> opts<span class="token operator">...</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> out<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="33-csiclientdeletevolume"><a name="33-csiclientdeletevolume" class="anchor-navigation-ex-anchor" href="#33-csiclientdeletevolume"><i class="fa fa-link" aria-hidden="true"></i></a>3.3. csiClient.DeleteVolume</h2>
+<p><code>csi provisoner</code>&#x4E2D;&#x8C03;&#x7528;<code>csiClient.DeleteVolume</code>&#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>p <span class="token operator">*</span>csiProvisioner<span class="token punctuation">)</span> <span class="token function">Delete</span><span class="token punctuation">(</span>volume <span class="token operator">*</span>v1<span class="token punctuation">.</span>PersistentVolume<span class="token punctuation">)</span> <span class="token builtin">error</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    req <span class="token operator">:=</span> csi<span class="token punctuation">.</span>DeleteVolumeRequest<span class="token punctuation">{</span>
+        VolumeId<span class="token punctuation">:</span> volumeId<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment">// get secrets if StorageClass specifies it</span>
+    <span class="token operator">...</span>
+
+    ctx<span class="token punctuation">,</span> cancel <span class="token operator">:=</span> context<span class="token punctuation">.</span><span class="token function">WithTimeout</span><span class="token punctuation">(</span>context<span class="token punctuation">.</span><span class="token function">Background</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> p<span class="token punctuation">.</span>timeout<span class="token punctuation">)</span>
+    <span class="token keyword">defer</span> <span class="token function">cancel</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token boolean">_</span><span class="token punctuation">,</span> err <span class="token operator">=</span> p<span class="token punctuation">.</span>csiClient<span class="token punctuation">.</span><span class="token function">DeleteVolume</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token operator">&amp;</span>req<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> err
+<span class="token punctuation">}</span>
+</code></pre>
+<p><strong>DeleteVolumeRequest&#x7684;&#x6784;&#x9020;&#xFF1A;</strong></p>
+<pre class="language-"><code class="lang-go">req <span class="token operator">:=</span> csi<span class="token punctuation">.</span>DeleteVolumeRequest<span class="token punctuation">{</span>
+    VolumeId<span class="token punctuation">:</span> volumeId<span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+<span class="token operator">...</span>
+req<span class="token punctuation">.</span>ControllerDeleteSecrets <span class="token operator">=</span> credentials
+</code></pre>
+<p>&#x5C06;&#x6784;&#x9020;&#x7684;<code>DeleteVolumeRequest</code>&#x4F20;&#x7ED9;<code>DeleteVolume</code>&#x65B9;&#x6CD5;&#x3002;</p>
+<p><strong>&#x5177;&#x4F53;&#x7684;<code>Delete</code>&#x5B9E;&#x73B0;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</strong></p>
+<p>&#x5177;&#x4F53;&#x4EE3;&#x7801;&#x53C2;&#x8003;&#xFF1A;<a href="https://github.com/container-storage-interface/spec/blob/master/lib/go/csi/v0/csi.pb.go#L4366" target="_blank">controllerClient.DeleteVolume</a></p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token punctuation">(</span>c <span class="token operator">*</span>controllerClient<span class="token punctuation">)</span> <span class="token function">DeleteVolume</span><span class="token punctuation">(</span>ctx context<span class="token punctuation">.</span>Context<span class="token punctuation">,</span> in <span class="token operator">*</span>DeleteVolumeRequest<span class="token punctuation">,</span> opts <span class="token operator">...</span>grpc<span class="token punctuation">.</span>CallOption<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token operator">*</span>DeleteVolumeResponse<span class="token punctuation">,</span> <span class="token builtin">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    out <span class="token operator">:=</span> <span class="token function">new</span><span class="token punctuation">(</span>DeleteVolumeResponse<span class="token punctuation">)</span>
+    err <span class="token operator">:=</span> grpc<span class="token punctuation">.</span><span class="token function">Invoke</span><span class="token punctuation">(</span>ctx<span class="token punctuation">,</span> <span class="token string">&quot;/csi.v0.Controller/DeleteVolume&quot;</span><span class="token punctuation">,</span> in<span class="token punctuation">,</span> out<span class="token punctuation">,</span> c<span class="token punctuation">.</span>cc<span class="token punctuation">,</span> opts<span class="token operator">...</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">nil</span><span class="token punctuation">,</span> err
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> out<span class="token punctuation">,</span> <span class="token boolean">nil</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="4-provisioncontrollerrun"><a name="4-provisioncontrollerrun" class="anchor-navigation-ex-anchor" href="#4-provisioncontrollerrun"><i class="fa fa-link" aria-hidden="true"></i></a>4. <a href="https://github.com/kubernetes-incubator/external-storage/blob/master/lib/controller/controller.go#L565" target="_blank">ProvisionController.Run</a></h1>
+<p>&#x81EA;&#x5B9A;&#x4E49;&#x7684;<code>provisioner</code>&#x5B9E;&#x73B0;&#x4E86;<code>Provisoner&#x63A5;&#x53E3;</code>&#x7684;<code>Provision</code>&#x548C;<code>Delete</code>&#x65B9;&#x6CD5;&#xFF0C;&#x8FD9;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x4E3B;&#x8981;&#x5BF9;&#x540E;&#x7AEF;&#x5B58;&#x50A8;&#x505A;&#x521B;&#x5EFA;&#x548C;&#x5220;&#x9664;&#x64CD;&#x4F5C;&#xFF0C;&#x5E76;&#x6CA1;&#x6709;&#x5BF9;PV&#x5BF9;&#x8C61;&#x8FDB;&#x884C;&#x521B;&#x5EFA;&#x548C;&#x5220;&#x9664;&#x64CD;&#x4F5C;&#x3002;</p>
+<p>PV&#x5BF9;&#x8C61;&#x7684;&#x76F8;&#x5173;&#x64CD;&#x4F5C;&#x5177;&#x4F53;&#x7531;<code>ProvisionController</code>&#x4E2D;&#x7684;<code>provisionClaimOperation</code>&#x548C;<code>deleteVolumeOperation</code>&#x5177;&#x4F53;&#x6267;&#x884C;&#xFF0C;&#x540C;&#x65F6;&#x8C03;&#x7528;&#x4E86;&#x5177;&#x4F53;<code>provisioner</code>&#x7684;<code>Provision</code>&#x548C;<code>Delete</code>&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x6765;&#x5BF9;&#x5B58;&#x50A8;&#x6570;&#x636E;&#x505A;&#x5904;&#x7406;&#x3002;</p>
+<pre class="language-"><code class="lang-go"><span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    provisionController<span class="token punctuation">.</span><span class="token function">Run</span><span class="token punctuation">(</span>wait<span class="token punctuation">.</span>NeverStop<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>&#x8FD9;&#x5757;&#x4EE3;&#x7801;&#x903B;&#x8F91;&#x53EF;&#x53C2;&#x8003;&#xFF1A;<a href="https://www.huweihuang.com/kubernetes-notes/develop/nfs-client-provisioner.html#3-provisioncontroller" target="_blank">nfs-client-provisioner &#x6E90;&#x7801;&#x5206;&#x6790;</a></p>
+<p>&#x53C2;&#x8003;&#x6587;&#x7AE0;&#xFF1A;</p>
+<ul>
+<li><a href="https://github.com/kubernetes-csi/external-provisioner" target="_blank">https://github.com/kubernetes-csi/external-provisioner</a></li>
+<li><a href="https://github.com/container-storage-interface/spec" target="_blank">https://github.com/container-storage-interface/spec</a></li>
+<li><a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md" target="_blank">https://github.com/kubernetes/community/blob/master/contributors/design-proposals/storage/container-storage-interface.md</a></li>
+<li><a href="https://github.com/container-storage-interface/spec/blob/master/spec.md" target="_blank">https://github.com/container-storage-interface/spec/blob/master/spec.md</a></li>
+</ul>
+<footer class="page-footer"><span class="copyright">Copyright &#xA9; www.huweihuang.com 2017-2018 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">Updated at 
+2022-12-29 21:33:13
+</span></footer>
+                </div>
+                <script src="https://my.openwrite.cn/js/readmore.js"></script>
+                <script>
+                    var enablePlugin = false;
+                    var allowDomain = ["www.huweihuang.com","localhost"];
+                    if(allowDomain){
+                        var currentDomain = location.hostname;
+                        if ($.isArray(allowDomain)) {
+                            $.each(allowDomain, function(index, item) {
+                                if (currentDomain == item) {
+                                    enablePlugin = true;
+                                    return false;
+                                }
+                            });
+                        }else{
+                           if (currentDomain == allowDomain) {
+                                enablePlugin = true;
+                            }
+                        }
+                    }else{
+                        enablePlugin = true;
+                    }
+                    
+                    if(enablePlugin){
+                        var isMobile = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i);
+                        if (!isMobile) {
+                            var btw = new BTWPlugin();
+                            btw.init({"allowDomain":["www.huweihuang.com","localhost"],"blogId":"30679-1666624938200-328","name":"容器云架构","qrcode":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551600382/blog/wechat-public-acconut.jpg","keyword":"k8s","id":"vip-container"});
+                        }
+                    }
+                </script>
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="nfs-client-provisioner.html" class="navigation navigation-prev " aria-label="Previous page: nfs-client-provisioner源码分析">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../operator/_index.html" class="navigation navigation-next " aria-label="Next page: operator开发">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"csi-provisioner源码分析","weight":1,"catalog":true,"date":"2018-06-24T15:23:24.000Z","subtitle":null,"header-img":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1542285471/header/building.jpg","tags":["源码分析"],"catagories":["源码分析"],"level":"10.2.2","depth":2,"next":{"title":"operator开发","level":"10.3","depth":1,"path":"develop/operator/_index.md","ref":"develop/operator/_index.md","articles":[{"title":"kubebuilder的使用","level":"10.3.1","depth":2,"path":"develop/operator/kubebuilder.md","ref":"develop/operator/kubebuilder.md","articles":[]}]},"previous":{"title":"nfs-client-provisioner源码分析","level":"10.2.1","depth":2,"path":"develop/csi/nfs-client-provisioner.md","ref":"develop/csi/nfs-client-provisioner.md","articles":[]},"dir":"ltr"},"config":{"plugins":["github","codesnippet","splitter","anchor-navigation-ex","image-captions","editlink","-lunr","-search","search-plus","github-buttons@2.1.0","favicon@^0.0.2","tbfed-pagefooter@^0.0.1","3-ba","theme-default","-highlight","prism","prism-themes","sitemap-general","ga","disqus","donate","expandable-chapters","readmore"],"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © www.huweihuang.com 2017-2018","modify_label":"Updated at ","modify_format":"YYYY-MM-DD HH:mm:ss"},"prism":{"css":["prismjs/themes/prism-okaidia.css"]},"disqus":{"useIdentifier":false,"shortName":"huweihuang"},"github":{"url":"https://github.com/huweihuang"},"editlink":{"label":"编辑本页","multilingual":false,"base":"https://github.com/huweihuang/kubernetes-notes/blob/master/"},"splitter":{},"readmore":{"allowDomain":["www.huweihuang.com","localhost"],"blogId":"30679-1666624938200-328","name":"容器云架构","qrcode":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551600382/blog/wechat-public-acconut.jpg","keyword":"k8s"},"donate":{"alipay":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599640/blog/donate/alipay.jpg","alipayText":"支付宝打赏","button":"赏","title":"","wechat":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599472/blog/donate/wechatpay.jpg","wechatText":"微信打赏"},"codesnippet":{},"sitemap-general":{"prefix":"https://www.huweihuang.com/kubernetes-notes/"},"fontsettings":{"theme":"white","family":"sans","size":2},"anchor-navigation-ex":{"showLevelIcon":false,"mode":"float","pageTop":{"level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"showLevel":false,"tocLevel1Icon":"fa fa-hand-o-right","tocLevel2Icon":"fa fa-hand-o-right","tocLevel3Icon":"fa fa-hand-o-right","showGoTop":true,"printLog":false,"multipleH1":false,"multipleH2":false,"associatedWithSummary":true,"multipleH3":false,"float":{"floatIcon":"fa fa-navicon","level1Icon":"","level2Icon":"","level3Icon":"","showLevelIcon":false},"multipleH4":false},"favicon":{"shortcut":"images/favicon.ico","bookmark":"images/favicon.ico","appleTouch":"images/favicon.ico","appleTouchMore":{"120x120":"images/favicon.ico","180x180":"images/favicon.ico"}},"prism-themes":{},"github-buttons":{"repo":"huweihuang/kubernetes-notes","types":["star"],"size":"small"},"3-ba":{"configuration":"auto","token":"e146d71b77957235bba1e709d930f62e"},"ga":{"configuration":"auto","token":"UA-114718458-2"},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"theme-default":{"showLevel":true,"styles":{"ebook":"styles/ebook.css","epub":"styles/epub.css","mobi":"styles/mobi.css","pdf":"styles/pdf.css","print":"styles/print.css","website":"styles/website.css"}},"expandable-chapters":{},"search-plus":{},"image-captions":{"caption":"图片 - _CAPTION_","variable_name":"_pictures"}},"theme":"default","author":"胡伟煌","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{"_pictures":[{"backlink":"paas/k8s.html#fig2.2.1","level":"2.2","list_caption":"Figure: k8s体系","alt":"k8s体系","nro":1,"url":"http://assets.processon.com/chart_image/5d7f7cafe4b08987f55cbee3.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s体系","attributes":{},"skip":false,"key":"2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.1","level":"4.2.2","list_caption":"Figure: pod","alt":"pod","nro":2,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"pod","attributes":{},"skip":false,"key":"4.2.2.1"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.2","level":"4.2.2","list_caption":"Figure: pod2","alt":"pod2","nro":3,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/pod2.png","index":2,"caption_template":"图片 - _CAPTION_","label":"pod2","attributes":{},"skip":false,"key":"4.2.2.2"},{"backlink":"concepts/object/kubernetes-basic-concepts.html#fig4.2.2.3","level":"4.2.2","list_caption":"Figure: service","alt":"service","nro":4,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578930/article/kubernetes/concept/service.png","index":3,"caption_template":"图片 - _CAPTION_","label":"service","attributes":{},"skip":false,"key":"4.2.2.3"},{"backlink":"concepts/pod/pod-volume.html#fig4.3.5.1","level":"4.3.5","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":5,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/pod_volume.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.5.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.6.1","level":"4.3.6","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":6,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804287/article/kubernetes/pod/monitor_pod.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.6.1"},{"backlink":"concepts/pod/pod-scheduler.html#fig4.3.6.2","level":"4.3.6","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":7,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1512804286/article/kubernetes/pod/k8s_job.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"4.3.6.2"},{"backlink":"principle/component/kubernetes-core-principle-api-server.html#fig5.1.1.1","level":"5.1.1","list_caption":"Figure: kube-apiserver","alt":"kube-apiserver","nro":8,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/kube-apiserver.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kube-apiserver","attributes":{},"skip":false,"key":"5.1.1.1"},{"backlink":"principle/component/kubernetes-core-principle-controller-manager.html#fig5.1.2.1","level":"5.1.2","list_caption":"Figure: controller manager","alt":"controller manager","nro":9,"url":"http://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/controller-manager.png","index":1,"caption_template":"图片 - _CAPTION_","label":"controller manager","attributes":{},"skip":false,"key":"5.1.2.1"},{"backlink":"principle/component/kubernetes-core-principle-controller-manager.html#fig5.1.2.2","level":"5.1.2","list_caption":"Figure: Node Controller","alt":"Node Controller","nro":10,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/NodeController.png","index":2,"caption_template":"图片 - _CAPTION_","label":"Node Controller","attributes":{},"skip":false,"key":"5.1.2.2"},{"backlink":"principle/component/kubernetes-core-principle-controller-manager.html#fig5.1.2.3","level":"5.1.2","list_caption":"Figure: ResourceQuota Controller","alt":"ResourceQuota Controller","nro":11,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/ResourceQuotaController.png","index":3,"caption_template":"图片 - _CAPTION_","label":"ResourceQuota Controller","attributes":{},"skip":false,"key":"5.1.2.3"},{"backlink":"principle/component/kubernetes-core-principle-controller-manager.html#fig5.1.2.4","level":"5.1.2","list_caption":"Figure: Endpoint Controller","alt":"Endpoint Controller","nro":12,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/EndpointController.png","index":4,"caption_template":"图片 - _CAPTION_","label":"Endpoint Controller","attributes":{},"skip":false,"key":"5.1.2.4"},{"backlink":"principle/component/kubernetes-core-principle-scheduler.html#fig5.1.3.1","level":"5.1.3","list_caption":"Figure: scheduler","alt":"scheduler","nro":13,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579017/article/kubernetes/core/scheduler.png","index":1,"caption_template":"图片 - _CAPTION_","label":"scheduler","attributes":{},"skip":false,"key":"5.1.3.1"},{"backlink":"network/docker-network.html#fig6.1.1","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":14,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/container-network.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.1"},{"backlink":"network/docker-network.html#fig6.1.2","level":"6.1","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":15,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/bridge.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.1.2"},{"backlink":"network/kubernetes-network.html#fig6.2.1","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":16,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/network-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.1"},{"backlink":"network/kubernetes-network.html#fig6.2.2","level":"6.2","list_caption":"Figure: 这里写图片描述","alt":"这里写图片描述","nro":17,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578957/article/kubernetes/network/pod-network.png","index":2,"caption_template":"图片 - _CAPTION_","label":"这里写图片描述","attributes":{},"skip":false,"key":"6.2.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.4.1.1","level":"6.4.1","list_caption":"Figure: 动态路由","alt":"动态路由","nro":18,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/dynamic-route.png","index":1,"caption_template":"图片 - _CAPTION_","label":"动态路由","attributes":{},"skip":false,"key":"6.4.1.1"},{"backlink":"network/flannel/flannel-introduction.html#fig6.4.1.2","level":"6.4.1","list_caption":"Figure: flannel","alt":"flannel","nro":19,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/flannel.png","index":2,"caption_template":"图片 - _CAPTION_","label":"flannel","attributes":{},"skip":false,"key":"6.4.1.2"},{"backlink":"network/flannel/flannel-introduction.html#fig6.4.1.3","level":"6.4.1","list_caption":"Figure: UDP封装","alt":"UDP封装","nro":20,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578569/article/flannel/udp.png","index":3,"caption_template":"图片 - _CAPTION_","label":"UDP封装","attributes":{},"skip":false,"key":"6.4.1.3"},{"backlink":"network/flannel/flannel-introduction.html#fig6.4.1.4","level":"6.4.1","list_caption":"Figure: docker启动参数","alt":"docker启动参数","nro":21,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/docker-init-args.png","index":4,"caption_template":"图片 - _CAPTION_","label":"docker启动参数","attributes":{},"skip":false,"key":"6.4.1.4"},{"backlink":"network/flannel/flannel-introduction.html#fig6.4.1.5","level":"6.4.1","list_caption":"Figure: 数据发送节点路由表","alt":"数据发送节点路由表","nro":22,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataSendRouteTable.png","index":5,"caption_template":"图片 - _CAPTION_","label":"数据发送节点路由表","attributes":{},"skip":false,"key":"6.4.1.5"},{"backlink":"network/flannel/flannel-introduction.html#fig6.4.1.6","level":"6.4.1","list_caption":"Figure: 数据接收节点路由表","alt":"数据接收节点路由表","nro":23,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578568/article/flannel/DataReceiveRouteTable.png","index":6,"caption_template":"图片 - _CAPTION_","label":"数据接收节点路由表","attributes":{},"skip":false,"key":"6.4.1.6"},{"backlink":"resource/lxcfs/lxcfs.html#fig8.4.1","level":"8.4","list_caption":"Figure: lxcfs","alt":"lxcfs","nro":24,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1626002975/article/kubernetes/resource/lxcfs/lxcfs.webp","index":1,"caption_template":"图片 - _CAPTION_","label":"lxcfs","attributes":{},"skip":false,"key":"8.4.1"},{"backlink":"trouble-shooting/node/cgroup-subsystem-not-mount.html#fig11.1.3.1","level":"11.1.3","list_caption":"Figure: kubelet","alt":"kubelet","nro":25,"url":"../../images/troubleshooting/cgroup-not-mount.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kubelet","attributes":{},"skip":false,"key":"11.1.3.1"},{"backlink":"runtime/runtime.html#fig13.1.1.1","level":"13.1.1","list_caption":"Figure: 关系图","alt":"关系图","nro":26,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1631845163/article/kubernetes/containerd/runtime.webp","index":1,"caption_template":"图片 - _CAPTION_","label":"关系图","attributes":{},"skip":false,"key":"13.1.1.1"},{"backlink":"etcd/etcd-introduction.html#fig14.1.1","level":"14.1","list_caption":"Figure: etcd的架构图","alt":"etcd的架构图","nro":27,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/etcd-architecture.jpg","index":1,"caption_template":"图片 - _CAPTION_","label":"etcd的架构图","attributes":{},"skip":false,"key":"14.1.1"},{"backlink":"etcd/raft.html#fig14.2.1","level":"14.2","list_caption":"Figure: raft","alt":"raft","nro":28,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/raft.png","index":1,"caption_template":"图片 - _CAPTION_","label":"raft","attributes":{},"skip":false,"key":"14.2.1"},{"backlink":"multi-cluster/karmada/karmada-introduction.html#fig15.3.1.1","level":"15.3.1","list_caption":"Figure: img","alt":"img","nro":29,"url":"https://support.huaweicloud.com/productdesc-mcp/zh-cn_image_0000001094636778.png","index":1,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"15.3.1.1"},{"backlink":"multi-cluster/karmada/karmada-introduction.html#fig15.3.1.2","level":"15.3.1","list_caption":"Figure: img","alt":"img","nro":30,"url":"https://support.huaweicloud.com/productdesc-mcp/zh-cn_image_0000001141316765.png","index":2,"caption_template":"图片 - _CAPTION_","label":"img","attributes":{},"skip":false,"key":"15.3.1.2"},{"backlink":"edge/kubeedge/kubeedge-arch.html#fig16.1.1","level":"16.1","list_caption":"Figure: kubeedge-arch","alt":"kubeedge-arch","nro":31,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1580806242/article/kubernetes/kubeedge/kubeedge_arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"kubeedge-arch","attributes":{},"skip":false,"key":"16.1.1"},{"backlink":"kvm/kubevirt/kubevirt-introduction.html#fig17.2.1.1","level":"17.2.1","list_caption":"Figure: arch","alt":"arch","nro":32,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1650005691/article/kubernetes/kubevirt/architecture.png","index":1,"caption_template":"图片 - _CAPTION_","label":"arch","attributes":{},"skip":false,"key":"17.2.1.1"},{"backlink":"monitor/kubernetes-cluster-monitoring.html#fig18.1.1","level":"18.1","list_caption":"Figure: k8s监控架构图","alt":"k8s监控架构图","nro":33,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/k8s-monitor-arch.png","index":1,"caption_template":"图片 - _CAPTION_","label":"k8s监控架构图","attributes":{},"skip":false,"key":"18.1.1"},{"backlink":"monitor/cadvisor-introduction.html#fig18.2.1","level":"18.2","list_caption":"Figure: cAdvisor","alt":"cAdvisor","nro":34,"url":"https://res.cloudinary.com/dqxtn0ick/image/upload/v1510579058/article/kubernetes/monitor/cAdvisor.png","index":1,"caption_template":"图片 - _CAPTION_","label":"cAdvisor","attributes":{},"skip":false,"key":"18.2.1"}]},"title":"Kubernetes 学习笔记","language":"zh-hans","links":{"sidebar":{"Golang 学习笔记":"https://www.huweihuang.com/golang-notes/","Linux 学习笔记":"https://www.huweihuang.com/linux-notes/","Blockchain 学习笔记":"https://www.huweihuang.com/blockchain-notes/","数据结构学习笔记":"https://www.huweihuang.com/data-structure-notes/","Kubernetes 学习笔记":"https://www.huweihuang.com/kubernetes-notes/","Kubernetes 源码分析笔记":"https://www.huweihuang.com/k8s-source-code-analysis/","Docker 学习笔记":"https://www.huweihuang.com/docker-notes/","Python 学习笔记":"https://www.huweihuang.com/python-notes/","胡伟煌的博客":"https://www.huweihuang.com"}},"gitbook":"*","description":"Kubernetes 学习笔记"},"file":{"path":"develop/csi/csi-provisioner.md","mtime":"2022-12-29T13:33:13.759Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2022-12-29T13:50:27.173Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-splitter/splitter.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-editlink/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-plus/jquery.mark.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-search-plus/search.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github-buttons/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-3-ba/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/URI.js/1.16.1/URI.min.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-disqus/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-donate/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-expandable-chapters/expandable-chapters.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,3 +1,16 @@
+---
+title: "Dockerfile使用说明"
+linkTitle: "Dockerfile使用说明"
+weight: 5
+catalog: true
+date: 2017-07-09 10:50:57
+subtitle:
+tags:
+- Docker
+catagories:
+- Docker
+---
+
 # 1. Dockerfile的说明
 
 dockerfile指令忽略大小写，建议大写，#作为注释，每行只支持一条指令，指令可以带多个参数。

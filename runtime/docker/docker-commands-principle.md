@@ -1,3 +1,16 @@
+---
+title: "Docker常用命令原理图"
+linkTitle: "Docker常用命令原理图"
+weight: 4
+catalog: true
+date: 2017-07-09 10:50:57
+subtitle:
+tags:
+- Docker
+catagories:
+- Docker
+---
+
 # 1. 基本概念
 
 ## 1.1. image layer（镜像层）
