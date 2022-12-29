@@ -1,3 +1,16 @@
+---
+title: "部署cephfs-provisioner"
+weight: 3
+catalog: true
+date: 2019-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- CSI
+catagories:
+- CSI
+---
+
 # 1. 安装cephfs客户端
 
 所有node节点安装cephfs客户端，主要用来和ceph集群挂载使用。

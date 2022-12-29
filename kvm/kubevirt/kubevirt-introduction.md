@@ -1,3 +1,16 @@
+---
+title: "KubeVirt的介绍"
+weight: 1
+catalog: true
+date: 2022-07-10 10:50:57
+subtitle:
+header-img: 
+tags:
+- KubeVirt
+catagories:
+- KubeVirt
+---
+
 > 本文主要由[云原生虚拟化：基于 Kubevirt 构建边缘计算实例](https://mp.weixin.qq.com/s/IwA1QcGaooZAL96YjvTqjA)文章重新整理而成。
 
 # 1. kubevirt简介

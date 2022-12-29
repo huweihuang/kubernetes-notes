@@ -1,3 +1,17 @@
+---
+title: "Pod定义文件"
+weight: 2
+catalog: true
+date: 2017-08-13 10:50:57
+subtitle:
+header-img: 
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
+
 # 1. Pod的基本用法
 
 ## 1.1. 说明

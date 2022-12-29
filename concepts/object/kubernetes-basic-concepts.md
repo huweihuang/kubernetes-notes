@@ -1,8 +1,8 @@
 ---
-title: "[Kubernetes] Kubernetes基本概念"
+title: "Kubernetes基本概念"
+weight: 1
 catalog: true
 date: 2017-08-13 10:50:57
-type: "categories"
 subtitle:
 header-img: 
 tags:

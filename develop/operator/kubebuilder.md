@@ -1,3 +1,16 @@
+---
+title: "kubebuilder的使用"
+weight: 1
+catalog: true
+date: 2021-08-13 10:50:57
+subtitle:
+header-img: 
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # 1. kubebuilder
 
 ## 1.1. 安装kubebuilder

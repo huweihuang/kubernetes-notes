@@ -1,3 +1,17 @@
+---
+title: "Pod创建流程"
+linkTitle: "Pod创建流程"
+weight: 1
+catalog: true
+date: 2019-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # Pod创建基本流程图
 
 <img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1597804292/article/kubernetes/flow/k8s-flow.png" width="100%">

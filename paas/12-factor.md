@@ -1,3 +1,16 @@
+---
+title: "12 Factor"
+weight: 2
+catalog: true
+date: 2018-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 > 以下主要介绍`PaaS`平台设计架构中使用到的方法论，统称为`12-Factor(要素)`
 
 # 简介

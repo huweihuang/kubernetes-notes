@@ -1,3 +1,16 @@
+---
+title: "k8s证书及秘钥"
+weight: 2
+catalog: true
+date: 2019-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # 1. 证书分类
 
 - 服务器证书：server cert，用于客户端验证服务端的身份。

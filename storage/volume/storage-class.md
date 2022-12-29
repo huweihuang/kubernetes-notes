@@ -1,4 +1,17 @@
-# StorageClass
+---
+title: "StorageClass 介绍"
+linkTitle: "StorageClass"
+weight: 4
+catalog: true
+date: 2019-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 
 ## 1. StorageClass概述
 

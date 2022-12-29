@@ -1,3 +1,17 @@
+---
+title: "FlexVolume介绍"
+linkTitle: "FlexVolume介绍"
+weight: 4
+catalog: true
+date: 2019-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- CSI
+catagories:
+- CSI
+---
+
 # 1. FlexVolume介绍
 
 Flexvolume提供了一种扩展k8s存储插件的方式，用户可以自定义自己的存储插件。类似的功能的实现还有CSI的方式。Flexvolume在k8s 1.8+以上版本提供GA功能版本。

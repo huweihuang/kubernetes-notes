@@ -1,3 +1,16 @@
+---
+title: "etcdctl-V2"
+weight: 2
+catalog: true
+date: 2017-07-10 10:50:57
+subtitle:
+header-img: 
+tags:
+- Etcd
+catagories:
+- Etcd
+---
+
 # 1. etcdctl介绍
 
 etcdctl是一个命令行的客户端，它提供了一下简洁的命令，可理解为命令工具集，可以方便我们在对服务进行测试或者手动修改数据库内容。etcdctl与其他xxxctl的命令原理及操作类似（例如kubectl，systemctl）。

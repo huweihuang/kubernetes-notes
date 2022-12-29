@@ -1,3 +1,17 @@
+---
+title: "Pod介绍"
+weight: 1
+catalog: true
+date: 2017-09-17 10:50:57
+subtitle:
+header-img: 
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
+
 # 1. Pod是什么（what）
 
 ## 1.1. Pod概念

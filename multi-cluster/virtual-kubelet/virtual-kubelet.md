@@ -1,3 +1,16 @@
+---
+title: "Virtual Kubelet介绍"
+weight: 1
+catalog: true
+date: 2020-07-10 10:50:57
+subtitle:
+header-img: 
+tags:
+- VirtualKubelet
+catagories:
+- VirtualKubelet
+---
+
 # 1. 简介
 
 `Virtual Kubelet`是 [Kubernetes kubelet](https://kubernetes.io/docs/reference/generated/kubelet/) 的一种实现，作为一种虚拟的kubelet用来连接k8s集群和其他平台的API。这允许k8s的节点由其他`提供者（provider）`提供支持，这些提供者例如serverless平台（ACI, AWS Fargate）、[IoT Edge](https://github.com/Azure/iot-edge-virtual-kubelet-provider)等。

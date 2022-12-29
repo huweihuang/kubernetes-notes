@@ -1,3 +1,16 @@
+---
+title: "使用minikube安装kubernetes"
+weight: 3
+catalog: true
+date: 2018-6-23 20:26:24
+subtitle:
+header-img: "https://res.cloudinary.com/dqxtn0ick/image/upload/v1542285471/header/building.jpg"
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 
 > 以下内容基于Linux系统，特别为Ubuntu系统
 

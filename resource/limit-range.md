@@ -1,3 +1,17 @@
+---
+title: "资源配额"
+linkTitle: "Pod限额"
+weight: 2
+catalog: true
+date: 2018-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # Pod限额（LimitRange） 
 
 > `ResourceQuota`对象是限制某个namespace下`所有Pod(容器)`的资源限额

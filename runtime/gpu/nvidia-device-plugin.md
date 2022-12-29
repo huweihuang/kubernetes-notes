@@ -1,3 +1,16 @@
+---
+title: "nvidia-device-plugin介绍"
+weight: 1
+catalog: true
+date: 2019-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # 1. 简介
 
 NVIDIA device plugin 通过k8s daemonset的方式部署到每个k8s的node节点上，实现了[Kubernetes device plugin](https://github.com/kubernetes/community/blob/master/contributors/design-proposals/resource-management/device-plugin.md)的接口。

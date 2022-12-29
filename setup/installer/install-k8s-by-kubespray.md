@@ -1,5 +1,5 @@
 ---
-title: "[Kubernetes] 使用kubespray安装kubernetes"
+title: "使用kubespray安装kubernetes"
 weight: 2
 catalog: true
 date: 2018-6-23 21:26:24
@@ -10,6 +10,7 @@ tags:
 catagories:
 - Kubernetes
 ---
+
 
 # 1. 环境准备
 

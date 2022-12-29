@@ -1,3 +1,17 @@
+---
+title: "Etcd中的k8s数据"
+weight: 6
+catalog: true
+date: 2020-07-10 10:50:57
+subtitle:
+header-img: 
+tags:
+- Etcd
+catagories:
+- Etcd
+---
+
+
 # 1. 读取数据key
 
 使用以下命令列出所有的key。

@@ -1,3 +1,17 @@
+---
+title: "Kata容器简介"
+weight: 1
+catalog: true
+date: 2021-07-20 21:02:24
+subtitle:
+header-img: "https://res.cloudinary.com/dqxtn0ick/image/upload/v1508253812/header/cow.jpg"
+tags:
+- Kubernetes
+- Runtime
+catagories:
+- Kubernetes
+---
+
 # Kata-container简介
 
 kata-container通过轻量型虚拟机技术构建一个安全的容器运行时，表现像容器一样，但通硬件虚拟化技术提供强隔离，作为第二层的安全防护。

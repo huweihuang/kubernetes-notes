@@ -1,3 +1,16 @@
+---
+title: "Pod存储卷"
+weight: 5
+catalog: true
+date: 2017-08-13 10:50:57
+subtitle:
+header-img: 
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # Pod Volume
 
 同一个Pod中的多个容器可以共享Pod级别的存储卷Volume,Volume可以定义为各种类型，多个容器各自进行挂载，将Pod的Volume挂载为容器内部需要的目录。

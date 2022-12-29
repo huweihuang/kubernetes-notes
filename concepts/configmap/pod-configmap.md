@@ -1,3 +1,16 @@
+---
+title: "ConfigMap"
+weight: 1
+catalog: true
+date: 2017-08-13 10:50:57
+subtitle:
+header-img: 
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # Pod的配置管理
 
 Kubernetes v1.2的版本提供统一的集群配置管理方案–ConfigMap。

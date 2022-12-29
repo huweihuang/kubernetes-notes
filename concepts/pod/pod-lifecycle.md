@@ -1,3 +1,16 @@
+---
+title: "Pod生命周期"
+weight: 3
+catalog: true
+date: 2017-08-13 10:50:57
+subtitle:
+header-img: 
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # 1. Pod phase
 
 Pod的`phase`是Pod生命周期中的简单宏观描述，定义在Pod的`PodStatus`对象的`phase` 字段中。

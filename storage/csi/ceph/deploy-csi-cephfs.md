@@ -1,3 +1,16 @@
+---
+title: "部署csi-cephfs"
+weight: 2
+catalog: true
+date: 2019-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- CSI
+catagories:
+- CSI
+---
+
 # 0. 说明
 
 要求Kubernetes的版本在`1.11`及以上，k8s集群必须允许特权Pod（`privileged pods`），即apiserver和kubelet需要设置`--allow-privileged`为`true`。节点的`Docker daemon`需要允许挂载共享卷。

@@ -1,8 +1,8 @@
 ---
-title: "[Kubernetes] 基于Docker及Kubernetes技术构建容器云（PaaS）平台"
+title: " 基于Docker及Kubernetes技术构建容器云（PaaS）平台"
+weight: 2
 catalog: true
 date: 2017-09-19 10:50:57
-type: "categories"
 subtitle:
 header-img: 
 tags:

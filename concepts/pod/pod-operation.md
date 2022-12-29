@@ -1,3 +1,16 @@
+---
+title: "Pod伸缩与升级"
+weight: 7
+catalog: true
+date: 2017-08-13 10:50:57
+subtitle:
+header-img: 
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # 1. Pod伸缩
 
 k8s中RC的用来保持集群中始终运行指定数目的实例，通过RC的scale机制可以完成Pod的扩容和缩容（伸缩）。

@@ -1,3 +1,17 @@
+---
+title: "k8s多集群管理的思考"
+linkTitle: "k8s多集群管理的思考"
+weight: 1
+catalog: true
+date: 2021-07-10 10:50:57
+subtitle:
+header-img: 
+tags:
+- 多集群
+catagories:
+- 多集群
+---
+
 # k8s多集群的思考
 
 # 1. 为什么需要多集群

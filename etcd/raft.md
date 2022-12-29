@@ -1,3 +1,17 @@
+---
+title: "Raft算法"
+weight: 2
+catalog: true
+date: 2019-07-10 10:50:57
+subtitle:
+header-img: 
+tags:
+- Etcd
+catagories:
+- Etcd
+---
+
+
 # 1. Raft协议[分布式一致性算法]
 
 ![raft](https://res.cloudinary.com/dqxtn0ick/image/upload/v1510578532/article/etcd/raft.png)

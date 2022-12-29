@@ -1,3 +1,16 @@
+---
+title: "Cgroup不支持pid资源"
+weight: 2
+catalog: true
+date: 2021-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- 问题排查
+catagories:
+- 问题排查
+---
+
 # 问题描述
 
 机器内核版本较低，kubelet启动异常，报错如下：

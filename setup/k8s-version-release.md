@@ -1,3 +1,16 @@
+---
+title: "k8s版本说明"
+weight: 3
+catalog: true
+date: 2022-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # 1. k8s版本号说明
 
 k8s维护最新三个版本的发布分支（[2022.7.2]当前**最新三个版本为1.24、1.23、1.22**），Kubernetes 1.19 和更新的版本获得大约 1 年的补丁支持。

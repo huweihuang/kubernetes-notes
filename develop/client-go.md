@@ -1,4 +1,16 @@
-本文个人博客地址：http://www.huweihuang.com/article/source-analysis/client-go-source-analysis/
+---
+title: "client-go的使用及源码分析"
+weight: 1
+catalog: true
+date: 2017-12-16 21:02:24
+subtitle:
+header-img: "https://res.cloudinary.com/dqxtn0ick/image/upload/v1508253812/header/cow.jpg"
+tags:
+- 源码分析
+- Kubernetes
+catagories:
+- 源码分析
+---
 
 # 1. client-go简介
 

@@ -1,3 +1,17 @@
+---
+title: "etcd-operator的使用"
+weight: 7
+catalog: true
+date: 2019-07-10 10:50:57
+subtitle:
+header-img: 
+tags:
+- Etcd
+catagories:
+- Etcd
+---
+
+
 > 本文主要介绍etcd-operator的部署及使用
 
 # 1. 部署RBAC

@@ -1,4 +1,18 @@
-# Dynamic Volume Provisioning
+---
+title: "Dynamic Volume Provisioning 介绍"
+linkTitle: "Dynamic Volume Provisioning"
+weight: 5
+catalog: true
+date: 2019-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
+## Dynamic Volume Provisioning
 
 Dynamic volume provisioning允许用户按需自动创建存储卷，这种方式可以让用户不需要关心存储的复杂性和差别，又可以选择不同的存储类型。
 

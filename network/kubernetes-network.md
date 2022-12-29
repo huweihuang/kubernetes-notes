@@ -1,3 +1,16 @@
+---
+title: "K8S网络"
+weight: 2
+catalog: true
+date: 2017-08-13 10:50:57
+subtitle:
+header-img: 
+tags:
+- Kubernetes
+catagories:
+- Network
+---
+
 # 1. kubernetes网络模型
 
 ## 1.1. 基础原则
@@ -31,7 +44,6 @@
 | Container-Bridge-IP | 容器网桥（docker0）IP，容器的网络都需要通过容器网桥转发。     |
 | Pod-IP              | Pod的IP，等效于Pod中网络容器的Container-IP。      |
 | Container-IP        | 容器的IP，容器的网络是个隔离的网络空间。                 |
-
 
 # 2. kubernetes的网络实现
 

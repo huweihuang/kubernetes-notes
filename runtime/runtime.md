@@ -1,3 +1,17 @@
+---
+title: "Runc和Containerd概述"
+weight: 1
+catalog: true
+date: 2021-09-17 21:02:24
+subtitle:
+header-img: "https://res.cloudinary.com/dqxtn0ick/image/upload/v1508253812/header/cow.jpg"
+tags:
+- Kubernetes
+- Runtime
+catagories:
+- Kubernetes
+---
+
 > 本文主要分析OCI，CRI，runc，containerd，cri-containerd，dockershim等组件说明及调用关系。
 
 # 1. 概述

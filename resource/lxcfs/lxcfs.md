@@ -1,3 +1,16 @@
+---
+title: "Lxcfs资源视图隔离"
+weight: 4
+catalog: true
+date: 2021-07-18 13:41:24
+subtitle:
+header-img: "https://res.cloudinary.com/dqxtn0ick/image/upload/v1508253812/header/cow.jpg"
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # 1. 资源视图隔离
 
 容器中的执行`top`、`free`等命令展示出来的CPU，内存等信息是从`/proc`目录中的相关文件里读取出来的。而容器并没有对`/proc`，`/sys`等文件系统做隔离，因此容器中读取出来的CPU和内存的信息是宿主机的信息，与容器实际分配和限制的资源量不同。

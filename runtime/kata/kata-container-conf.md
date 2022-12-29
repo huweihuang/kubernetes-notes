@@ -1,3 +1,16 @@
+---
+title: "kata配置"
+weight: 2
+catalog: true
+date: 2019-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # 1. 配置文件路径
 
 默认的配置文件位于`/usr/share/defaults/kata-containers/configuration.toml`，如果`/etc/kata-containers/configuration.toml`的配置文件存在，则会替代默认的配置文件。

@@ -1,3 +1,17 @@
+---
+title: "安装Docker"
+linkTitle: "安装Docker"
+weight: 2
+catalog: true
+date: 2018-6-23 17:26:24
+subtitle:
+header-img: "https://res.cloudinary.com/dqxtn0ick/image/upload/v1542285471/header/building.jpg"
+tags:
+- Docker
+catagories:
+- Docker
+---
+
 # 1. CentOS 安装Docker
 
 > 建议使用centos7

@@ -1,3 +1,16 @@
+---
+title: "安全迁移节点"
+weight: 2
+catalog: true
+date: 2018-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # 1. 迁移Pod
 
 ## 1.1. 设置节点是否可调度

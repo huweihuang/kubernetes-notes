@@ -1,3 +1,16 @@
+---
+title: "安装Containerd"
+weight: 1
+catalog: true
+date: 2022-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Containerd
+catagories:
+- Containerd
+---
+
 # 1. Ubuntu安装containerd
 
 以下以Ubuntu为例
@@ -132,6 +145,7 @@ mv containerd.service /lib/systemd/system/
 
 mkdir -p /etc/containerd/
 containerd config default > /etc/containerd/config.toml
+sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml
 
 echo "--------------install runc--------------"
 wget https://github.com/opencontainers/runc/releases/download/v${RuncVersion}/runc.amd64
@@ -152,10 +166,66 @@ echo "--------------install crictl--------------"
 wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v${CrictlVersion}/crictl-v${CrictlVersion}-linux-amd64.tar.gz
 tar Cxzvf /usr/local/bin crictl-v${CrictlVersion}-linux-amd64.tar.gz
 
+cat > /etc/crictl.yaml << \EOF
+runtime-endpoint: unix:///run/containerd/containerd.sock
+image-endpoint: unix:///run/containerd/containerd.sock
+timeout: 2
+debug: false
+pull-image-on-create: false
+EOF
+
 # 启动containerd服务
 systemctl daemon-reload
+systemctl enable contaienrd
 systemctl restart contaienrd
 ```
+
+# 3. Containerd配置代理
+
+由于节点到k8s官方仓库网络不通，或者设备处于内网，可以通过配置http_proxy代理的方式来拉取镜像。
+
+```bash
+vi /lib/systemd/system/containerd.service
+
+# 添加代理环境变量
+ [Unit]
+Description=containerd container runtime
+Documentation=https://containerd.io
+After=network.target local-fs.target
+
+[Service]
+Environment="HTTP_PROXY=http://squid:3128/"   # 添加环境变量代理
+Environment="HTTPS_PROXY=http://squid:3128/"  # 添加环境变量代理
+ExecStartPre=-/sbin/modprobe overlay
+ExecStart=/usr/local/bin/containerd
+
+Type=notify
+Delegate=yes
+KillMode=process
+Restart=always
+RestartSec=5
+# Having non-zero Limit*s causes performance problems due to accounting overhead
+# in the kernel. We recommend using cgroups to do container-local accounting.
+LimitNPROC=infinity
+LimitCORE=infinity
+LimitNOFILE=infinity
+# Comment TasksMax if your systemd version does not supports it.
+# Only systemd 226 and above support this version.
+TasksMax=infinity
+OOMScoreAdjust=-999
+
+[Install]
+WantedBy=multi-user.target
+
+
+# 重启服务
+systemctl daemon-reload
+systemctl restart containerd
+```
+
+
+
+
 
 参考：
 

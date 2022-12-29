@@ -1,3 +1,17 @@
+---
+title: "镜像拉取失败问题"
+weight: 3
+catalog: true
+date: 2020-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- 问题排查
+catagories:
+- 问题排查
+---
+
+
 常见镜像拉取问题排查
 
 ## 1. Pod状态为ErrImagePull或ImagePullBackOff

@@ -1,3 +1,16 @@
+---
+title: "使用kubeadm部署生产环境kubernetes集群"
+weight: 1
+catalog: true
+date: 2022-8-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 > 本文为基于`kubeadm`搭建`生产环境`级别`高可用`的k8s集群。
 
 # 1. 环境准备
@@ -164,6 +177,8 @@ docker info | grep -i cgroup
 
 # 3. 安装kubeadm,kubelet,kubectl
 
+> 安装脚本可参考仓库：https://github.com/huweihuang/kubeadm-scripts.git
+
 在所有主机上安装kubeadm，kubelet，kubectl。最好版本与需要安装的k8s的版本一致。
 
 ```bash
@@ -221,7 +236,7 @@ WantedBy=multi-user.target
 EOF
 
 mkdir -p /etc/systemd/system/kubelet.service.d
-cat > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf << EOF
+cat > /etc/systemd/system/kubelet.service.d/10-kubeadm.conf << \EOF
 # Note: This dropin only works with kubeadm and kubelet v1.11+
 [Service]
 Environment="KUBELET_KUBECONFIG_ARGS=--bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf"
@@ -237,6 +252,7 @@ EOF
 
 
 systemctl daemon-reload
+systemctl enable kubelet
 systemctl restart kubelet
 ```
 
@@ -505,6 +521,39 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.5.0/a
 
 默认端口：8443
 
+登录页面需要填入token或kubeconfig
+
+![](https://res.cloudinary.com/dqxtn0ick/image/upload/v1658371511/article/kubernetes/dashboard/dashboard_token.png)
+
+参考：[dashboard/creating-sample-user](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: admin-user
+  namespace: kubernetes-dashboard
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: kubernetes-dashboard
+```
+
+创建用户
+
+```bash
+kubectl -n kubernetes-dashboard create token admin-user
+```
+
 # 9. 重置部署
 
 ```bash
@@ -581,6 +630,38 @@ clusters:
 ```
 
 执行kubeadm join的命令时指定新修改的master地址。
+
+## 10.3. conntrack not found
+
+```bash
+[preflight] Some fatal errors occurred:
+    [ERROR FileExisting-conntrack]: conntrack not found in system path
+```
+
+解决方法：
+
+```bash
+apt -y install conntrack
+```
+
+## 10.4. Kubelet: unable to determine runtime API version
+
+```bash
+Error: failed to run Kubelet: unable to determine runtime API version: rpc error:code = Unavailable desc = connection error: desc = "transport: Error while dialing dial unix: missing address" 
+```
+
+解决方法：
+
+检查kubelet的启动参数，可以用二进制直接添加参数debug
+
+```bash
+# 查看启动参数是否遗漏，比如10-kubeadm.conf 文件参数缺失
+systemctl cat --no-pager kubelet
+
+cat /lib/systemd/system/kubelet.service
+
+cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+```
 
 参考：
 

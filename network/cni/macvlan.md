@@ -1,3 +1,16 @@
+---
+title: "Macvlan介绍"
+weight: 2
+catalog: true
+date: 2021-07-10 10:50:57
+subtitle:
+header-img: 
+tags:
+- CNI
+catagories:
+- CNI
+---
+
 # 1. 简介
 
 macvlan可以看做是物理接口eth（父接口）的子接口，每个macvlan都拥有独立的mac地址，可以被绑定IP作为正常的网卡接口使用。通过这个特性，可以实现在一个物理网络设备绑定多个IP，每个IP拥有独立的mac地址。该特性经常被应用在容器虚拟化中（容器可以配置macvlan的网络，将macvlan interface移动到容器的namespace中）。

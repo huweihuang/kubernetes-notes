@@ -1,3 +1,16 @@
+---
+title: "KubeEdge介绍"
+weight: 1
+catalog: true
+date: 2021-08-13 10:50:57
+subtitle:
+header-img: 
+tags:
+- Kubeedge
+catagories:
+- Kubeedge
+---
+
 # 1. KubeEdge简介
 
 `KubeEdge`是基于kubernetes之上将容器化应用的编排能力拓展到边缘主机或边缘设备，在云端和边缘端提供网络通信，应用部署、元数据同步等功能。同时支持**MQTT**协议，允许开发者在边缘端自定义接入边缘设备。

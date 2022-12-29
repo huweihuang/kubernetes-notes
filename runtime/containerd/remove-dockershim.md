@@ -1,3 +1,11 @@
+---
+title: "移除Dockershim"
+date: 2022-6-23 16:22:24
+weight: 3
+---
+
+> TODO
+
 参考：
 
 - [更新：移除 Dockershim 的常见问题 | Kubernetes](https://kubernetes.io/zh-cn/blog/2022/02/17/dockershim-faq/)

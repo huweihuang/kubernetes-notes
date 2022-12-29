@@ -1,3 +1,16 @@
+---
+title: "配置私有镜像仓库"
+weight: 1
+catalog: true
+date: 2020-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 ## 1. 镜像仓库的基本操作
 
 ### 1.1. 登录镜像仓库

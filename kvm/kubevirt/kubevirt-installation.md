@@ -1,3 +1,16 @@
+---
+title: "KubeVirt的使用"
+weight: 2
+catalog: true
+date: 2022-07-10 10:50:57
+subtitle:
+header-img: 
+tags:
+- KubeVirt
+catagories:
+- KubeVirt
+---
+
 # 1. 安装kubevirt
 
 ## 1.1. 修改镜像仓库

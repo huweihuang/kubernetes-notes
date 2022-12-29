@@ -1,3 +1,16 @@
+---
+title: "使用kind安装kubernetes"
+weight: 4
+catalog: true
+date: 2019-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # 1. 安装kind
 
 On mac or linux

@@ -1,3 +1,17 @@
+---
+title: "kubectl命令别名"
+weight: 3
+catalog: true
+date: 2019-08-13 10:50:57
+subtitle:
+header-img: 
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
+
 # 1. kubectl-aliases
 
 [kubectl-aliases](https://github.com/ahmetb/kubectl-aliases)开源工具是由[脚本](https://github.com/ahmetb/kubectl-aliases/blob/master/generate_aliases.py)通过拼接各种kubectl相关元素组成的[alias命令别名列表](https://github.com/ahmetb/kubectl-aliases/blob/master/.kubectl_aliases)，其中命令别名拼接元素如下：

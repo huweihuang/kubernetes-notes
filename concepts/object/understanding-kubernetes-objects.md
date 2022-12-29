@@ -1,10 +1,10 @@
 ---
-title: "[Kubernetes] 理解kubernetes对象"
+title: "理解kubernetes对象"
+weight: 2
 catalog: true
 date: 2018-03-01 10:50:57
-type: "categories"
 subtitle:
-header-img: "http://ozilwgpje.bkt.clouddn.com/article2.jpg"
+header-img: "https://res.cloudinary.com/dqxtn0ick/image/upload/v1508253812/header/cow.jpg"
 tags:
 - Kubernetes
 catagories:

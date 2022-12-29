@@ -1,3 +1,16 @@
+---
+title: "Etcd介绍"
+weight: 1
+catalog: true
+date: 2017-07-10 10:50:57
+subtitle:
+header-img: 
+tags:
+- Etcd
+catagories:
+- Etcd
+---
+
 # 1. Etcd是什么（what）
 
 etcd is a distributed, consistent key-value store for shared configuration and service discovery, with a focus on being:

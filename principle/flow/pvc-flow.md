@@ -1,3 +1,18 @@
+---
+title: "PVC创建流程"
+linkTitle: "PVC创建流程"
+weight: 2
+catalog: true
+date: 2019-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
+
 # pvc流程
 
 <img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1618759154/article/kubernetes/flow/pvc-flow.png" width="100%">

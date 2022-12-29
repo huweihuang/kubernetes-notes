@@ -1,8 +1,8 @@
 ---
-title: "[Kubernetes] Influxdb介绍"
+title: "Influxdb介绍"
+weight: 4
 catalog: true
 date: 2017-08-13 10:50:57
-type: "categories"
 subtitle:
 header-img: 
 tags:

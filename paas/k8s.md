@@ -1,3 +1,16 @@
+---
+title: "k8s知识体系"
+weight: 1
+catalog: true
+date: 2018-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # 1. k8s知识体系
 
 以下整理了k8s涉及的相关知识体系。

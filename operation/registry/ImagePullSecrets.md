@@ -1,3 +1,16 @@
+---
+title: "拉取私有镜像"
+weight: 2
+catalog: true
+date: 2020-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 
 > 本文介绍通过pod指定 ImagePullSecrets来拉取私有镜像仓库的镜像
 

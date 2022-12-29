@@ -1,3 +1,16 @@
+---
+title: "虚拟化相关概念"
+weight: 1
+catalog: true
+date: 2019-07-10 10:50:57
+subtitle:
+header-img: 
+tags:
+- KubeVirt
+catagories:
+- KubeVirt
+---
+
 # 1. 虚拟化
 
 借助虚拟化技术，用户能以单个物理硬件系统为基础，创建多个模拟环境或专用资源，并使用一款名为“Hypervisor”（虚拟机监控程序）的软件直接连接到硬件，从而将一个系统划分为不同、单独而安全的环境，即虚拟机 (VM)。

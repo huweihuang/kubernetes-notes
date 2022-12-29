@@ -1,3 +1,16 @@
+---
+title: "Virtual Kubelet命令"
+weight: 2
+catalog: true
+date: 2020-07-10 10:50:57
+subtitle:
+header-img: 
+tags:
+- VirtualKubelet
+catagories:
+- VirtualKubelet
+---
+
 # virtual-kubelet --help
 
 ```bash

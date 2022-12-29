@@ -1,4 +1,16 @@
-> 本文个人博客地址：http://www.huweihuang.com/article/kubernetes/kubernetes-resource/
+---
+title: "资源配额"
+linkTitle: "资源配额"
+weight: 1
+catalog: true
+date: 2018-6-24 15:22:24
+subtitle:
+header-img: "https://res.cloudinary.com/dqxtn0ick/image/upload/v1542285471/header/building.jpg"
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
 
 # 资源配额（ResourceQuota）
 

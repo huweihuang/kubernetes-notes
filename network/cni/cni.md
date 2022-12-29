@@ -1,3 +1,16 @@
+---
+title: "CNI接口介绍"
+weight: 1
+catalog: true
+date: 2021-07-10 10:50:57
+subtitle:
+header-img: 
+tags:
+- CNI
+catagories:
+- CNI
+---
+
 # 1. CNI（Container Network Interface）
 
 CNI（Container Network Interface）即容器网络接口，通过约定统一的容器网络接口，从而kubelet可以通过这个标准的API来调用不同的网络插件实现不同的网络功能。

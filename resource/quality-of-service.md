@@ -1,3 +1,17 @@
+---
+title: "资源服务质量"
+linkTitle: "资源服务质量"
+weight: 3
+catalog: true
+date: 2018-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # Resource Quality of Service 
 
 ## 1. 资源QoS简介

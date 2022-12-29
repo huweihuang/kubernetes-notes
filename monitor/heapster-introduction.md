@@ -1,8 +1,8 @@
 ---
-title: "[Kubernetes] Heapster介绍"
+title: "Heapster介绍"
+weight: 3
 catalog: true
 date: 2017-08-13 10:50:57
-type: "categories"
 subtitle:
 header-img: 
 tags:

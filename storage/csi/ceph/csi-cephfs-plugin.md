@@ -1,3 +1,16 @@
+---
+title: "csi-cephfs-plugin"
+weight: 1
+catalog: true
+date: 2019-6-23 16:22:24
+subtitle:
+header-img:
+tags:
+- CSI
+catagories:
+- CSI
+---
+
 # 1. 编译CSI CephFS plugin
 
 CSI CephFS plugin用来提供CephFS存储卷和挂载存储卷，源码参考：<https://github.com/ceph/ceph-csi> 。

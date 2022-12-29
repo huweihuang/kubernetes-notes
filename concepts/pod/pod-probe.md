@@ -1,3 +1,16 @@
+---
+title: "Pod健康检查"
+weight: 4
+catalog: true
+date: 2017-08-13 10:50:57
+subtitle:
+header-img: 
+tags:
+- Kubernetes
+catagories:
+- Kubernetes
+---
+
 # Pod健康检查
 
 Pod的健康状态由两类探针来检查：`LivenessProbe`和`ReadinessProbe`。
