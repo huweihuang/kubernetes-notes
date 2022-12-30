@@ -16,7 +16,7 @@ cp -fr ${BLOG_SOURCE_DIR}/* ./
 
 # clean GHPAGE_DIR
 if [ ! -d $GHPAGE_DIR  ];then
-    git clone https://github.com/huweihuang/blog.huweihuang.com.git gh-pages
+    git clone -b gh-pages https://github.com/huweihuang/${NOTE_NAME}.git gh-pages
 fi
 rm -fr ${GHPAGE_DIR}/*
 
