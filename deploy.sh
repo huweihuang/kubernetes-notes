@@ -14,15 +14,14 @@ clean and copy blog
 rm -fr $(ls | grep -v -E 'node_modules|book.json|README.md|SUMMARY.md|.gitignore|LICENSE|gh-pages|deploy.sh|code-analysis')
 cp -fr ${BLOG_SOURCE_DIR}/* ./
 
-# clone gh-pages
-rm -fr gh-pages
-git clone -b gh-pages https://github.com/huweihuang/${NOTE_NAME}.git gh-pages
+# clean GHPAGE_DIR
+if [ ! -d $GHPAGE_DIR  ];then
+    git clone https://github.com/huweihuang/blog.huweihuang.com.git gh-pages
+fi
+rm -fr ${GHPAGE_DIR}/*
 
 # build
 gitbook build
-
-# clean GHPAGE_DIR
-rm -fr ${GHPAGE_DIR}/*
 
 # copy _book to GHPAGE_DIR
 cp -fr ${MASTER_DIR}/_book/* ${GHPAGE_DIR}
