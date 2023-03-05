@@ -10,7 +10,7 @@ BLOG_SOURCE_DIR="../blog-source/${NOTE_NAME}"
 MASTER_DIR="$(pwd)"
 GHPAGE_DIR="${MASTER_DIR}/gh-pages"
 
-clean and copy blog
+# clean and copy blog
 rm -fr $(ls | grep -v -E 'node_modules|book.json|README.md|SUMMARY.md|.gitignore|LICENSE|gh-pages|deploy.sh|code-analysis')
 cp -fr ${BLOG_SOURCE_DIR}/* ./
 
