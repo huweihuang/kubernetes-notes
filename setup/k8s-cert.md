@@ -1,6 +1,6 @@
 ---
 title: "k8s证书及秘钥"
-weight: 2
+weight: 3
 catalog: true
 date: 2019-6-23 16:22:24
 subtitle:
@@ -30,29 +30,29 @@ catagories:
 
 目录：`/etc/kubernetes/ssl`
 
-| 分类       | 证书/秘钥          | 说明 | 组件 |
-| ---------- | ------------------ | ---- | ---- |
-| ca         | ca-key.pem         |      |      |
-|            | ca.pem             |      |      |
-|            | ca.csr             |      |      |
-| Kubernetes | kubernetes-key.pem |      |      |
-|            | kubernetes.pem     |      |      |
-|            | kubernetes.csr     |      |      |
-| Admin      | admin-key.pem      |      |      |
-|            | admin.pem          |      |      |
-|            | admin.csr          |      |      |
-| Kubelet    | kubelet.crt        |      |      |
-|            | kubelet.key        |      |      |
+| 分类         | 证书/秘钥              | 说明  | 组件  |
+| ---------- | ------------------ | --- | --- |
+| ca         | ca-key.pem         |     |     |
+|            | ca.pem             |     |     |
+|            | ca.csr             |     |     |
+| Kubernetes | kubernetes-key.pem |     |     |
+|            | kubernetes.pem     |     |     |
+|            | kubernetes.csr     |     |     |
+| Admin      | admin-key.pem      |     |     |
+|            | admin.pem          |     |     |
+|            | admin.csr          |     |     |
+| Kubelet    | kubelet.crt        |     |     |
+|            | kubelet.key        |     |     |
 
 配置文件
 
-| 分类       | 证书/秘钥           | 说明 |
-| ---------- | ------------------- | ---- |
-| ca         | ca-config.json      |      |
-|            | ca-csr.json         |      |
-| Kubernetes | kubernetes-csr.json |      |
-| Admin      | admin-csr.json      |      |
-| Kube-proxy | kube-proxy-csr.json |      |
+| 分类         | 证书/秘钥               | 说明  |
+| ---------- | ------------------- | --- |
+| ca         | ca-config.json      |     |
+|            | ca-csr.json         |     |
+| Kubernetes | kubernetes-csr.json |     |
+| Admin      | admin-csr.json      |     |
+| Kube-proxy | kube-proxy-csr.json |     |
 
 # 3. cfssl工具
 
@@ -458,10 +458,6 @@ Certificate:
 mkdir -p /etc/kubernetes/ssl
 cp *.pem /etc/kubernetes/ssl
 ```
-
-
-
-
 
 参考文章：
 

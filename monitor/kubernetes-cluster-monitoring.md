@@ -1,14 +1,14 @@
 ---
 title: "Kubernetes集群监控"
-weight: 1
+weight: 2
 catalog: true
 date: 2017-08-13 10:50:57
 subtitle:
 header-img: 
 tags:
-- Kubernetes
+- Monitor
 catagories:
-- Kubernetes
+- Monitor
 ---
 
 # 1. 概述
@@ -303,5 +303,3 @@ docker run -d -p 8082:8082 --net=host heapster:canary --source=kubernetes:http:/
 ## 4.3. 访问
 
 在浏览器输入`IP`:`PORT`
-
- 

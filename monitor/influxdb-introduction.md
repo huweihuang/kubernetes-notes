@@ -1,14 +1,14 @@
 ---
 title: "Influxdb介绍"
-weight: 4
+weight: 5
 catalog: true
 date: 2017-08-13 10:50:57
 subtitle:
 header-img: 
 tags:
-- Kubernetes
+- Monitor
 catagories:
-- Kubernetes
+- Monitor
 ---
 
 # 1. InfluxDB简介
@@ -96,10 +96,10 @@ InfluxDB提供三种操作方式：
 
 ## 4.2. InfluxDB数据表操作
 
-| 操作       | 命令                                       | 说明                                       |
-| -------- | ---------------------------------------- | ---------------------------------------- |
-| 显示所有表    | SHOW MEASUREMENTS                        |                                          |
+| 操作       | 命令                                                                            | 说明                                                           |
+| -------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| 显示所有表    | SHOW MEASUREMENTS                                                             |                                                              |
 | 创建数据表    | insert `table_name`,hostname=server01 value=442221834240i 1435362189575692182 | 其中 disk_free 就是表名，hostname是索引，value=xx是记录值，记录值可以有多个，最后是指定的时间 |
-| 删除数据表    | drop measurement `table_name`            |                                          |
-| 查看表内容    | select * from `table_name`               |                                          |
-| 查看series | show series from `table_name`            | series表示这个表里面的数据，可以在图表上画成几条线，series主要通过tags排列组合算出来 |
+| 删除数据表    | drop measurement `table_name`                                                 |                                                              |
+| 查看表内容    | select * from `table_name`                                                    |                                                              |
+| 查看series | show series from `table_name`                                                 | series表示这个表里面的数据，可以在图表上画成几条线，series主要通过tags排列组合算出来           |

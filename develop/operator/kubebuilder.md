@@ -6,9 +6,9 @@ date: 2021-08-13 10:50:57
 subtitle:
 header-img: 
 tags:
-- Kubernetes
+- Operator
 catagories:
-- Kubernetes
+- Operator
 ---
 
 # 1. kubebuilder
@@ -252,10 +252,6 @@ make: *** [generate] Error 127
 ```bash
 export GOPATH="/path/to/gopath"
 ```
-
-
-
-
 
 参考：
 

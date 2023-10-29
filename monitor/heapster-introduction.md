@@ -1,14 +1,14 @@
 ---
 title: "Heapster介绍"
-weight: 3
+weight: 4
 catalog: true
 date: 2017-08-13 10:50:57
 subtitle:
 header-img: 
 tags:
-- Kubernetes
+- Monitor
 catagories:
-- Kubernetes
+- Monitor
 ---
 
 # 1. heapster简介
@@ -65,62 +65,60 @@ withfields： 使用InfluxDB fields(默认：false)。
 
 # 3. Metrics
 
-| 分类         | Metric Name                   | Description                              | 备注            |
-| ---------- | ----------------------------- | ---------------------------------------- | ------------- |
-| cpu        | cpu/limit                     | CPU hard limit in millicores.            | CPU上限         |
-|            | cpu/node_capacity             | Cpu capacity of a node.                  | Node节点的CPU容量  |
-|            | cpu/node_allocatable          | Cpu allocatable of a node.               | Node节点可分配的CPU |
-|            | cpu/node_reservation          | Share of cpu that is reserved on the node allocatable. |               |
-|            | cpu/node_utilization          | CPU utilization as a share of node allocatable. |               |
-|            | cpu/request                   | CPU request (the guaranteed amount of resources) in millicores. |               |
-|            | cpu/usage                     | Cumulative CPU usage on all cores.       | CPU总使用量       |
-|            | cpu/usage_rate                | CPU usage on all cores in millicores.    |               |
-| filesystem | filesystem/usage              | Total number of bytes consumed on a filesystem. | 文件系统的使用量      |
-|            | filesystem/limit              | The total size of filesystem in bytes.   | 文件系统的使用上限     |
-|            | filesystem/available          | The number of available bytes remaining in a the filesystem | 可用的文件系统容量     |
-|            | filesystem/inodes             | The number of available inodes in a the filesystem |               |
-|            | filesystem/inodes_free        | The number of free inodes remaining in a the filesystem |               |
-| memory     | memory/limit                  | Memory hard limit in bytes.              | 内存上限          |
-|            | memory/major_page_faults      | Number of major page faults.             |               |
-|            | memory/major_page_faults_rate | Number of major page faults per second.  |               |
-|            | memory/node_capacity          | Memory capacity of a node.               |               |
-|            | memory/node_allocatable       | Memory allocatable of a node.            |               |
-|            | memory/node_reservation       | Share of memory that is reserved on the node allocatable. |               |
-|            | memory/node_utilization       | Memory utilization as a share of memory allocatable. |               |
-|            | memory/page_faults            | Number of page faults.                   |               |
-|            | memory/page_faults_rate       | Number of page faults per second.        |               |
-|            | memory/request                | Memory request (the guaranteed amount of resources) in bytes. |               |
-|            | memory/usage                  | Total memory usage.                      |               |
-|            | memory/cache                  | Cache memory usage.                      |               |
-|            | memory/rss                    | RSS memory usage.                        |               |
+| 分类         | Metric Name                   | Description                                                                                         | 备注            |
+| ---------- | ----------------------------- | --------------------------------------------------------------------------------------------------- | ------------- |
+| cpu        | cpu/limit                     | CPU hard limit in millicores.                                                                       | CPU上限         |
+|            | cpu/node_capacity             | Cpu capacity of a node.                                                                             | Node节点的CPU容量  |
+|            | cpu/node_allocatable          | Cpu allocatable of a node.                                                                          | Node节点可分配的CPU |
+|            | cpu/node_reservation          | Share of cpu that is reserved on the node allocatable.                                              |               |
+|            | cpu/node_utilization          | CPU utilization as a share of node allocatable.                                                     |               |
+|            | cpu/request                   | CPU request (the guaranteed amount of resources) in millicores.                                     |               |
+|            | cpu/usage                     | Cumulative CPU usage on all cores.                                                                  | CPU总使用量       |
+|            | cpu/usage_rate                | CPU usage on all cores in millicores.                                                               |               |
+| filesystem | filesystem/usage              | Total number of bytes consumed on a filesystem.                                                     | 文件系统的使用量      |
+|            | filesystem/limit              | The total size of filesystem in bytes.                                                              | 文件系统的使用上限     |
+|            | filesystem/available          | The number of available bytes remaining in a the filesystem                                         | 可用的文件系统容量     |
+|            | filesystem/inodes             | The number of available inodes in a the filesystem                                                  |               |
+|            | filesystem/inodes_free        | The number of free inodes remaining in a the filesystem                                             |               |
+| memory     | memory/limit                  | Memory hard limit in bytes.                                                                         | 内存上限          |
+|            | memory/major_page_faults      | Number of major page faults.                                                                        |               |
+|            | memory/major_page_faults_rate | Number of major page faults per second.                                                             |               |
+|            | memory/node_capacity          | Memory capacity of a node.                                                                          |               |
+|            | memory/node_allocatable       | Memory allocatable of a node.                                                                       |               |
+|            | memory/node_reservation       | Share of memory that is reserved on the node allocatable.                                           |               |
+|            | memory/node_utilization       | Memory utilization as a share of memory allocatable.                                                |               |
+|            | memory/page_faults            | Number of page faults.                                                                              |               |
+|            | memory/page_faults_rate       | Number of page faults per second.                                                                   |               |
+|            | memory/request                | Memory request (the guaranteed amount of resources) in bytes.                                       |               |
+|            | memory/usage                  | Total memory usage.                                                                                 |               |
+|            | memory/cache                  | Cache memory usage.                                                                                 |               |
+|            | memory/rss                    | RSS memory usage.                                                                                   |               |
 |            | memory/working_set            | Total working set usage. Working set is the memory being used and not easily dropped by the kernel. |               |
-| network    | network/rx                    | Cumulative number of bytes received over the network. |               |
-|            | network/rx_errors             | Cumulative number of errors while receiving over the network. |               |
-|            | network/rx_errors_rate        | Number of errors while receiving over the network per second. |               |
-|            | network/rx_rate               | Number of bytes received over the network per second. |               |
-|            | network/tx                    | Cumulative number of bytes sent over the network |               |
-|            | network/tx_errors             | Cumulative number of errors while sending over the network |               |
-|            | network/tx_errors_rate        | Number of errors while sending over the network |               |
-|            | network/tx_rate               | Number of bytes sent over the network per second. |               |
-|            | uptime                        | Number of milliseconds since the container was started. |          -     |
+| network    | network/rx                    | Cumulative number of bytes received over the network.                                               |               |
+|            | network/rx_errors             | Cumulative number of errors while receiving over the network.                                       |               |
+|            | network/rx_errors_rate        | Number of errors while receiving over the network per second.                                       |               |
+|            | network/rx_rate               | Number of bytes received over the network per second.                                               |               |
+|            | network/tx                    | Cumulative number of bytes sent over the network                                                    |               |
+|            | network/tx_errors             | Cumulative number of errors while sending over the network                                          |               |
+|            | network/tx_errors_rate        | Number of errors while sending over the network                                                     |               |
+|            | network/tx_rate               | Number of bytes sent over the network per second.                                                   |               |
+|            | uptime                        | Number of milliseconds since the container was started.                                             | -             |
 
 # 4. Labels
 
-| Label Name           | Description                              |
-| -------------------- | ---------------------------------------- |
-| pod_id               | Unique ID of a Pod                       |
-| pod_name             | User-provided name of a Pod              |
-| pod_namespace        | The namespace of a Pod                   |
-| container_base_image | Base image for the container             |
-| container_name       | User-provided name of the container or full cgroup name for system containers |
-| host_id              | Cloud-provider specified or user specified Identifier of a node |
-| hostname             | Hostname where the container ran         |
-| labels               | Comma-separated(Default) list of user-provided labels. Format is 'key:value' |
-| namespace_id         | UID of the namespace of a Pod            |
+| Label Name           | Description                                                                                                            |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| pod_id               | Unique ID of a Pod                                                                                                     |
+| pod_name             | User-provided name of a Pod                                                                                            |
+| pod_namespace        | The namespace of a Pod                                                                                                 |
+| container_base_image | Base image for the container                                                                                           |
+| container_name       | User-provided name of the container or full cgroup name for system containers                                          |
+| host_id              | Cloud-provider specified or user specified Identifier of a node                                                        |
+| hostname             | Hostname where the container ran                                                                                       |
+| labels               | Comma-separated(Default) list of user-provided labels. Format is 'key:value'                                           |
+| namespace_id         | UID of the namespace of a Pod                                                                                          |
 | resource_id          | A unique identifier used to differentiate multiple metrics of the same type. e.x. Fs partitions under filesystem/usage |
 
 # 5. heapster API
 
 见官方文档：[https://github.com/kubernetes/heapster/blob/master/docs/model.md](https://github.com/kubernetes/heapster/blob/master/docs/model.md)
-
- 

@@ -1,19 +1,19 @@
 ---
 title: "cAdvisor介绍"
-weight: 2
+weight: 3
 catalog: true
 date: 2017-08-13 10:50:57
 subtitle:
 header-img: 
 tags:
-- Kubernetes
+- Monitor
 catagories:
-- Kubernetes
+- Monitor
 ---
 
 # 1. cAdvisor简介
 
-​	cAdvisor对Node机器上的资源及容器进行实时监控和性能数据采集，包括CPU使用情况、内存使用情况、网络吞吐量及文件系统使用情况，cAdvisor集成在Kubelet中，当kubelet启动时会自动启动cAdvisor，即一个cAdvisor仅对一台Node机器进行监控。kubelet的启动参数--cadvisor-port可以定义cAdvisor对外提供服务的端口，默认为4194。可以通过浏览器<Node_IP:port>访问。项目主页：[http://github.com/google/cadvisor。]()
+​    cAdvisor对Node机器上的资源及容器进行实时监控和性能数据采集，包括CPU使用情况、内存使用情况、网络吞吐量及文件系统使用情况，cAdvisor集成在Kubelet中，当kubelet启动时会自动启动cAdvisor，即一个cAdvisor仅对一台Node机器进行监控。kubelet的启动参数--cadvisor-port可以定义cAdvisor对外提供服务的端口，默认为4194。可以通过浏览器<Node_IP:port>访问。项目主页：[http://github.com/google/cadvisor。]()
 
 # 2. cAdvisor结构图
 
@@ -21,22 +21,22 @@ catagories:
 
 # 3. Metrics
 
-| 分类         | 字段                 | 描述                                       |
-| ---------- | ------------------ | ---------------------------------------- |
-| cpu        | cpu_usage_total    |                                          |
-|            | cpu_usage_system   |                                          |
-|            | cpu_usage_user     |                                          |
-|            | cpu_usage_per_cpu  |                                          |
+| 分类         | 字段                 | 描述                                                    |
+| ---------- | ------------------ | ----------------------------------------------------- |
+| cpu        | cpu_usage_total    |                                                       |
+|            | cpu_usage_system   |                                                       |
+|            | cpu_usage_user     |                                                       |
+|            | cpu_usage_per_cpu  |                                                       |
 |            | load_average       | Smoothed average of number of runnable threads x 1000 |
-| memory     | memory_usage       | Memory Usage                             |
-|            | memory_working_set | Working set size                         |
-| network    | rx_bytes           | Cumulative count of bytes received       |
-|            | rx_errors          | Cumulative count of receive errors encountered |
-|            | tx_bytes           | Cumulative count of bytes transmitted    |
-|            | tx_errors          | Cumulative count of transmit errors encountered |
-| filesystem | fs_device          | Filesystem device                        |
-|            | fs_limit           | Filesystem limit                         |
-|            | fs_usage           | Filesystem usage                         |
+| memory     | memory_usage       | Memory Usage                                          |
+|            | memory_working_set | Working set size                                      |
+| network    | rx_bytes           | Cumulative count of bytes received                    |
+|            | rx_errors          | Cumulative count of receive errors encountered        |
+|            | tx_bytes           | Cumulative count of bytes transmitted                 |
+|            | tx_errors          | Cumulative count of transmit errors encountered       |
+| filesystem | fs_device          | Filesystem device                                     |
+|            | fs_limit           | Filesystem limit                                      |
+|            | fs_usage           | Filesystem usage                                      |
 
 # 4. cAdvisor源码
 

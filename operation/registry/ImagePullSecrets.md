@@ -11,7 +11,6 @@ catagories:
 - Kubernetes
 ---
 
-
 > 本文介绍通过pod指定 ImagePullSecrets来拉取私有镜像仓库的镜像
 
 ## 1. 创建secret
@@ -22,7 +21,7 @@ secret是namespace级别的，创建时候需要指定namespace。
 kubectl create secret docker-registry <name> --docker-server=DOCKER_REGISTRY_SERVER --docker-username=DOCKER_USER --docker-password=DOCKER_PASSWORD -n <NAMESPACE>
 ```
 
-##  2. 添加ImagePullSecrets到serviceAccount
+## 2. 添加ImagePullSecrets到serviceAccount
 
 可以通过将ImagePullSecrets到serviceAccount的方式来自动给pod添加imagePullSecrets参数值。
 
@@ -80,6 +79,19 @@ imagePullSecrets:
 - name: docker.xxxx.com
 ```
 
+其中`imagePullSecrets`字段是一个数组，可以配置多个镜像仓库的账号密码。
+
+例如：
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+...
+imagePullSecrets:
+- name: docker.xxxx.com
+- name: docker.test.xxxx.com
+```
+
 ## 3. 创建带有imagePullSecrets的pod
 
 如果已经执行了第二步操作，添加ImagePullSecrets到serviceAccount，则无需在pod中指定imagePullSecrets参数，默认会自动添加。
@@ -95,8 +107,6 @@ spec:
 ## 4. 说明
 
 由于secret和serviceaccount对象是对namespace级别生效，因此不同的namespace需要再次创建和更新这两个对象。该场景适合不同用户具有独立的镜像仓库的密码，可以通过该方式创建不同的镜像密码使用的secret来拉取不同的镜像部署。
-
-
 
 参考：
 

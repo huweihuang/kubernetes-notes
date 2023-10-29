@@ -1,5 +1,5 @@
 ---
-title: "kubectl命令说明"
+title: "kubectl命令使用"
 weight: 2
 catalog: true
 date: 2020-08-13 10:50:57
@@ -24,7 +24,7 @@ kubectl [command] [TYPE] [NAME] [flags]
 - `command`: 指定要在一个或多个资源进行操作，例如`create`，`get`，`describe`，`delete`。
 
 - `TYPE`：指定[资源类型](https://kubernetes.io/cn/docs/user-guide/kubectl-overview/#%E8%B5%84%E6%BA%90%E7%B1%BB%E5%9E%8B)。资源类型区分大小写，您可以指定单数，复数或缩写形式。例如，以下命令产生相同的输出：
-
+  
   ```bash
   kubectl get pod pod1  
   kubectl get pods pod1 
@@ -32,9 +32,9 @@ kubectl [command] [TYPE] [NAME] [flags]
   ```
 
 - `NAME`：指定资源的名称。名称区分大小写。如果省略名称，则会显示所有资源的详细信息,比如`$ kubectl get pods`。
-
+  
   按类型和名称指定多种资源：
-
+  
   ```bash
   * 要分组资源，如果它们都是相同的类型：`TYPE1 name1 name2 name<#>`.<br/>
   例: `$ kubectl get pod example-pod1 example-pod2`
@@ -267,6 +267,7 @@ kubectl cordon <NodeName>
 # 或者
 kubectl patch node <NodeName> -p '{"spec":{"unschedulable":true}}'
 ```
+
 **2. Node恢复**
 
 ```bash
@@ -347,6 +348,7 @@ metadata:
   selfLink: /api/v1/namespaces/kube-system/endpoints/kube-controller-manager
   uid: f1755fc5-7f58-11e9-b4c4-00220d338975
 ```
+
 以上表示`"holderIdentity":"xxx.xxx.xxx.xxx`为kube-controller-manager的leader节点。
 
 同理，可以通过以下命令查看`kube-scheduler`的leader节点。
@@ -377,23 +379,63 @@ kubectl get secret my-secret -o go-template='{{range $k,$v := .data}}{{"### "}}{
 kubectl get events --sort-by=.metadata.creationTimestamp
 ```
 
+## 5.12. 拷贝文件
+
+**从pod拷贝到本地**
+
+注意事项：
+
+- pod的目录是workdir的相对路径，可以将文件拷贝到workdir下再拷贝出来
+
+- 文件绝对路径前面不能加 /
+
+- 文件目标位置不能为文件夹，必须为文件路径
+
+```bash
+kubectl cp -n <ns> -c <container> <pod_name>:<与workdir的相对路径> <本地路径文件名>
+# 示例：
+# 将pod workdir下的prometheus.env.yaml文件拷贝到本地
+kubectl cp -n prometheus -c prometheus prometheus-0:prometheus.env.yaml ./prometheus.env.yaml
+```
+
+**从本地拷贝到pod**
+
+注意事项：
+
+- 如果没有加路径，默认拷贝到pod内workdir路径。
+
+```bash
+kubectl cp <本地路径文件名> -n <ns> -c <container> <pod_name>:<与workdir的相对路径> 
+# 示例：
+kubectl cp ./prometheus.env.yaml -n prometheus -c prometheus prometheus-0:prometheus.env.yaml 
+```
+
+## 5.13. 强制删除namespace
+
+如果强制删除ns失败，可以使用以下命令删除，将以下的`calico-system`改为需要删除的namespace。
+
+```bash
+kubectl get namespaces calico-system -o json \
+    | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
+    | kubectl replace --raw /api/v1/namespaces/calico-system/finalize -f -
+```
+
 # 6. kubectl日志级别
 
 Kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参数后跟一个数字表示日志的级别。 Kubernetes 通用的日志习惯和相关的日志级别在 [这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) 有相应的描述。
 
-| 详细程度 | 描述                                                         |
-| -------- | ------------------------------------------------------------ |
-| `--v=0`  | 用于那些应该 *始终* 对运维人员可见的信息，因为这些信息一般很有用。 |
-| `--v=1`  | 如果您不想要看到冗余信息，此值是一个合理的默认日志级别。     |
-| `--v=2`  | 输出有关服务的稳定状态的信息以及重要的日志消息，这些信息可能与系统中的重大变化有关。这是建议大多数系统设置的默认日志级别。 |
-| `--v=3`  | 包含有关系统状态变化的扩展信息。                             |
-| `--v=4`  | 包含调试级别的冗余信息。                                     |
-| `--v=5`  | 跟踪级别的详细程度。                                         |
-| `--v=6`  | 显示所请求的资源。                                           |
-| `--v=7`  | 显示 HTTP 请求头。                                           |
-| `--v=8`  | 显示 HTTP 请求内容。                                         |
-| `--v=9`  | 显示 HTTP 请求内容而且不截断内容。                           |
-
+| 详细程度    | 描述                                                            |
+| ------- | ------------------------------------------------------------- |
+| `--v=0` | 用于那些应该 *始终* 对运维人员可见的信息，因为这些信息一般很有用。                           |
+| `--v=1` | 如果您不想要看到冗余信息，此值是一个合理的默认日志级别。                                  |
+| `--v=2` | 输出有关服务的稳定状态的信息以及重要的日志消息，这些信息可能与系统中的重大变化有关。这是建议大多数系统设置的默认日志级别。 |
+| `--v=3` | 包含有关系统状态变化的扩展信息。                                              |
+| `--v=4` | 包含调试级别的冗余信息。                                                  |
+| `--v=5` | 跟踪级别的详细程度。                                                    |
+| `--v=6` | 显示所请求的资源。                                                     |
+| `--v=7` | 显示 HTTP 请求头。                                                  |
+| `--v=8` | 显示 HTTP 请求内容。                                                 |
+| `--v=9` | 显示 HTTP 请求内容而且不截断内容。                                          |
 
 参考文章：
 

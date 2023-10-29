@@ -1,6 +1,6 @@
 ---
 title: "helm的使用"
-weight: 5
+weight: 1
 catalog: true
 date: 2022-12-24 10:50:57
 subtitle:
@@ -137,7 +137,9 @@ helm pull [chart URL | repo/chartname]
 helm pull [chart URL | repo/chartname] --version 
 ```
 
-# 5. 新建一个chart
+# 5. 创建chart
+
+## 5.1. 初始化chart
 
 ```bash
  helm create mychart
@@ -147,20 +149,33 @@ helm pull [chart URL | repo/chartname] --version
 
 ```bash
 mychart
-|-- charts
-|-- Chart.yaml
+|-- charts  # 目录用于存放所依赖的子chart
+|-- Chart.yaml  # 描述这个 Chart 的相关信息、包括名字、描述信息、版本等
 |-- templates
 |   |-- deployment.yaml
-|   |-- _helpers.tpl
+|   |-- _helpers.tpl  # 模板助手文件，定义的值可在模板中使用
 |   |-- hpa.yaml
 |   |-- ingress.yaml
-|   |-- NOTES.txt
+|   |-- NOTES.txt  # Chart 部署到集群后的一些信息，例如：如何使用、列出缺省值
 |   |-- serviceaccount.yaml
 |   |-- service.yaml
 |   `-- tests
 |       `-- test-connection.yaml
-`-- values.yaml
+`-- values.yaml   # 模板的值文件，这些值会在安装时应用到 GO 模板生成部署文件
 ```
+
+移除默认模板文件，并添加自己的模板文件。
+
+```bash
+ rm -rf mysubchart/templates/*
+```
+
+## 5.2. 调试模板
+
+- `helm lint` 是验证chart是否遵循最佳实践的首选工具。
+- `helm template --debug` 在本地测试渲染chart模板。
+- `helm install --dry-run --debug`：我们已经看到过这个技巧了，这是让服务器渲染模板的好方法，然后返回生成的清单文件。
+- `helm get manifest`: 这是查看安装在服务器上的模板的好方法。
 
 参考：
 
