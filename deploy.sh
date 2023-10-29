@@ -30,5 +30,7 @@ cp -fr ${MASTER_DIR}/README.md ${GHPAGE_DIR}
 # git commit
 cd ${GHPAGE_DIR}
 git add --all
+git config user.name huweihuang
+git config user.email huweihuang@foxmail.com
 git commit -m "${MESSAGE}"
 git push origin gh-pages

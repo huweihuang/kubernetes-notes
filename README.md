@@ -36,8 +36,12 @@
   - [使用kubespray安装kubernetes](setup/installer/install-k8s-by-kubespray.md)
   - [使用minikube安装kubernetes](setup/installer/install-k8s-by-minikube.md)
   - [使用kind安装kubernetes](setup/installer/install-k8s-by-kind.md)
+  - [安装k8s dashboard](setup/installer/install-dashboard.md)
+- [kubeadm升级k8s集群](setup/kubeadm-upgrade.md)
+- [kubeadm管理证书](setup/kubeadm-certs.md)
 - [k8s证书及秘钥](setup/k8s-cert.md)
 - [k8s版本说明](setup/k8s-version-release.md)
+- [k8s版本记录](setup/k8s-changelog.md)
 
 ## 基本概念 <a id="concepts"></a>
 
@@ -104,19 +108,24 @@
 
 ## 运维指南 <a id="operation"></a>
 
+- [kubernetes集群问题排查](operation/kubernetes-troubleshooting.md)
 - [kubectl工具](operation/kubectl/_index.md)
   - [kubectl安装与配置](operation/kubectl/install-kubectl.md)
   - [kubectl命令说明](operation/kubectl/kubectl-commands.md)
   - [kubectl命令别名](operation/kubectl/kubectl-alias.md)
   - [kubectl进入node shell](operation/kubectl/kubectl-node-shell.md)
-  - [helm的使用](operation/kubectl/helm-usage.md)
-- [kubernetes集群问题排查](operation/kubernetes-troubleshooting.md)
-- [节点调度](operation/node/_index.md)
+- [helm工具](operation/helm/_index.md)
+  - [helm的使用](operation/helm/helm-usage.md)
+- [节点迁移](operation/node/_index.md)
   - [安全迁移节点](operation/node/safely-drain-node.md)
   - [指定Node调度与隔离](operation/node/nodeselector-and-taint.md)
-- [镜像仓库配置](operation/registry/_index.md)
+- [镜像仓库](operation/registry/_index.md)
   - [配置私有的镜像仓库](operation/registry/config-private-registry.md)
   - [拉取私有镜像](operation/registry/ImagePullSecrets.md)
+- [访问控制](operation/access/_index.md)
+  - [使用RBAC鉴权](operation/access/rbac-auth.md)
+- [版本发布](operation/deployment/_index.md)
+  - [金丝雀发布](operation/deployment/canary-deployment.md)
 
 ## 开发指南 <a id="develop"></a>
 
@@ -126,6 +135,8 @@
   - [csi-provisioner源码分析](develop/csi/csi-provisioner.md)
 - [operator开发](develop/operator/_index.md)
   - [kubebuilder的使用](develop/operator/kubebuilder.md)
+  - [如何开发一个Operator](develop/operator/develop-operator.md)
+- [k8s社区开发指南](develop/develop-k8s.md)
 
 ## 问题排查 <a id="trouble-shooting"></a>
 
@@ -208,7 +219,10 @@
 - [OpenYurt](edge/openyurt/_index.md)
   - [OpenYurt部署](edge/openyurt/install-openyurt.md)
   - [OpenYurt部署之调整k8s配置](edge/openyurt/update-k8s-for-openyurt.md)  
-
+- [OpenYurt源码分析](edge/openyurt/code-analysis/_index.md)
+  - [YurtHub源码分析（1)](edge/openyurt/code-analysis/yurthub-code-analysis-1.md)
+  - [TunnelServer源码分析（1）](edge/openyurt/code-analysis/tunnel-server-code-analysis.md)
+  - [Tunnel-Agent源码分析](edge/openyurt/code-analysis/tennel-agent-code-analysis.md)
 
 ## 虚拟化 <a id="kvm"></a>
 
@@ -220,6 +234,7 @@
 ## 监控体系 <a id="monitor"></a>
 
 - [监控体系介绍](monitor/kubernetes-cluster-monitoring.md)
+- [kube-prometheus-stack的使用](monitor/kube-promethus-stack.md)
 - [cAdvisor介绍](monitor/cadvisor-introduction.md)
 - [Heapster介绍](monitor/heapster-introduction.md)
 - [Influxdb介绍](monitor/influxdb-introduction.md)
