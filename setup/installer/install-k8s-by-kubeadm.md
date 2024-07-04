@@ -504,6 +504,25 @@ kubectl get nodes
 
 宿主机节点有`cni0`网卡，且网卡的IP段与flannel的CIDR网段不同，因此需要删除该网卡，让其重建。
 
+查看cni0网卡
+
+```bash
+# ifconfig cni0 |grep -w inet
+        inet 10.244.5.1  netmask 255.255.255.0  broadcast 10.244.116.255
+```
+
+查看flannel配置
+
+```bash
+# cat /run/flannel/subnet.env
+FLANNEL_NETWORK=10.244.0.0/16
+FLANNEL_SUBNET=10.244.116.1/24
+FLANNEL_MTU=1450
+FLANNEL_IPMASQ=true
+```
+
+发现cni0 IP与FLANNEL_SUBNET网段不一致，因此删除cni0重建。
+
 **解决：**
 
 ```bash

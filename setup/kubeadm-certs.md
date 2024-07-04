@@ -113,6 +113,8 @@ crictl ps |egrep "kube-apiserver|kube-scheduler|kube-controller"|awk '{print $1}
 cp -fr /etc/kubernetes/admin.conf $HOME/.kube/config
 ```
 
+## 2.5. 配置kubelet证书轮转
+
 由于kubelet默认支持证书轮转，当证书过期时，可以自动生成新的密钥，并从 Kubernetes API 申请新的证书。可以查看kubelet的配置检查是否已经开启。
 
 ```bash
