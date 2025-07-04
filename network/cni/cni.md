@@ -241,6 +241,18 @@ CNI定义的接口操作有：
 
 ## 4.3. CHECK接口：检查容器网络
 
+必选参数：
+
+- `CNI_COMMAND`
+- `CNI_CONTAINERID`
+- `CNI_NETNS`
+- `CNI_IFNAME`
+
+可选参数：
+
+- `CNI_ARGS`
+- `CNI_PATH`
+
 ## 4.4. VERSION接口：输出CNI的版本
 
 

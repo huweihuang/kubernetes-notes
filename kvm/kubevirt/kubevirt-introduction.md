@@ -19,7 +19,7 @@ kubevirt是基于k8s之上，提供了一种通过k8s来编排和管理虚拟机
 
 # 2. 架构图
 
-![arch](https://res.cloudinary.com/dqxtn0ick/image/upload/v1650005691/article/kubernetes/kubevirt/architecture.png)
+<img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1650005691/article/kubernetes/kubevirt/architecture.png" width="70%">
 
 ## 2.1. 组件说明
 
@@ -32,7 +32,7 @@ kubevirt是基于k8s之上，提供了一种通过k8s来编排和管理虚拟机
 
 virt-launcher与libvirt逻辑：
 
-![](https://res.cloudinary.com/dqxtn0ick/image/upload/v1650271227/article/kubernetes/kubevirt/virt-launcher.jpg)
+<img src="https://res.cloudinary.com/dqxtn0ick/image/upload/v1650271227/article/kubernetes/kubevirt/virt-launcher.jpg" width="50%">
 
 ## 2.2. 自定义CRD对象
 

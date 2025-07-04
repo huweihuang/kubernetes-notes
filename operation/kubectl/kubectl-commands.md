@@ -420,6 +420,49 @@ kubectl get namespaces calico-system -o json \
     | kubectl replace --raw /api/v1/namespaces/calico-system/finalize -f -
 ```
 
+## 5.14. edit status
+
+参考：
+
+- https://github.com/ulucinar/kubectl-edit-status
+- https://krew.sigs.k8s.io/docs/user-guide/setup/install/
+
+**1、通过二进制安装**
+
+```bash
+version=v0.3.0
+wget https://github.com/ulucinar/kubectl-edit-status/releases/download/${version}/kubectl-edit-status_${version}_linux_amd64.tar.gz
+tar -zvxf kubectl-edit-status_${version}_linux_amd64.tar.gz
+cp kubectl-edit_status /usr/bin/
+```
+
+**2、通过krew安装edit-status**
+
+**安装krew**
+
+```bash
+(
+  set -x; cd "$(mktemp -d)" &&
+  OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
+  ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
+  KREW="krew-${OS}_${ARCH}" &&
+  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
+  tar zxvf "${KREW}.tar.gz" &&
+  ./"${KREW}" install krew
+)
+
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+```
+
+**通过krew安装edit-status**
+
+说明：edit-status一般在该status是终止状态时可以修改，如果非终止状态可能被operator recycle状态覆盖。
+
+```bash
+kubectl krew update
+kubectl krew install edit-status
+```
+
 # 6. kubectl日志级别
 
 Kubectl 日志输出详细程度是通过 `-v` 或者 `--v` 来控制的，参数后跟一个数字表示日志的级别。 Kubernetes 通用的日志习惯和相关的日志级别在 [这里](https://github.com/kubernetes/community/blob/master/contributors/devel/sig-instrumentation/logging.md) 有相应的描述。

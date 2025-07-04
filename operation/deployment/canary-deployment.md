@@ -17,10 +17,11 @@ catagories:
 
 # 1. 设置发版节奏
 
-主要是两个字段的设置：
+主要是以下字段的设置：
 
-- maxSurge：最大发版实例数，可以创建的超出期望 Pod 个数的 Pod 数量。可以是百分比或者是数字。
-- maxUnavailable：最大不可用实例数。可以是百分比或数字。
+- **maxSurge**：最大发版实例数，可以创建的超出期望 Pod 个数的 Pod 数量。可以是百分比或者是数字。
+- **maxUnavailable**：最大不可用实例数。可以是百分比或数字。
+- **minReadySeconds** ：新建的 Pod 在没有任何容器崩溃的情况下就绪并被系统视为可用的最短秒数。 默认为 0（Pod 就绪后即被视为可用）。可将该值设置为5-10（秒），防止新起的pod发生crash，进而影响服务的可用性，保证集群在更新过程的稳定性。
 
 ```bash
 # 例如将maxSurge设置为1，maxUnavailable设置为0
@@ -83,3 +84,4 @@ kubectl rollout undo deployment myapp-deploy --to-revision 3
 - https://kubernetes.io/zh-cn/docs/concepts/workloads/controllers/deployment/
 - https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/manage-deployment/#canary-deployments
 - https://kubernetes.renkeju.com/chapter_5/5.3.4.Canary_release.html
+- https://kubernetes.io/zh-cn/docs/reference/kubernetes-api/workload-resources/deployment-v1/#DeploymentSpec

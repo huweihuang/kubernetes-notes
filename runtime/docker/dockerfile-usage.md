@@ -1,7 +1,7 @@
 ---
 title: "Dockerfile使用说明"
 linkTitle: "Dockerfile使用说明"
-weight: 5
+weight: 4
 catalog: true
 date: 2017-07-09 10:50:57
 subtitle:

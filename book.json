@@ -33,7 +33,6 @@
         "-highlight", "prism", "prism-themes",
         "sitemap-general",
         "ga",
-        "disqus",
         "donate",
         "expandable-chapters",
         "readmore"
@@ -85,9 +84,6 @@
         },
         "ga": {
             "token": "UA-114718458-2"
-        },
-        "disqus": {
-            "shortName": "huweihuang"
         },
         "donate": {
             "wechat": "https://res.cloudinary.com/dqxtn0ick/image/upload/v1551599472/blog/donate/wechatpay.jpg",

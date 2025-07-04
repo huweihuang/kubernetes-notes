@@ -1,7 +1,7 @@
 ---
 title: "安装Docker"
 linkTitle: "安装Docker"
-weight: 2
+weight: 1
 catalog: true
 date: 2018-6-23 17:26:24
 subtitle:
